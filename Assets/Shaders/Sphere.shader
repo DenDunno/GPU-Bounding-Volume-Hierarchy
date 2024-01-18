@@ -1,11 +1,13 @@
-
 Shader "Unlit/Sphere"
 {
     Properties
     {
-        [HDR] _MainColor("Main color", Color) = (1,1,1,1)
+        [HDR] _FresnelColorStart("Fresnel color start", Color) = (1,1,1,1)
+        [HDR] _FresnelColorEnd("Fresnel color end", Color) = (1,1,1,1)
+        _Feather("Feather", Range(0, 1)) = 0
         [Toggle(Fresnel)] Fresnel("Fresnel", Float) = 0
         _FresnelPower("Fresnel power", float) = 1
+        _FresnelStrength("Fresnel strength", float) = 1
         _Dissolve("Dissolve", Range(0, 1)) = 1
         _DissolveVector("Dissolve vector", Vector) = (0, 1, 0, 0)
         _DissolveNoiseTexture("Dissolve noise texture", 2D) = "white" {}
@@ -13,13 +15,16 @@ Shader "Unlit/Sphere"
         _OutlineSize("Outline size", Range(0, 1)) = 1
         [HDR] _OutlineColor("Outline color", Color) = (1,1,1,1)
         [Enum(UnityEngine.Rendering.CullMode)] _CullMode("Cull Mode", Int) = 0
-        _IntersectionPower("Intersection power", Float) = 1 
+        _IntersectionPower("Intersection power", Float) = 1
         [HDR] _IntersectionColor("Intersection color", Color) = (1,1,1,1)
-        
+
     }
     SubShader
     {
-        Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
+        Tags
+        {
+            "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"
+        }
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
         Cull [_CullMode]
@@ -51,8 +56,10 @@ Shader "Unlit/Sphere"
                 float4 screenPosition : TEXCOORD4;
             };
 
-            half4 _MainColor;
+            half4 _FresnelColorStart;
+            half4 _FresnelColorEnd;
             float _FresnelPower;
+            float _FresnelStrength;
             float _Dissolve;
             float4 _DissolveVector;
             float _DissolveStrength;
@@ -61,12 +68,13 @@ Shader "Unlit/Sphere"
             float _OutlineSize;
             half4 _OutlineColor;
             float _IntersectionPower;
+            float _Feather;
             half4 _IntersectionColor;
-            
-            v2f vert (appdata v)
+
+            v2f vert(appdata v)
             {
                 float3 worldPosition = mul(unity_ObjectToWorld, v.vertex);
-                
+
                 v2f o;
                 o.uv = v.uv;
                 o.vertex = UnityObjectToClipPos(v.vertex);
@@ -74,15 +82,28 @@ Shader "Unlit/Sphere"
                 o.viewDirection = normalize(UnityWorldSpaceViewDir(worldPosition));
                 o.screenPosition = ComputeScreenPos(o.vertex);
                 o.viewPosition = mul(UNITY_MATRIX_V, float4(worldPosition, 1.0)).xyz;
-                
+
                 return o;
+            }
+
+            float invLerp(float from, float to, float value)
+            {
+                return (value - from) / (to - from);
             }
 
             half4 evaluateFresnelColor(float3 normal, float3 viewDirection, float power)
             {
                 const float absDot = abs(dot(normal, viewDirection));
+                const float fresnelValue = saturate(pow(absDot, power) * _FresnelStrength);
+                const float lerpValue = saturate(invLerp(0, _Feather, fresnelValue));
+
+                const half4 startColor = lerp(_FresnelColorStart, _FresnelColorEnd, lerpValue);
+                const half4 fadeColor = half4(_FresnelColorEnd.r, _FresnelColorEnd.g, _FresnelColorEnd.b, 0);
+                const half4 endColor = lerp(_FresnelColorEnd, fadeColor, fresnelValue);
                 
-                return pow(1 - saturate(absDot), power) * _MainColor;
+                //return fresnelValue;
+                //return lerp(_FresnelColorStart, _FresnelColorEnd, lerpValue);
+                return saturate(lerp(startColor, endColor, lerpValue));
             }
 
             float getLerpValueAlongAxis(float2 localVertex, float2 uv)
@@ -106,13 +127,13 @@ Shader "Unlit/Sphere"
 
                 return difference * _IntersectionColor;
             }
-            
-            fixed4 frag (v2f i) : SV_Target
+
+            fixed4 frag(v2f i) : SV_Target
             {
                 const half4 fresnelEffect = evaluateFresnelColor(i.normal, i.viewDirection, _FresnelPower);
                 const half4 intersectionColor = getIntersectionColor(i.screenPosition, i.viewPosition.z);
-                
-                return intersectionColor + fresnelEffect;
+
+                return fresnelEffect + intersectionColor;
             }
             ENDCG
         }

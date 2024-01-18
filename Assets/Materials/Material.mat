@@ -34,13 +34,17 @@ Material:
     - _CullMode: 0
     - _Dissolve: 0.7
     - _DissolveStrength: 0
-    - _FresnelPower: 1
-    - _IntersectionPower: 34.1
+    - _Feather: 0.53
+    - _FresnelPower: 1.18
+    - _FresnelStrength: 0.99
+    - _IntersectionPower: 9.6
     - _OutlineSize: 0
     m_Colors:
     - _DissolveVector: {r: 0, g: 1, b: 0, a: 0}
-    - _IntersectionColor: {r: 0, g: 5.9863253, b: 36.329643, a: 1}
-    - _MainColor: {r: 0.35849035, g: 0.35849035, b: 2, a: 1}
+    - _FresnelColorEnd: {r: 0, g: 0.29343224, b: 1, a: 1}
+    - _FresnelColorStart: {r: 1, g: 0, b: 0, a: 1}
+    - _IntersectionColor: {r: 0.53271174, g: 0.34528297, b: 1, a: 1}
+    - _MainColor: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
