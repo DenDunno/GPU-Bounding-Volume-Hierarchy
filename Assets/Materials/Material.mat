@@ -17,7 +17,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -32,18 +32,19 @@ Material:
     m_Floats:
     - Fresnel: 0
     - _CullMode: 0
-    - _Dissolve: 0.7
+    - _Dissolve: 0
     - _DissolveStrength: 0
-    - _Feather: 0.53
-    - _FresnelPower: 1.18
-    - _FresnelStrength: 0.99
-    - _IntersectionPower: 9.6
+    - _Feather: 0.28
+    - _FresnelPower: 0.01
+    - _FresnelStrength: 56.3
+    - _IntersectionPower: 23.44
     - _OutlineSize: 0
+    - _ZTest: 4
     m_Colors:
     - _DissolveVector: {r: 0, g: 1, b: 0, a: 0}
-    - _FresnelColorEnd: {r: 0, g: 0.29343224, b: 1, a: 1}
+    - _FresnelColorEnd: {r: 0, g: 0.25882387, b: 1, a: 1}
     - _FresnelColorStart: {r: 1, g: 0, b: 0, a: 1}
-    - _IntersectionColor: {r: 0.53271174, g: 0.34528297, b: 1, a: 1}
+    - _IntersectionColor: {r: 0, g: 0.4809482, b: 1, a: 1}
     - _MainColor: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

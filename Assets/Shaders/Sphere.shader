@@ -25,13 +25,13 @@ Shader "Unlit/Sphere"
         {
             "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"
         }
-        ZWrite Off
-        Blend SrcAlpha OneMinusSrcAlpha
-        Cull [_CullMode]
-        LOD 100
-
+        
         Pass
         {
+            Blend SrcAlpha OneMinusSrcAlpha
+            Cull [_CullMode]
+            LOD 100
+            
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -39,6 +39,7 @@ Shader "Unlit/Sphere"
             #pragma enable_d3d11_debug_symbols
             #include "UnityCG.cginc"
 
+            
             struct appdata
             {
                 float4 vertex : POSITION;
@@ -54,6 +55,7 @@ Shader "Unlit/Sphere"
                 float3 viewPosition : TEXCOORD1;
                 float3 viewDirection : TEXCOORD2;
                 float4 screenPosition : TEXCOORD4;
+                float4 localVertex : TEXCOORD5;
             };
 
             half4 _FresnelColorStart;
@@ -82,7 +84,8 @@ Shader "Unlit/Sphere"
                 o.viewDirection = normalize(UnityWorldSpaceViewDir(worldPosition));
                 o.screenPosition = ComputeScreenPos(o.vertex);
                 o.viewPosition = mul(UNITY_MATRIX_V, float4(worldPosition, 1.0)).xyz;
-
+                o.localVertex = v.vertex;
+                
                 return o;
             }
 
@@ -94,19 +97,12 @@ Shader "Unlit/Sphere"
             half4 evaluateFresnelColor(float3 normal, float3 viewDirection, float power)
             {
                 const float absDot = abs(dot(normal, viewDirection));
-                const float fresnelValue = saturate(pow(absDot, power) * _FresnelStrength);
-                const float lerpValue = saturate(invLerp(0, _Feather, fresnelValue));
-
-                const half4 startColor = lerp(_FresnelColorStart, _FresnelColorEnd, lerpValue);
-                const half4 fadeColor = half4(_FresnelColorEnd.r, _FresnelColorEnd.g, _FresnelColorEnd.b, 0);
-                const half4 endColor = lerp(_FresnelColorEnd, fadeColor, fresnelValue);
+                const float fresnelValue = (1 - pow(absDot, power)) * _FresnelStrength;
                 
-                //return fresnelValue;
-                //return lerp(_FresnelColorStart, _FresnelColorEnd, lerpValue);
-                return saturate(lerp(startColor, endColor, lerpValue));
+                return saturate(_FresnelColorEnd * fresnelValue);
             }
 
-            float getLerpValueAlongAxis(float2 localVertex, float2 uv)
+            float getLerpValueAlongAxis(float3 localVertex, float2 uv)
             {
                 const float3 dissolveDirection = normalize(_DissolveVector);
                 const float lineProjection = dot(localVertex, dissolveDirection) + 0.5f; // [0 1]
@@ -125,6 +121,8 @@ Shader "Unlit/Sphere"
                 float difference = saturate(sceneDepth - fragmentEyeDepth);
                 difference = 1 - saturate(difference * _IntersectionPower);
 
+                float d = 1 - Linear01Depth(depthTextureValue);
+                //return half4(d,d,d, 1);
                 return difference * _IntersectionColor;
             }
 
@@ -132,26 +130,13 @@ Shader "Unlit/Sphere"
             {
                 const half4 fresnelEffect = evaluateFresnelColor(i.normal, i.viewDirection, _FresnelPower);
                 const half4 intersectionColor = getIntersectionColor(i.screenPosition, i.viewPosition.z);
-
-                return fresnelEffect + intersectionColor;
+                const float lerpAlongAxis = getLerpValueAlongAxis(i.localVertex, i.uv);
+                
+                //return intersectionColor;
+                return intersectionColor + fresnelEffect;
             }
             ENDCG
         }
     }
+    Fallback "VertexLit"
 }
-
-// const float fresnelEffect = evaluateFresnel(i.normal, i.viewDirection, _FresnelPower);
-//                const fixed4 fresnelColor = _MainColor * fresnelEffect;
-//
-//                const float2 screenUv = i.screenPosition.xy / i.screenPosition.w;
-//
-//                float fragmentEyeDepth = abs(i.viewPosition.z);
-//                
-//                float depthTextureValue = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, screenUv);
-//                float depth = LinearEyeDepth(depthTextureValue);
-//                
-//                float depthDifferenceExample = 1 - saturate((depth - fragmentEyeDepth) * 1);
-//                
-//                //return fresnelColor;
-//                //return fixed4(depth.xxx, 1);
-//                return fixed4(fragmentEyeDepth.xxx, 1);
