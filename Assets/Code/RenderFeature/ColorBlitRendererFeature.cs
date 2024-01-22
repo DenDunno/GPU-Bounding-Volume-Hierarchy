@@ -1,32 +1,34 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 internal class ColorBlitRendererFeature : ScriptableRendererFeature
 {
-    [SerializeField] private Material _material;
-    public float m_Intensity;
-
-    ColorBlitPass m_RenderPass = null;
-
-    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
-    {
-        renderer.EnqueuePass(m_RenderPass);
-    }
-
-    public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
-    {
-        m_RenderPass.ConfigureInput(ScriptableRenderPassInput.Color);
-        m_RenderPass.SetTarget(m_Intensity, renderingData);
-    }
-
+    [SerializeField] private Material _passMaterial;
+    [SerializeField] private InjectionPoint _injectionPoint = InjectionPoint.AfterRenderingPostProcessing;
+    [SerializeField] private float _intensity;
+    private ColorBlitPass _renderPass;
+ 
     public override void Create()
     {
-        m_RenderPass = new ColorBlitPass(_material);
-    }
+        _renderPass = new ColorBlitPass
+        {
+            renderPassEvent = (RenderPassEvent)_injectionPoint
+        };
 
+        _renderPass.ConfigureInput(ScriptableRenderPassInput.Color);
+    }
+ 
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+    {
+        if (_passMaterial != null)
+        {
+            _renderPass.Setup(_passMaterial, ref renderingData, _intensity);
+            renderer.EnqueuePass(_renderPass);
+        }
+    }
+    
     protected override void Dispose(bool disposing)
     {
-        m_RenderPass.Dispose();
+        _renderPass.Dispose();
     }
 }

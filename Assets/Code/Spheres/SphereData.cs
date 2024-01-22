@@ -6,7 +6,7 @@ namespace Code.RenderFeature
     [Serializable]
     public struct SphereData
     {
-        public Vector3 Position;
-        public float Radius;
+        public Vector3 _position;
+        public float _radius;
     }
 }
