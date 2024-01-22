@@ -4,10 +4,10 @@ using UnityEngine.Rendering.Universal;
 
 public class ColorBlitPass : ScriptableRenderPass
 {
-    private static readonly int _blitTextureShaderID = Shader.PropertyToID("_BlitTexture");
     private static Material _material;
     private RTHandle _copiedColor;
     private float _intensity;
+    private static readonly int _intensityID = Shader.PropertyToID("_Intensity");
 
     public void Setup(Material material, ref RenderingData renderingData, float intensity)
     {
@@ -34,11 +34,13 @@ public class ColorBlitPass : ScriptableRenderPass
         if (IsValidState(in renderingData))
         {
             CommandBuffer commandBuffer = CommandBufferPool.Get();
-            RTHandle source = renderingData.cameraData.renderer.cameraColorTargetHandle;
-
-            PassDataToMaterial(commandBuffer, source);
-            Draw(context, commandBuffer, source);
-            Release(commandBuffer);
+            
+            using (new ProfilingScope(commandBuffer, profilingSampler))
+            {
+                Draw(renderingData, commandBuffer);
+            }
+ 
+            Release(context, commandBuffer);
         }
     }
 
@@ -47,22 +49,19 @@ public class ColorBlitPass : ScriptableRenderPass
         return _material != null && renderingData.cameraData.isPreviewCamera == false;
     }
 
-    private void PassDataToMaterial(CommandBuffer commandBuffer, RTHandle source)
+    private void Draw(RenderingData renderingData, CommandBuffer commandBuffer)
     {
+        RTHandle source = renderingData.cameraData.renderer.cameraColorTargetHandle;
+
         Blitter.BlitCameraTexture(commandBuffer, source, _copiedColor);
-        _material.SetTexture(_blitTextureShaderID, _copiedColor);
-        _material.SetFloat("_Intensity", _intensity);
+        _material.SetFloat(_intensityID, _intensity);
+
+        Blitter.BlitCameraTexture(commandBuffer, _copiedColor, source, _material, 0);
     }
 
-    private static void Draw(ScriptableRenderContext context, CommandBuffer commandBuffer, RTHandle source)
+    private static void Release(ScriptableRenderContext context, CommandBuffer commandBuffer)
     {
-        CoreUtils.SetRenderTarget(commandBuffer, source);
-        CoreUtils.DrawFullScreen(commandBuffer, _material);
         context.ExecuteCommandBuffer(commandBuffer);
-    }
-
-    private static void Release(CommandBuffer commandBuffer)
-    {
         commandBuffer.Clear();
         CommandBufferPool.Release(commandBuffer);
     }

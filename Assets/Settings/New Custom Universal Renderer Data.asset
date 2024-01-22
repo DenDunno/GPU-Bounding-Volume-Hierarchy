@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Active: 1
   _passMaterial: {fileID: 0}
   _injectionPoint: 600
+  _intensity: 0
 --- !u!114 &7501080448853885679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,4 +94,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   _passMaterial: {fileID: 2100000, guid: 4dbc4156fd662184ea7bd1fb46b1a95c, type: 2}
-  _injectionPoint: 600
+  _injectionPoint: 550
+  _intensity: 0.45
