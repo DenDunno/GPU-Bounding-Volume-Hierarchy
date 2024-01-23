@@ -29,7 +29,6 @@ Shader "DenDunno/IntersectingSpheres"
             #pragma enable_d3d11_debug_symbols
             #include "UnityCG.cginc"
 
-
             struct appdata
             {
                 float4 vertex : POSITION;

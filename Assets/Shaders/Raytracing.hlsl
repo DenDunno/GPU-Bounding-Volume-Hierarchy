@@ -1,42 +1,30 @@
-#include <UnityShaderVariables.cginc>
-
 struct Ray
 {
     float3 origin;
     float3 direction;
 };
-            
+
 struct HitResult
 {
     int success;
-    float3 hitPoint;
     float distance;
     float3 normal;
-};
-            
-struct Sphere
-{
-    float radius;
-    float3 position;
+    float3 hitPoint;
+    float fragmentViewDepth;
 };
 
-HitResult CreateHitResult()
+struct RaycastResult
 {
-    HitResult result;
-    result.success = 0;
-    result.hitPoint = float3(0,0,0);
-    result.normal = float3(0,0,0);
-    result.distance = 1000000000;
-                
-    return result;
-}
-            
+    HitResult innerHitResult;
+    HitResult outerHitResult;
+};
+
 Ray CreateRay(float3 origin, float3 direction)
 {
     Ray ray;
     ray.direction = direction;
     ray.origin = origin;
-                
+
     return ray;
 }
 
@@ -49,34 +37,54 @@ Ray GetInitialRay(float2 uv, half4 cameraInput)
     return CreateRay(cameraPosition, normalize(worldViewPoint - cameraPosition));
 }
 
-HitResult HitSphere(const Ray ray, const Sphere sphere)
+HitResult CreateHitResult()
 {
-    HitResult result = CreateHitResult();
-                
-    if (dot(sphere.position - ray.origin, ray.direction) < 0)
+    HitResult hitResult;
+    hitResult.success = 0;
+    hitResult.distance = -1;
+    hitResult.normal = float3(0, 0, 0);
+    hitResult.fragmentViewDepth = 0;
+    hitResult.hitPoint = float3(0, 0, 0);
+    
+    return hitResult;
+}
+
+HitResult BuildHitResult(float distance, float3 sphereCentre, Ray ray, float discriminant, float sceneDepth)
+{
+    const float3 hitPoint = ray.origin + distance * ray.direction;
+    const float3 cameraViewPoint = mul(UNITY_MATRIX_V, float4(hitPoint, 1)).xyz;
+
+    HitResult hitResult;
+    hitResult.fragmentViewDepth = -cameraViewPoint.z;
+    hitResult.success = discriminant >= 0 && hitResult.fragmentViewDepth < sceneDepth;
+    hitResult.normal = normalize(hitPoint - sphereCentre);
+    hitResult.distance = distance;
+    hitResult.hitPoint = hitPoint;
+    
+    return hitResult;
+}
+
+RaycastResult HitSphere(const Ray ray, const float3 position, const float radius, const float sceneDepth)
+{
+    RaycastResult result;
+
+    if (dot(position - ray.origin, ray.direction) < 0)
     {
+        result.innerHitResult = CreateHitResult();
+        result.outerHitResult = CreateHitResult();
         return result;
     }
 
     const float a = 1; // a = dot(direction, direction) = length(direction) = 1, direction is already normalized
-    const float b = 2 * dot(ray.direction, ray.origin - sphere.position);
-    const float c = dot(ray.origin - sphere.position, ray.origin - sphere.position) - sphere.radius * sphere.radius;
+    const float b = 2 * dot(ray.direction, ray.origin - position);
+    const float c = dot(ray.origin - position, ray.origin - position) - radius * radius;
     const float discriminant = b * b - 4 * a * c;
-    result.success = discriminant >= 0;
-                 
-    if (result.success)
-    {
-        const float x1 = (-b + sqrt(discriminant)) / (2 * a);
-        const float x2 = (-b - sqrt(discriminant)) / (2 * a);
-        const float distance = min(x1, x2);
 
-        if (distance < result.distance)
-        {
-            result.hitPoint = ray.origin + distance * ray.direction;
-            result.normal = normalize(result.hitPoint - sphere.position);
-            result.distance = distance;
-        }
-    }
+    const float x1 = (-b + sqrt(discriminant)) / (2 * a);
+    const float x2 = (-b - sqrt(discriminant)) / (2 * a);
+
+    result.innerHitResult = BuildHitResult(max(x1, x2), position, ray, discriminant, sceneDepth);
+    result.outerHitResult = BuildHitResult(min(x1, x2), position, ray, discriminant, sceneDepth);
 
     return result;
 }

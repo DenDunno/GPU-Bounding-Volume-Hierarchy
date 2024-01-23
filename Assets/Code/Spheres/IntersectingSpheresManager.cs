@@ -1,33 +1,57 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+#if  UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Code.RenderFeature
 {
+    [ExecuteInEditMode]
     public class IntersectingSpheresManager : MonoBehaviour
     {
-        private List<SphereData> _spheres;
+        [SerializeField] private Material _material;
+        [SerializeField] private List<IntersectingSphere> _spheresView;
+        [SerializeField] private List<SphereData> _spheresData;
+        private ComputeBuffer _buffer;
 
-        public int UpdateBuffer(SphereData sphere, int index)
+        private void OnValidate()
         {
-            if (index == -1)
+            foreach (IntersectingSphere sphere in _spheresView)
             {
-                index = Add(sphere);
+                sphere?.InjectOnChangedCallback(UpdateBuffer);
+            }
+        }
+        
+        #if  UNITY_EDITOR
+        private void OnEnable()
+        {
+            AssemblyReloadEvents.beforeAssemblyReload += OnDestroy;
+        }
+
+        private void OnDisable()
+        {
+            AssemblyReloadEvents.beforeAssemblyReload -= OnDestroy;
+        }
+        #endif
+
+        private void UpdateBuffer()
+        {
+            _spheresData.Clear();
+            
+            foreach (IntersectingSphere sphere in _spheresView)
+            {
+                _spheresData.Add(sphere.Data);
             }
             
-            return index;
+            _buffer ??= new ComputeBuffer(100, SphereData.GetSize());
+            _buffer.SetData(_spheresData);
+            _material.SetBuffer("_Spheres", _buffer);
+            _material.SetInt("_SpheresCount", _spheresData.Count);
         }
 
-        private int Add(SphereData sphere)
-        { 
-            _spheres.Add(sphere);
-
-            return _spheres.Count - 1;
-        }
-
-        public void Remove(SphereData sphere, int index)
+        private void OnDestroy()
         {
-            _spheres[index] = _spheres[^1];
-            _spheres.RemoveAt(_spheres.Count - 1);
+            _buffer?.Release();
         }
     }
 }

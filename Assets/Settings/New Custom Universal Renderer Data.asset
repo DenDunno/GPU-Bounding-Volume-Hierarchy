@@ -24,8 +24,8 @@ MonoBehaviour:
     probeSamplingDebugMesh: {fileID: -3555484719484374845, guid: 57d7c4c16e2765b47a4d2069b311bffe, type: 3}
     probeSamplingDebugTexture: {fileID: 2800000, guid: 24ec0e140fb444a44ab96ee80844e18e, type: 3}
   m_RendererFeatures:
-  - {fileID: 7501080448853885679}
-  m_RendererFeatureMap: ef429001ed301968
+  - {fileID: 4256492950124696737}
+  m_RendererFeatureMap: a1142349c919123b
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -64,23 +64,7 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
---- !u!114 &3440584092315459617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25cb1f97af1243d48854c8b9e4321672, type: 3}
-  m_Name: ColorBlitRendererFeature
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  _passMaterial: {fileID: 0}
-  _injectionPoint: 600
-  _intensity: 0
---- !u!114 &7501080448853885679
+--- !u!114 &4256492950124696737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,4 +79,4 @@ MonoBehaviour:
   m_Active: 1
   _passMaterial: {fileID: 2100000, guid: 4dbc4156fd662184ea7bd1fb46b1a95c, type: 2}
   _injectionPoint: 550
-  _intensity: 0.45
+  _intensity: 4.03
