@@ -15,8 +15,8 @@ struct HitResult
 
 struct RaycastResult
 {
-    HitResult innerHitResult;
-    HitResult outerHitResult;
+    HitResult inner;
+    HitResult outer;
 };
 
 Ray CreateRay(float3 origin, float3 direction)
@@ -70,8 +70,8 @@ RaycastResult HitSphere(const Ray ray, const float3 position, const float radius
 
     if (dot(position - ray.origin, ray.direction) < 0)
     {
-        result.innerHitResult = CreateHitResult();
-        result.outerHitResult = CreateHitResult();
+        result.inner = CreateHitResult();
+        result.outer = CreateHitResult();
         return result;
     }
 
@@ -83,8 +83,8 @@ RaycastResult HitSphere(const Ray ray, const float3 position, const float radius
     const float x1 = (-b + sqrt(discriminant)) / (2 * a);
     const float x2 = (-b - sqrt(discriminant)) / (2 * a);
 
-    result.innerHitResult = BuildHitResult(max(x1, x2), position, ray, discriminant, sceneDepth);
-    result.outerHitResult = BuildHitResult(min(x1, x2), position, ray, discriminant, sceneDepth);
+    result.inner = BuildHitResult(max(x1, x2), position, ray, discriminant, sceneDepth);
+    result.outer = BuildHitResult(min(x1, x2), position, ray, discriminant, sceneDepth);
 
     return result;
 }

@@ -1,33 +1,38 @@
-using System;
 using Code.RenderFeature;
 using UnityEngine;
 
 [ExecuteAlways]
 public class IntersectingSphere : MonoBehaviour
 {
-    [SerializeField] private Color _color;
-    [SerializeField] private float _radius;
-    [SerializeField] private Color _intersectionColor;
-    [SerializeField] private float _intersectionPower;
-    private Action _onChangedCallback;
+    public Color Color = Color.white;
+    public float Radius = 1;
+    public Color IntersectionColor = Color.green;
+    public float IntersectionPower = 7;
+    public float FresnelPower = 1; 
+    private IntersectingSpheresManager _manager;
     
-    public SphereData Data => new(transform.position, _radius, _color, _intersectionColor, _intersectionPower);
+    public SphereData Data => new(transform.position, Radius, Color, IntersectionColor, IntersectionPower, FresnelPower);
     
-    public void InjectOnChangedCallback(Action onChangedCallback)
+    public void InjectOnChangedCallback(IntersectingSpheresManager manager)
     {
-        _onChangedCallback = onChangedCallback;
+        _manager = manager;
     }
     
     private void OnValidate()
     {
-        _onChangedCallback?.Invoke();
+        _manager?.UpdateBuffer();
     }
 
     private void Update()
     {
         if (transform.hasChanged)
         {
-            _onChangedCallback?.Invoke();
+            _manager?.UpdateBuffer();
         }
+    }
+
+    private void OnDestroy()
+    {
+        _manager.Remove(this);
     }
 }

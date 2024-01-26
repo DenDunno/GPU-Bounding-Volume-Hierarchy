@@ -9,48 +9,72 @@ namespace Code.RenderFeature
     [ExecuteInEditMode]
     public class IntersectingSpheresManager : MonoBehaviour
     {
-        [SerializeField] private Material _material;
         [SerializeField] private List<IntersectingSphere> _spheresView;
-        [SerializeField] private List<SphereData> _spheresData;
+        [SerializeField] private Material _material;
+        private readonly List<SphereData> _spheresData = new();
         private ComputeBuffer _buffer;
-
+        private bool _isDestroying;
+        
         private void OnValidate()
         {
-            foreach (IntersectingSphere sphere in _spheresView)
+            if (_spheresView != null)
             {
-                sphere?.InjectOnChangedCallback(UpdateBuffer);
+                foreach (IntersectingSphere sphere in _spheresView)
+                {
+                    sphere?.InjectOnChangedCallback(this);
+                }
             }
         }
         
         #if  UNITY_EDITOR
         private void OnEnable()
         {
-            AssemblyReloadEvents.beforeAssemblyReload += OnDestroy;
+            AssemblyReloadEvents.beforeAssemblyReload += Dispose;
         }
 
         private void OnDisable()
         {
-            AssemblyReloadEvents.beforeAssemblyReload -= OnDestroy;
+            AssemblyReloadEvents.beforeAssemblyReload -= Dispose;
         }
         #endif
 
-        private void UpdateBuffer()
+        public void Add(IntersectingSphere sphere)
         {
-            _spheresData.Clear();
-            
-            foreach (IntersectingSphere sphere in _spheresView)
+            _spheresView.Add(sphere);
+        }
+        
+        public void Remove(IntersectingSphere sphere)
+        {
+            _spheresView.Remove(sphere);
+        }
+
+        public void UpdateBuffer()
+        {
+            if (_isDestroying == false)
             {
-                _spheresData.Add(sphere.Data);
-            }
+                _spheresData.Clear();
             
-            _buffer ??= new ComputeBuffer(100, SphereData.GetSize());
-            _buffer.SetData(_spheresData);
-            _material.SetBuffer("_Spheres", _buffer);
-            _material.SetInt("_SpheresCount", _spheresData.Count);
+                foreach (IntersectingSphere sphere in _spheresView)
+                {
+                    _spheresData.Add(sphere.Data);
+                }
+            
+                _buffer ??= new ComputeBuffer(100, SphereData.GetSize());
+                _buffer.SetData(_spheresData);
+                _material.SetBuffer("_Spheres", _buffer);
+                _material.SetInt("_SpheresCount", _spheresData.Count);
+            }
         }
 
         private void OnDestroy()
         {
+            _isDestroying = true;
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            _spheresData?.Clear();
             _buffer?.Release();
         }
     }

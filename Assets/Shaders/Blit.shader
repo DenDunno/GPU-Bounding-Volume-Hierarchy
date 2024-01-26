@@ -27,6 +27,7 @@ Shader "ColorBlit"
                 float4 color;
                 float4 intersectionColor;
                 float intersectionPower;
+                float fresnelPower;
             };
 
             StructuredBuffer<SphereData> _Spheres;
@@ -39,17 +40,27 @@ Shader "ColorBlit"
             #include "Raytracing.hlsl"
             #include "SpherePaint.hlsl"
 
-            half4 IterateSpheres(Ray ray, const float sceneDepth)
+            half4 IterateSpheres(Ray ray, const float depth)
             {
                 half4 resultColor = half4(0, 0, 0, 0);
 
                 for (int i = 0; i < _SpheresCount; ++i)
                 {
                     const SphereData sphereData = _Spheres[i];
-                    const RaycastResult hitResult = HitSphere(ray, sphereData.position, sphereData.radius, sceneDepth);
-                    
-                    const half4 innerSphereColor = GetSphereColor(sphereData, ray.direction, hitResult.innerHitResult, sceneDepth);
-                    const half4 outerSphereColor = GetSphereColor(sphereData, ray.direction, hitResult.outerHitResult, sceneDepth);
+                    RaycastResult hitResult = HitSphere(ray, sphereData.position, sphereData.radius, depth);
+
+                    for (int j = 0; j < _SpheresCount; ++j)
+                    {
+                        if (i != j)
+                        {
+                            const SphereData data = _Spheres[j];
+                            hitResult.inner.success *= CheckIfOutside(hitResult.inner.hitPoint, data.position,data.radius);
+                            hitResult.outer.success *= CheckIfOutside(hitResult.outer.hitPoint, data.position,data.radius);
+                        }
+                    }
+
+                    const half4 innerSphereColor = GetSphereColor(sphereData, ray.direction, hitResult.inner, depth);
+                    const half4 outerSphereColor = GetSphereColor(sphereData, ray.direction, hitResult.outer, depth);
 
                     resultColor = saturate(resultColor + innerSphereColor + outerSphereColor);
                 }

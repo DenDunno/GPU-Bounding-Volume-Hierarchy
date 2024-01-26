@@ -7,6 +7,8 @@ Shader "DenDunno/IntersectingSpheres"
         _FresnelStrength("Fresnel strength", float) = 1
         _IntersectionPower("Intersection power", Float) = 25
         [HDR] _IntersectionColor("Intersection color", Color) = (0, 0.94, 1, 1)
+        [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull", Float) = 0
+        [IntRange] _StencilID ("Stencil ID", Range(0, 255)) = 0
     }
     SubShader
     {
@@ -17,10 +19,17 @@ Shader "DenDunno/IntersectingSpheres"
 
         Pass
         {
-            Cull Off
+            Cull [_Cull]
             ZWrite Off
             Blend SrcAlpha OneMinusSrcAlpha
             LOD 100
+
+            Stencil
+            {
+                Ref 0
+                Comp Equal
+                Pass IncrSat
+            }
 
             CGPROGRAM
             #pragma vertex vert
@@ -53,7 +62,7 @@ Shader "DenDunno/IntersectingSpheres"
             float _IntersectionPower;
             half4 _IntersectionColor;
             sampler2D _CameraDepthTexture;
-            
+
             v2f vert(appdata v)
             {
                 float3 worldPosition = mul(unity_ObjectToWorld, v.vertex);
@@ -100,7 +109,7 @@ Shader "DenDunno/IntersectingSpheres"
             {
                 const half4 fresnelEffect = evaluateFresnelColor(i.normal, i.viewDirection, _FresnelPower);
                 const half4 intersectionColor = getIntersectionColor(i.screenPosition, i.viewPosition.z);
-                
+
                 return intersectionColor + fresnelEffect;
             }
             ENDCG

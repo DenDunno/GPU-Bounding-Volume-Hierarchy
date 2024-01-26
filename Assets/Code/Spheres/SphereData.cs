@@ -11,14 +11,16 @@ namespace Code.RenderFeature
         public Color Color;
         public Color IntersectionColor;
         public float IntersectionPower;
+        public float FresnelPower;
 
-        public SphereData(Vector3 position, float radius, Color color, Color intersectionColor, float intersectionPower)
+        public SphereData(Vector3 position, float radius, Color color, Color intersectionColor, float intersectionPower, float fresnelPower)
         {
             Position = position;
             Radius = radius;
             Color = color;
             IntersectionColor = intersectionColor;
             IntersectionPower = intersectionPower;
+            FresnelPower = fresnelPower;
         }
 
         public static int GetSize()
@@ -27,6 +29,7 @@ namespace Code.RenderFeature
                    4 + 
                    4 * 4 +
                    4 * 4 + 
+                   4 +
                    4;
         }
     }
