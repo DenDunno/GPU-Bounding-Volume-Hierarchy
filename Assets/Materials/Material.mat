@@ -26,7 +26,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Cull: 1
+    - _Cull: 0
     - _FresnelPower: 1
     - _FresnelStrength: 1
     - _IntersectionPower: 18.3

@@ -4,8 +4,7 @@ using UnityEngine.Rendering.Universal;
 internal class ColorBlitRendererFeature : ScriptableRendererFeature
 {
     [SerializeField] private Material _passMaterial;
-    [SerializeField] private InjectionPoint _injectionPoint = InjectionPoint.AfterRenderingPostProcessing;
-    [SerializeField] private float _intensity;
+    [SerializeField] private RenderPassEvent _injectionPoint = RenderPassEvent.AfterRenderingOpaques;
     private ColorBlitPass _renderPass;
  
     public override void Create()
@@ -22,7 +21,7 @@ internal class ColorBlitRendererFeature : ScriptableRendererFeature
     {
         if (_passMaterial != null)
         {
-            _renderPass.Setup(_passMaterial, ref renderingData, _intensity);
+            _renderPass.Setup(_passMaterial, ref renderingData);
             renderer.EnqueuePass(_renderPass);
         }
     }

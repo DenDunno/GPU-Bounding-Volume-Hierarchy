@@ -1,33 +1,37 @@
 Shader "StencilDebug"
 {
+    Properties
+    {
+        _Color("Color", Color) = (1,1,1,1)
+        [IntRange] _StencilID ("Stencil ID", Range(0, 255)) = 0
+    }
     SubShader
     {
         Tags
         {
-            "RenderType"="Opaque" "RenderPipeline" = "UniversalPipeline"
+            "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"
         }
         LOD 100
-        ZWrite Off Cull Off
+
+        Stencil
+        {
+            Ref [_StencilID]
+            Comp Equal
+        }
+        
         Pass
         {
-            Stencil
-            {
-                Ref 1
-                ReadMask 1
-                Comp Equal
-            }
-            
             HLSLPROGRAM
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+
+            half4 _Color;
             
             half4 Frag(Varyings input) : SV_Target
             {
-                const float4 sceneColor = FragBilinear(input);
-                
-                return sceneColor;
+                return _Color;
             }
             ENDHLSL
         }

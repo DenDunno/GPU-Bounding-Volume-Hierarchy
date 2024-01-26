@@ -26,8 +26,7 @@ Shader "DenDunno/IntersectingSpheres"
 
             Stencil
             {
-                Ref 0
-                Comp Equal
+                Comp Always
                 Pass IncrSat
             }
 
