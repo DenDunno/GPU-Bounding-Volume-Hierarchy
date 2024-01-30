@@ -4,23 +4,29 @@ using UnityEngine;
 
 readonly struct FrustumPlane
 {
-    private readonly Vector3 _point;
-    private readonly Vector3 _normal;
+    public readonly Vector3 Point;
+    public readonly Vector3 Normal;
 
     public FrustumPlane(Vector3 normal, Vector3 point)
     {
-        _point = point;
-        _normal = normal;
+        Point = point;
+        Normal = normal.normalized;
     }
     
-    public bool OnPositiveOfNormal(Vector3 spherePosition, float radius, string name)
+    public bool OnPositiveOfNormal(Vector3 spherePosition, float radius)
     {
-        Vector3 difference = _point - spherePosition;
-        float distance = Vector3.Dot(difference, _normal);
+        Vector3 difference = Point - spherePosition;
+        float distance = Vector3.Dot(difference, Normal);
         
-        Debug.Log(name + " " + (distance < radius));
+        Vector3 endPoint = spherePosition + Normal * distance;
+
+        Color oldColor = Gizmos.color;
+        Gizmos.color = distance > radius ? Color.green : Color.red;
+        Gizmos.DrawLine(spherePosition, endPoint);
+        Gizmos.DrawSphere(endPoint, 0.1f);
+        Gizmos.color = oldColor;
         
-        return distance < radius;
+        return distance < -radius;
     }
 }
 
@@ -37,12 +43,12 @@ struct Frustum
 
     public bool IsOutside(Vector3 position, float radius)
     {
-        return Top.OnPositiveOfNormal(position, radius, "Top") &&
-               Bottom.OnPositiveOfNormal(position, radius, "Bottom") &&
-               Right.OnPositiveOfNormal(position, radius, "Right") &&
-               Left.OnPositiveOfNormal(position, radius, "Left") &&
-               Far.OnPositiveOfNormal(position, radius, "Far") &&
-               Near.OnPositiveOfNormal(position, radius, "Near");
+        return Top.OnPositiveOfNormal(position, radius) ||
+               Bottom.OnPositiveOfNormal(position, radius) ||
+               Right.OnPositiveOfNormal(position, radius) ||
+               Left.OnPositiveOfNormal(position, radius) ||
+               Far.OnPositiveOfNormal(position, radius) ||
+               Near.OnPositiveOfNormal(position, radius);
     }
 };
 
@@ -84,6 +90,7 @@ public class ClusterDebug : MonoBehaviour
                 Frustum subFrustum = EvaluateSubFrustum(nearPlanePoints, farPlanePoints);
                 bool isOutside = subFrustum.IsOutside(_sphere.transform.position, 0.5f);
 
+                Debug.Log(isOutside);
                 if (isOutside)
                     Gizmos.color = Gizmos.color.InverseWithoutAlpha();
                 
