@@ -58,7 +58,8 @@ public class ClusterDebug : MonoBehaviour
     [SerializeField] private int _tileSizeX = 32;
     [SerializeField] private int _tileSizeY = 32;
     [SerializeField] private float _radius = 0.1f;
-
+    [SerializeField] private bool _showActiveSubFrustums = true;
+    
     private void OnDrawGizmos()
     {
         if (_sphere == null)
@@ -83,20 +84,20 @@ public class ClusterDebug : MonoBehaviour
             {
                 float leftLerp = (float)j / _tileSizeX;
                 float rightLerp = (float)(j + 1) / _tileSizeX;
-
-                Gizmos.color = ColorExtensions.GetRandom((i + 1) * (j + 1));
+                
                 RectPoints nearPlanePoints = nearPlanePointsCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
                 RectPoints farPlanePoints = farPlaneClusterCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
                 Frustum subFrustum = EvaluateSubFrustum(nearPlanePoints, farPlanePoints);
                 bool isOutside = subFrustum.IsOutside(_sphere.transform.position, 0.5f);
 
-                Debug.Log(isOutside);
-                if (isOutside)
-                    Gizmos.color = Gizmos.color.InverseWithoutAlpha();
+                Gizmos.color = isOutside ? Color.red : Color.green;
                 
-                DrawPlane(nearPlanePoints);
-                DrawPlane(farPlanePoints);
-                ConnectPlanes(nearPlanePoints, farPlanePoints);
+                if (_showActiveSubFrustums || isOutside == false)
+                {
+                    DrawPlane(nearPlanePoints);
+                    DrawPlane(farPlanePoints);
+                    ConnectPlanes(nearPlanePoints, farPlanePoints);
+                }
             }
         }
     }
