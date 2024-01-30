@@ -39,7 +39,7 @@ Shader "ColorBlit"
             #include "Helpers.hlsl"
             #include "Raytracing.hlsl"
             #include "SpherePaint.hlsl"
-
+            
             half4 IterateSpheres(Ray ray, const float depth)
             {
                 half4 resultColor = half4(0, 0, 0, 0);
@@ -48,17 +48,7 @@ Shader "ColorBlit"
                 {
                     const SphereData sphereData = _Spheres[i];
                     RaycastResult hitResult = HitSphere(ray, sphereData.position, sphereData.radius, depth);
-
-                    for (int j = 0; j < _SpheresCount; ++j)
-                    {
-                        if (i != j)
-                        {
-                            const SphereData data = _Spheres[j];
-                            hitResult.inner.success *= CheckIfOutside(hitResult.inner.hitPoint, data.position,data.radius);
-                            hitResult.outer.success *= CheckIfOutside(hitResult.outer.hitPoint, data.position,data.radius);
-                        }
-                    }
-
+                    
                     const half4 innerSphereColor = GetSphereColor(sphereData, ray.direction, hitResult.inner, depth);
                     const half4 outerSphereColor = GetSphereColor(sphereData, ray.direction, hitResult.outer, depth);
 

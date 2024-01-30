@@ -85,6 +85,6 @@ RaycastResult HitSphere(const Ray ray, const float3 position, const float radius
 
     result.inner = BuildHitResult(max(x1, x2), position, ray, discriminant, sceneDepth);
     result.outer = BuildHitResult(min(x1, x2), position, ray, discriminant, sceneDepth);
-
+    
     return result;
 }

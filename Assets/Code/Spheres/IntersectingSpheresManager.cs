@@ -11,6 +11,7 @@ namespace Code.RenderFeature
     {
         [SerializeField] private List<IntersectingSphere> _spheresView;
         [SerializeField] private Material _material;
+        [SerializeField] private int _maxSpheres = 500;
         private readonly List<SphereData> _spheresData = new();
         private ComputeBuffer _buffer;
         private bool _isDestroying;
@@ -58,8 +59,8 @@ namespace Code.RenderFeature
                 {
                     _spheresData.Add(sphere.Data);
                 }
-            
-                _buffer ??= new ComputeBuffer(100, SphereData.GetSize());
+                
+                _buffer ??= new ComputeBuffer(_maxSpheres, SphereData.GetSize());
                 _buffer.SetData(_spheresData);
                 _material.SetBuffer("_Spheres", _buffer);
                 _material.SetInt("_SpheresCount", _spheresData.Count);
