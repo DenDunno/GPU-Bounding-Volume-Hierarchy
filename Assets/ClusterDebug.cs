@@ -1,56 +1,6 @@
-using Code;
 using Code.Utils;
+using Code.Utils.SubFrustums;
 using UnityEngine;
-
-readonly struct FrustumPlane
-{
-    public readonly Vector3 Point;
-    public readonly Vector3 Normal;
-
-    public FrustumPlane(Vector3 normal, Vector3 point)
-    {
-        Point = point;
-        Normal = normal.normalized;
-    }
-    
-    public bool OnPositiveOfNormal(Vector3 spherePosition, float radius)
-    {
-        Vector3 difference = Point - spherePosition;
-        float distance = Vector3.Dot(difference, Normal);
-        
-        Vector3 endPoint = spherePosition + Normal * distance;
-
-        Color oldColor = Gizmos.color;
-        Gizmos.color = distance > radius ? Color.green : Color.red;
-        Gizmos.DrawLine(spherePosition, endPoint);
-        Gizmos.DrawSphere(endPoint, 0.1f);
-        Gizmos.color = oldColor;
-        
-        return distance < -radius;
-    }
-}
-
-struct Frustum
-{
-    public FrustumPlane Top;
-    public FrustumPlane Bottom;
-
-    public FrustumPlane Right;
-    public FrustumPlane Left;
-
-    public FrustumPlane Far;
-    public FrustumPlane Near;
-
-    public bool IsOutside(Vector3 position, float radius)
-    {
-        return Top.OnPositiveOfNormal(position, radius) ||
-               Bottom.OnPositiveOfNormal(position, radius) ||
-               Right.OnPositiveOfNormal(position, radius) ||
-               Left.OnPositiveOfNormal(position, radius) ||
-               Far.OnPositiveOfNormal(position, radius) ||
-               Near.OnPositiveOfNormal(position, radius);
-    }
-};
 
 public class ClusterDebug : MonoBehaviour
 {
@@ -67,14 +17,17 @@ public class ClusterDebug : MonoBehaviour
         
         Vector3 farPlaneParams = Camera.main.GetFarClipPlaneParams();
         Vector3 nearPlaneParams = Camera.main.GetNearClipPlaneParams();
-        ClusterPointsCalculator farPlaneClusterCalculator = new(farPlaneParams);
-        ClusterPointsCalculator nearPlanePointsCalculator = new(nearPlaneParams);
+        ClipPlanePointsCalculator farPlaneClipPlaneCalculator = new(farPlaneParams);
+        ClipPlanePointsCalculator nearPlanePointsCalculator = new(nearPlaneParams);
 
-        DrawSubFrustums(nearPlanePointsCalculator, farPlaneClusterCalculator);
+        DrawSubFrustums(nearPlanePointsCalculator, farPlaneClipPlaneCalculator);
     }
 
-    private void DrawSubFrustums(ClusterPointsCalculator nearPlanePointsCalculator, ClusterPointsCalculator farPlaneClusterCalculator)
+    private void DrawSubFrustums(ClipPlanePointsCalculator nearPlanePointsCalculator, ClipPlanePointsCalculator farPlaneClipPlaneCalculator)
     {
+        SubFrustumsCalculator subFrustumsCalculator = new(Camera.main, _tileSizeX, _tileSizeY);
+        Frustum[] subFrustums = subFrustumsCalculator.Evaluate();
+        
         for (int i = 0; i < _tileSizeY; ++i)
         {
             float bottomLerp = (float)i / _tileSizeY;
@@ -86,10 +39,11 @@ public class ClusterDebug : MonoBehaviour
                 float rightLerp = (float)(j + 1) / _tileSizeX;
                 
                 RectPoints nearPlanePoints = nearPlanePointsCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
-                RectPoints farPlanePoints = farPlaneClusterCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
-                Frustum subFrustum = EvaluateSubFrustum(nearPlanePoints, farPlanePoints);
-                bool isOutside = subFrustum.IsOutside(_sphere.transform.position, 0.5f);
+                RectPoints farPlanePoints = farPlaneClipPlaneCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
 
+                Vector4 point = new Vector4(_sphere.transform.position.x, _sphere.transform.position.y, _sphere.transform.position.z, 1);
+                Vector3 sphereCameraSpacePosition = Camera.main.transform.worldToLocalMatrix * point;
+                bool isOutside = subFrustums[i * _tileSizeX + j].IsOutside(sphereCameraSpacePosition, 0.5f);
                 Gizmos.color = isOutside ? Color.red : Color.green;
                 
                 if (_showActiveSubFrustums || isOutside == false)
@@ -120,31 +74,5 @@ public class ClusterDebug : MonoBehaviour
         {
             Gizmos.DrawLine(nearPlanePoints[i], farPlanePoints[i]);
         }
-    }
-
-    private Frustum EvaluateSubFrustum(RectPoints nearPlanePoints, RectPoints farPlanePoints)
-    {
-        return new Frustum()
-        {
-            Top = new FrustumPlane(Vector3.Cross(
-                farPlanePoints.TopLeft - nearPlanePoints.TopLeft, 
-                nearPlanePoints.TopRight - nearPlanePoints.TopLeft), nearPlanePoints.TopLeft),
-            
-            Bottom = new FrustumPlane(Vector3.Cross(
-                farPlanePoints.BottomLeft - nearPlanePoints.BottomLeft, 
-                nearPlanePoints.BottomLeft - nearPlanePoints.BottomRight), nearPlanePoints.BottomLeft),
-            
-            Left = new FrustumPlane(Vector3.Cross(
-                farPlanePoints.BottomLeft - nearPlanePoints.BottomLeft, 
-                nearPlanePoints.TopLeft - nearPlanePoints.BottomLeft), nearPlanePoints.BottomLeft),
-            
-            Right = new FrustumPlane(Vector3.Cross(
-                farPlanePoints.BottomRight - nearPlanePoints.BottomRight, 
-                nearPlanePoints.BottomRight - nearPlanePoints.TopRight), nearPlanePoints.BottomRight),
-            
-            Near = new FrustumPlane(new Vector3(0, 0, -1), nearPlanePoints.BottomRight),
-            
-            Far = new FrustumPlane(new Vector3(0, 0, 1), farPlanePoints.BottomRight),
-        };
     }
 }

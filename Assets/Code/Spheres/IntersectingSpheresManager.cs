@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Code.Utils.SubFrustums;
 using UnityEngine;
 #if  UNITY_EDITOR
 using UnityEditor;
@@ -10,12 +12,16 @@ namespace Code.RenderFeature
     public class IntersectingSpheresManager : MonoBehaviour
     {
         [SerializeField] private List<IntersectingSphere> _spheresView;
-        [SerializeField] private Material _material;
+        [SerializeField] private ComputeShader _cullingShader;
         [SerializeField] private int _maxSpheres = 500;
+        [SerializeField] private int _tileSizeX = 10;
+        [SerializeField] private int _tileSizeY = 10;
+        [SerializeField] private Material _material;
         private readonly List<SphereData> _spheresData = new();
-        private ComputeBuffer _buffer;
-        private bool _isDestroying;
-        
+        private SphereCullingComputeShader _cullingShaderFacade;
+        private ComputeBuffer _spheresBuffer;
+        private bool _isDisposed;
+
         private void OnValidate()
         {
             if (_spheresView != null)
@@ -51,7 +57,7 @@ namespace Code.RenderFeature
 
         public void UpdateBuffer()
         {
-            if (_isDestroying == false)
+            if (_isDisposed == false)
             {
                 _spheresData.Clear();
             
@@ -60,23 +66,33 @@ namespace Code.RenderFeature
                     _spheresData.Add(sphere.Data);
                 }
                 
-                _buffer ??= new ComputeBuffer(_maxSpheres, SphereData.GetSize());
-                _buffer.SetData(_spheresData);
-                _material.SetBuffer("_Spheres", _buffer);
+                _spheresBuffer?.Dispose();
+                _spheresBuffer = new ComputeBuffer(_maxSpheres, SphereData.GetSize());
+                _spheresBuffer.SetData(_spheresData);
+                _material.SetBuffer("_Spheres", _spheresBuffer);
                 _material.SetInt("_SpheresCount", _spheresData.Count);
+
+                SubFrustumsCalculator subFrustumsCalculator = new(Camera.main, _tileSizeX, _tileSizeY);
+                Frustum[] subFrustums = subFrustumsCalculator.Evaluate();
+                
+                _cullingShaderFacade?.Dispose();
+                _cullingShaderFacade = new SphereCullingComputeShader(_cullingShader, _spheresBuffer, _tileSizeX * _tileSizeY);
+                _cullingShaderFacade.PassParameters(subFrustums, _spheresData.Count);
+                _cullingShaderFacade.Dispatch(Camera.main.transform);
             }
         }
 
         private void OnDestroy()
         {
-            _isDestroying = true;
+            _isDisposed = true;
             Dispose();
         }
 
         public void Dispose()
         {
             _spheresData?.Clear();
-            _buffer?.Release();
+            _spheresBuffer?.Release();
+            _cullingShaderFacade?.Dispose();
         }
     }
 }

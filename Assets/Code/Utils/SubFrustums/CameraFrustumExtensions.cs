@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Code.Utils
+namespace Code.Utils.SubFrustums
 {
-    public static class CameraExtensions
+    public static class CameraFrustumExtensions
     {
         public static Vector3 GetNearClipPlaneParams(this Camera camera)
         {

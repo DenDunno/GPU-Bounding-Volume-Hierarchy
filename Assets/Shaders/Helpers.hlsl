@@ -1,7 +1,7 @@
 
-float GetDepth(float2 uv)
+float GetDepth(float2 uv, sampler2D depthTexture)
 {
-    const float depthTextureValue = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, uv);
+    const float depthTextureValue = SAMPLE_DEPTH_TEXTURE(depthTexture, uv);
     const float sceneDepth = LinearEyeDepth(depthTextureValue, _ZBufferParams);
 
     return sceneDepth;

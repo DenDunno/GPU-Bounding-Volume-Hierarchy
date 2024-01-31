@@ -23,16 +23,13 @@ public class IntersectingSphere : MonoBehaviour
         _manager?.UpdateBuffer();
     }
 
-    private void Update()
+    public void SubmitChanges()
     {
-        if (transform.hasChanged)
-        {
-            _manager?.UpdateBuffer();
-        }
+        _manager?.UpdateBuffer();
     }
 
     private void OnDestroy()
     {
-        _manager.Remove(this);
+        _manager?.Remove(this);
     }
 }

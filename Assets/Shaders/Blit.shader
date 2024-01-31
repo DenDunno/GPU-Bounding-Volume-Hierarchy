@@ -19,26 +19,16 @@ Shader "ColorBlit"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
             #include "HLSLSupport.cginc"
-
-            struct SphereData
-            {
-                float3 position;
-                float radius;
-                float4 color;
-                float4 intersectionColor;
-                float intersectionPower;
-                float fresnelPower;
-            };
-
+            #include "SphereData.hlsl"
+            #include "Helpers.hlsl"
+            #include "Raytracing.hlsl"
+            #include "SpherePaint.hlsl"
+            
             StructuredBuffer<SphereData> _Spheres;
             sampler2D _CameraDepthTexture;
             half4 _CameraParams;
             int _SpheresCount;
             float _Intensity;
-
-            #include "Helpers.hlsl"
-            #include "Raytracing.hlsl"
-            #include "SpherePaint.hlsl"
             
             half4 IterateSpheres(Ray ray, const float depth)
             {
@@ -62,7 +52,7 @@ Shader "ColorBlit"
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
-                const float sceneDepth = GetDepth(input.texcoord);
+                const float sceneDepth = GetDepth(input.texcoord, _CameraDepthTexture);
                 const Ray ray = GetInitialRay(input.texcoord, _CameraParams);
 
                 const half4 spheresColor = IterateSpheres(ray, sceneDepth);
