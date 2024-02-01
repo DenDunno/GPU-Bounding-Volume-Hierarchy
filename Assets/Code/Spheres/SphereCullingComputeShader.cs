@@ -24,7 +24,7 @@ namespace Code.RenderFeature
 
         public void Dispatch(Transform cameraTransform)
         {
-            SphereData[] spheresData = new SphereData[2]; 
+            SphereData[] spheresData = new SphereData[100]; 
             Frustum[] subFrustums = new Frustum[100]; 
             int[] activeTiles = new int[100];
             
@@ -33,7 +33,7 @@ namespace Code.RenderFeature
 
             for (int i = 0; i < subFrustums.Length; ++i)
             {
-                for (int j = 0; j < spheresData.Length; ++j)
+                for (int j = 0; j < _data.SpheresCount; ++j)
                 {
                     Vector4 spherePosition = spheresData[j].Position;
                     spherePosition.w = 1;

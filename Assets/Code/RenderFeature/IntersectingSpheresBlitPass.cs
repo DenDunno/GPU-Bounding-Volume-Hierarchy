@@ -28,7 +28,8 @@ namespace Code.RenderFeature
             List<SphereData> sphereData = new()
             {
                 new(Vector3.up, 2f, Color.green, Color.magenta, 10, 1),
-                new(new Vector3(10, 1, 10), 2f, Color.red, Color.magenta, 10, 1)
+                new(new Vector3(10, 1, 10), 2f, Color.red, Color.magenta, 10, 1),
+                new(new Vector3(20, 1, 20), 2f, Color.red, Color.magenta, 10, 1)
             };
             
             SubFrustumsCalculator subFrustumsCalculator = new(renderingData.cameraData.camera, tilesX, tilesY);
@@ -86,6 +87,7 @@ namespace Code.RenderFeature
                 _debugMaterial.SetBuffer("_ActiveTiles", _data.ActiveTiles);
                 _debugMaterial.SetInt("_TilesCountX", _tilesX);
                 _debugMaterial.SetInt("_TilesCountY", _tilesY);
+                _debugMaterial.SetInt("_SpheresCount", _data.SpheresCount);
                 
                 Blitter.BlitCameraTexture(commandBuffer, source, _copiedColor);
                 Blitter.BlitCameraTexture(commandBuffer, _copiedColor, source, _debugMaterial, 0);    
