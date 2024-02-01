@@ -1,43 +1,55 @@
-﻿using System;
-using Code.Utils.SubFrustums;
+﻿using Code.Utils.SubFrustums;
 using UnityEngine;
 
 namespace Code.RenderFeature
 {
-    public class SphereCullingComputeShader : IDisposable
+    public class SphereCullingComputeShader 
     {
-        private readonly ComputeBuffer _subFrustums;
-        private readonly ComputeBuffer _activeTiles;
-        private readonly ComputeBuffer _spheres;
+        private readonly IntersectingSpheresData _data;
         private readonly ComputeShader _shader;
 
-        public SphereCullingComputeShader(ComputeShader shader, ComputeBuffer spheres, int tiles)
+        public SphereCullingComputeShader(ComputeShader shader, IntersectingSpheresData data)
         {
-            _subFrustums = new ComputeBuffer(tiles, Frustum.GetSize());
-            _activeTiles = new ComputeBuffer(tiles, sizeof(int));
-            _spheres = spheres;
             _shader = shader;
+            _data = data;
         }
 
-        public void PassParameters(Frustum[] subFrustums, int spheresCount)
+        public void Setup()
         {
-            _subFrustums.SetData(subFrustums);
-            _shader.SetBuffer(0, "_ActiveTiles", _activeTiles);
-            _shader.SetBuffer(0, "_Spheres", _spheres);
-            _shader.SetBuffer(0, "_SubFrustums", _subFrustums);
-            _shader.SetInt("_SpheresCount", spheresCount);
+            _shader.SetBuffer(0, "_ActiveTiles", _data.ActiveTiles);
+            _shader.SetBuffer(0, "_Spheres", _data.Spheres);
+            _shader.SetBuffer(0, "_SubFrustums", _data.SubFrustums);
+            _shader.SetInt("_SpheresCount", _data.SpheresCount);
         }
 
         public void Dispatch(Transform cameraTransform)
         {
-            _shader.SetMatrix("_CameraWorldToLocal", cameraTransform.worldToLocalMatrix);
-            _shader.Dispatch(0, _subFrustums.count, 1, 1);
-        }
+            SphereData[] spheresData = new SphereData[2]; 
+            Frustum[] subFrustums = new Frustum[100]; 
+            int[] activeTiles = new int[100];
+            
+            _data.Spheres.GetData(spheresData);
+            _data.SubFrustums.GetData(subFrustums);
 
-        public void Dispose()
-        {
-            _subFrustums.Dispose();
-            _activeTiles.Dispose();
+            for (int i = 0; i < subFrustums.Length; ++i)
+            {
+                for (int j = 0; j < spheresData.Length; ++j)
+                {
+                    Vector4 spherePosition = spheresData[j].Position;
+                    spherePosition.w = 1;
+                    Vector3 sphereCameraSpacePosition = cameraTransform.worldToLocalMatrix * spherePosition;
+                    
+                    if (subFrustums[i].IsOutside(sphereCameraSpacePosition, spheresData[j].Radius) == false)
+                    {
+                        activeTiles[i]++;
+                    }
+                }
+            }
+            
+            _data.ActiveTiles.SetData(activeTiles);
         }
     }
 }
+
+// _shader.SetMatrix("_CameraWorldToLocal", cameraTransform.worldToLocalMatrix);
+// _shader.Dispatch(0, _data.TilesCount, 1, 1);

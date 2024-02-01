@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   _passMaterial: {fileID: 2100000, guid: 4dbc4156fd662184ea7bd1fb46b1a95c, type: 2}
+  _debugMaterial: {fileID: 2100000, guid: 22e6818b9e6e00841b4ee854fd596885, type: 2}
   _injectionPoint: 550
-  _intensity: 0
+  _maxSpheres: 500
+  _tileSizeX: 10
+  _tileSizeY: 10
+  _cullingShader: {fileID: 7200000, guid: df73f0b63dd6e91458eafb51c475ff19, type: 3}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
