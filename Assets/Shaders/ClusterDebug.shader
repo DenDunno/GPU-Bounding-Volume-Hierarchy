@@ -82,11 +82,10 @@ Shader "ClusterDebug"
                 const int tileIndex = (int)yTile * _TilesCountX + (int)xTile;
                 const int sphereCountInTile = _ActiveTiles[tileIndex];
                 const float2 localUv = GetLocalUv(xTile, yTile);
-                //const half4 color = lerp(_Color, _MaxTilesColor, (float)(sphereCountInTile - 1) / _SpheresCount);
                 const half4 color = GetRandomColor(sphereCountInTile + 1);
                 const int hasSpheresInTile = sphereCountInTile > 0;
 
-                return color * GetRectangleShape(localUv) * hasSpheresInTile;
+                return half4(localUv.x, localUv.y, 0, 1) * hasSpheresInTile / 3;
             }
 
             half4 Frag(Varyings input) : SV_Target

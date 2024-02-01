@@ -10,7 +10,7 @@ namespace Code.RenderFeature
     {
         private SphereCullingComputeShader _cullingShader;
         private IntersectingSpheresData _data;
-        private static Material _material;
+        private Material _material;
         private RTHandle _copiedColor;
         private Material _debugMaterial;
         private int _tilesX;
@@ -64,7 +64,7 @@ namespace Code.RenderFeature
             }
         }
 
-        private static bool IsValidState(in RenderingData renderingData)
+        private bool IsValidState(in RenderingData renderingData)
         {
             return _material != null && renderingData.cameraData.isPreviewCamera == false;
         }
@@ -94,7 +94,7 @@ namespace Code.RenderFeature
             }
         }
 
-        private static void Release(ScriptableRenderContext context, CommandBuffer commandBuffer)
+        private void Release(ScriptableRenderContext context, CommandBuffer commandBuffer)
         {
             context.ExecuteCommandBuffer(commandBuffer);
             commandBuffer.Clear();

@@ -9,6 +9,9 @@ public class ClusterDebug : MonoBehaviour
     [SerializeField] private int _tileSizeY = 32;
     [SerializeField] private float _radius = 0.1f;
     [SerializeField] private bool _showActiveSubFrustums = true;
+    [SerializeField] private bool _showNearClip = true;
+    [SerializeField] private bool _showFarClip = true;
+    [SerializeField] private bool _showFrustum = true;
     
     private void OnDrawGizmos()
     {
@@ -41,16 +44,22 @@ public class ClusterDebug : MonoBehaviour
                 RectPoints nearPlanePoints = nearPlanePointsCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
                 RectPoints farPlanePoints = farPlaneClipPlaneCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
 
+                bool show = i == 3 && j == 2;
                 Vector4 point = new Vector4(_sphere.transform.position.x, _sphere.transform.position.y, _sphere.transform.position.z, 1);
                 Vector3 sphereCameraSpacePosition = Camera.main.transform.worldToLocalMatrix * point;
-                bool isOutside = subFrustums[i * _tileSizeX + j].IsOutside(sphereCameraSpacePosition, 0.5f);
+                bool isOutside = subFrustums[i * _tileSizeX + j].IsOutside(sphereCameraSpacePosition, 0.5f, show);
                 Gizmos.color = isOutside ? Color.red : Color.green;
                 
                 if (_showActiveSubFrustums || isOutside == false)
                 {
-                    DrawPlane(nearPlanePoints);
-                    DrawPlane(farPlanePoints);
-                    ConnectPlanes(nearPlanePoints, farPlanePoints);
+                    if (_showNearClip)
+                        DrawPlane(nearPlanePoints);
+                    
+                    if (_showFarClip)
+                        DrawPlane(farPlanePoints);
+                    
+                    if (_showFrustum)
+                        ConnectPlanes(nearPlanePoints, farPlanePoints);
                 }
             }
         }
@@ -63,8 +72,8 @@ public class ClusterDebug : MonoBehaviour
             if (j >= 4)
                 j = 0;
             
-            Gizmos.DrawSphere(points[i], _radius);
-            Gizmos.DrawLine(points[i], points[j]);
+            Gizmos.DrawSphere(transform.TransformPoint(points[i]), _radius);
+            Gizmos.DrawLine(transform.TransformPoint(points[i]), transform.TransformPoint(points[j]));
         }
     }
 
@@ -72,7 +81,7 @@ public class ClusterDebug : MonoBehaviour
     {
         for (int i = 0; i < 4; ++i)
         {
-            Gizmos.DrawLine(nearPlanePoints[i], farPlanePoints[i]);
+            Gizmos.DrawLine(transform.TransformPoint(nearPlanePoints[i]), transform.TransformPoint(farPlanePoints[i]));
         }
     }
 }

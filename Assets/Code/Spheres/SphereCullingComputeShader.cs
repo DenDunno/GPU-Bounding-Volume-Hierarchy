@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.RenderFeature
 {
-    public class SphereCullingComputeShader 
+    public class SphereCullingComputeShader
     {
         private readonly IntersectingSpheresData _data;
         private readonly ComputeShader _shader;
@@ -24,10 +24,25 @@ namespace Code.RenderFeature
 
         public void Dispatch(Transform cameraTransform)
         {
-            SphereData[] spheresData = new SphereData[100]; 
-            Frustum[] subFrustums = new Frustum[100]; 
-            int[] activeTiles = new int[100];
+            ClearActiveTiles();
+            _shader.SetMatrix("_CameraWorldToLocal", cameraTransform.worldToLocalMatrix);
             
+            //_shader.Dispatch(0, _data.TilesCount, _data.SpheresCount, 1);
+            HandleViaCPU(cameraTransform);
+        }
+
+        private void ClearActiveTiles()
+        {
+            int[] activeTiles = new int[_data.TilesCount];
+            _data.ActiveTiles.SetData(activeTiles);
+        }
+
+        private void HandleViaCPU(Transform cameraTransform)
+        {
+            SphereData[] spheresData = new SphereData[_data.SpheresCount];
+            Frustum[] subFrustums = new Frustum[_data.TilesCount];
+            int[] activeTiles = new int[_data.TilesCount];
+
             _data.Spheres.GetData(spheresData);
             _data.SubFrustums.GetData(subFrustums);
 
@@ -38,18 +53,15 @@ namespace Code.RenderFeature
                     Vector4 spherePosition = spheresData[j].Position;
                     spherePosition.w = 1;
                     Vector3 sphereCameraSpacePosition = cameraTransform.worldToLocalMatrix * spherePosition;
-                    
-                    if (subFrustums[i].IsOutside(sphereCameraSpacePosition, spheresData[j].Radius) == false)
+
+                    if (subFrustums[i].IsOutside(sphereCameraSpacePosition, spheresData[j].Radius, false) == false)
                     {
                         activeTiles[i]++;
                     }
                 }
             }
-            
+
             _data.ActiveTiles.SetData(activeTiles);
         }
     }
 }
-
-// _shader.SetMatrix("_CameraWorldToLocal", cameraTransform.worldToLocalMatrix);
-// _shader.Dispatch(0, _data.TilesCount, 1, 1);

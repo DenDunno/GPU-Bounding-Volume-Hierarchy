@@ -16,6 +16,7 @@ namespace Code.RenderFeature
  
         public override void Create()
         {
+            _renderPass?.Dispose();
             _renderPass = new IntersectingSpheresBlitPass
             {
                 renderPassEvent = (RenderPassEvent)_injectionPoint
@@ -28,6 +29,7 @@ namespace Code.RenderFeature
         {
             if (_passMaterial != null && _cullingShader != null)    
             {
+                _renderPass.Dispose();
                 _renderPass.Setup(_passMaterial, ref renderingData, _tileSizeX, _tileSizeY, _maxSpheres, _cullingShader, _debugMaterial);
                 renderer.EnqueuePass(_renderPass);
             }
