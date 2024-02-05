@@ -23,12 +23,16 @@ Shader "ColorBlit"
             #include "Helpers.hlsl"
             #include "Raytracing.hlsl"
             #include "SpherePaint.hlsl"
-            
+
+            StructuredBuffer<int> _SpheresInTileCount;
             StructuredBuffer<SphereData> _Spheres;
+            StructuredBuffer<int> _SpheresInTile;
             sampler2D _CameraDepthTexture;
             half4 _CameraParams;
             int _SpheresCount;
-            float _Intensity;
+            int _TilesCountX;
+            int _TilesCountY;
+            int _MaxSpheresInTile;
             
             half4 IterateSpheres(Ray ray, const float depth)
             {
@@ -48,6 +52,29 @@ Shader "ColorBlit"
                 return half4(resultColor.xyz, 1 - resultColor.a);
             }
 
+            half4 IterateSpheresNew(const Ray ray, const float depth, const float2 uv)
+            {
+                half4 resultColor = half4(0, 0, 0, 0);
+                const float xTile = _TilesCountX * uv.x;
+                const float yTile = _TilesCountY * uv.y;
+                const int tileIndex = (int)yTile * _TilesCountX + (int)xTile;
+                const int sphereCountInTile = _SpheresInTileCount[tileIndex];
+                
+                for (int i = 0; i < sphereCountInTile; ++i)
+                {
+                    const int sphereIndex = _SpheresInTile[tileIndex * _MaxSpheresInTile + i];
+                    const SphereData sphereData = _Spheres[sphereIndex];
+                    const RaycastResult hitResult = HitSphere(ray, sphereData.position, sphereData.radius, depth);
+                    
+                    const half4 innerSphereColor = GetSphereColor(sphereData, ray.direction, hitResult.inner, depth);
+                    const half4 outerSphereColor = GetSphereColor(sphereData, ray.direction, hitResult.outer, depth);
+
+                    resultColor = saturate(resultColor + innerSphereColor + outerSphereColor);
+                }
+
+                return half4(resultColor.xyz, 1 - resultColor.a);
+            }
+            
             half4 Frag(Varyings input) : SV_Target
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
@@ -55,7 +82,7 @@ Shader "ColorBlit"
                 const float sceneDepth = GetDepth(input.texcoord, _CameraDepthTexture);
                 const Ray ray = GetInitialRay(input.texcoord, _CameraParams);
 
-                const half4 spheresColor = IterateSpheres(ray, sceneDepth);
+                const half4 spheresColor = IterateSpheresNew(ray, sceneDepth, input.texcoord);
                 const float4 sceneColor = FragBilinear(input);
 
                 return BlendSrcOneMinusSrc(sceneColor, spheresColor);

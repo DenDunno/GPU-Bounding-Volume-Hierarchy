@@ -13,21 +13,17 @@ namespace Code.Utils.SubFrustums
             Normal = normal.normalized;
         }
     
-        public bool IsOutOfBounds(Vector3 spherePosition, float radius, bool show)
+        public bool IsOutOfBounds(Vector3 spherePosition, float radius)
         {
             Vector3 difference = Point - spherePosition;
             float distance = Vector3.Dot(difference, Normal);
 
-            if (show)
-            {
-                Vector3 endPoint = spherePosition + Normal * distance;
-                
-                Color oldColor = Gizmos.color;
-                Gizmos.color = distance > radius ? Color.green : Color.red;
-                Gizmos.DrawLine(spherePosition, endPoint);
-                Gizmos.DrawSphere(endPoint, 0.1f);
-                Gizmos.color = oldColor;
-            }
+            // Vector3 endPoint = spherePosition + Normal * distance;
+            // Color oldColor = Gizmos.color;
+            // Gizmos.color = distance > radius ? Color.green : Color.red;
+            // Gizmos.DrawLine(spherePosition, endPoint);
+            // Gizmos.DrawSphere(endPoint, 0.1f);
+            // Gizmos.color = oldColor;
 
             return distance < -radius;
         }

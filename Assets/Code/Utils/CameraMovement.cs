@@ -16,8 +16,19 @@ public class CameraMovement : MonoBehaviour
 
     private void Move()
     {
-        transform.position += transform.forward * (Input.GetAxis("Vertical") * Time.deltaTime * _speed);
-        transform.position += transform.right * (Input.GetAxis("Horizontal") * Time.deltaTime * _speed);
+        float moveSpeed = GetMoveSpeed();
+        transform.position += transform.forward * (Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed);
+        transform.position += transform.right * (Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed);
+    }
+
+    private float GetMoveSpeed()
+    {
+        float moveSpeed = _speed;
+
+        if (Input.GetKey(KeyCode.LeftShift))
+            moveSpeed *= 2;
+        
+        return moveSpeed;
     }
 
     private void Rotate()

@@ -44,10 +44,9 @@ public class ClusterDebug : MonoBehaviour
                 RectPoints nearPlanePoints = nearPlanePointsCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
                 RectPoints farPlanePoints = farPlaneClipPlaneCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
 
-                bool show = i == 3 && j == 2;
                 Vector4 point = new Vector4(_sphere.transform.position.x, _sphere.transform.position.y, _sphere.transform.position.z, 1);
                 Vector3 sphereCameraSpacePosition = Camera.main.transform.worldToLocalMatrix * point;
-                bool isOutside = subFrustums[i * _tileSizeX + j].IsOutside(sphereCameraSpacePosition, 0.5f, show);
+                bool isOutside = subFrustums[i * _tileSizeX + j].IsOutside(sphereCameraSpacePosition, 0.5f);
                 Gizmos.color = isOutside ? Color.red : Color.green;
                 
                 if (_showActiveSubFrustums || isOutside == false)

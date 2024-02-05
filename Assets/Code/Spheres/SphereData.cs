@@ -12,7 +12,7 @@ namespace Code.RenderFeature
         public Color IntersectionColor;
         public float IntersectionPower;
         public float FresnelPower;
-
+    
         public SphereData(Vector3 position, float radius, Color color, Color intersectionColor, float intersectionPower, float fresnelPower)
         {
             Position = position;

@@ -12,13 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25cb1f97af1243d48854c8b9e4321672, type: 3}
   m_Name: ColorBlitRendererFeature
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
+  _sphereData:
+  - Position: {x: -4.68, y: 0, z: 0}
+    Radius: 2
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    IntersectionColor: {r: 0, g: 1, b: 0.70418286, a: 1}
+    IntersectionPower: 4.48
+    FresnelPower: 1
+  - Position: {x: 8.73, y: 0, z: 0}
+    Radius: 2
+    Color: {r: 0, g: 0.5199857, b: 1, a: 1}
+    IntersectionColor: {r: 0, g: 1, b: 0.70418286, a: 1}
+    IntersectionPower: 4.48
+    FresnelPower: 1
   _passMaterial: {fileID: 2100000, guid: 4dbc4156fd662184ea7bd1fb46b1a95c, type: 2}
   _debugMaterial: {fileID: 2100000, guid: 22e6818b9e6e00841b4ee854fd596885, type: 2}
   _injectionPoint: 550
   _maxSpheres: 500
-  _tileSizeX: 10
-  _tileSizeY: 10
+  _tileSizeX: 24
+  _tileSizeY: 24
   _cullingShader: {fileID: 7200000, guid: df73f0b63dd6e91458eafb51c475ff19, type: 3}
 --- !u!114 &11400000
 MonoBehaviour:

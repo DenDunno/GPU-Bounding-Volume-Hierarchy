@@ -7,17 +7,21 @@ namespace Code.RenderFeature
 {
     public class IntersectingSpheresData : IDisposable
     {
-        public readonly ComputeBuffer ActiveTiles;
+        public readonly ComputeBuffer SpheresInTileCount;
+        public readonly ComputeBuffer SpheresInTile;
         public readonly ComputeBuffer SubFrustums;
         public readonly ComputeBuffer Spheres;
+        public readonly int MaxSpheresInTile;
         public readonly int TilesCount;
 
-        public IntersectingSpheresData(int tiles, int maxSpheres)
+        public IntersectingSpheresData(int tiles, int maxSpheres, int maxSpheresInTile)
         {
             TilesCount = tiles;
+            MaxSpheresInTile = maxSpheresInTile;
             Spheres = new ComputeBuffer(maxSpheres, SphereData.GetSize());
-            ActiveTiles = new ComputeBuffer(tiles, sizeof(int));
+            SpheresInTileCount = new ComputeBuffer(tiles, sizeof(int));
             SubFrustums = new ComputeBuffer(tiles, Frustum.GetSize());
+            SpheresInTile = new ComputeBuffer(tiles * maxSpheresInTile, sizeof(int));
         }
 
         public int SpheresCount { get; private set; }
@@ -32,8 +36,9 @@ namespace Code.RenderFeature
         public void Dispose()
         {
             Spheres.Dispose();
-            ActiveTiles.Dispose();
+            SpheresInTileCount.Dispose();
             SubFrustums.Dispose();
+            SpheresInTile.Dispose();
         }
     }
 }

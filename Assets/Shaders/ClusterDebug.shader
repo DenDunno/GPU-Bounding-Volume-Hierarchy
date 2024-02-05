@@ -54,25 +54,18 @@ Shader "ClusterDebug"
                 return rectangle;
             }
 
-            uint GetHash(uint s)
+            half4 GetTileColor(int seed)
             {
-                s ^= 2747636419u;
-                s *= 2654435769u;
-                s ^= s >> 16;
-                s *= 2654435769u;
-                s ^= s >> 16;
-                s *= 2654435769u;
-                return s;
-            }
+                if (seed == 1)
+                    return half4(0, 0.1, 0, 1);
 
-            float Random(uint seed)
-            {
-                return float(GetHash(seed)) / 4294967295.0; // 2^32-1
-            }
+                if (seed == 2)
+                    return half4(0.3, 0, 0, 1);
 
-            half4 GetRandomColor(int seed)
-            {
-                return saturate(1 - half4(Random(seed + 1), Random(seed + 2), Random(seed + 3), 1)) / 2;
+                if (seed == 3)
+                    return half4(0, 0, 0.6, 1);
+
+                return half4(0, 0.1, 0.1, 1);
             }
 
             half4 GetDebugColor(float2 uv)
@@ -82,10 +75,10 @@ Shader "ClusterDebug"
                 const int tileIndex = (int)yTile * _TilesCountX + (int)xTile;
                 const int sphereCountInTile = _ActiveTiles[tileIndex];
                 const float2 localUv = GetLocalUv(xTile, yTile);
-                const half4 color = GetRandomColor(sphereCountInTile + 1);
+                const half4 color = GetTileColor(sphereCountInTile);
                 const int hasSpheresInTile = sphereCountInTile > 0;
 
-                return half4(localUv.x, localUv.y, 0, 1) * hasSpheresInTile / 3;
+                return color * GetRectangleShape(localUv) * hasSpheresInTile;
             }
 
             half4 Frag(Varyings input) : SV_Target

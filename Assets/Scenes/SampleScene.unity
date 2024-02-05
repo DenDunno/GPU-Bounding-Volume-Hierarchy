@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &27501821
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -245,7 +245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &81518775
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -328,7 +328,7 @@ Transform:
   m_GameObject: {fileID: 81518774}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.054, y: -0.24, z: 3.07}
+  m_LocalPosition: {x: -2.508, y: -1.693, z: 1.785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -588,7 +588,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 1.52
-  far clip plane: 5
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -615,8 +615,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471327967}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.921, y: -0.103, z: 0}
+  m_LocalRotation: {x: -0.22236338, y: 0.10562523, z: -0.023305418, w: -0.96894515}
+  m_LocalPosition: {x: 14.2325535, y: 15.110991, z: -28.130733}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -668,8 +668,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sphere: {fileID: 81518774}
-  _tileSizeX: 5
-  _tileSizeY: 5
+  _tileSizeX: 6
+  _tileSizeY: 6
   _radius: 0.03
   _showActiveSubFrustums: 1
   _showNearClip: 1
@@ -687,6 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd61641b910467fbcc2d36a195c34ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rendererFeature: {fileID: -8347632185063333347, guid: 3035ec6b7201ccf41b61821a898bbaab, type: 2}
   _spheresView:
   - {fileID: 1886256314}
   - {fileID: 102473498}
@@ -695,8 +696,6 @@ MonoBehaviour:
   - {fileID: 832107281}
   - {fileID: 1888602715}
   - {fileID: 1644360921}
-  - {fileID: 321257155}
-  - {fileID: 1878378408}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

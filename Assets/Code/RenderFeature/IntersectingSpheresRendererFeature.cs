@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 namespace Code.RenderFeature
 {
     internal class IntersectingSpheresRendererFeature : ScriptableRendererFeature
     {
+        [SerializeField] private List<SphereData> _sphereData;
         [SerializeField] private Material _passMaterial;
+        [SerializeField] private bool _debug;
         [SerializeField] private Material _debugMaterial;
         [SerializeField] private InjectionPoint _injectionPoint = InjectionPoint.AfterRenderingPostProcessing;
         [SerializeField] private int _maxSpheres = 500;
@@ -30,7 +33,7 @@ namespace Code.RenderFeature
             if (_passMaterial != null && _cullingShader != null)    
             {
                 _renderPass.Dispose();
-                _renderPass.Setup(_passMaterial, ref renderingData, _tileSizeX, _tileSizeY, _maxSpheres, _cullingShader, _debugMaterial);
+                _renderPass.Setup(_passMaterial, ref renderingData, _tileSizeX, _tileSizeY, _maxSpheres, _cullingShader, _debugMaterial, _sphereData, _debug);
                 renderer.EnqueuePass(_renderPass);
             }
         }
@@ -38,6 +41,16 @@ namespace Code.RenderFeature
         protected override void Dispose(bool disposing)
         {
             _renderPass.Dispose();
+        }
+
+        public void PassData(List<SphereData> data)
+        {
+            _sphereData.Clear();
+
+            foreach (SphereData sphereData in data)
+            {
+                _sphereData.Add(sphereData);
+            }
         }
     }
 }

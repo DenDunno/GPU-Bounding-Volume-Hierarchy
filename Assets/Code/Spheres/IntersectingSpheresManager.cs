@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Code.RenderFeature
@@ -6,6 +7,7 @@ namespace Code.RenderFeature
     [ExecuteInEditMode]
     public class IntersectingSpheresManager : MonoBehaviour
     {
+        [SerializeField] private IntersectingSpheresRendererFeature _rendererFeature;
         [SerializeField] private List<IntersectingSphere> _spheresView;
 
         private void OnValidate()
@@ -14,7 +16,7 @@ namespace Code.RenderFeature
             {
                 foreach (IntersectingSphere sphere in _spheresView)
                 {
-                    sphere?.InjectOnChangedCallback(this);
+                    sphere.InjectOnChangedCallback(this);
                 }
             }
         }
@@ -29,8 +31,11 @@ namespace Code.RenderFeature
             _spheresView.Remove(sphere);
         }
 
+        [ContextMenu("Pass")]
         public void UpdateBuffer()
         {
+            List<SphereData> data = _spheresView.Select(sphere => sphere.Data).ToList();
+            _rendererFeature.PassData(data);
         }
     }
 }

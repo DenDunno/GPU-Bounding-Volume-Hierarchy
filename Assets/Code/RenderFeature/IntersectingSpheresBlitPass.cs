@@ -15,23 +15,19 @@ namespace Code.RenderFeature
         private Material _debugMaterial;
         private int _tilesX;
         private int _tilesY;
+        private bool _debug;
 
-        public void Setup(Material material, ref RenderingData renderingData, int tilesX, int tilesY, int maxSpheres, ComputeShader cullingShader, Material debugMaterial)
+        public void Setup(Material material, ref RenderingData renderingData, int tilesX, int tilesY, int maxSpheres,
+            ComputeShader cullingShader, Material debugMaterial, List<SphereData> sphereData, bool debug)
         {
+            _debug = debug;
             _data?.Dispose();
-            _data = new IntersectingSpheresData(tilesX * tilesY, maxSpheres);
+            _data = new IntersectingSpheresData(tilesX * tilesY, maxSpheres, 100);
             _tilesX = tilesX;
             _tilesY = tilesY;
             _material = material;
             _debugMaterial = debugMaterial;
 
-            List<SphereData> sphereData = new()
-            {
-                new(Vector3.up, 2f, Color.green, Color.magenta, 10, 1),
-                new(new Vector3(10, 1, 10), 2f, Color.red, Color.magenta, 10, 1),
-                new(new Vector3(20, 1, 20), 2f, Color.red, Color.magenta, 10, 1)
-            };
-            
             SubFrustumsCalculator subFrustumsCalculator = new(renderingData.cameraData.camera, tilesX, tilesY);
             Frustum[] subFrustums = subFrustumsCalculator.Evaluate();
             _data.Update(subFrustums, sphereData);
@@ -70,21 +66,26 @@ namespace Code.RenderFeature
         }
 
         private void Draw(in RenderingData renderingData, CommandBuffer commandBuffer)
-        {
+        { 
             Camera camera = renderingData.cameraData.camera;
             
             _material.SetVector("_CameraParams", camera.GetNearClipPlaneParams());
             _material.SetBuffer("_Spheres", _data.Spheres);
+            _material.SetBuffer("_SpheresInTileCount", _data.SpheresInTileCount);
+            _material.SetBuffer("_SpheresInTile", _data.SpheresInTile);
             _material.SetInt("_SpheresCount", _data.SpheresCount);
+            _material.SetInt("_TilesCountX", _tilesX);
+            _material.SetInt("_TilesCountY", _tilesY);
+            _material.SetInt("_MaxSpheresInTile", _data.MaxSpheresInTile);
             _cullingShader.Dispatch(camera.transform);
             
             RTHandle source = renderingData.cameraData.renderer.cameraColorTargetHandle;
             Blitter.BlitCameraTexture(commandBuffer, source, _copiedColor);
             Blitter.BlitCameraTexture(commandBuffer, _copiedColor, source, _material, 0);
 
-            if (_debugMaterial != null)
+            if (_debugMaterial != null && _debug)
             {
-                _debugMaterial.SetBuffer("_ActiveTiles", _data.ActiveTiles);
+                _debugMaterial.SetBuffer("_ActiveTiles", _data.SpheresInTileCount);
                 _debugMaterial.SetInt("_TilesCountX", _tilesX);
                 _debugMaterial.SetInt("_TilesCountY", _tilesY);
                 _debugMaterial.SetInt("_SpheresCount", _data.SpheresCount);
