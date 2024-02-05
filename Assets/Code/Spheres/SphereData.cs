@@ -23,7 +23,7 @@ namespace Code.RenderFeature
             FresnelPower = fresnelPower;
         }
 
-        public static int GetSize()
+        public static int GetSize() // 56
         {
             return 3 * 4 +
                    4 + 

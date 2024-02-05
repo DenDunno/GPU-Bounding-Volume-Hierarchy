@@ -18,11 +18,11 @@ namespace Code.RenderFeature
         private bool _debug;
 
         public void Setup(Material material, ref RenderingData renderingData, int tilesX, int tilesY, int maxSpheres,
-            ComputeShader cullingShader, Material debugMaterial, List<SphereData> sphereData, bool debug)
+            ComputeShader cullingShader, Material debugMaterial, List<SphereData> sphereData, bool debug, int maxSpheresInTile)
         {
             _debug = debug;
             _data?.Dispose();
-            _data = new IntersectingSpheresData(tilesX * tilesY, maxSpheres, 100);
+            _data = new IntersectingSpheresData(tilesX * tilesY, maxSpheres, maxSpheresInTile);
             _tilesX = tilesX;
             _tilesY = tilesY;
             _material = material;

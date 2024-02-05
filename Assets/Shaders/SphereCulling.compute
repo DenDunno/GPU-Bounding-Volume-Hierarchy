@@ -11,7 +11,7 @@ float4x4 _CameraWorldToLocal;
 int _MaxSpheresInTile;
 int _SpheresCount;
 
-[numthreads(1,1,1)]
+[numthreads(8,8,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
     Frustum subFrustum = _SubFrustums[id.x];

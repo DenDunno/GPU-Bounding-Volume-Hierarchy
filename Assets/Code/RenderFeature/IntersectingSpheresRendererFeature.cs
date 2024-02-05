@@ -11,12 +11,13 @@ namespace Code.RenderFeature
         [SerializeField] private bool _debug;
         [SerializeField] private Material _debugMaterial;
         [SerializeField] private InjectionPoint _injectionPoint = InjectionPoint.AfterRenderingPostProcessing;
-        [SerializeField] private int _maxSpheres = 500;
-        [SerializeField] private int _tileSizeX = 10;
-        [SerializeField] private int _tileSizeY = 10;
+        [SerializeField] [Min(1)] private int _maxSpheres = 500;
+        [SerializeField] [Min(1)] private int _tileSizeX = 10;
+        [SerializeField] [Min(1)] private int _tileSizeY = 10;
         [SerializeField] private ComputeShader _cullingShader;
+        [SerializeField] [Min(1)] private int _maxSpheresInTile = 20;
         private IntersectingSpheresBlitPass _renderPass;
- 
+
         public override void Create()
         {
             _renderPass?.Dispose();
@@ -33,7 +34,7 @@ namespace Code.RenderFeature
             if (_passMaterial != null && _cullingShader != null)    
             {
                 _renderPass.Dispose();
-                _renderPass.Setup(_passMaterial, ref renderingData, _tileSizeX, _tileSizeY, _maxSpheres, _cullingShader, _debugMaterial, _sphereData, _debug);
+                _renderPass.Setup(_passMaterial, ref renderingData, _tileSizeX, _tileSizeY, _maxSpheres, _cullingShader, _debugMaterial, _sphereData, _debug, _maxSpheresInTile);
                 renderer.EnqueuePass(_renderPass);
             }
         }

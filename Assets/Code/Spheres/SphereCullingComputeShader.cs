@@ -27,8 +27,7 @@ namespace Code.RenderFeature
         {
             ClearActiveTiles();
             _shader.SetMatrix("_CameraWorldToLocal", cameraTransform.worldToLocalMatrix);
-            //_shader.Dispatch(0, Mathf.CeilToInt(_data.TilesCount / 8f), _data.SpheresCount, 1);
-            _shader.Dispatch(0, _data.TilesCount, _data.SpheresCount, 1);
+            _shader.Dispatch(0, Mathf.CeilToInt(_data.TilesCount / 8f), Mathf.CeilToInt(_data.SpheresCount / 8f), 1);
         }
 
         private void ClearActiveTiles()
