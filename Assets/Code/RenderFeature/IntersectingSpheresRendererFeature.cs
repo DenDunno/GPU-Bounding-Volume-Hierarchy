@@ -6,35 +6,23 @@ namespace Code.RenderFeature
 {
     internal class IntersectingSpheresRendererFeature : ScriptableRendererFeature
     {
-        [SerializeField] private List<SphereData> _sphereData;
-        [SerializeField] private Material _passMaterial;
-        [SerializeField] private bool _debug;
-        [SerializeField] private Material _debugMaterial;
-        [SerializeField] private InjectionPoint _injectionPoint = InjectionPoint.AfterRenderingPostProcessing;
-        [SerializeField] [Min(1)] private int _maxSpheres = 500;
-        [SerializeField] [Min(1)] private int _tileSizeX = 10;
-        [SerializeField] [Min(1)] private int _tileSizeY = 10;
-        [SerializeField] private ComputeShader _cullingShader;
-        [SerializeField] [Min(1)] private int _maxSpheresInTile = 20;
-        private IntersectingSpheresBlitPass _renderPass;
+        [SerializeField] private IntersectingSpheresPassData _data;
+        private IntersectingSpheresPass _renderPass;
+        private List<SphereData> _sphereData;
 
         public override void Create()
         {
             _renderPass?.Dispose();
-            _renderPass = new IntersectingSpheresBlitPass
-            {
-                renderPassEvent = (RenderPassEvent)_injectionPoint
-            };
-
+            _renderPass = new IntersectingSpheresPass(_data);
             _renderPass.ConfigureInput(ScriptableRenderPassInput.Color);
         }
  
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            if (_passMaterial != null && _cullingShader != null)    
+            if (_data.IsValid && _sphereData?.Count != 0)    
             {
                 _renderPass.Dispose();
-                _renderPass.Setup(_passMaterial, ref renderingData, _tileSizeX, _tileSizeY, _maxSpheres, _cullingShader, _debugMaterial, _sphereData, _debug, _maxSpheresInTile);
+                _renderPass.Setup(ref renderingData.cameraData, _sphereData);
                 renderer.EnqueuePass(_renderPass);
             }
         }
@@ -46,12 +34,7 @@ namespace Code.RenderFeature
 
         public void PassData(List<SphereData> data)
         {
-            _sphereData.Clear();
-
-            foreach (SphereData sphereData in data)
-            {
-                _sphereData.Add(sphereData);
-            }
+            _sphereData = data;
         }
     }
 }

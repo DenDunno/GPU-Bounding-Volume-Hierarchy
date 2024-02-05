@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.RenderFeature
 {
-    public class IntersectingSpheresData : IDisposable
+    public class IntersectingSpheresBuffers : IDisposable
     {
         public readonly ComputeBuffer SpheresInTileCount;
         public readonly ComputeBuffer SpheresInTile;
@@ -14,7 +14,7 @@ namespace Code.RenderFeature
         public readonly int MaxSpheresInTile;
         public readonly int TilesCount;
 
-        public IntersectingSpheresData(int tiles, int maxSpheres, int maxSpheresInTile)
+        public IntersectingSpheresBuffers(int tiles, int maxSpheres, int maxSpheresInTile)
         {
             TilesCount = tiles;
             MaxSpheresInTile = maxSpheresInTile;
