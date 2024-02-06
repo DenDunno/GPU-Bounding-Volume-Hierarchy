@@ -8,7 +8,7 @@ namespace Code.RenderFeature
     {
         [SerializeField] private IntersectingSpheresPassData _data;
         private IntersectingSpheresPass _renderPass;
-        private List<SphereData> _sphereData;
+        private List<SphereData> _sphereData = new();
 
         public override void Create()
         {
@@ -21,7 +21,6 @@ namespace Code.RenderFeature
         {
             if (_data.IsValid && _sphereData?.Count != 0)    
             {
-                _renderPass.Dispose();
                 _renderPass.Setup(ref renderingData.cameraData, _sphereData);
                 renderer.EnqueuePass(_renderPass);
             }

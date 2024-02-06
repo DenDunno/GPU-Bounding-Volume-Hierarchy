@@ -13,7 +13,7 @@ namespace Code.RenderFeature
             _buffers = buffers;
         }
 
-        public void Setup()
+        public void PassData()
         {
             _shader.SetBuffer(0, "_SpheresInTileCount", _buffers.SpheresInTileCount);
             _shader.SetBuffer(0, "_Spheres", _buffers.Spheres);

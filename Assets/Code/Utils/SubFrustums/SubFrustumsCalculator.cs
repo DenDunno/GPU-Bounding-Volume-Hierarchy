@@ -4,20 +4,18 @@ namespace Code.Utils.SubFrustums
 {
     public class SubFrustumsCalculator
     {
+        private readonly Vector2Int _tilesSize;
         private readonly Camera _camera;
-        private readonly int _countX;
-        private readonly int _countY;
 
-        public SubFrustumsCalculator(Camera camera, int countX, int countY)
+        public SubFrustumsCalculator(Camera camera, Vector2Int tilesSize)
         {
+            _tilesSize = tilesSize;
             _camera = camera;
-            _countX = countX;
-            _countY = countY;
         }
 
         public Frustum[] Evaluate()
         {
-            Frustum[] subFrustums = new Frustum[_countX * _countY];
+            Frustum[] subFrustums = new Frustum[_tilesSize.x * _tilesSize.y];
             
             PopulateSubFrustums(subFrustums);
 
@@ -31,19 +29,19 @@ namespace Code.Utils.SubFrustums
             ClipPlanePointsCalculator farPlaneClipPlaneCalculator = new(farPlaneParams);
             ClipPlanePointsCalculator nearPlanePointsCalculator = new(nearPlaneParams);
 
-            for (int i = 0; i < _countY; ++i)
+            for (int i = 0; i < _tilesSize.y; ++i)
             {
-                float bottomLerp = (float)i / _countY;
-                float topLerp = (float)(i + 1) / _countY;
+                float bottomLerp = (float)i / _tilesSize.y;
+                float topLerp = (float)(i + 1) / _tilesSize.y;
 
-                for (int j = 0; j < _countX; ++j)
+                for (int j = 0; j < _tilesSize.x; ++j)
                 {
-                    float leftLerp = (float)j / _countX;
-                    float rightLerp = (float)(j + 1) / _countX;
+                    float leftLerp = (float)j / _tilesSize.x;
+                    float rightLerp = (float)(j + 1) / _tilesSize.x;
 
                     RectPoints nearPlanePoints = nearPlanePointsCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
                     RectPoints farPlanePoints = farPlaneClipPlaneCalculator.Evaluate(bottomLerp, topLerp, leftLerp, rightLerp);
-                    subFrustums[i * _countX + j] = EvaluateSubFrustum(nearPlanePoints, farPlanePoints);
+                    subFrustums[i * _tilesSize.x + j] = EvaluateSubFrustum(nearPlanePoints, farPlanePoints);
                 }
             }
         }

@@ -25,6 +25,7 @@ namespace Code.RenderFeature
         public Material DebugMaterial => _debugMaterial;
         public int MaxSpheresInTile=> _maxSpheresInTile;
         public int MaxSpheres => _maxSpheres;
+        public Vector2Int TilesSize => new(_tileSizeX, _tileSizeY);
         public int TileSizeX => _tileSizeX;
         public int TileSizeY => _tileSizeY;
         public bool UseDebug => _debug;

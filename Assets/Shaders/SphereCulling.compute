@@ -23,7 +23,6 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     {
         uint offset = 0;
         InterlockedAdd(_SpheresInTileCount[id.x], 1, offset);
-        offset = min(offset, _MaxSpheresInTile - 1);
         
         const int sphereIndex = id.x * _MaxSpheresInTile + offset;
         _SpheresInTile[sphereIndex] = id.y;

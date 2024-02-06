@@ -28,7 +28,7 @@ public class ClusterDebug : MonoBehaviour
 
     private void DrawSubFrustums(ClipPlanePointsCalculator nearPlanePointsCalculator, ClipPlanePointsCalculator farPlaneClipPlaneCalculator)
     {
-        SubFrustumsCalculator subFrustumsCalculator = new(Camera.main, _tileSizeX, _tileSizeY);
+        SubFrustumsCalculator subFrustumsCalculator = new(Camera.main, new Vector2Int(_tileSizeX, _tileSizeY));
         Frustum[] subFrustums = subFrustumsCalculator.Evaluate();
         
         for (int i = 0; i < _tileSizeY; ++i)
