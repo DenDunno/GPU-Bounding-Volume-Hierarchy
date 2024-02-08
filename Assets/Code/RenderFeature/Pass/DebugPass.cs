@@ -1,4 +1,5 @@
 ﻿using Code.RenderFeature.Data;
+using Code.Utils.SubFrustums;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -6,33 +7,31 @@ namespace Code.RenderFeature.Pass
 {
     public class DebugPass
     {
-        private readonly IntersectingSpheresBuffers _buffers;
-        private readonly Vector2Int _tiles;
+        private readonly ComputeBuffer _circles;
         private readonly Material _material;
         private readonly bool _useDebug;
 
-        public DebugPass(Vector2Int tiles, IntersectingSpheresBuffers buffers, Material debugMaterial, bool useDebug)
+        public DebugPass(Material debugMaterial, bool useDebug, ComputeBuffer circles)
         {
             _material = debugMaterial;
             _useDebug = useDebug;
-            _buffers = buffers;
-            _tiles = tiles;
+            _circles = circles;
         }
         
         public void PassDataToMaterial()
         {
-            _material.SetBuffer("_ActiveTiles", _buffers.SpheresInTileCount);
-            _material.SetInt("_TilesCountX", _tiles.x);
-            _material.SetInt("_TilesCountY", _tiles.y);
+            _material.SetBuffer("_Circles", _circles);
         }
         
-        public void TryDraw(CommandBuffer commandBuffer, RTHandle copiedColor, RTHandle source)
+        public void TryDraw(BlitArguments blitArgs, int visibleCircles, Camera camera)
         {
             if (_material != null && _useDebug)
             {
-                _material.SetInt("_SpheresCount", _buffers.SpheresCount);
-                Blitter.BlitCameraTexture(commandBuffer, source, copiedColor);
-                Blitter.BlitCameraTexture(commandBuffer, copiedColor, source, _material, 0);    
+                _material.SetInt("_VisibleCirclesCount", visibleCircles);
+                _material.SetVector("_CameraParams", camera.GetNearClipPlaneParams());
+
+                Blitter.BlitCameraTexture(blitArgs.CommandBuffer, blitArgs.Source, blitArgs.Destination);
+                Blitter.BlitCameraTexture(blitArgs.CommandBuffer, blitArgs.Destination, blitArgs.Source, _material, 0);
             }
         }
     }

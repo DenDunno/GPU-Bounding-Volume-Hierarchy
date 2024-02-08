@@ -4,6 +4,16 @@ namespace Code.Utils.SubFrustums
 {
     public static class CameraFrustumExtensions
     {
+        public static Frustum[] GetFrustum(this Camera camera)
+        {
+            return GetSubFrustums(camera, Vector2Int.one);
+        }
+        
+        public static Frustum[] GetSubFrustums(this Camera camera, Vector2Int tiles)
+        {
+            return new SubFrustumsCalculator(camera, tiles).Evaluate();
+        }
+        
         public static Vector3 GetNearClipPlaneParams(this Camera camera)
         {
             return GetClipPlaneSize(camera, camera.nearClipPlane);

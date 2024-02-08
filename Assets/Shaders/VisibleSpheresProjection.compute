@@ -1,0 +1,47 @@
+#pragma kernel CSMain
+#pragma enable_d3d11_debug_symbols
+#include "Frustum.hlsl"
+#include "SphereData.hlsl"
+#include "AABB2D.hlsl"
+
+RWStructuredBuffer<int> _VisibleSpheres;
+RWStructuredBuffer<Circle2D> _Circles;
+StructuredBuffer<SphereData> _Spheres;
+StructuredBuffer<Frustum> _Frustum;
+float4x4 _CameraWorldToLocal;
+float4x4 _ProjectionMatrix;
+float3 _CameraPosition;
+uint _SpheresCount;
+
+[numthreads(8,1,1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _SpheresCount) return;
+
+    const SphereData sphere = _Spheres[id.x];
+    Frustum cameraFrustum = _Frustum[0];
+
+    const float4 sphereCameraSpacePosition = mul(_CameraWorldToLocal, float4(sphere.position, 1));
+    const int isVisible = 1 - cameraFrustum.IsOutside(sphereCameraSpacePosition.xyz, sphere.radius);
+
+    if (isVisible)
+    {
+        const int index = _VisibleSpheres.IncrementCounter();
+        _VisibleSpheres[index] = id.x;
+
+        float4 originHomogeneousSpace = mul(_ProjectionMatrix, sphereCameraSpacePosition);
+        float2 originClipSpace = (originHomogeneousSpace / originHomogeneousSpace.w).xy; 
+        originClipSpace = (-originClipSpace + float2(1, 1)) / 2.0f;
+
+        float3 viewDirection = sphere.position - _CameraPosition;
+        float3 pointOnSphere = sphere.position + (0, 1, -viewDirection.y / viewDirection.z) * sphere.radius;
+
+        const float4 pointCameraSpace = mul(_CameraWorldToLocal, float4(pointOnSphere, 1));
+        float4 pointHomogeneousSpace = mul(_ProjectionMatrix, pointCameraSpace);
+        float2 pointClipSpace = (pointHomogeneousSpace / pointHomogeneousSpace.w).xy; 
+        pointClipSpace = (-pointClipSpace + float2(1, 1)) / 2.0f;
+        
+        _Circles[index] = CreateCircle(originClipSpace.xy, 0.2f);
+        _Circles[index].radius = length(pointClipSpace - originClipSpace);
+    }
+}

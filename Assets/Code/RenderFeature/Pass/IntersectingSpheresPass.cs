@@ -11,54 +11,44 @@ namespace Code.RenderFeature.Pass
 {
     public class IntersectingSpheresPass : BaseRenderPass
     {
-        private readonly ResetTilesDataComputeShader _resetTilesShader;
-        private readonly SphereCullingComputeShader _cullingShader;
-        private readonly GPUBasedFrustumCulling _frustumCulling;
-        private readonly IntersectingSpheresBuffers _buffers;
-        private readonly IntersectingSpheresPassData _data;
+        private readonly VisibleSpheresProjection _frustumCulling;
         private readonly RaytracingPass _raytracingPass;
         private readonly CopiedColor _copiedColor;
+        private readonly SharedBuffers _buffers;
         private readonly DebugPass _debugPass;
 
         public IntersectingSpheresPass(IntersectingSpheresPassData data)
         {
-            _buffers = new IntersectingSpheresBuffers(data.TilesCount, data.MaxSpheres, data.MaxSpheresInTile);
-            _resetTilesShader = new ResetTilesDataComputeShader(data.ResetTilesDataShader, _buffers.SpheresInTileCount, data.TilesCount);
-            _debugPass = new DebugPass(data.TilesSize, _buffers, data.DebugMaterial, data.UseDebug);
-            _raytracingPass = new RaytracingPass(_buffers, data.RaytracingMaterial, data.TilesSize);
-            _frustumCulling = new GPUBasedFrustumCulling(data.FrustumCullingShader, _buffers);
-            _cullingShader = new SphereCullingComputeShader(data.CullingShader, _buffers);
+            _buffers = new SharedBuffers(data.MaxSpheres);
+            _frustumCulling = new VisibleSpheresProjection(data.FrustumCullingShader, _buffers);
+            _debugPass = new DebugPass(data.DebugMaterial, data.UseDebug, _buffers.Cirlces);
+            _raytracingPass = new RaytracingPass(_buffers, data.RaytracingMaterial);
             _copiedColor = new CopiedColor("FullscreenPassColorCopy");
             renderPassEvent = (RenderPassEvent)data.InjectionPoint;
-            _data = data;
         }
-        
+
         public void Setup(ref CameraData cameraData, List<SphereData> sphereData)
         {
-            Frustum[] subFrustums = new SubFrustumsCalculator(cameraData.camera, _data.TilesSize).Evaluate();
-            Frustum[] cameraFrustum = new SubFrustumsCalculator(cameraData.camera, Vector2Int.one).Evaluate();
+            Frustum[] frustum = cameraData.camera.GetFrustum();
             
-            _buffers.Update(subFrustums, sphereData);
+            _buffers.Update(sphereData);
             _copiedColor.ReAllocateIfNeeded(cameraData.cameraTargetDescriptor);
-            _frustumCulling.PassData(cameraFrustum);
+            _frustumCulling.PassData(frustum);
             _raytracingPass.PassDataToMaterial();
             _debugPass.PassDataToMaterial();
-            _resetTilesShader.PassData();
-            _cullingShader.PassData();
         }
 
         protected override void Draw(in RenderingData renderingData, CommandBuffer commandBuffer)
         {
-            RTHandle source = renderingData.cameraData.renderer.cameraColorTargetHandle;
             Camera camera = renderingData.cameraData.camera;
-            
-            int visibleSpheresCount = _frustumCulling.Dispatch(camera.transform);
-            _resetTilesShader.Dispatch();
-            _cullingShader.Dispatch(camera.transform);
-            _raytracingPass.Draw(commandBuffer, _copiedColor.RTHandle, source, camera);
-            _debugPass.TryDraw(commandBuffer, _copiedColor.RTHandle, source);
-        }
+            RTHandle source = renderingData.cameraData.renderer.cameraColorTargetHandle;
+            BlitArguments blitArguments = new(commandBuffer, source, _copiedColor.RTHandle);
 
+            int visibleSpheresCount = _frustumCulling.Dispatch(camera);
+            _raytracingPass.Draw(blitArguments, camera, visibleSpheresCount);
+            _debugPass.TryDraw(blitArguments, visibleSpheresCount, camera);
+        }
+        
         public void Dispose()
         {
             _frustumCulling?.Dispose();
@@ -67,3 +57,33 @@ namespace Code.RenderFeature.Pass
         }
     }
 }
+
+// Circle[] circles = new Circle[visibleSpheresCount];
+// SphereData[] spheres = new SphereData[visibleSpheresCount];
+//
+// _buffers.Spheres.GetData(spheres);
+//
+// for (int i = 0; i < visibleSpheresCount; ++i)
+// {
+//     var clipSpace = WorldToScreenPoint(spheres[i].Position, camera);
+//     Debug.Log(spheres[i].Position);
+//     Debug.Log(clipSpace);
+//     
+//     circles[i].Position = clipSpace;
+//     circles[i].Radius = 0.25f;
+// }
+//
+// _buffers.Cirlces.SetData(circles);
+
+
+// Circle[] circles = new Circle[visibleSpheresCount];
+// _buffers.Cirlces.GetData(circles);
+//
+// string a = "";
+//
+// foreach (Circle circle in circles)
+// {
+//     a += circle.ToString();
+// }
+//
+// Debug.Log(a);
