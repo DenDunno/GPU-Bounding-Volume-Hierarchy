@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.RenderFeature
+namespace Code.RenderFeature.ComputeShaders
 {
     public class ResetTilesDataComputeShader
     {
@@ -15,7 +15,7 @@ namespace Code.RenderFeature
             _shader = shader;
         }
 
-        public void Setup()
+        public void PassData()
         {
             _shader.SetBuffer(0, "_SpheresInTileCount", _spheresInTileCount);
         }

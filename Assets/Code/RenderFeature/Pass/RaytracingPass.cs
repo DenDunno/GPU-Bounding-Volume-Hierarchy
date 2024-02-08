@@ -1,8 +1,9 @@
-﻿using Code.Utils.SubFrustums;
+﻿using Code.RenderFeature.Data;
+using Code.Utils.SubFrustums;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace Code.RenderFeature
+namespace Code.RenderFeature.Pass
 {
     public class RaytracingPass
     {

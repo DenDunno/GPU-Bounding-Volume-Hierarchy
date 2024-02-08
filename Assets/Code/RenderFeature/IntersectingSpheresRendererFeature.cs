@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Code.RenderFeature.Data;
+using Code.RenderFeature.Pass;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code.RenderFeature
+namespace Code.RenderFeature.Data
 {
     [Serializable]
     public class IntersectingSpheresPassData
@@ -11,6 +11,7 @@ namespace Code.RenderFeature
         [SerializeField] private Material _debugMaterial;
         [SerializeField] private bool _debug;
         [SerializeField] private ComputeShader _resetTilesDataShader;
+        [SerializeField] private ComputeShader _frustumCullingShader;
         [SerializeField] private ComputeShader _cullingShader;
         [SerializeField] [Min(1)] private int _tileSizeX = 10;
         [SerializeField] [Min(1)] private int _tileSizeY = 10;
@@ -18,6 +19,7 @@ namespace Code.RenderFeature
         [SerializeField] [Min(1)] private int _maxSpheresInTile = 20;
 
         public ComputeShader ResetTilesDataShader => _resetTilesDataShader;
+        public ComputeShader FrustumCullingShader => _frustumCullingShader;
         public Material RaytracingMaterial => _raytracingMaterial;
         public InjectionPoint InjectionPoint => _injectionPoint;
         public ComputeShader CullingShader => _cullingShader;
@@ -26,12 +28,11 @@ namespace Code.RenderFeature
         public int MaxSpheresInTile=> _maxSpheresInTile;
         public int MaxSpheres => _maxSpheres;
         public Vector2Int TilesSize => new(_tileSizeX, _tileSizeY);
-        public int TileSizeX => _tileSizeX;
-        public int TileSizeY => _tileSizeY;
         public bool UseDebug => _debug;
 
         public bool IsValid => _raytracingMaterial != null && 
                                _cullingShader != null &&
-                               _resetTilesDataShader != null;
+                               _resetTilesDataShader != null &&
+                               _frustumCullingShader != null;
     }
 }

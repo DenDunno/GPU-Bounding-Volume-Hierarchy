@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Code.RenderFeature.Data;
+using UnityEngine;
 
-namespace Code.RenderFeature
+namespace Code.RenderFeature.ComputeShaders
 {
     public class SphereCullingComputeShader
     {
@@ -25,15 +26,8 @@ namespace Code.RenderFeature
 
         public void Dispatch(Transform cameraTransform)
         {
-            ClearActiveTiles();
             _shader.SetMatrix("_CameraWorldToLocal", cameraTransform.worldToLocalMatrix);
             _shader.Dispatch(0, Mathf.CeilToInt(_buffers.TilesCount / 8f), Mathf.CeilToInt(_buffers.SpheresCount / 8f), 1);
-        }
-
-        private void ClearActiveTiles()
-        {
-            int[] activeTiles = new int[_buffers.TilesCount];
-            _buffers.SpheresInTileCount.SetData(activeTiles);
         }
     }
 }

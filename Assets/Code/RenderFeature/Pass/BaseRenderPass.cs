@@ -1,7 +1,7 @@
 ﻿using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace Code.RenderFeature
+namespace Code.RenderFeature.Pass
 {
     public abstract class BaseRenderPass : ScriptableRenderPass
     {

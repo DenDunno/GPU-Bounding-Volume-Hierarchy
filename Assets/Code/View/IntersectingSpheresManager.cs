@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Code.RenderFeature;
+using Code.RenderFeature.Data;
 using UnityEngine;
 
-namespace Code.RenderFeature
+namespace Code.View
 {
     [ExecuteInEditMode]
     public class IntersectingSpheresManager : MonoBehaviour

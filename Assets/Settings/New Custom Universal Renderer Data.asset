@@ -17,13 +17,14 @@ MonoBehaviour:
     _injectionPoint: 550
     _raytracingMaterial: {fileID: 2100000, guid: 4dbc4156fd662184ea7bd1fb46b1a95c, type: 2}
     _debugMaterial: {fileID: 2100000, guid: 22e6818b9e6e00841b4ee854fd596885, type: 2}
-    _debug: 1
+    _debug: 0
     _resetTilesDataShader: {fileID: 7200000, guid: b89422cb931841ae86dc8ea4ae9f9f1d, type: 3}
+    _frustumCullingShader: {fileID: 7200000, guid: 2cefa8a9616946b3b5ee1731823eaa84, type: 3}
     _cullingShader: {fileID: 7200000, guid: df73f0b63dd6e91458eafb51c475ff19, type: 3}
     _tileSizeX: 30
-    _tileSizeY: 30
-    _maxSpheres: 1000
-    _maxSpheresInTile: 50
+    _tileSizeY: 20
+    _maxSpheres: 10000
+    _maxSpheresInTile: 100
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

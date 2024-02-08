@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Code.RenderFeature.Data;
+using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace Code.RenderFeature
+namespace Code.RenderFeature.Pass
 {
     public class DebugPass
     {

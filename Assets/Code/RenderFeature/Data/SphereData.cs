@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code.RenderFeature
+namespace Code.RenderFeature.Data
 {
     [Serializable]
     public struct SphereData

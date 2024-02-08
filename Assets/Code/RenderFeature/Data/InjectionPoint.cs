@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Rendering.Universal;
 
-namespace Code.RenderFeature
+namespace Code.RenderFeature.Data
 {
     public enum InjectionPoint
     {
