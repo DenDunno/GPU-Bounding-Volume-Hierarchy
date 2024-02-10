@@ -7,14 +7,14 @@ namespace Code.RenderFeature.Data
     public class SharedBuffers : IDisposable
     {
         public readonly ComputeBuffer VisibleSpheres;
+        public readonly ComputeBuffer BoundingBoxes;
         public readonly ComputeBuffer Spheres;
-        public readonly ComputeBuffer Cirlces;
-        
+
         public SharedBuffers(int maxSpheres)
         {
             VisibleSpheres = new ComputeBuffer(maxSpheres, sizeof(int), ComputeBufferType.Counter);
             Spheres = new ComputeBuffer(maxSpheres, SphereData.GetSize());
-            Cirlces = new ComputeBuffer(maxSpheres, Circle.GetSize());
+            BoundingBoxes = new ComputeBuffer(maxSpheres, AABB2D.GetSize());
         }
 
         public int SpheresCount { get; private set; }
@@ -28,8 +28,8 @@ namespace Code.RenderFeature.Data
         public void Dispose()
         {
             VisibleSpheres.Dispose();
+            BoundingBoxes.Dispose();
             Spheres.Dispose();
-            Cirlces.Dispose();
         }
     }
 }

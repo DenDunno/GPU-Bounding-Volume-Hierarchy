@@ -29,7 +29,7 @@ namespace Code.RenderFeature.ComputeShaders
             _shader.SetBuffer(0, "_VisibleSpheres", _buffers.VisibleSpheres);
             _shader.SetBuffer(0, "_Frustum", _cameraFrustumBuffer);
             _shader.SetBuffer(0, "_Spheres", _buffers.Spheres);
-            _shader.SetBuffer(0, "_Circles", _buffers.Cirlces);
+            _shader.SetBuffer(0, "_BoundingBoxes", _buffers.BoundingBoxes);
         }
         
         public int Dispatch(Camera camera)

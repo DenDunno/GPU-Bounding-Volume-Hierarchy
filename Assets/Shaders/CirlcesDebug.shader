@@ -25,24 +25,12 @@ Shader "CirlcesDebug.shader"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
             #include "AABB2D.hlsl"
 
-            StructuredBuffer<Circle2D> _Circles;
             int _VisibleCirclesCount;
             half2 _CameraParams;
             half4 _Color;
 
             half4 GetDebugColor(float2 uv)
             {
-                for (int i = 0; i < _VisibleCirclesCount; ++i)
-                {
-                    Circle2D circle = _Circles[i];
-                    circle.position *= _CameraParams;
-                    
-                    if (IsInside(circle, uv))
-                    {
-                        return _Color;
-                    }
-                }
-                
                 return half4(0, 0, 0, 0);
             }
 

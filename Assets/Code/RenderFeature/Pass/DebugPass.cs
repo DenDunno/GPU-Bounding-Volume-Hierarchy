@@ -7,20 +7,20 @@ namespace Code.RenderFeature.Pass
 {
     public class DebugPass
     {
-        private readonly ComputeBuffer _circles;
+        private readonly ComputeBuffer _boundingBoxes;
         private readonly Material _material;
         private readonly bool _useDebug;
 
-        public DebugPass(Material debugMaterial, bool useDebug, ComputeBuffer circles)
+        public DebugPass(Material debugMaterial, bool useDebug, ComputeBuffer boundingBoxes)
         {
+            _boundingBoxes = boundingBoxes;
             _material = debugMaterial;
             _useDebug = useDebug;
-            _circles = circles;
         }
         
         public void PassDataToMaterial()
         {
-            _material.SetBuffer("_Circles", _circles);
+            _material.SetBuffer("_BoundingBoxes", _boundingBoxes);
         }
         
         public void TryDraw(BlitArguments blitArgs, int visibleCircles, Camera camera)

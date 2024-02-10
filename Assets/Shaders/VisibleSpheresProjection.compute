@@ -5,13 +5,22 @@
 #include "AABB2D.hlsl"
 
 RWStructuredBuffer<int> _VisibleSpheres;
-RWStructuredBuffer<Circle2D> _Circles;
+RWStructuredBuffer<AABB> _BoundingBoxes;
 StructuredBuffer<SphereData> _Spheres;
 StructuredBuffer<Frustum> _Frustum;
 float4x4 _CameraWorldToLocal;
 float4x4 _ProjectionMatrix;
 float3 _CameraPosition;
 uint _SpheresCount;
+
+AABB GetScreenAABBFromWorldSphere(float3 position, float radius, float3 viewDirection)
+{
+    AABB boundingBox;
+    boundingBox.max = float2(0, 0);
+    boundingBox.min = float2(0, 0);
+
+    return boundingBox;
+}
 
 [numthreads(8,1,1)]
 void CSMain(uint3 id : SV_DispatchThreadID)
@@ -29,19 +38,7 @@ void CSMain(uint3 id : SV_DispatchThreadID)
         const int index = _VisibleSpheres.IncrementCounter();
         _VisibleSpheres[index] = id.x;
 
-        float4 originHomogeneousSpace = mul(_ProjectionMatrix, sphereCameraSpacePosition);
-        float2 originClipSpace = (originHomogeneousSpace / originHomogeneousSpace.w).xy; 
-        originClipSpace = (-originClipSpace + float2(1, 1)) / 2.0f;
-
-        float3 viewDirection = sphere.position - _CameraPosition;
-        float3 pointOnSphere = sphere.position + (0, 1, -viewDirection.y / viewDirection.z) * sphere.radius;
-
-        const float4 pointCameraSpace = mul(_CameraWorldToLocal, float4(pointOnSphere, 1));
-        float4 pointHomogeneousSpace = mul(_ProjectionMatrix, pointCameraSpace);
-        float2 pointClipSpace = (pointHomogeneousSpace / pointHomogeneousSpace.w).xy; 
-        pointClipSpace = (-pointClipSpace + float2(1, 1)) / 2.0f;
-        
-        _Circles[index] = CreateCircle(originClipSpace.xy, 0.2f);
-        _Circles[index].radius = length(pointClipSpace - originClipSpace);
+        const float3 viewDirection = sphere.position - _CameraPosition;
+        _BoundingBoxes[index] = GetScreenAABBFromWorldSphere(sphere.position, sphere.radius, viewDirection);
     }
 }

@@ -21,7 +21,7 @@ namespace Code.RenderFeature.Pass
         {
             _buffers = new SharedBuffers(data.MaxSpheres);
             _frustumCulling = new VisibleSpheresProjection(data.FrustumCullingShader, _buffers);
-            _debugPass = new DebugPass(data.DebugMaterial, data.UseDebug, _buffers.Cirlces);
+            _debugPass = new DebugPass(data.DebugMaterial, data.UseDebug, _buffers.BoundingBoxes);
             _raytracingPass = new RaytracingPass(_buffers, data.RaytracingMaterial);
             _copiedColor = new CopiedColor("FullscreenPassColorCopy");
             renderPassEvent = (RenderPassEvent)data.InjectionPoint;
