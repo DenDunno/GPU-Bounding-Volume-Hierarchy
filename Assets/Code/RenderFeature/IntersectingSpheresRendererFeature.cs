@@ -14,23 +14,23 @@ namespace Code.RenderFeature
 
         public override void Create()
         {
-            _renderPass?.Dispose();
-            _renderPass = new IntersectingSpheresPass(_data);
-            _renderPass.ConfigureInput(ScriptableRenderPassInput.Color);
+            // _renderPass?.Dispose();
+            // _renderPass = new IntersectingSpheresPass(_data);
+            // _renderPass.ConfigureInput(ScriptableRenderPassInput.Color);
         }
  
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            if (_data.IsValid && _sphereData?.Count != 0)    
-            {
-                _renderPass.Setup(ref renderingData.cameraData, _sphereData);
-                renderer.EnqueuePass(_renderPass);
-            }
+            // if (_data.IsValid && _sphereData?.Count != 0)    
+            // {
+            //     _renderPass.Setup(ref renderingData.cameraData, _sphereData);
+            //     renderer.EnqueuePass(_renderPass);
+            // }
         }
     
         protected override void Dispose(bool disposing)
         {
-            _renderPass.Dispose();
+            //_renderPass.Dispose();
         }
 
         public void PassData(List<SphereData> data)

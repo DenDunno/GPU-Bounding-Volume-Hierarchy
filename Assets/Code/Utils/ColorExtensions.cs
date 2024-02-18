@@ -4,9 +4,8 @@ namespace Code.Utils
 {
     public static class ColorExtensions
     {
-        public static Color GetRandom(int seed = 0)
+        public static Color GetRandom()
         {
-            Random.InitState(seed);
             Vector3 randomColor = new Vector3(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
             return new Color(randomColor.x, randomColor.y, randomColor.z, 1);
         }

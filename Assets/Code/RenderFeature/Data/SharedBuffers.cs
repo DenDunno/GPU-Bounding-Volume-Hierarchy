@@ -14,7 +14,7 @@ namespace Code.RenderFeature.Data
         {
             VisibleSpheres = new ComputeBuffer(maxSpheres, sizeof(int), ComputeBufferType.Counter);
             Spheres = new ComputeBuffer(maxSpheres, SphereData.GetSize());
-            BoundingBoxes = new ComputeBuffer(maxSpheres, AABB2D.GetSize());
+            //BoundingBoxes = new ComputeBuffer(maxSpheres, AABB.GetSize());
         }
 
         public int SpheresCount { get; private set; }
