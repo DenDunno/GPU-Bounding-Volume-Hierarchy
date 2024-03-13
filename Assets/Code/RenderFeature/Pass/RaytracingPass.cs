@@ -1,5 +1,4 @@
 ﻿using Code.RenderFeature.Data;
-using Code.Utils.SubFrustums;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -24,7 +23,7 @@ namespace Code.RenderFeature.Pass
 
         public void Draw(BlitArguments blitArgs, Camera camera, int visibleSpheresCount)
         {
-            _material.SetVector("_CameraParams", camera.GetNearClipPlaneParams());
+            //_material.SetVector("_CameraParams", camera.GetNearClipPlaneParams());
             _material.SetInt("_VisibleSpheresCount", visibleSpheresCount);
 
             Blitter.BlitCameraTexture(blitArgs.CommandBuffer, blitArgs.Source, blitArgs.Destination);
