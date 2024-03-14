@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using Code.RenderFeature.Data;
+using Code.Data;
 using Code.RenderFeature.Pass;
-using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 namespace Code.RenderFeature
 {
     internal class IntersectingSpheresRendererFeature : ScriptableRendererFeature
     {
-        [SerializeField] private IntersectingSpheresPassData _data;
+        //[SerializeField] private IntersectingSpheresPassData _data;
         private IntersectingSpheresPass _renderPass;
         private List<SphereData> _sphereData = new();
 
