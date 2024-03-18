@@ -16,7 +16,7 @@ namespace Code.Components.BoundsCollector
         }
 
         public void CollectTo(NativeArray<AABB> bounds)
-        {            
+        {
             for (int i = 0; i < _transforms.Length; ++i)
             {
                 SphereBoundsCalculator boundsCalculator = new(_transforms[i].position, _radiuses[i]);

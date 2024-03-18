@@ -1,0 +1,19 @@
+#pragma kernel CSMain
+#include "AABBNode.hlsl"
+#include "MortonCode.hlsl"
+
+StructuredBuffer<AABB> _BoundingBoxes;
+RWStructuredBuffer<AABBNode> _Nodes;
+float4 _Min;
+float4 _Max;
+
+[numthreads(8,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    AABB aabb = _BoundingBoxes[id.x];
+    AABB sceneBox = AABB::Create(_Min.xyz, _Max.xyz);
+    const float3 normalizedCentroid = sceneBox.GetRelativeCoordinates(aabb.Centroid());
+    const unsigned int mortonCode = morton3D(normalizedCentroid.x, normalizedCentroid.y, normalizedCentroid.z);
+    
+    _Nodes[id.x] = AABBNode::Create(aabb, mortonCode);
+}
