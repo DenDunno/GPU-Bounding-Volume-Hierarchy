@@ -7,13 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Material
-  m_Shader: {fileID: 4800000, guid: 2a84cacd34bf45d4e8a9bbf3688d7c1f, type: 3}
+  m_Name: DottedLine
+  m_Shader: {fileID: 4800000, guid: 2b31eae10bbb0174fa2715b9f21c43d0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - FRESNEL_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -23,14 +22,27 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
-    m_Ints: []
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints:
+    - _ExampleName: 1
+    - _GapCount: 2
     m_Floats:
+<<<<<<< Updated upstream:Assets/Materials/Material.mat
     - _FresnelPower: 1
     - _FresnelStrength: 1
     - _IntersectionPower: 18.3
+=======
+    - _GapCount: 3.93
+    - _GapSize: 0.29
+    - _Offset: 0
+    - _Thickness: 0.141
+>>>>>>> Stashed changes:Assets/New Folder/DottedLine.mat
     m_Colors:
-    - _FresnelColor: {r: 0, g: 0.61, b: 1, a: 1}
-    - _IntersectionColor: {r: 0, g: 0.94, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Offset: {r: 2.17, g: 0.89, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
