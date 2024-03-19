@@ -14,8 +14,8 @@ public class DashedFrame : MonoBehaviour
     {
         _image ??= GetComponent<Image>();
         //_image.material = new Material(Shader.Find("Unlit/RoundedBox"));
-        _image.material.SetFloat("_Radius", Mathf.Max(_radius, 0.0001f));
-        _image.material.SetFloat("_Thickness", _thickness);
+        //_image.material.SetFloat("_Radius", Mathf.Max(_radius, 0.0001f));
+        //_image.material.SetFloat("_Thickness", _thickness);
     }
 
     private void Update()

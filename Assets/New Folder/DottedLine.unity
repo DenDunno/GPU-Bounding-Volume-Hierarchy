@@ -147,20 +147,21 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
+    - _Frequency: 10
     - _GapCount: 3
     m_Floats:
     - _Frequency: 0.1
     - _GapSize: 0.1
-    - _LineDistance: 21.82
-    - _LineThickness: 5.61
+    - _LineDistance: 29.64
+    - _LineThickness: 6.8
     - _Offset: 0
-    - _Phase: 0.1
-    - _Radius: 0.384
-    - _Thickness: 0.164
+    - _Phase: 20
+    - _Radius: 0
+    - _Thickness: 10
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _InsideColor: {r: 0.7660377, g: 0.05058729, b: 0.05058729, a: 1}
-    - _OutsideColor: {r: 0.16239725, g: 0.6679245, b: 0, a: 1}
+    - _Color: {r: 0.30196083, g: 0.74509805, b: 0.69399303, a: 1}
+    - _InsideColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutsideColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &213270814
@@ -500,17 +501,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 917764590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.00034529547, w: 0.99999994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 788236392}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.04}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -52.2727, y: 26.2847}
-  m_SizeDelta: {x: 1007.4851, y: 449.4306}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &917764592
 MonoBehaviour:
@@ -525,7 +526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 917764593}
-  _radius: 0.384
+  _radius: 0.236
   _thickness: 0.164
 --- !u!114 &917764593
 MonoBehaviour:
