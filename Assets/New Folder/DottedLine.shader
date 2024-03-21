@@ -38,7 +38,7 @@ Shader "Unlit/DottedLine"
 
             struct v2f
             {
-                float2 worldUv : TEXCOORD0;
+                float2 samplePosition : TEXCOORD0;
                 float4 vertex : SV_POSITION;
             };
 
@@ -57,7 +57,7 @@ Shader "Unlit/DottedLine"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.worldUv = (2 * v.uv - 1) * _RectangleSize / 2;
+                o.samplePosition = (2 * v.uv - 1) * _RectangleSize / 2;
                 return o;
             }
 
@@ -83,7 +83,7 @@ Shader "Unlit/DottedLine"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                 float angle = atan2(i.worldUv.y, i.worldUv.x);
+                 float angle = atan2(i.samplePosition.y, i.samplePosition.x);
                 if (angle < 0.0)
                 {
                     angle += 2.0 * 3.14f;
@@ -92,7 +92,7 @@ Shader "Unlit/DottedLine"
                 float wave = 0.5 * sin(_Frequency * angle + _Phase) + 0.5;
                 const int angleStep = step(_GapSize, wave);
 
-                return _Color * evaluateSDF(i.worldUv);
+                return _Color * evaluateSDF(i.samplePosition);
             }
             ENDCG
         }
