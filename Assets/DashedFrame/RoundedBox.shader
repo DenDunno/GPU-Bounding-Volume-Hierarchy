@@ -45,6 +45,7 @@ Shader "Unlit/RoundedBox"
             float _Offset;
             float _Radius;
             float _RotationSpeed;
+            float _DashSize;
             float2 _RectangleSize;
 
             v2f vert(appdata v)
@@ -149,14 +150,15 @@ Shader "Unlit/RoundedBox"
                 return previousSegmentsSum + quadrantSegmentLength;
             }
 
-            int getDash(float radius, float2 samplePosition)
+            int evaluateDash(float radius, float2 samplePosition)
             {
                 const float perimeter = evaluatePerimeter(radius);
                 const float borderCoordinate = evaluateBorderCoordinate(radius, perimeter, samplePosition);
                 const float dashSize = perimeter / _Frequency;
                 const float offset = _Time.z * _RotationSpeed % perimeter;
+                const float visibleDashSize = lerp(0, dashSize, _DashSize);
                 
-                return (borderCoordinate + offset) % dashSize < dashSize / 2;
+                return (borderCoordinate + offset) % dashSize < visibleDashSize;
             }
 
             fixed4 frag(v2f i) : SV_Target
@@ -164,7 +166,7 @@ Shader "Unlit/RoundedBox"
                 const float maxRadius = min(_RectangleSize.x, _RectangleSize.y);
                 const float radius = lerp(0, maxRadius, _Radius);
                 const int outline = evaluateOutline(maxRadius, radius, i.samplePosition);
-                const int dash = getDash(radius, i.samplePosition);
+                const int dash = evaluateDash(radius, i.samplePosition);
                 
                 return outline * dash * _Color;
             }
