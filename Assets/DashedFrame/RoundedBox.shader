@@ -46,6 +46,7 @@ Shader "Unlit/RoundedBox"
             float _Radius;
             float _RotationSpeed;
             float _DashSize;
+            float _Feather;
             float2 _RectangleSize;
 
             v2f vert(appdata v)
@@ -56,13 +57,35 @@ Shader "Unlit/RoundedBox"
                 return o;
             }
 
-            float getRoundedBoxSdf(float2 position, float2 size, float radius)
+            float GetRoundedBoxSdf(float2 position, float2 size, float radius)
             {
                 float2 boxPosition = abs(position) - size + radius;
                 return min(max(boxPosition.x, boxPosition.y), 0.0) + length(max(boxPosition, 0.0)) - radius;
             }
+            
+            float EvaluateLinearFeatheredEdge(float x, float start, float end, float feather)
+            {
+                float increase = (x - start) / feather;
+                float decrease = (end - x) / feather;
 
-            float getRoundedRectanglePerimeter(float2 rect, float radius)
+                increase = clamp(increase, 0.0, 1.0);
+                decrease = clamp(decrease, 0.0, 1.0);
+                
+                float value = x < start + feather ? increase : 1.0; 
+                value = x > end - feather ? decrease : value; 
+
+                return value;
+            }
+
+            float EvaluateOutline(float maxRadius, float radius, float2 samplePosition)
+            {
+                const float thickness = lerp(0, maxRadius, _Thickness);
+                const float sdf = GetRoundedBoxSdf(samplePosition, _RectangleSize, radius);
+
+                return EvaluateLinearFeatheredEdge(sdf, -thickness, 0, _Feather);
+            }
+
+            float GetRoundedRectanglePerimeter(float2 rect, float radius)
             {
                 const float firstSide = rect.x - 2 * radius;
                 const float secondSide = rect.y - 2 * radius;
@@ -71,18 +94,18 @@ Shader "Unlit/RoundedBox"
                 return perimeter;
             }
 
-            int evaluateQuadrant(float2 v)
+            int EvaluateQuadrant(float2 v)
             {
                 v = sign(v);
                 return -v.y + (-v.x * v.y + 3) / 2;
             }
 
-            float2 getQuadrantCoordinates(float2 v)
+            float2 GetQuadrantCoordinates(float2 v)
             {
                 return float2(abs(v.x), abs(v.y));
             }
 
-            int getSectorInsideQuadrant(float2 arcRelativeCoordinates)
+            int GetSectorInsideQuadrant(float2 arcRelativeCoordinates)
             {
                 if (arcRelativeCoordinates.x > 0 && arcRelativeCoordinates.y > 0)
                     return 1;
@@ -90,7 +113,7 @@ Shader "Unlit/RoundedBox"
                 return arcRelativeCoordinates.x - arcRelativeCoordinates.y > 0 ? 0 : 2;
             }
 
-            float2 inverseSecondAndFourthQuadrant(float2 samplePosition)
+            float2 InverseSecondAndFourthQuadrant(float2 samplePosition)
             {
                 float2 flippedPosition = float2(samplePosition.y, samplePosition.x);
                 const int isSecondOrFourthQuadrant = samplePosition.x * samplePosition.y < 0;
@@ -98,77 +121,70 @@ Shader "Unlit/RoundedBox"
                 return isSecondOrFourthQuadrant ? flippedPosition : samplePosition;
             }
 
-            int evaluateOutline(float maxRadius, float radius, float2 samplePosition)
-            {
-                const float thickness = lerp(0, maxRadius, _Thickness);
-                const float sdf = getRoundedBoxSdf(samplePosition, _RectangleSize, radius);
-
-                return sdf < 0 && sdf > -thickness;
-            }
-
-            float evaluatePerimeter(float2 radius)
+            float EvaluatePerimeter(float2 radius)
             {
                 const float2 innerRectangle = 2 * (_RectangleSize - radius);
 
                 return 2 * (innerRectangle.x + innerRectangle.y + UNITY_PI * radius);
             }
 
-            float evaluateCornerLength(float2 arcRelativeCoordinates, float radius, float2 quadrantSize)
+            float EvaluateCornerLength(float2 arcRelativeCoordinates, float radius, float2 quadrantSize)
             {
                 const float angle = atan2(arcRelativeCoordinates.y, arcRelativeCoordinates.x);
                 const float arcLength = angle * radius;
-                
-                return arcLength + (quadrantSize.y - radius); 
+
+                return arcLength + (quadrantSize.y - radius);
             }
 
-            float evaluateQuadrantSegmentLength(int quadrant, float radius, float segmentPerimeter, float2 samplePosition)
+            float EvaluateQuadrantSegmentLength(int quadrant, float radius, float segmentPerimeter,float2 samplePosition)
             {
-                const float2 inversedSamplePosition = inverseSecondAndFourthQuadrant(samplePosition);
+                const float2 inversedSamplePosition = InverseSecondAndFourthQuadrant(samplePosition);
                 const float2 quadrantSize = quadrant % 2 == 1 ? _RectangleSize.yx : _RectangleSize.xy;
-                const float2 quadrantCoordinates = getQuadrantCoordinates(inversedSamplePosition);
-                
+                const float2 quadrantCoordinates = GetQuadrantCoordinates(inversedSamplePosition);
+
                 const float2 arcPosition = quadrantSize - radius;
                 const float2 arcRelativeCoordinates = quadrantCoordinates - arcPosition;
-                const int sector = getSectorInsideQuadrant(arcRelativeCoordinates);
-                
+                const int sector = GetSectorInsideQuadrant(arcRelativeCoordinates);
+
                 switch (sector)
                 {
-                    case VERTICAL_SIDE: return  quadrantCoordinates.y;
-                    case CORNER: return  evaluateCornerLength(arcRelativeCoordinates, radius, quadrantSize);
-                    case HORIZONTAL_SIDE: return segmentPerimeter - quadrantCoordinates.x;
-                    default: return -1;
+                case VERTICAL_SIDE: return quadrantCoordinates.y;
+                case CORNER: return EvaluateCornerLength(arcRelativeCoordinates, radius, quadrantSize);
+                case HORIZONTAL_SIDE: return segmentPerimeter - quadrantCoordinates.x;
+                default: return -1;
                 }
             }
 
-            float evaluateBorderCoordinate(float radius, float perimeter, float2 samplePosition)
+            float EvaluateBorderCoordinate(float radius, float perimeter, float2 samplePosition)
             {
-                const int quadrant = evaluateQuadrant(samplePosition);
+                const int quadrant = EvaluateQuadrant(samplePosition);
                 const float segmentPerimeter = perimeter / 4;
                 const float previousSegmentsSum = quadrant * segmentPerimeter;
-                const float quadrantSegmentLength = evaluateQuadrantSegmentLength(quadrant, radius, segmentPerimeter, samplePosition);
-                
+                const float quadrantSegmentLength = EvaluateQuadrantSegmentLength(quadrant, radius, segmentPerimeter, samplePosition);
+
                 return previousSegmentsSum + quadrantSegmentLength;
             }
 
-            int evaluateDash(float radius, float2 samplePosition)
+            float EvaluateDash(float radius, float2 samplePosition)
             {
-                const float perimeter = evaluatePerimeter(radius);
-                const float borderCoordinate = evaluateBorderCoordinate(radius, perimeter, samplePosition);
+                const float perimeter = EvaluatePerimeter(radius);
+                const float borderCoordinate = EvaluateBorderCoordinate(radius, perimeter, samplePosition);
                 const float dashSize = perimeter / _Frequency;
                 const float offset = _Time.z * _RotationSpeed % perimeter;
                 const float visibleDashSize = lerp(0, dashSize, _DashSize);
+                const float dashValue = (borderCoordinate + offset) % dashSize;
                 
-                return (borderCoordinate + offset) % dashSize < visibleDashSize;
+                return EvaluateLinearFeatheredEdge(dashValue, 0, visibleDashSize, _Feather);
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
                 const float maxRadius = min(_RectangleSize.x, _RectangleSize.y);
                 const float radius = lerp(0, maxRadius, _Radius);
-                const int outline = evaluateOutline(maxRadius, radius, i.samplePosition);
-                const int dash = evaluateDash(radius, i.samplePosition);
-                
-                return outline * dash * _Color;
+                const float outline = EvaluateOutline(maxRadius, radius, i.samplePosition);
+                const float dash = EvaluateDash(radius, i.samplePosition);
+
+                return fixed4(_Color.xyz, _Color.a * outline *  dash);
             }
             ENDCG
         }
