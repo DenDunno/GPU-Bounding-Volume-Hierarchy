@@ -1,0 +1,25 @@
+#pragma kernel PrefixSum
+
+RWStructuredBuffer<int> Input;
+#define THREADS_PER_GROUP 4
+
+groupshared uint sharedSortedTile[THREADS_PER_GROUP];
+
+[numthreads(THREADS_PER_GROUP,1,1)]
+void PrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, uint3 groupId : SV_GroupID)
+{
+    sharedSortedTile[threadId.x] = Input[id.x];
+    GroupMemoryBarrierWithGroupSync();
+
+    for (uint offset = 1; offset < THREADS_PER_GROUP; offset *= 2)
+    {
+        bool inBounds = threadId.x >= offset;
+        uint childLeafSum = inBounds ? sharedSortedTile[threadId.x - offset] : 0;
+
+        GroupMemoryBarrierWithGroupSync();
+
+        sharedSortedTile[threadId.x] += childLeafSum;
+    }
+
+    Input[id.x] = sharedSortedTile[threadId.x];
+}
