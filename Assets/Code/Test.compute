@@ -1,25 +1,53 @@
 #pragma kernel PrefixSum
+#pragma enable_d3d11_debug_symbols
 
 RWStructuredBuffer<int> Input;
-#define THREADS_PER_GROUP 4
+#define THREADS_PER_GROUP 8
 
-groupshared uint sharedSortedTile[THREADS_PER_GROUP];
+groupshared uint groupPrefixSum[THREADS_PER_GROUP];
+groupshared uint invertedBitAtStep[THREADS_PER_GROUP];
+uniform int Step; 
 
-[numthreads(THREADS_PER_GROUP,1,1)]
-void PrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, uint3 groupId : SV_GroupID)
+int ComputeExclusivePrefixSumForGroup(int threadId, int value)
 {
-    sharedSortedTile[threadId.x] = Input[id.x];
+    groupPrefixSum[threadId] = value;
     GroupMemoryBarrierWithGroupSync();
 
-    for (uint offset = 1; offset < THREADS_PER_GROUP; offset *= 2)
+    for (int offset = 1; offset < THREADS_PER_GROUP; offset *= 2)
     {
-        bool inBounds = threadId.x >= offset;
-        uint childLeafSum = inBounds ? sharedSortedTile[threadId.x - offset] : 0;
-
+        bool inBounds = threadId >= offset;
+        int childLeftLeafSum = inBounds ? groupPrefixSum[threadId - offset] : 0;
+        int childRightLeafSum = groupPrefixSum[threadId];
+        
         GroupMemoryBarrierWithGroupSync();
-
-        sharedSortedTile[threadId.x] += childLeafSum;
+        groupPrefixSum[threadId] = childLeftLeafSum + childRightLeafSum;
     }
 
-    Input[id.x] = sharedSortedTile[threadId.x];
+    return groupPrefixSum[threadId] - value;
+}
+
+int GetGroupPrefixSum(int threadId)
+{
+    return groupPrefixSum[threadId];
+}
+
+[numthreads(THREADS_PER_GROUP,1,1)]
+void PrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID)
+{
+    const int value = Input[id.x];
+    const int mask = 1 << Step;
+    const int bit = value & mask;
+    const int invertedBit = 1 - bit;
+    invertedBitAtStep[threadId.x] = invertedBit;
+    const int threadPrefixSum = ComputeExclusivePrefixSumForGroup(threadId.x, invertedBit);
+    
+    int lastIndex = THREADS_PER_GROUP - 1;
+    int groupExclusivePrefixSum = GetGroupPrefixSum(lastIndex) - invertedBitAtStep[lastIndex];
+
+    const int totalFalseBits = groupExclusivePrefixSum + invertedBitAtStep[lastIndex];
+    const int indexIfBitIsFalse = threadPrefixSum;
+    const int indexIfBitIsTrue = threadId.x - indexIfBitIsFalse + totalFalseBits;
+    const int scatterIndex = bit ? indexIfBitIsTrue : indexIfBitIsFalse;
+
+    Input[scatterIndex] = Input[threadId.x];
 }
