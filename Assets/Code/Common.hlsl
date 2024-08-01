@@ -1,0 +1,2 @@
+
+#define THREADS_PER_GROUP 4

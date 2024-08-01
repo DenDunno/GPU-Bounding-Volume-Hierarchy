@@ -30,7 +30,7 @@ namespace Code
 
             for (int i = 0; i < _digits; ++i)
             {
-                _computeShader.SetInt("Step", i);
+                _computeShader.SetInt("BitOffset", i);
                 _kernel.Dispatch();   
             }
             
