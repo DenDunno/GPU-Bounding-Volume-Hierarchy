@@ -2,7 +2,7 @@
 #pragma enable_d3d11_debug_symbols
 
 RWStructuredBuffer<int> Input;
-#define THREADS_PER_GROUP 8
+#define THREADS_PER_GROUP 4
 
 groupshared uint groupPrefixSum[THREADS_PER_GROUP];
 groupshared uint invertedBitAtStep[THREADS_PER_GROUP];
@@ -32,22 +32,23 @@ int GetGroupPrefixSum(int threadId)
 }
 
 [numthreads(THREADS_PER_GROUP,1,1)]
-void PrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID)
+void PrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, uint3 groupId : SV_GroupID)
 {
     const int value = Input[id.x];
     const int mask = 1 << Step;
-    const int bit = value & mask;
+    const int bit = (value & mask) == mask;
     const int invertedBit = 1 - bit;
     invertedBitAtStep[threadId.x] = invertedBit;
-    const int threadPrefixSum = ComputeExclusivePrefixSumForGroup(threadId.x, invertedBit);
+    const int prefixSum = ComputeExclusivePrefixSumForGroup(threadId.x, invertedBit);
     
     int lastIndex = THREADS_PER_GROUP - 1;
-    int groupExclusivePrefixSum = GetGroupPrefixSum(lastIndex) - invertedBitAtStep[lastIndex];
+    int groupPrefixSum = GetGroupPrefixSum(lastIndex) - invertedBitAtStep[lastIndex];
 
-    const int totalFalseBits = groupExclusivePrefixSum + invertedBitAtStep[lastIndex];
-    const int indexIfBitIsFalse = threadPrefixSum;
+    const int totalFalseBits = groupPrefixSum + invertedBitAtStep[lastIndex];
+    const int indexIfBitIsFalse = prefixSum;
     const int indexIfBitIsTrue = threadId.x - indexIfBitIsFalse + totalFalseBits;
-    const int scatterIndex = bit ? indexIfBitIsTrue : indexIfBitIsFalse;
+    const int localScatterIndex = bit ? indexIfBitIsTrue : indexIfBitIsFalse;
+    const int globalScatterIndex = groupId.x * THREADS_PER_GROUP + localScatterIndex;
 
-    Input[scatterIndex] = Input[threadId.x];
+    Input[globalScatterIndex] = Input[id.x];
 }
