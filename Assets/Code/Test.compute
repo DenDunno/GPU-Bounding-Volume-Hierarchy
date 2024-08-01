@@ -4,6 +4,7 @@
 
 RWStructuredBuffer<int> Input;
 uniform int BitOffset;
+uniform int ArrayLength;
 
 [numthreads(THREADS_PER_GROUP,1,1)]
 void PrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, uint3 groupId : SV_GroupID)
@@ -12,7 +13,7 @@ void PrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID
     const int bit = GetBitAtPosition(value, BitOffset);
     const int invertedBit = 1 - bit;
     const int prefixSum = ComputeExclusivePrefixSumForGroup(threadId.x, invertedBit);
-    const int scatterIndex = ComputeScatterIndex(threadId.x, groupId.x, bit, prefixSum);
+    const int scatterIndex = ComputeScatterIndex(threadId.x, groupId.x, bit, prefixSum, ArrayLength);
 
     Input[scatterIndex] = value;
 }

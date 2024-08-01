@@ -22,6 +22,7 @@ namespace Code
             Array.Copy(_ints, _temp, _temp.Length);
             
             _computeShader.SetBuffer(_kernel.ID, "Input", _input);
+            _computeShader.SetInt("ArrayLength", _ints.Length);
         }
 
         private void Update()
