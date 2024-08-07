@@ -5,14 +5,14 @@ namespace MyFolder.ComputeShaderNM
     public class Kernel
     {
         public readonly int ID;
+        public readonly Vector3Int DispatchSize;
         private readonly ComputeShader _computeShader;
-        private readonly Vector3Int _dispatchSize;
 
         public Kernel(ComputeShader computeShader, string name, Vector3Int payloadDispatchSize)
         {
             _computeShader = computeShader;
             ID = computeShader.FindKernel(name);
-            _dispatchSize = GetDispatchSize(payloadDispatchSize);
+            DispatchSize = GetDispatchSize(payloadDispatchSize);
         }
 
         private Vector3Int GetDispatchSize(Vector3Int payloadDispatchSize)
@@ -32,7 +32,7 @@ namespace MyFolder.ComputeShaderNM
 
         public void Dispatch()
         {
-            _computeShader.Dispatch(ID, _dispatchSize.x, _dispatchSize.y, _dispatchSize.z);
+            _computeShader.Dispatch(ID, DispatchSize.x, DispatchSize.y, DispatchSize.z);
         }
     }
 }

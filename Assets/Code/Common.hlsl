@@ -1,3 +1,5 @@
 
 #define THREADS_PER_GROUP 4
+#define BLOCK_SIZE 4
 #define RADIX 8
+#define PREFIX_SUM_SIZE THREADS_PER_GROUP

@@ -1,4 +1,3 @@
-using System;
 using Code.Utils.ShaderUtils.Buffer;
 using UnityEngine;
 
@@ -18,14 +17,13 @@ namespace Code
 
         private void Start()
         {
-            _sort = new GPURadixSort(_input.Length, _computeShader);
+            _sort = new GPURadixSort(_computeShader, _input.Length);
             _sort.Initialize(new SetArrayOperation<int>(_input));
         }
 
         private void Update()
         {
-            int[] sortedOutput = _sort.Execute();
-            Array.Copy(sortedOutput, _output, _output.Length);
+            _sort.Execute(_output);
         }
     }
 }
