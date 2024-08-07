@@ -5,11 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/GPURadixSort.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/GPURadixSort.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Buffer.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Buffer/SetArrayOperation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Buffer/SetArrayOperation.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Buffer/SetDataOperation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Buffer/SetDataOperation.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Buffer/SetListOperation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Buffer/SetListOperation.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Buffer/SetNativeArrayOperation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Buffer/SetNativeArrayOperation.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Common.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Common.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Test.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort.hlsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort.hlsl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ChunkRadixSort.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ChunkRadixSort.compute.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/CachedShaderBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/CachedShaderBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ComputeShaderBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ComputeShaderBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/IShaderBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/IShaderBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/MaterialBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/MaterialBridge.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +38,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a8dbfcead97c40aabc191fa10f8bc4ea1dba00/e7/d06c856b/NativeArray`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVH.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/MortonCodeAssignment.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal/Editor/Overrides/ColorLookupEditor.cs" root0="SKIP_HIGHLIGHTING" />
@@ -106,6 +124,11 @@
       <workItem from="1722303524170" duration="5774000" />
       <workItem from="1722381049539" duration="8683000" />
       <workItem from="1722462094659" duration="4866000" />
+      <workItem from="1722552665991" duration="1916000" />
+      <workItem from="1722652226587" duration="251000" />
+      <workItem from="1722652587765" duration="4531000" />
+      <workItem from="1722721292159" duration="2191000" />
+      <workItem from="1722988976402" duration="6220000" />
     </task>
     <servers />
   </component>

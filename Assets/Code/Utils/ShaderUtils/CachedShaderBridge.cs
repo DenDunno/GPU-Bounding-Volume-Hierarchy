@@ -30,7 +30,12 @@ namespace Code.Utils.ShaderUtils
 
         public void SetBuffer(string name, ComputeBuffer value)
         {
-            _bridge.SetBuffer(GetId(name), value);
+            SetBuffer(0, name, value);
+        }
+        
+        public void SetBuffer(int kernelId, string name, ComputeBuffer value)
+        {
+            _bridge.SetBuffer(kernelId, GetId(name), value);
         }
 
         private int GetId(string name)
@@ -39,7 +44,7 @@ namespace Code.Utils.ShaderUtils
             {
                 id = Shader.PropertyToID(name);
                 _cachedProperties.Add(name, id);
-            };
+            }
             
             return id;
         }

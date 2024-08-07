@@ -1,5 +1,5 @@
 using System;
-using MyFolder.ComputeShaderNM;
+using Code.Utils.ShaderUtils.Buffer;
 using UnityEngine;
 
 namespace Code
@@ -7,35 +7,25 @@ namespace Code
     public class Test : MonoBehaviour
     {
         [SerializeField] private ComputeShader _computeShader;
-        [SerializeField] private int[] _ints;
-        [SerializeField] private int[] _debug;
-        [SerializeField] [Range(0, 32)] private int _digits = 1;
-        private ComputeBuffer _input;
-        private Kernel _kernel;
-        private int[] _temp;
+        [SerializeField] private int[] _input;
+        [SerializeField] private int[] _output;
+        private GPURadixSort _sort;
+
+        private void OnValidate()
+        {
+            _output = new int[_input.Length];
+        }
 
         private void Start()
         {
-            _kernel = new Kernel(_computeShader, "PrefixSum", new Vector3Int(_ints.Length, 1, 1));
-            _input = new ComputeBuffer(_ints.Length, sizeof(int));
-            _temp = new int[_ints.Length];
-            Array.Copy(_ints, _temp, _temp.Length);
-            
-            _computeShader.SetBuffer(_kernel.ID, "Input", _input);
-            _computeShader.SetInt("ArrayLength", _ints.Length);
+            _sort = new GPURadixSort(_input.Length, _computeShader);
+            _sort.Initialize(new SetArrayOperation<int>(_input));
         }
 
         private void Update()
         {
-            _input.SetData(_temp);
-
-            for (int i = 0; i < _digits; ++i)
-            {
-                _computeShader.SetInt("BitOffset", i);
-                _kernel.Dispatch();   
-            }
-            
-            _input.GetData(_ints);
+            int[] sortedOutput = _sort.Execute();
+            Array.Copy(sortedOutput, _output, _output.Length);
         }
     }
 }

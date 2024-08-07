@@ -1,0 +1,12 @@
+#pragma kernel CSMain
+#pragma enable_d3d11_debug_symbols
+#include "PrefixSum.hlsl"
+
+RWStructuredBuffer<int> Input;
+uniform int BitOffset;
+
+[numthreads(THREADS_PER_GROUP,1,1)]
+void CSMain(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, uint3 groupId : SV_GroupID)
+{
+    Input[id.x] = id.x;
+}
