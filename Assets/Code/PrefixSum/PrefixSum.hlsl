@@ -1,4 +1,4 @@
-#include "Common.hlsl"
+#include "..//Common.hlsl"
 groupshared int groupPrefixSum[BLOCK_SIZE][PREFIX_SUM_SIZE];
 
 int ComputeExclusivePrefixSumForGroup(int3 threadId, int value)
@@ -22,4 +22,17 @@ int ComputeExclusivePrefixSumForGroup(int3 threadId, int value)
 uint GetGroupInclusivePrefixSum(int threadIdX, int threadIdY)
 {
     return groupPrefixSum[threadIdY][threadIdX];
+}
+
+uint GetGroupSum(int threadIdY)
+{
+    return GetGroupInclusivePrefixSum(LAST_INDEX, threadIdY);
+}
+
+void UpSweep(int input)
+{
+}
+
+void DownSweep(int input)
+{
 }
