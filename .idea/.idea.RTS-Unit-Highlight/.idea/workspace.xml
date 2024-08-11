@@ -5,21 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/RadixSort.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Provider.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Provider/ConstantProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Provider/ConstantProvider.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Provider/IProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Provider/IProvider.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Dispatch.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Dispatch.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/DispatchSize.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/DispatchSize/IDispatchSizeProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/DispatchSize/IDispatchSizeProvider.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/DispatchSize/OptimalDispatchSize.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/DispatchSize/OptimalDispatchSize.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/ChunkRadixSort.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/ChunkRadixSort.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Common.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Common.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/GPURadixSort.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/GPURadixSort.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/GPURadixSortInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSortInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/GPURadixSortInput.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSortInput.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Kernel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Kernel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +34,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a8dbfcead97c40aabc191fa10f8bc4ea1dba00/e7/d06c856b/NativeArray`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVH.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/MortonCodeAssignment.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/DispatchSize/IDispatchSizeProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal/Editor/Overrides/ColorLookupEditor.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -123,7 +125,7 @@
       <workItem from="1722721292159" duration="2191000" />
       <workItem from="1722988976402" duration="13683000" />
       <workItem from="1723256948316" duration="2886000" />
-      <workItem from="1723325839368" duration="2396000" />
+      <workItem from="1723325839368" duration="6904000" />
     </task>
     <servers />
   </component>

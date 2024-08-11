@@ -1,3 +1,6 @@
+#pragma kernel UpSweep
+#pragma kernel DownSweep
+
 #include "..//Common.hlsl"
 groupshared int groupPrefixSum[BLOCK_SIZE][PREFIX_SUM_SIZE];
 
@@ -29,10 +32,12 @@ uint GetGroupSum(int threadIdY)
     return GetGroupInclusivePrefixSum(LAST_INDEX, threadIdY);
 }
 
-void UpSweep(int input)
+[numthreads(THREADS_PER_GROUP,1,1)]
+void UpSweep(int3 id : SV_DispatchThreadID)
 {
 }
 
-void DownSweep(int input)
+[numthreads(THREADS_PER_GROUP,1,1)]
+void DownSweep(int3 id : SV_DispatchThreadID)
 {
 }
