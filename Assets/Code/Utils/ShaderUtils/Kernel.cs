@@ -13,7 +13,7 @@ namespace MyFolder.ComputeShaderNM
             ID = computeShader.FindKernel(name);
         }
 
-        private Vector3Int ComputeOptimalDispatchSize(Vector3Int payloadDispatchSize)
+        public Vector3Int ComputeOptimalDispatchSize(Vector3Int payloadDispatchSize)
         {
             _computeShader.GetKernelThreadGroupSizes(ID, 
                 out uint threadSizeX,

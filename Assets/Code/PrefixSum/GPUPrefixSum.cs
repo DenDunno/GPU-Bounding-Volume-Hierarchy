@@ -13,11 +13,11 @@ namespace Code
 
         public GPUPrefixSum(ComputeBuffer input, ComputeShader shader)
         {
-            _input = input;
-            _size = input.count;
             _output = new ComputeBuffer(input.count, input.stride);
-            _upSweepKernel = new Kernel(shader, "UpSweep", new Vector3Int(_size, 1, 1));
-            _downSweepKernel = new Kernel(shader, "DownSweep", new Vector3Int(_size, 1, 1));
+            _downSweepKernel = new Kernel(shader, "DownSweep");
+            _upSweepKernel = new Kernel(shader, "UpSweep");
+            _size = input.count;
+            _input = input;
         }
 
         public void Execute()

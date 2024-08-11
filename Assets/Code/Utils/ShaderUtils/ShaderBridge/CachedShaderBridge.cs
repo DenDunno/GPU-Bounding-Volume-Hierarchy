@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Code.Utils.ShaderUtils
 {
-    public class CachedShaderBridge
+    public class CachedShaderBridge : IShaderBridge<string>
     {
         private readonly Dictionary<string, int> _cachedProperties = new();
-        private readonly IShaderBridge _bridge;
+        private readonly IShaderBridge<int> _bridge;
 
-        public CachedShaderBridge(IShaderBridge bridge)
+        public CachedShaderBridge(IShaderBridge<int> bridge)
         {
             _bridge = bridge;
         }
@@ -18,7 +18,7 @@ namespace Code.Utils.ShaderUtils
             _bridge.SetInt(GetId(name), value);
         }
 
-        public void SetFloat(string name, int value)
+        public void SetFloat(string name, float value)
         {
             _bridge.SetFloat(GetId(name), value);
         }
@@ -28,11 +28,6 @@ namespace Code.Utils.ShaderUtils
             _bridge.SetVector(GetId(name), value);
         }
 
-        public void SetBuffer(string name, ComputeBuffer value)
-        {
-            SetBuffer(0, name, value);
-        }
-        
         public void SetBuffer(int kernelId, string name, ComputeBuffer value)
         {
             _bridge.SetBuffer(kernelId, GetId(name), value);
