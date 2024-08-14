@@ -1,0 +1,22 @@
+#pragma kernel UpSweep
+#pragma kernel DownSweep
+#include "..//Common.hlsl"
+
+RWStructuredBuffer<int> Result;
+int LastIndex;
+int Step;
+
+[numthreads(1,1,1)]
+void UpSweep(int3 id : SV_DispatchThreadID)
+{
+    const int rightLeafIndex = LastIndex - id.x * (Step * 2);
+    const int leftLeafIndex = rightLeafIndex - Step;
+    const bool inBounds = leftLeafIndex >= 0;
+    
+    Result[rightLeafIndex] += inBounds ? Result[leftLeafIndex] : 0;
+}
+
+[numthreads(THREADS_PER_GROUP,1,1)]
+void DownSweep(int3 id : SV_DispatchThreadID)
+{
+}

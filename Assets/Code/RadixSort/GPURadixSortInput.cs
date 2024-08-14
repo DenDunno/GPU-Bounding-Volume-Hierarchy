@@ -4,12 +4,16 @@ namespace Code
 {
     public class GPURadixSortInput
     {
+        public readonly ComputeShader PrefixSumShader;
+        public readonly ComputeShader SortShader;
         public readonly int SortedBitsPerPass;
         public readonly int ArraySize;
 
-        public GPURadixSortInput(int arraySize, int sortedBitsPerPass = 2)
+        public GPURadixSortInput(ComputeShader sortShader, ComputeShader prefixSumShader, int arraySize, int sortedBitsPerPass = 2)
         {
             SortedBitsPerPass = sortedBitsPerPass;
+            PrefixSumShader = prefixSumShader;
+            SortShader = sortShader;
             ArraySize = arraySize;
         }
 

@@ -1,6 +1,5 @@
 #pragma kernel CSMain
-#pragma enable_d3d11_debug_symbols
-#include "../PrefixSum/PrefixSum.hlsl"
+#include "../PrefixSum/LocalPrefixSum.hlsl"
 
 RWStructuredBuffer<int> Input;
 RWStructuredBuffer<int> BlockSum;
@@ -13,7 +12,7 @@ void CSMain(int3 id : SV_DispatchThreadID, int3 threadId : SV_GroupThreadID, int
     const int value = Input[id.x];
     const int mask = id.y;
     const int hasPassedMask = value == mask;
-    const int prefixSumForGroup = ComputeExclusivePrefixSumForGroup(threadId, hasPassedMask);
+    const int groupPrefixSum = ComputeExclusivePrefixSumForGroup(threadId, hasPassedMask);
     const int totalElementsInGroup = GetGroupSum(threadId.y);
     const int blockSumIndex = id.y * ThreadGroups + groupId.x;
 
@@ -21,6 +20,6 @@ void CSMain(int3 id : SV_DispatchThreadID, int3 threadId : SV_GroupThreadID, int
     
     if (hasPassedMask)
     {
-        LocalPrefixSum[id.x] = prefixSumForGroup;
+        LocalPrefixSum[id.x] = groupPrefixSum;
     }
 }
