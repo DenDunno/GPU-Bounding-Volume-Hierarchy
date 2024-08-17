@@ -8,6 +8,7 @@ namespace Code
     {
         private readonly IShaderBridge<string> _shaderBridge;
         private readonly Kernel _chunkPrefixSumKernel;
+        private readonly ComputeBuffer _blockSum;
         private readonly ComputeBuffer _input;
         private readonly int _size;
 
@@ -15,12 +16,14 @@ namespace Code
         {
             _shaderBridge = new CachedShaderBridge(new ComputeShaderBridge(shader));
             _chunkPrefixSumKernel = new Kernel(shader, "ChunkPrefixSum");
+            _blockSum = new ComputeBuffer(2, sizeof(int)); 
             _size = input.count;
             _input = input;
         }
 
         public void Initialize()
         {
+            _shaderBridge.SetBuffer(_chunkPrefixSumKernel.ID, "BlockSum", _input);
             _shaderBridge.SetBuffer(_chunkPrefixSumKernel.ID, "Result", _input);
             _shaderBridge.SetInt("InputSize", _size);
         }
@@ -28,15 +31,6 @@ namespace Code
         public void Dispatch()
         {
             _chunkPrefixSumKernel.Dispatch(new Vector3Int(1, 1, 1));
-        }
-
-        private void UpSweep()
-        {
-            for (int step = 1; step < _size; step *= 2)
-            {
-                int threadsTotal = Mathf.CeilToInt(_size / (step * 2f));
-                _shaderBridge.SetInt("Step", step);
-            }
         }
     }
 }

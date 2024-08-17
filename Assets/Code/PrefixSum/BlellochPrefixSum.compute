@@ -2,22 +2,39 @@
 #include "..//Common.hlsl"
 
 RWStructuredBuffer<int> Result;
+RWStructuredBuffer<int> BlockSum;
 uint InputSize;
 #define LAST_INDEX InputSize - 1
 
-void UpSweep(int3 id)
+groupshared int Data[THREADS_PER_GROUP];
+
+struct LeafIndices
+{
+    uint Left;
+    uint Right;
+
+    static LeafIndices Create(uint globalId, uint step)
+    {
+        LeafIndices indices;
+        indices.Right = LAST_INDEX - globalId * (step * 2);
+        indices.Left = indices.Right - step;
+        return indices;
+    }
+};
+
+void UpSweep(uint globalId)
 {
     for (uint step = 1; step < InputSize; step *= 2)
     {
-        int threadsTotal = ceil(InputSize / (step * 2.0f));
+        uint threadsTotal = ceil(InputSize / (step * 2.0f));
 
-        if (id.x < threadsTotal)
+        if (globalId < threadsTotal)
         {
-            const int rightLeafIndex = LAST_INDEX - id.x * (step * 2);
-            const int leftLeafIndex = rightLeafIndex - step;
-            Result[rightLeafIndex] += Result[leftLeafIndex];
-            GroupMemoryBarrierWithGroupSync();
+            LeafIndices indices = LeafIndices::Create(globalId, step);
+            Data[indices.Right] += Data[indices.Left];
         }
+        
+        GroupMemoryBarrierWithGroupSync();
     }
 }
 
@@ -25,38 +42,58 @@ void SetLastElementToZero(const uint id)
 {
     if (id == LAST_INDEX)
     {
-        Result[LAST_INDEX] = 0;
+        Data[LAST_INDEX] = 0;
     }
 
     GroupMemoryBarrierWithGroupSync();
 }
 
-void DownSweep(uint3 id)
+void DownSweep(uint globalId)
 {
-    SetLastElementToZero(id.x);
-
-    uint step = InputSize / 2;
-    for (uint threadsTotal = 1; threadsTotal < InputSize; threadsTotal *= 2, step /= 2)
+    SetLastElementToZero(globalId);
+    
+    for (uint threadsTotal = 1, step = InputSize / 2; threadsTotal < InputSize; threadsTotal *= 2, step /= 2)
     {
-        if (id.x < threadsTotal)
+        if (globalId < threadsTotal)
         {
-            const uint rightLeafIndex = LAST_INDEX - id.x * (step * 2);
-            const uint leftLeafIndex = rightLeafIndex - step;
-
-            const int rightLeaf = Result[rightLeafIndex];
-            const int leftLeaf = Result[leftLeafIndex];
+            LeafIndices indices = LeafIndices::Create(globalId, step);
+            const int rightLeaf = Data[indices.Right];
+            const int leftLeaf = Data[indices.Left];
             
-            GroupMemoryBarrierWithGroupSync();
-            
-            Result[leftLeafIndex] = rightLeaf;
-            Result[rightLeafIndex] = rightLeaf + leftLeaf;
+            Data[indices.Left] = rightLeaf;
+            Data[indices.Right] = rightLeaf + leftLeaf;
         }
+        GroupMemoryBarrierWithGroupSync();
+    }
+
+    GroupMemoryBarrierWithGroupSync();
+}
+
+void MoveDataFromGlobalToSharedMemory(uint globalId, uint threadId)
+{
+    Data[threadId] = Result[globalId];
+    GroupMemoryBarrierWithGroupSync();
+}
+
+void MoveDataFromSharedToGlobalMemory(uint globalId, uint threadId)
+{
+    Result[globalId] = Data[threadId];
+}
+
+void TryWriteBlockSum(uint globalId, uint groupId)
+{
+    if (globalId == 0)
+    {
+        BlockSum[groupId] = Data[THREAD_LAST_INDEX];
     }
 }
 
 [numthreads(THREADS_PER_GROUP,1,1)]
-void ChunkPrefixSum(uint3 id : SV_DispatchThreadID)
+void ChunkPrefixSum(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID, uint3 threadId : SV_GroupThreadID)
 {
-    UpSweep(id);
-    DownSweep(id);
+    MoveDataFromGlobalToSharedMemory(id.x, threadId.x);
+    UpSweep(id.x);
+    DownSweep(id.x);
+    //TryWriteBlockSum(id.x, groupId.x);
+    MoveDataFromSharedToGlobalMemory(id.x, threadId.x);
 }
