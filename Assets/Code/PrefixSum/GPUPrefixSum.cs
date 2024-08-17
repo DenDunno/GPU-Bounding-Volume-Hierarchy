@@ -7,30 +7,27 @@ namespace Code
     public class GPUPrefixSum
     {
         private readonly IShaderBridge<string> _shaderBridge;
-        private readonly Kernel _downSweepKernel;
-        private readonly Kernel _upSweepKernel;
+        private readonly Kernel _chunkPrefixSumKernel;
         private readonly ComputeBuffer _input;
         private readonly int _size;
 
         public GPUPrefixSum(ComputeBuffer input, ComputeShader shader)
         {
             _shaderBridge = new CachedShaderBridge(new ComputeShaderBridge(shader));
-            _downSweepKernel = new Kernel(shader, "DownSweep");
-            _upSweepKernel = new Kernel(shader, "UpSweep");
+            _chunkPrefixSumKernel = new Kernel(shader, "ChunkPrefixSum");
             _size = input.count;
             _input = input;
         }
 
         public void Initialize()
         {
-            _shaderBridge.SetBuffer(_upSweepKernel.ID, "Result", _input);
-            _shaderBridge.SetInt("LastIndex", _size - 1);
+            _shaderBridge.SetBuffer(_chunkPrefixSumKernel.ID, "Result", _input);
+            _shaderBridge.SetInt("InputSize", _size);
         }
 
         public void Dispatch()
         {
-            UpSweep();
-            DownSweep();
+            _chunkPrefixSumKernel.Dispatch(new Vector3Int(1, 1, 1));
         }
 
         private void UpSweep()
@@ -39,14 +36,6 @@ namespace Code
             {
                 int threadsTotal = Mathf.CeilToInt(_size / (step * 2f));
                 _shaderBridge.SetInt("Step", step);
-                _upSweepKernel.Dispatch(threadsTotal);
-            }
-        }
-
-        private void DownSweep()
-        {
-            for (int i = 1; i < _size; i *= 2)
-            {
             }
         }
     }

@@ -1,22 +1,62 @@
-#pragma kernel UpSweep
-#pragma kernel DownSweep
+#pragma kernel ChunkPrefixSum
 #include "..//Common.hlsl"
 
 RWStructuredBuffer<int> Result;
-int LastIndex;
-int Step;
+uint InputSize;
+#define LAST_INDEX InputSize - 1
 
-[numthreads(1,1,1)]
-void UpSweep(int3 id : SV_DispatchThreadID)
+void UpSweep(int3 id)
 {
-    const int rightLeafIndex = LastIndex - id.x * (Step * 2);
-    const int leftLeafIndex = rightLeafIndex - Step;
-    const bool inBounds = leftLeafIndex >= 0;
-    
-    Result[rightLeafIndex] += inBounds ? Result[leftLeafIndex] : 0;
+    for (uint step = 1; step < InputSize; step *= 2)
+    {
+        int threadsTotal = ceil(InputSize / (step * 2.0f));
+
+        if (id.x < threadsTotal)
+        {
+            const int rightLeafIndex = LAST_INDEX - id.x * (step * 2);
+            const int leftLeafIndex = rightLeafIndex - step;
+            Result[rightLeafIndex] += Result[leftLeafIndex];
+            GroupMemoryBarrierWithGroupSync();
+        }
+    }
+}
+
+void SetLastElementToZero(const uint id)
+{
+    if (id == LAST_INDEX)
+    {
+        Result[LAST_INDEX] = 0;
+    }
+
+    GroupMemoryBarrierWithGroupSync();
+}
+
+void DownSweep(uint3 id)
+{
+    SetLastElementToZero(id.x);
+
+    uint step = InputSize / 2;
+    for (uint threadsTotal = 1; threadsTotal < InputSize; threadsTotal *= 2, step /= 2)
+    {
+        if (id.x < threadsTotal)
+        {
+            const uint rightLeafIndex = LAST_INDEX - id.x * (step * 2);
+            const uint leftLeafIndex = rightLeafIndex - step;
+
+            const int rightLeaf = Result[rightLeafIndex];
+            const int leftLeaf = Result[leftLeafIndex];
+            
+            GroupMemoryBarrierWithGroupSync();
+            
+            Result[leftLeafIndex] = rightLeaf;
+            Result[rightLeafIndex] = rightLeaf + leftLeaf;
+        }
+    }
 }
 
 [numthreads(THREADS_PER_GROUP,1,1)]
-void DownSweep(int3 id : SV_DispatchThreadID)
+void ChunkPrefixSum(uint3 id : SV_DispatchThreadID)
 {
+    UpSweep(id);
+    DownSweep(id);
 }

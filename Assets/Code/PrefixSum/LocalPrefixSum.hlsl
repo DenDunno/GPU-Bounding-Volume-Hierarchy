@@ -26,5 +26,5 @@ uint GetGroupInclusivePrefixSum(int threadIdX, int threadIdY)
 
 uint GetGroupSum(int threadIdY)
 {
-    return GetGroupInclusivePrefixSum(LAST_INDEX, threadIdY);
+    return GetGroupInclusivePrefixSum(THREAD_LAST_INDEX, threadIdY);
 }

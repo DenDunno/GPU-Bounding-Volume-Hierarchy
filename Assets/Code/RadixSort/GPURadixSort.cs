@@ -21,8 +21,8 @@ namespace Code
             _buffers = new RadixSortBuffers(input.ArraySize);
             _chunkSortKernel = new Kernel(input.SortShader, "CSMain");
             _prefixSum = new GPUPrefixSum(_buffers.Input, input.PrefixSumShader);
-            _optimalDispatchSize = _chunkSortKernel.ComputeOptimalDispatchSize(input.PayloadDispatch);
             _shaderBridge = new CachedShaderBridge(new ComputeShaderBridge(input.SortShader));
+            _optimalDispatchSize = _chunkSortKernel.ComputeOptimalDispatchSize(input.PayloadDispatch);
         }
 
         public void Initialize<TCollection>(SetDataOperation<TCollection> setDataOperation)
@@ -41,7 +41,7 @@ namespace Code
 
         public void Execute(int[] output)
         {
-            _chunkSortKernel.Dispatch(_optimalDispatchSize);
+            //_chunkSortKernel.Dispatch(_optimalDispatchSize);
             _prefixSum.Dispatch();
             _buffers.Input.GetData(output);
         }
