@@ -9,7 +9,7 @@ namespace Code
     {
         private readonly IShaderBridge<string> _shaderBridge;
         private readonly Kernel _chunkPrefixSumKernel;
-        private readonly ComputeBuffer _blockSum;
+        public readonly ComputeBuffer _blockSum;
         private readonly ComputeBuffer _input;
         private readonly int _size;
 
@@ -17,7 +17,7 @@ namespace Code
         {
             _shaderBridge = new CachedShaderBridge(new ComputeShaderBridge(shader));
             _chunkPrefixSumKernel = new Kernel(shader, "ChunkPrefixSum");
-            _blockSum = new ComputeBuffer(2, sizeof(int)); 
+            _blockSum = new ComputeBuffer(3, sizeof(int)); 
             _size = input.count;
             _input = input;
         }
@@ -31,7 +31,7 @@ namespace Code
 
         public void Dispatch()
         {
-            _chunkPrefixSumKernel.Dispatch(new Vector3Int(3, 1, 1));
+            _chunkPrefixSumKernel.Dispatch(3);
         }
 
         public void Dispose()

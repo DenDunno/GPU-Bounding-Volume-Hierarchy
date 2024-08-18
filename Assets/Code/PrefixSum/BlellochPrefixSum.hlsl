@@ -1,25 +1,6 @@
-#pragma kernel ChunkPrefixSum
-#pragma enable_d3d11_debug_symbols
-#include "..//Common.hlsl"
-
-RWStructuredBuffer<int> Result;
+#include "LeafIndices.hlsl"
 RWStructuredBuffer<int> BlockSum;
-
 groupshared int ExclusiveScan[THREADS];
-
-struct LeafIndices
-{
-    uint Left;
-    uint Right;
-
-    static LeafIndices Create(uint threadId, uint step)
-    {
-        LeafIndices indices;
-        indices.Right = THREAD_LAST_INDEX - threadId * (step * 2);
-        indices.Left = indices.Right - step;
-        return indices;
-    }
-};
 
 void UpSweep(uint threadId)
 {
@@ -65,29 +46,43 @@ void DownSweep(uint threadId)
     GroupMemoryBarrierWithGroupSync();
 }
 
-int MoveDataFromGlobalToSharedMemory(uint globalId, uint threadId)
+void MoveDataToSharedMemory(uint threadId, int value)
 {
-    return ExclusiveScan[threadId] = Result[globalId];
+    ExclusiveScan[threadId] = value;
 }
 
-void MoveDataFromSharedToGlobalMemory(uint globalId, uint threadId)
+int GetExclusivePrefixSum(uint threadId)
 {
-    Result[globalId] = ExclusiveScan[threadId];
+    return ExclusiveScan[threadId];
 }
 
-void TryWriteBlockSum(uint threadId, uint groupId, int value)
+int GetExclusivePrefixSumForGroup()
+{
+    return GetExclusivePrefixSum(THREAD_LAST_INDEX);
+}
+
+int GetInclusivePrefixSum(uint threadId, int originalValue)
+{
+    return GetExclusivePrefixSum(threadId) + originalValue;
+}
+
+int GetInclusivePrefixSumForGroup(int originalValue)
+{
+    return GetInclusivePrefixSum(THREAD_LAST_INDEX, originalValue);
+}
+
+void TryWriteToBlockSum(uint threadId, uint groupId, int value)
 {
     if (threadId == THREAD_LAST_INDEX)
     {
-        BlockSum[groupId] = ExclusiveScan[THREAD_LAST_INDEX] + value;
+        BlockSum[groupId] = GetInclusivePrefixSumForGroup(value);
     }
 }
 
-[numthreads(THREADS,1,1)]
-void ChunkPrefixSum(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID, uint3 threadId : SV_GroupThreadID)
+int ComputeExclusivePrefixSum(uint threadId, int inputValue)
 {
-    const int value = MoveDataFromGlobalToSharedMemory(id.x, threadId.x);
-    UpSweep(threadId.x);
-    DownSweep(threadId.x);
-    MoveDataFromSharedToGlobalMemory(id.x, threadId.x);
+    MoveDataToSharedMemory(threadId, inputValue);
+    UpSweep(threadId);
+    DownSweep(threadId);
+    return GetExclusivePrefixSum(threadId);
 }

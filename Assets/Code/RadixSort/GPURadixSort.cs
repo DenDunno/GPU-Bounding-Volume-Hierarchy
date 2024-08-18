@@ -43,7 +43,7 @@ namespace Code
         {
             //_chunkSortKernel.Dispatch(_optimalDispatchSize);
             _prefixSum.Dispatch();
-            _buffers.Input.GetData(output);
+            _prefixSum._blockSum.GetData(output);
         }
 
         public void Dispose()

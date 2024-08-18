@@ -29,8 +29,8 @@ namespace MyFolder.ComputeShaderNM
         {
             Dispatch(new Vector3Int(dispatchX, dispatchY, dispatchZ));
         }
-        
-        public void Dispatch(Vector3Int dispatch)
+
+        private void Dispatch(Vector3Int dispatch)
         {
             _computeShader.Dispatch(ID, dispatch.x, dispatch.y, dispatch.z);
         }
