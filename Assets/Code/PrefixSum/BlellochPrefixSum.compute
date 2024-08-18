@@ -1,99 +1,93 @@
 #pragma kernel ChunkPrefixSum
+#pragma enable_d3d11_debug_symbols
 #include "..//Common.hlsl"
 
 RWStructuredBuffer<int> Result;
 RWStructuredBuffer<int> BlockSum;
-uint InputSize;
-#define LAST_INDEX InputSize - 1
 
-groupshared int Data[THREADS_PER_GROUP];
+groupshared int ExclusiveScan[THREADS];
 
 struct LeafIndices
 {
     uint Left;
     uint Right;
 
-    static LeafIndices Create(uint globalId, uint step)
+    static LeafIndices Create(uint threadId, uint step)
     {
         LeafIndices indices;
-        indices.Right = LAST_INDEX - globalId * (step * 2);
+        indices.Right = THREAD_LAST_INDEX - threadId * (step * 2);
         indices.Left = indices.Right - step;
         return indices;
     }
 };
 
-void UpSweep(uint globalId)
+void UpSweep(uint threadId)
 {
-    for (uint step = 1; step < InputSize; step *= 2)
+    for (uint step = 1; step < THREADS; step *= 2)
     {
-        uint threadsTotal = ceil(InputSize / (step * 2.0f));
-
-        if (globalId < threadsTotal)
-        {
-            LeafIndices indices = LeafIndices::Create(globalId, step);
-            Data[indices.Right] += Data[indices.Left];
-        }
-        
         GroupMemoryBarrierWithGroupSync();
+        uint threadsTotal = ceil(THREADS / (step * 2.0f));
+
+        if (threadId < threadsTotal)
+        {
+            LeafIndices indices = LeafIndices::Create(threadId, step);
+            ExclusiveScan[indices.Right] += ExclusiveScan[indices.Left];
+        }
     }
 }
 
-void SetLastElementToZero(const uint id)
+void SetLastElementToZero(const uint threadId)
 {
-    if (id == LAST_INDEX)
+    if (threadId == THREAD_LAST_INDEX)
     {
-        Data[LAST_INDEX] = 0;
+        ExclusiveScan[THREAD_LAST_INDEX] = 0;
     }
-
-    GroupMemoryBarrierWithGroupSync();
 }
 
-void DownSweep(uint globalId)
+void DownSweep(uint threadId)
 {
-    SetLastElementToZero(globalId);
+    SetLastElementToZero(threadId);
     
-    for (uint threadsTotal = 1, step = InputSize / 2; threadsTotal < InputSize; threadsTotal *= 2, step /= 2)
+    for (uint threadsTotal = 1, step = THREADS / 2; threadsTotal < THREADS; threadsTotal *= 2, step /= 2)
     {
-        if (globalId < threadsTotal)
-        {
-            LeafIndices indices = LeafIndices::Create(globalId, step);
-            const int rightLeaf = Data[indices.Right];
-            const int leftLeaf = Data[indices.Left];
-            
-            Data[indices.Left] = rightLeaf;
-            Data[indices.Right] = rightLeaf + leftLeaf;
-        }
         GroupMemoryBarrierWithGroupSync();
+        if (threadId < threadsTotal)
+        {
+            LeafIndices indices = LeafIndices::Create(threadId, step);
+            const int rightLeaf = ExclusiveScan[indices.Right];
+            const int leftLeaf = ExclusiveScan[indices.Left];
+            
+            ExclusiveScan[indices.Left] = rightLeaf;
+            ExclusiveScan[indices.Right] = rightLeaf + leftLeaf;
+        }
     }
 
     GroupMemoryBarrierWithGroupSync();
 }
 
-void MoveDataFromGlobalToSharedMemory(uint globalId, uint threadId)
+int MoveDataFromGlobalToSharedMemory(uint globalId, uint threadId)
 {
-    Data[threadId] = Result[globalId];
-    GroupMemoryBarrierWithGroupSync();
+    return ExclusiveScan[threadId] = Result[globalId];
 }
 
 void MoveDataFromSharedToGlobalMemory(uint globalId, uint threadId)
 {
-    Result[globalId] = Data[threadId];
+    Result[globalId] = ExclusiveScan[threadId];
 }
 
-void TryWriteBlockSum(uint globalId, uint groupId)
+void TryWriteBlockSum(uint threadId, uint groupId, int value)
 {
-    if (globalId == 0)
+    if (threadId == THREAD_LAST_INDEX)
     {
-        BlockSum[groupId] = Data[THREAD_LAST_INDEX];
+        BlockSum[groupId] = ExclusiveScan[THREAD_LAST_INDEX] + value;
     }
 }
 
-[numthreads(THREADS_PER_GROUP,1,1)]
+[numthreads(THREADS,1,1)]
 void ChunkPrefixSum(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID, uint3 threadId : SV_GroupThreadID)
 {
-    MoveDataFromGlobalToSharedMemory(id.x, threadId.x);
-    UpSweep(id.x);
-    DownSweep(id.x);
-    //TryWriteBlockSum(id.x, groupId.x);
+    const int value = MoveDataFromGlobalToSharedMemory(id.x, threadId.x);
+    UpSweep(threadId.x);
+    DownSweep(threadId.x);
     MoveDataFromSharedToGlobalMemory(id.x, threadId.x);
 }

@@ -1,10 +1,11 @@
+using System;
 using Code.Utils.ShaderUtils;
 using MyFolder.ComputeShaderNM;
 using UnityEngine;
 
 namespace Code
 {
-    public class GPUPrefixSum
+    public class GPUPrefixSum : IDisposable
     {
         private readonly IShaderBridge<string> _shaderBridge;
         private readonly Kernel _chunkPrefixSumKernel;
@@ -23,14 +24,19 @@ namespace Code
 
         public void Initialize()
         {
-            _shaderBridge.SetBuffer(_chunkPrefixSumKernel.ID, "BlockSum", _input);
+            _shaderBridge.SetBuffer(_chunkPrefixSumKernel.ID, "BlockSum", _blockSum);
             _shaderBridge.SetBuffer(_chunkPrefixSumKernel.ID, "Result", _input);
             _shaderBridge.SetInt("InputSize", _size);
         }
 
         public void Dispatch()
         {
-            _chunkPrefixSumKernel.Dispatch(new Vector3Int(1, 1, 1));
+            _chunkPrefixSumKernel.Dispatch(new Vector3Int(3, 1, 1));
+        }
+
+        public void Dispose()
+        {
+            _blockSum.Dispose();
         }
     }
 }

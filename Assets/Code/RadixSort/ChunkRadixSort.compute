@@ -6,7 +6,7 @@ RWStructuredBuffer<int> BlockSum;
 RWStructuredBuffer<int> LocalPrefixSum;
 uniform int ThreadGroups;
 
-[numthreads(THREADS_PER_GROUP,BLOCK_SIZE,1)]
+[numthreads(THREADS,BLOCK_SIZE,1)]
 void CSMain(int3 id : SV_DispatchThreadID, int3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
 {
     const int value = Input[id.x];

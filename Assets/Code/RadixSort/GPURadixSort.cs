@@ -49,6 +49,7 @@ namespace Code
         public void Dispose()
         {
             _buffers.Dispose();
+            _prefixSum.Dispose();
         }
     }
 }
