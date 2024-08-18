@@ -23,7 +23,7 @@ namespace Code
             GPURadixSortInput input = new(_sortShader, _prefixSumShader, _input.Length);
             _sort = new GPURadixSort(input);
             _sort.Initialize(new SetArrayOperation<int>(_input));
-            _sort.Execute(_output2);
+            _sort.Execute(_output);
         }
     }
 }

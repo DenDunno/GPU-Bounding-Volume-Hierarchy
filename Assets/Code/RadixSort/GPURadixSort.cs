@@ -22,7 +22,7 @@ namespace Code
             _chunkSortKernel = new Kernel(input.SortShader, "CSMain");
             _prefixSum = new GPUPrefixSum(_buffers.Input, input.PrefixSumShader);
             _shaderBridge = new CachedShaderBridge(new ComputeShaderBridge(input.SortShader));
-            _optimalDispatchSize = _chunkSortKernel.ComputeOptimalDispatchSize(input.PayloadDispatch);
+            _optimalDispatchSize = _chunkSortKernel.ComputeThreadGroups(input.PayloadDispatch);
         }
 
         public void Initialize<TCollection>(SetDataOperation<TCollection> setDataOperation)
@@ -43,7 +43,7 @@ namespace Code
         {
             //_chunkSortKernel.Dispatch(_optimalDispatchSize);
             _prefixSum.Dispatch();
-            _prefixSum._blockSum.GetData(output);
+            _buffers.Input.GetData(output);
         }
 
         public void Dispose()

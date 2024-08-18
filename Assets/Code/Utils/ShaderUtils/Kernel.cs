@@ -5,23 +5,23 @@ namespace MyFolder.ComputeShaderNM
     public class Kernel
     {
         public readonly int ID;
-        public readonly Vector3Int ThreadSizes;
+        public readonly Vector3Int ThreadsPerGroup;
         private readonly ComputeShader _computeShader;
 
         public Kernel(ComputeShader computeShader, string name)
         {
             _computeShader = computeShader;
             ID = computeShader.FindKernel(name);
-            ThreadSizes = GetThreadSizes();
+            ThreadsPerGroup = GetThreadsPerGroup();
         }
 
-        public Vector3Int ComputeOptimalDispatchSize(Vector3Int payloadDispatchSize)
+        public Vector3Int ComputeThreadGroups(Vector3Int payload)
         {
             return new Vector3Int()
             {
-                x = Mathf.CeilToInt((float)payloadDispatchSize.x / ThreadSizes.x),
-                y = Mathf.CeilToInt((float)payloadDispatchSize.y / ThreadSizes.y),
-                z = Mathf.CeilToInt((float)payloadDispatchSize.z / ThreadSizes.z),
+                x = Mathf.CeilToInt((float)payload.x / ThreadsPerGroup.x),
+                y = Mathf.CeilToInt((float)payload.y / ThreadsPerGroup.y),
+                z = Mathf.CeilToInt((float)payload.z / ThreadsPerGroup.z),
             };
         }
         
@@ -30,12 +30,12 @@ namespace MyFolder.ComputeShaderNM
             Dispatch(new Vector3Int(dispatchX, dispatchY, dispatchZ));
         }
 
-        private void Dispatch(Vector3Int dispatch)
+        public void Dispatch(Vector3Int dispatch)
         {
             _computeShader.Dispatch(ID, dispatch.x, dispatch.y, dispatch.z);
         }
 
-        private Vector3Int GetThreadSizes()
+        private Vector3Int GetThreadsPerGroup()
         {
             _computeShader.GetKernelThreadGroupSizes(ID,
                 out uint threadSizeX,

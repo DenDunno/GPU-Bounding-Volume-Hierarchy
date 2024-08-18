@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/LeafIndices.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/LeafIndices.hlsl.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.compute" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.compute.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/KernelConstantDispatch.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/KernelConstantDispatch.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.hlsl.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test.cs" afterDir="false" />
@@ -33,6 +29,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVH.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/MortonCodeAssignment.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/KernelConstantDispatch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal/Editor/Overrides/ColorLookupEditor.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -127,7 +124,7 @@
       <workItem from="1723416927375" duration="7904000" />
       <workItem from="1723595360521" duration="8372000" />
       <workItem from="1723850925775" duration="13098000" />
-      <workItem from="1723932549506" duration="10365000" />
+      <workItem from="1723932549506" duration="12011000" />
     </task>
     <servers />
   </component>
