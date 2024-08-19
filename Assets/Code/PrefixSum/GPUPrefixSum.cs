@@ -1,3 +1,5 @@
+using Code.Utils.ShaderUtils;
+using MyFolder.ComputeShaderNM;
 using UnityEngine;
 
 namespace Code
@@ -5,28 +7,30 @@ namespace Code
     public class GPUPrefixSum : IGPUPrefixSum
     {
         public readonly Vector3Int ThreadGroups;
-        private readonly GPUPrefixSumCommon _common;
+        private readonly IShaderBridge<string> _shaderBridge;
         private readonly ComputeBuffer _input;
+        private readonly Kernel _kernel;
         private readonly int _size;
 
-        public GPUPrefixSum(ComputeBuffer input, GPUPrefixSumCommon common)
+        public GPUPrefixSum(ComputeBuffer input, IShaderBridge<string> shaderBridge, Kernel kernel)
         {
             _input = input;
-            _common = common;
+            _kernel = kernel;
             _size = input.count;
-            ThreadGroups = _common.ScanKernel.ComputeThreadGroups(_size);
+            _shaderBridge = shaderBridge;
+            ThreadGroups = kernel.ComputeThreadGroups(_size);
         }
 
         private void SetupShader()
         {
-            _common.Bridge.SetBuffer(_common.ScanKernel.ID, "Result", _input);
-            _common.Bridge.SetInt("InputSize", _size);
+            _shaderBridge.SetBuffer(_kernel.ID, "Result", _input);
+            _shaderBridge.SetInt("InputSize", _size);
         }
 
         public void Dispatch()
         {
             SetupShader();
-            _common.ScanKernel.Dispatch(ThreadGroups);
+            _kernel.Dispatch(ThreadGroups);
         }
     }
 }

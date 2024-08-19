@@ -13,7 +13,7 @@ namespace Code
         public ChunkGPUPrefixSum(ComputeBuffer input, ComputeBuffer blockSum, 
             GPUPrefixSumCommon common, IGPUPrefixSum blockSumScan)
         {
-            _scanPerChunk = new GPUPrefixSum(input, common);
+            _scanPerChunk = new GPUPrefixSum(input, common.Bridge, common.ChunksScanKernel);
             _blockSumScan = blockSumScan;
             _blockSum = blockSum;
             _common = common;
@@ -22,7 +22,7 @@ namespace Code
 
         private void Setup()
         {
-            _common.Bridge.SetBuffer(_common.ScanKernel.ID, "BlockSum", _blockSum);
+            _common.Bridge.SetBuffer(_common.ChunksScanKernel.ID, "BlockSum", _blockSum);
             _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "BlockSum", _blockSum);
             _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "Result", _input);
         }
@@ -32,6 +32,7 @@ namespace Code
             Setup();
             _scanPerChunk.Dispatch();
             _blockSumScan.Dispatch();
+            Setup();
             _common.BlockSumAdditionKernel.Dispatch(_scanPerChunk.ThreadGroups);
         }
     }

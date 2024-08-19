@@ -1,5 +1,3 @@
-using System;
-using Code.Utils.ShaderUtils.Buffer;
 using UnityEngine;
 
 namespace Code
@@ -8,6 +6,8 @@ namespace Code
     {
         [SerializeField] private ComputeShader _prefixSumShader;
         [SerializeField] private ComputeShader _sortShader;
+        [SerializeField] private int _seed = 0;
+        [SerializeField] private int _size = 10;
         [SerializeField] private int[] _input;
         [SerializeField] private int[] _output;
         private GPURadixSort _sort;
@@ -19,6 +19,9 @@ namespace Code
 
         private void Start()
         {
+            _input = new RandomCollectionGeneration(_seed, _size, 10).Create();
+            _output = new int[_size];
+
             ComputeBuffer buffer = new(_input.Length, sizeof(int));
             buffer.SetData(_input);
             
@@ -26,6 +29,7 @@ namespace Code
             prefixSum.Dispatch();
             
             buffer.GetData(_output);
+            ExpectedPrefixSum.CheckOutput(_input, _output);
         }
     }
 }

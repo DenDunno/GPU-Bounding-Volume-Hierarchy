@@ -24,7 +24,7 @@ namespace Code
         {
             if (input.count <= common.ThreadsPerGroup)
             {
-                return new GPUPrefixSum(input, common);
+                return new GPUPrefixSum(input, common.Bridge, common.SingleScanKernel);
             }
 
             int blockSumBufferSize = Mathf.CeilToInt(input.count / (float)common.ThreadsPerGroup);
