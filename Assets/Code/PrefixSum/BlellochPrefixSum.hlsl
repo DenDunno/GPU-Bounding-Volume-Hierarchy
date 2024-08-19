@@ -2,7 +2,7 @@
 RWStructuredBuffer<int> BlockSum;
 groupshared int ExclusiveScan[THREADS];
 
-void UpSweep(uint threadId)
+void Reduce(uint threadId)
 {
     for (uint step = 1; step < THREADS; step *= 2)
     {
@@ -82,7 +82,7 @@ void TryWriteToBlockSum(uint threadId, uint groupId, int value)
 int ComputeExclusivePrefixSum(uint threadId, int inputValue)
 {
     MoveDataToSharedMemory(threadId, inputValue);
-    UpSweep(threadId);
+    Reduce(threadId);
     DownSweep(threadId);
     return GetExclusivePrefixSum(threadId);
 }

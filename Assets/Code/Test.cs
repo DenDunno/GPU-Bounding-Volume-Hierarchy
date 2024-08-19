@@ -1,3 +1,4 @@
+using System;
 using Code.Utils.ShaderUtils.Buffer;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ namespace Code
         [SerializeField] private ComputeShader _sortShader;
         [SerializeField] private int[] _input;
         [SerializeField] private int[] _output;
-        [SerializeField] private int[] _output2;
         private GPURadixSort _sort;
 
         private void OnValidate()
@@ -17,13 +17,15 @@ namespace Code
             _output = new int[_input.Length];
         }
 
-        private void Update()
+        private void Start()
         {
-            _sort?.Dispose();
-            GPURadixSortInput input = new(_sortShader, _prefixSumShader, _input.Length);
-            _sort = new GPURadixSort(input);
-            _sort.Initialize(new SetArrayOperation<int>(_input));
-            _sort.Execute(_output);
+            ComputeBuffer buffer = new(_input.Length, sizeof(int));
+            buffer.SetData(_input);
+            
+            IGPUPrefixSum prefixSum = new GPUPrefixSumFactory(_prefixSumShader, buffer).Create();
+            prefixSum.Dispatch();
+            
+            buffer.GetData(_output);
         }
     }
 }

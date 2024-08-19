@@ -15,6 +15,11 @@ namespace MyFolder.ComputeShaderNM
             ThreadsPerGroup = GetThreadsPerGroup();
         }
 
+        public Vector3Int ComputeThreadGroups(int payloadX = 1, int payloadY = 1, int payloadZ = 1)
+        {
+            return ComputeThreadGroups(new Vector3Int(payloadX, payloadY, payloadZ));
+        }
+        
         public Vector3Int ComputeThreadGroups(Vector3Int payload)
         {
             return new Vector3Int()
@@ -25,14 +30,14 @@ namespace MyFolder.ComputeShaderNM
             };
         }
         
-        public void Dispatch(int dispatchX = 1, int dispatchY = 1, int dispatchZ = 1)
+        public void Dispatch(int threadGroupX = 1, int threadGroupY = 1, int threadGroupZ = 1)
         {
-            Dispatch(new Vector3Int(dispatchX, dispatchY, dispatchZ));
+            Dispatch(new Vector3Int(threadGroupX, threadGroupY, threadGroupZ));
         }
 
-        public void Dispatch(Vector3Int dispatch)
+        public void Dispatch(Vector3Int threadGroup)
         {
-            _computeShader.Dispatch(ID, dispatch.x, dispatch.y, dispatch.z);
+            _computeShader.Dispatch(ID, threadGroup.x, threadGroup.y, threadGroup.z);
         }
 
         private Vector3Int GetThreadsPerGroup()
