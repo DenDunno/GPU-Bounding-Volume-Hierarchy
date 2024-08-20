@@ -1,38 +1,43 @@
-using UnityEngine;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 namespace Code
 {
-    public static class ExpectedPrefixSum
+    public class ExpectedPrefixSum
     {
-        public static void CheckOutput(int[] input, int[] output)
+        private readonly int[] _expectedPrefixSum;
+        private readonly bool _success;
+
+        public ExpectedPrefixSum(int size, bool success)
         {
-            int[] expectedPrefixSum = CreateExpectedPrefixSum(input);
-            CheckIfEqual(expectedPrefixSum, output);
+            _expectedPrefixSum = new int[size];
+            _success = success;
         }
 
-        private static int[] CreateExpectedPrefixSum(int[] input)
+        public void Initialize(int[] input)
         {
-            int[] result = new int[input.Length];
-            for (int i = 1; i < result.Length; ++i)
+            for (int i = 1; i < _expectedPrefixSum.Length; ++i)
             {
-                result[i] = input[i - 1] + result[i - 1];
+                _expectedPrefixSum[i] = input[i - 1] + _expectedPrefixSum[i - 1];
             }
-
-            return result;
         }
 
-        private static void CheckIfEqual(int[] expectedPrefixSum, int[] output)
+        public void CheckOutput(int[] output)
         {
             for (int i = 0; i < output.Length; ++i)
             {
-                if (expectedPrefixSum[i] != output[i])
+                if (_expectedPrefixSum[i] != output[i])
                 {
-                    Debug.LogError($"Error. I = {i}. {expectedPrefixSum[i]} != {output[i]}");
+                    Debug.LogError($"Error at i = {i} Size = {_expectedPrefixSum.Length}. Expected = {_expectedPrefixSum[i]}, output = {output[i]}");
+                    Debugger.Break();
                     return;
                 }
             }
-            
-            Debug.Log("Success");
+
+            if (_success)
+            {
+                Debug.Log("Success");
+            }
         }
     }
 }

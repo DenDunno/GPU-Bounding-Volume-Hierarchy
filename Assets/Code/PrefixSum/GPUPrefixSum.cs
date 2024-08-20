@@ -16,21 +16,21 @@ namespace Code
         {
             _input = input;
             _kernel = kernel;
-            _size = input.count;
+            _size = _input.count;
             _shaderBridge = shaderBridge;
-            ThreadGroups = kernel.ComputeThreadGroups(_size);
-        }
-
-        private void SetupShader()
-        {
-            _shaderBridge.SetBuffer(_kernel.ID, "Result", _input);
-            _shaderBridge.SetInt("InputSize", _size);
+            ThreadGroups = kernel.ComputeThreadGroups(input.count);
         }
 
         public void Dispatch()
         {
-            SetupShader();
+            _shaderBridge.SetBuffer(_kernel.ID, "Result", _input);
+            _shaderBridge.SetInt("InputSize", _size);
             _kernel.Dispatch(ThreadGroups);
+        }
+
+        public void Dispose()
+        {
+            _input.Release();
         }
     }
 }

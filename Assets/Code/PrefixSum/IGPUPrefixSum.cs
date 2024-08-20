@@ -1,6 +1,8 @@
+using System;
+
 namespace Code
 {
-    public interface IGPUPrefixSum
+    public interface IGPUPrefixSum : IDisposable
     {
         void Dispatch();
     }

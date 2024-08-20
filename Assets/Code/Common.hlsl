@@ -1,5 +1,5 @@
 
-#define THREADS 4
+#define THREADS 2
 #define THREAD_LAST_INDEX (THREADS - 1)
 #define BLOCK_SIZE 4
 #define RADIX 8

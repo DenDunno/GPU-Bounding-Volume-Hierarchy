@@ -1,6 +1,7 @@
 #include "LeafIndices.hlsl"
 RWStructuredBuffer<int> BlockSum;
 groupshared int ExclusiveScan[THREADS];
+uint InputSize;
 
 void Reduce(uint threadId)
 {

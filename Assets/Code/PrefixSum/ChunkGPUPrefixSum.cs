@@ -22,9 +22,12 @@ namespace Code
 
         private void Setup()
         {
+            _common.Bridge.SetBuffer(_common.ChunksScanKernel.ID, "Result", _input);
+            _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "Result", _input);
+            _common.Bridge.SetBuffer(_common.SingleScanKernel.ID, "Result", _input);
             _common.Bridge.SetBuffer(_common.ChunksScanKernel.ID, "BlockSum", _blockSum);
             _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "BlockSum", _blockSum);
-            _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "Result", _input);
+            _common.Bridge.SetBuffer(_common.SingleScanKernel.ID, "BlockSum", _blockSum);
         }
 
         public void Dispatch()
@@ -34,6 +37,14 @@ namespace Code
             _blockSumScan.Dispatch();
             Setup();
             _common.BlockSumAdditionKernel.Dispatch(_scanPerChunk.ThreadGroups);
+        }
+
+        public void Dispose()
+        {
+            _blockSumScan.Dispose();
+            _scanPerChunk.Dispose();
+            _blockSum.Release();
+            _input.Release();
         }
     }
 }
