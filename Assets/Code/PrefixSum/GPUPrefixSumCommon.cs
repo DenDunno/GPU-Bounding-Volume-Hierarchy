@@ -1,6 +1,7 @@
 using Code.Utils.ShaderUtils;
 using MyFolder.ComputeShaderNM;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Code
 {

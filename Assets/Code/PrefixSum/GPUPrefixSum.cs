@@ -30,7 +30,6 @@ namespace Code
 
         public void Dispose()
         {
-            _input.Release();
         }
     }
 }

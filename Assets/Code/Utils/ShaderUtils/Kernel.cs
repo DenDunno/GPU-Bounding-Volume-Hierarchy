@@ -7,9 +7,11 @@ namespace MyFolder.ComputeShaderNM
         public readonly int ID;
         public readonly Vector3Int ThreadsPerGroup;
         private readonly ComputeShader _computeShader;
+        public readonly string Name;
 
         public Kernel(ComputeShader computeShader, string name)
         {
+            Name = name;
             _computeShader = computeShader;
             ID = computeShader.FindKernel(name);
             ThreadsPerGroup = GetThreadsPerGroup();

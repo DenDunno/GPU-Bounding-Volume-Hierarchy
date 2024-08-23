@@ -22,29 +22,32 @@ namespace Code
 
         private void Setup()
         {
-            _common.Bridge.SetBuffer(_common.ChunksScanKernel.ID, "Result", _input);
-            _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "Result", _input);
-            _common.Bridge.SetBuffer(_common.SingleScanKernel.ID, "Result", _input);
             _common.Bridge.SetBuffer(_common.ChunksScanKernel.ID, "BlockSum", _blockSum);
+            _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "Result", _input);
             _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "BlockSum", _blockSum);
-            _common.Bridge.SetBuffer(_common.SingleScanKernel.ID, "BlockSum", _blockSum);
+            _common.Bridge.SetInt("BlockSumSize", _blockSum.count);
         }
 
         public void Dispatch()
         {
             Setup();
+            //_input.PrintInt("Input = ");
             _scanPerChunk.Dispatch();
+            //_input.PrintInt("Chunk scan = ");
+            //_blockSum.PrintInt("BlockSum input = ");
             _blockSumScan.Dispatch();
+            //_blockSum.PrintInt("BlockSum scan = ");
             Setup();
+            //_input.PrintInt("Before scattering = ");
             _common.BlockSumAdditionKernel.Dispatch(_scanPerChunk.ThreadGroups);
+            //_input.PrintInt("After scattering = ");
         }
 
         public void Dispose()
         {
             _blockSumScan.Dispose();
             _scanPerChunk.Dispose();
-            _blockSum.Release();
-            _input.Release();
+            _blockSum.Dispose();
         }
     }
 }
