@@ -14,9 +14,8 @@ void SinglePrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupTh
 [numthreads(THREADS,1,1)]
 void ChunkPrefixSum(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID, uint3 threadId : SV_GroupThreadID)
 {
-    const int inputValue = Result[id.x];
-    Result[id.x] = ComputeExclusivePrefixSum(threadId.x, inputValue);
-    TryWriteToBlockSum(threadId.x, groupId.x, inputValue);
+    Result[id.x] = ComputeExclusivePrefixSum(threadId.x, Result[id.x]);
+    WriteChunkSum(threadId.x, groupId.x);
 }
 
 [numthreads(THREADS,1,1)]

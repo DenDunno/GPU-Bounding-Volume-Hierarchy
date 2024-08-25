@@ -31,16 +31,10 @@ namespace Code
         public void Dispatch()
         {
             Setup();
-            //_input.PrintInt("Input = ");
             _scanPerChunk.Dispatch();
-            //_input.PrintInt("Chunk scan = ");
-            //_blockSum.PrintInt("BlockSum input = ");
             _blockSumScan.Dispatch();
-            //_blockSum.PrintInt("BlockSum scan = ");
             Setup();
-            //_input.PrintInt("Before scattering = ");
             _common.BlockSumAdditionKernel.Dispatch(_scanPerChunk.ThreadGroups);
-            //_input.PrintInt("After scattering = ");
         }
 
         public void Dispose()

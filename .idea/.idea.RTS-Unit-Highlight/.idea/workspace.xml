@@ -5,23 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/RaceConditionTest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/RaceConditionTest.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ShaderBridge/CommandBufferComputeShaderBridge.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ShaderBridge/CommandBufferComputeShaderBridge.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Common.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Common.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/ChunkGPUPrefixSum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/ChunkGPUPrefixSum.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumCommon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumCommon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/LeafIndices.hlsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/LeafIndices.hlsl.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RandomCollectionGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RandomCollectionGeneration.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/ComputeBufferExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/ComputeBufferExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Kernel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Kernel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/New Custom Universal Renderer Data.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/New Custom Universal Renderer Data.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,6 +151,7 @@
       <workItem from="1724109896957" duration="20175000" />
       <workItem from="1724206966463" duration="1309000" />
       <workItem from="1724358135853" duration="17259000" />
+      <workItem from="1724537750917" duration="10871000" />
     </task>
     <servers />
   </component>

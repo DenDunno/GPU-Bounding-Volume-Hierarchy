@@ -1,7 +1,7 @@
 using Code.Utils.Extensions;
+using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace Code
 {
@@ -12,8 +12,10 @@ namespace Code
         [SerializeField] private ComputeShader _sortShader;
         [SerializeField] private int _seed = 0;
         [SerializeField] private bool _success;
+        [SerializeField] private bool _update;
         [SerializeField] private bool _showOutput;
-        [SerializeField] [Range(0, 10_000)] private int _size = 10;
+        [SerializeField] [Range(0, 100_000)] private int _updateSize = 10;
+        [SerializeField] private int[] _sizes;
         [SerializeField] private int[] _input;
         [SerializeField] private int[] _output;
         private ExpectedPrefixSum _expectedPrefixSum;
@@ -21,23 +23,15 @@ namespace Code
         private ComputeBuffer _buffer;
         private GPURadixSort _sort;
 
-        private void OnValidate()
+        private void Initialize(int size)
         {
-            Start();
-        }
-
-        private void Start()
-        {
-            if (Application.isPlaying)
-            {
-                Dispose();
-                _input = new RandomCollectionGeneration(_seed, _size, 10).Create();
-                _buffer = new ComputeBuffer(_input.Length, sizeof(int));
-                _output = new int[_size];
-                _prefixSum = new GPUPrefixSumFactory(_prefixSumShader, _buffer).Create();
-                _expectedPrefixSum = new ExpectedPrefixSum(_input.Length, _success);
-                _expectedPrefixSum.Initialize(_input);   
-            }
+            Dispose();
+            _input = new RandomCollectionGeneration(_seed, size, 0, 10).Create();
+            _buffer = new ComputeBuffer(_input.Length, sizeof(int));
+            _output = new int[size];
+            _prefixSum = new GPUPrefixSumFactory(_prefixSumShader, _buffer).Create();
+            _expectedPrefixSum = new ExpectedPrefixSum(_input.Length, _success);
+            _expectedPrefixSum.Initialize(_input);   
         }
 
         #if  UNITY_EDITOR
@@ -54,20 +48,32 @@ namespace Code
 
         private void Update()
         {
-            if (Application.isPlaying)
+            if (_update)
             {
-                _buffer.SetData(_input);
-                Profiler.BeginSample("PREFIX SUM");
-                Debug.Log("NEW CYCLE");
-                _prefixSum.Dispatch();
-                Profiler.EndSample();
-                _buffer.GetData(_output);
-                _expectedPrefixSum.CheckOutput(_output);
+                RunTest(_updateSize);
+            }
+        }
 
-                if (_showOutput)
-                {
-                    _output.Print("Output = ");
-                }
+        [Button]
+        private void RunTests()
+        {
+            foreach (int size in _sizes)
+            {
+                RunTest(size);
+            }
+        }
+
+        private void RunTest(int size)
+        {
+            Initialize(size);
+            _buffer.SetData(_input);
+            _prefixSum.Dispatch();
+            _buffer.GetData(_output);
+            _expectedPrefixSum.CheckOutput(_output);
+
+            if (_showOutput)
+            {
+                _output.Print("Output = ");
             }
         }
 

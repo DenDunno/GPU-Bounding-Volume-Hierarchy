@@ -1,46 +1,34 @@
-#include "LeafIndices.hlsl"
+#include "..//Common.hlsl"
+groupshared int InclusiveScan[THREADS];
 RWStructuredBuffer<int> BlockSum;
-groupshared int ExclusiveScan[THREADS];
-uint InputSize;
 
 void Reduce(uint threadId)
 {
-    for (uint step = 1; step < THREADS; step *= 2)
+    for (uint step = 1, threadsTotal = THREADS / 2; step < THREADS; step *= 2, threadsTotal >>= 1)
     {
         GroupMemoryBarrierWithGroupSync();
-        uint threadsTotal = ceil(THREADS / (step * 2.0f));
 
         if (threadId < threadsTotal)
         {
-            LeafIndices indices = LeafIndices::Create(threadId, step);
-            ExclusiveScan[indices.Right] += ExclusiveScan[indices.Left];
-        }
-    }
-}
+            int rightIndex = 2 * step * (threadId + 1) - 1;
+            int leftIndex = rightIndex - step;
 
-void SetLastElementToZero(const uint threadId)
-{
-    if (threadId == THREAD_LAST_INDEX)
-    {
-        ExclusiveScan[THREAD_LAST_INDEX] = 0;
+            InclusiveScan[rightIndex] += InclusiveScan[leftIndex];
+        }
     }
 }
 
 void DownSweep(uint threadId)
 {
-    SetLastElementToZero(threadId);
-    
-    for (uint threadsTotal = 1, step = THREADS / 2; threadsTotal < THREADS; threadsTotal *= 2, step /= 2)
+    for (uint threadsTotal = 2, step = THREADS / 2; threadsTotal < THREADS; threadsTotal <<= 1, step >>= 1)
     {
         GroupMemoryBarrierWithGroupSync();
-        if (threadId < threadsTotal)
+        if (threadId < threadsTotal - 1)
         {
-            LeafIndices indices = LeafIndices::Create(threadId, step);
-            const int rightLeaf = ExclusiveScan[indices.Right];
-            const int leftLeaf = ExclusiveScan[indices.Left];
+            int leftIndex = step * (threadId + 1) - 1;
+            int rightIndex = leftIndex + step / 2;
             
-            ExclusiveScan[indices.Left] = rightLeaf;
-            ExclusiveScan[indices.Right] = rightLeaf + leftLeaf;
+            InclusiveScan[rightIndex] += InclusiveScan[leftIndex];
         }
     }
 
@@ -49,41 +37,31 @@ void DownSweep(uint threadId)
 
 void MoveDataToSharedMemory(uint threadId, int value)
 {
-    ExclusiveScan[threadId] = value;
+    InclusiveScan[threadId] = value;
 }
 
-int GetExclusivePrefixSum(uint threadId)
+int GetInclusivePrefixSum(uint threadId)
 {
-    return ExclusiveScan[threadId];
+    return InclusiveScan[threadId];
 }
 
-int GetExclusivePrefixSumForGroup()
-{
-    return GetExclusivePrefixSum(THREAD_LAST_INDEX);
-}
-
-int GetInclusivePrefixSum(uint threadId, int originalValue)
-{
-    return GetExclusivePrefixSum(threadId) + originalValue;
-}
-
-int GetInclusivePrefixSumForGroup(int originalValue)
-{
-    return GetInclusivePrefixSum(THREAD_LAST_INDEX, originalValue);
-}
-
-void TryWriteToBlockSum(uint threadId, uint groupId, int value)
+void WriteChunkSum(uint threadId, uint groupId)
 {
     if (threadId == THREAD_LAST_INDEX)
     {
-        BlockSum[groupId] = GetInclusivePrefixSumForGroup(value);
+        BlockSum[groupId] = InclusiveScan[THREAD_LAST_INDEX];
     }
 }
 
-int ComputeExclusivePrefixSum(uint threadId, int inputValue)
+int ComputeInclusivePrefixSum(uint threadId, int inputValue)
 {
     MoveDataToSharedMemory(threadId, inputValue);
     Reduce(threadId);
     DownSweep(threadId);
-    return GetExclusivePrefixSum(threadId);
+    return GetInclusivePrefixSum(threadId);
+}
+
+int ComputeExclusivePrefixSum(uint threadId, int inputValue)
+{
+    return ComputeInclusivePrefixSum(threadId, inputValue) - inputValue;
 }

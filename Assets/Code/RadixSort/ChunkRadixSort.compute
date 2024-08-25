@@ -1,25 +1,24 @@
 #pragma kernel CSMain
-#include "../PrefixSum/LocalPrefixSum.hlsl"
+#include "../PrefixSum/BlellochPrefixSum.hlsl"
 
 RWStructuredBuffer<int> Input;
-RWStructuredBuffer<int> BlockSum;
 RWStructuredBuffer<int> LocalPrefixSum;
 uniform int ThreadGroups;
 
 [numthreads(THREADS,BLOCK_SIZE,1)]
 void CSMain(int3 id : SV_DispatchThreadID, int3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
 {
-    const int value = Input[id.x];
-    const int mask = id.y;
-    const int hasPassedMask = value == mask;
-    const int groupPrefixSum = ComputeExclusivePrefixSumForGroup(threadId, hasPassedMask);
-    const int totalElementsInGroup = GetGroupSum(threadId.y);
-    const int blockSumIndex = id.y * ThreadGroups + groupId.x;
-
-    BlockSum[blockSumIndex] = totalElementsInGroup;
-    
-    if (hasPassedMask)
-    {
-        LocalPrefixSum[id.x] = groupPrefixSum;
-    }
+    // const int value = Input[id.x];
+    // const int mask = id.y;
+    // const int hasPassedMask = value == mask;
+    // const int groupPrefixSum = ComputeExclusivePrefixSumForGroup(threadId, hasPassedMask);
+    // const int totalElementsInGroup = GetGroupSum(threadId.y);
+    // const int blockSumIndex = id.y * ThreadGroups + groupId.x;
+    //
+    // BlockSum[blockSumIndex] = totalElementsInGroup;
+    //
+    // if (hasPassedMask)
+    // {
+    //     LocalPrefixSum[id.x] = groupPrefixSum;
+    // }
 }
