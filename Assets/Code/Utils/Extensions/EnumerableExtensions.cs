@@ -7,6 +7,19 @@ namespace Code.Utils.Extensions
 {
     public static class EnumerableExtensions
     {
+        public static bool IsSame<T>(this IList<T> first, IList<T> second)
+        {
+            for (int i = 0; i < first.Count; ++i)
+            {
+                if (first[i].Equals(second[i]) == false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
         public static IList<T> Fill<T>(this IList<T> collection, T value)
         {
             for (int i = 0; i < collection.Count; ++i)

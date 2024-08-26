@@ -1,25 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5374724381061076754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25cb1f97af1243d48854c8b9e4321672, type: 3}
-  m_Name: IntersectingSpheresRendererFeature
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  _data:
-    _maxSpheres: 10000
-    _injectionPoint: 550
-    _frustumCullingShader: {fileID: 7200000, guid: 2cefa8a9616946b3b5ee1731823eaa84, type: 3}
-    _raytracingMaterial: {fileID: 2100000, guid: 4dbc4156fd662184ea7bd1fb46b1a95c, type: 2}
-    _debugMaterial: {fileID: 2100000, guid: 22e6818b9e6e00841b4ee854fd596885, type: 2}
-    _debug: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
-  m_Name: New Custom Universal Renderer Data
+  m_Name: New Universal Render Pipeline Asset_Renderer
   m_EditorClassIdentifier: 
   debugShaders:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
@@ -80,6 +60,6 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
-  m_CopyDepthMode: 0
+  m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1

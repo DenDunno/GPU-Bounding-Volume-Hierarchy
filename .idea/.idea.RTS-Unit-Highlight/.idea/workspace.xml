@@ -5,21 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Tests/PrefixSumGeneration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Tests/PrefixSumTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Tests/PrefixSumTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Tests/UpdateTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UpdateTests.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Common.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Common.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/ChunkGPUPrefixSum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/ChunkGPUPrefixSum.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/LeafIndices.hlsl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/LeafIndices.hlsl.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RandomCollectionGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RandomCollectionGeneration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ExpectedPrefixSum.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ExpectedPrefixSum.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Tests/PrefixSumGeneration.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RaceConditionTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RaceConditionTest.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RandomCollectionGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Tests/RandomCollectionGeneration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RandomCollectionGeneration.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Tests/RandomCollectionGeneration.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DefaultVolumeProfile.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultVolumeProfile.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DefaultVolumeProfile.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultVolumeProfile.asset.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/DefaultVolumeProfile.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/DefaultVolumeProfile.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/New Custom Universal Renderer Data.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/New Custom Universal Renderer Data.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/New Universal Render Pipeline Asset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/New Universal Render Pipeline Asset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/New Universal Render Pipeline Asset.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/New Universal Render Pipeline Asset.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +45,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/454b8adca03e44db8a0e3ace7093e9b81cb800/6e/17f4578c/ComputeShader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/38/09b67314/IDisposable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5ea85d9bf11746dfa6fe97cbaa571b68100770/8a/0f6e93d8/DataMemberAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a8dbfcead97c40aabc191fa10f8bc4ea1dba00/01/c4f1fb36/ComputeBuffer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a8dbfcead97c40aabc191fa10f8bc4ea1dba00/1e/b8da9d06/ComputeShader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a8dbfcead97c40aabc191fa10f8bc4ea1dba00/48/5ec5e6e0/GraphicsFence.cs" root0="SKIP_HIGHLIGHTING" />
@@ -85,6 +99,14 @@
   }
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Build\RTS Unit Highlight.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="D:\Build" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="D:\Tools\UnityEditors\2023.2.0f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath D:\Unity\RTS-Unit-Highlight -debugCodeOptimization" />
@@ -151,7 +173,12 @@
       <workItem from="1724109896957" duration="20175000" />
       <workItem from="1724206966463" duration="1309000" />
       <workItem from="1724358135853" duration="17259000" />
-      <workItem from="1724537750917" duration="10871000" />
+      <workItem from="1724537750917" duration="11511000" />
+      <workItem from="1724560910453" duration="9000" />
+      <workItem from="1724561273074" duration="443000" />
+      <workItem from="1724617289882" duration="2176000" />
+      <workItem from="1724631136892" duration="3973000" />
+      <workItem from="1724636122988" duration="3406000" />
     </task>
     <servers />
   </component>
