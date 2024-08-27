@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Code
@@ -21,7 +20,7 @@ namespace Code
             Setup(_size);
         }
 
-        private void Setup(int size)
+        public void Setup(int size)
         {
             _test?.Dispose();
             _test = new PrefixSumTest(size, _seed, _prefixSumShader);
@@ -29,9 +28,9 @@ namespace Code
 
         private void Update()
         {
-            if (_update)
+            if (_update && _test.Run() == false)
             {
-                _test.Run();
+                Debug.LogError("Test failed");
             }
         }
 

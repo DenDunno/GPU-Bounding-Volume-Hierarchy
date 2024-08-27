@@ -1,6 +1,5 @@
 using System;
 using Code.Utils.Extensions;
-using NUnit.Framework;
 using UnityEngine;
 
 namespace Code
@@ -22,13 +21,13 @@ namespace Code
             _expectedPrefixSum = new PrefixSumGeneration().Generate(_input);
         }
         
-        public void Run()
+        public bool Run()
         {
             _buffer.SetData(_input);
             _prefixSum.Dispatch();
             _buffer.GetData(_outputPrefixSum);
 
-            Assert.True(_expectedPrefixSum.IsSame(_outputPrefixSum));
+            return _expectedPrefixSum.IsSame(_outputPrefixSum);
         }
 
         public void Dispose()

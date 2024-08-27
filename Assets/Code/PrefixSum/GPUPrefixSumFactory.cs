@@ -17,6 +17,8 @@ namespace Code
         public IGPUPrefixSum Create()
         {
             GPUPrefixSumCommon common = new(_shader);
+            common.Bridge.SetInt("InputLastIndex", _input.count - 1);
+            
             return BuildChain(common, _input);
         }
 
