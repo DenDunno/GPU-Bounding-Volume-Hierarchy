@@ -1,5 +1,5 @@
-#include "..//Common.hlsl"
-groupshared int groupPrefixSum[BLOCK_SIZE][PREFIX_SUM_SIZE];
+#include "..//Threads.hlsl"
+groupshared int groupPrefixSum[BLOCKS][PREFIX_SUM_SIZE];
 
 int ComputeInclusivePrefixSumForGroup(int3 threadId, int value)
 {

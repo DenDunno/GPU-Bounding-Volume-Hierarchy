@@ -1,6 +1,0 @@
-
-#define THREADS 256
-#define THREAD_LAST_INDEX (THREADS - 1)
-#define BLOCK_SIZE 4
-#define RADIX 8
-#define PREFIX_SUM_SIZE THREADS

@@ -1,24 +1,29 @@
 #pragma kernel CSMain
-#include "../PrefixSum/BlellochPrefixSum.hlsl"
+#define BLOCKS 4
+#define OUT_OF_BOUND_VALUE -1
+#include "Assets/Code/Threads.hlsl"
+#include "../PrefixSum/Shaders/BlellochPrefixSum.hlsl"
 
 RWStructuredBuffer<int> Input;
 RWStructuredBuffer<int> LocalPrefixSum;
 uniform int ThreadGroups;
+uniform int SortLength;
 
-[numthreads(THREADS,BLOCK_SIZE,1)]
-void CSMain(int3 id : SV_DispatchThreadID, int3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
+[numthreads(THREADS,BLOCKS,1)]
+void CSMain(int3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
 {
-    // const int value = Input[id.x];
-    // const int mask = id.y;
-    // const int hasPassedMask = value == mask;
-    // const int groupPrefixSum = ComputeExclusivePrefixSumForGroup(threadId, hasPassedMask);
-    // const int totalElementsInGroup = GetGroupSum(threadId.y);
-    // const int blockSumIndex = id.y * ThreadGroups + groupId.x;
-    //
-    // BlockSum[blockSumIndex] = totalElementsInGroup;
-    //
-    // if (hasPassedMask)
-    // {
-    //     LocalPrefixSum[id.x] = groupPrefixSum;
-    // }
+    const int mask = id.y;
+    const uint blockId = threadId.y;
+    const int value = id.x < SortLength ? Input[id.x] : OUT_OF_BOUND_VALUE;
+    const int hasPassedMask = value == mask;
+    const int elementPrefixSum = ComputeExclusivePrefixSum(hasPassedMask, threadId.x, blockId);
+    const int totalElementsInGroup = GetGroupSum(blockId);
+    const int blockSumIndex = id.y * ThreadGroups + groupId.x;
+    
+    BlockSum[blockSumIndex] = totalElementsInGroup;
+    
+    if (hasPassedMask)
+    {
+        LocalPrefixSum[id.x] = elementPrefixSum;
+    }
 }

@@ -21,7 +21,7 @@ namespace Code
             _expectedPrefixSum = new PrefixSumGeneration().Generate(_input);
         }
         
-        public bool Run()
+        public CollectionComparisonResult<int> Run()
         {
             _buffer.SetData(_input);
             _prefixSum.Dispatch();

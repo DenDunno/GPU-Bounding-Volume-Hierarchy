@@ -1,6 +1,9 @@
 #pragma kernel SinglePrefixSum
 #pragma kernel ChunkPrefixSum
 #pragma kernel BlockSumAddition
+
+#define BLOCKS 1
+#include "Assets/Code/Threads.hlsl"
 #include "BlellochPrefixSum.hlsl"
 
 RWStructuredBuffer<int> Result;
@@ -8,13 +11,13 @@ RWStructuredBuffer<int> Result;
 [numthreads(THREADS,1,1)]
 void SinglePrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID)
 {
-    Result[id.x] = ComputeExclusivePrefixSum(threadId.x, Result[id.x]);
+    Result[id.x] = ComputeExclusivePrefixSum(Result[id.x], threadId.x);
 }
 
 [numthreads(THREADS,1,1)]
 void ChunkPrefixSum(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID, uint3 threadId : SV_GroupThreadID)
 {
-    Result[id.x] = ComputeExclusivePrefixSum(threadId.x, Result[id.x]);
+    Result[id.x] = ComputeExclusivePrefixSum(Result[id.x], threadId.x);
     WriteChunkSum(threadId.x, groupId.x);
 }
 

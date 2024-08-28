@@ -10,10 +10,10 @@ namespace Code
         public readonly ComputeBuffer BlockSum;
         public readonly ComputeBuffer Input;
 
-        public RadixSortBuffers(int inputSize)
+        public RadixSortBuffers(int inputSize, int blocks, int threadGroupsX)
         {
+            BlockSum = new ComputeBuffer(threadGroupsX * blocks, sizeof(int));
             LocalPrefixSum = new ComputeBuffer(inputSize, sizeof(int));
-            BlockSum = new ComputeBuffer(inputSize, sizeof(int));
             Input = new ComputeBuffer(inputSize, sizeof(int));
         }
 

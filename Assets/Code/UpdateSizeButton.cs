@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UpdateSizeButton : MonoBehaviour
 {
     [SerializeField] private InputField _inputField;
-    [SerializeField] private UpdateTest _test;
+    [SerializeField] private PrefixSumUpdateTest _test;
     [SerializeField] private Button _button;
 
     private void OnEnable()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Code
 {
-    public class UpdateTest : MonoBehaviour
+    public class PrefixSumUpdateTest : MonoBehaviour
     {
         [SerializeField] private ComputeShader _prefixSumShader;
         [SerializeField] private bool _update;
@@ -28,9 +28,17 @@ namespace Code
 
         private void Update()
         {
-            if (_update && _test.Run() == false)
+            if (_update)
             {
-                Debug.LogError("Test failed");
+                CollectionComparisonResult<int> result = _test.Run();
+
+                if (result.IsEqual == false)
+                {
+                    Debug.LogError($"Test failed. " +
+                                   $"Expected {result.FirstValue} " +
+                                   $"Actual = {result.SecondValue} " +
+                                   $"Index = {result.Index}");
+                }
             }
         }
 
