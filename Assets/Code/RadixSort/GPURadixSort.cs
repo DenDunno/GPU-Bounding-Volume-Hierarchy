@@ -40,8 +40,9 @@ namespace Code
             _shaderBridge.SetInt("SortLength", sortLength);
             _chunkSortKernel.Dispatch(_threadGroups);
             _blockSumPrefixSum.Dispatch();
-            output = new int[_buffers.BlockSum.count];
-            _buffers.BlockSum.GetData(output);
+            
+            output = new int[_buffers.Input.count];
+            _buffers.Input.GetData(output);
         }
 
         public void Dispose()

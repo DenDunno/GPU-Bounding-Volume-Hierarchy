@@ -1,7 +1,7 @@
 #pragma kernel ChunkSort
 #define SORTED_BITS_PER_PASS 2
 #define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
-#define MAX_INT 2147483647
+#define MAX_INT 2147483648
 #define OUT_OF_BOUND_VALUE MAX_INT
 #include "Assets/Code/ThreadId.hlsl"
 #include "Assets/Code/BitManipulation.hlsl"
@@ -11,7 +11,7 @@
 RWStructuredBuffer<int> LocalPrefixSum; 
 RWStructuredBuffer<int> Input;
 uniform int ThreadGroups;
-uniform int SortLength;
+uniform uint SortLength;
 uniform int BitOffset;
 
 int GetInputValue(uint globalId)
@@ -24,18 +24,27 @@ int GetInputValue(uint globalId)
 void SortPerValue(const int inputValue, const int sortValue, const ThreadId id)
 {
     const int hasPassedMask = inputValue == sortValue;
-    const int sortValuePrefixSum = ComputeExclusivePrefixSum(hasPassedMask, id.Local);
+    const int elementPrefixSum = ComputeExclusivePrefixSum(hasPassedMask, id.Local);
+    const int totalElementsInGroup = GetGroupSum();
     
     if (id.Local == THREAD_LAST_INDEX)
     {
         const int blockSumIndex = sortValue * ThreadGroups + id.Group;
-        BlockSum[blockSumIndex] = GetGroupSum();   
+        BlockSum[blockSumIndex] = totalElementsInGroup;
     }
     
     if (hasPassedMask)
     {
-        LocalPrefixSum[id.Global] = sortValuePrefixSum;   
+        LocalPrefixSum[id.Global] = elementPrefixSum;   
     }
+
+    const int aboba = THREADS - totalElementsInGroup;
+    const int indexIfTrue = aboba + elementPrefixSum;
+    const int indexIfFalse = id.Local - elementPrefixSum;
+    const int localScatterIndex = hasPassedMask ? indexIfTrue : indexIfFalse;
+    const int globalScatterIndex = id.Group * THREADS + localScatterIndex;
+    
+    Input[globalScatterIndex] = inputValue;
 }
 
 void SortChunk(const int inputValue, const ThreadId id)
@@ -43,7 +52,8 @@ void SortChunk(const int inputValue, const ThreadId id)
     [unroll(ALL_POSSIBLE_VALUES)]
     for (int sortValue = 0; sortValue < ALL_POSSIBLE_VALUES; ++sortValue)
     {
-        SortPerValue(inputValue, sortValue, id);
+        const int newValue = GetInputValue(id.Global);
+        SortPerValue(newValue, sortValue, id);
     }
 }
 
