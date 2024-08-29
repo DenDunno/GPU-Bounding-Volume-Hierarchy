@@ -1,8 +1,7 @@
 #pragma kernel ChunkSort
 #define SORTED_BITS_PER_PASS 2
 #define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
-#define MAX_INT 2147483648
-#define OUT_OF_BOUND_VALUE MAX_INT
+#define OUT_OF_BOUND_VALUE -1
 #include "Assets/Code/ThreadId.hlsl"
 #include "Assets/Code/BitManipulation.hlsl"
 #include "Assets/Code/Threads.hlsl"
@@ -21,30 +20,47 @@ int GetInputValue(uint globalId)
                ExtractBits(Input[globalId], BitOffset, SORTED_BITS_PER_PASS);
 }
 
-void SortPerValue(const int inputValue, const int sortValue, const ThreadId id)
+int ComputeMask(const int inputValue, const int mask)
 {
-    const int hasPassedMask = inputValue == sortValue;
-    const int elementPrefixSum = ComputeExclusivePrefixSum(hasPassedMask, id.Local);
-    const int totalElementsInGroup = GetGroupSum();
-    
+    return inputValue == OUT_OF_BOUND_VALUE ?
+        1 :
+        inputValue == mask;
+}
+
+void TryWriteToBlockSum(const ThreadId id, const int sortValue, const int totalElementsInGroup)
+{
     if (id.Local == THREAD_LAST_INDEX)
     {
         const int blockSumIndex = sortValue * ThreadGroups + id.Group;
         BlockSum[blockSumIndex] = totalElementsInGroup;
     }
+}
+
+int ComputeGlobalScatterIndex(ThreadId id, int hasPassedMask, int elementPrefixSum, int totalElementsInGroup)
+{
+    const int nonMatchingElementsCount = THREADS - totalElementsInGroup;
+    const int indexIfTrue = nonMatchingElementsCount + elementPrefixSum;
+    const int indexIfFalse = id.Local - elementPrefixSum;
+    const int localScatterIndex = hasPassedMask ? indexIfTrue : indexIfFalse;
+    const int globalScatterIndex = id.Group * THREADS + localScatterIndex;
+
+    return globalScatterIndex;
+}
+
+void SortPerValue(const int inputValue, const int sortValue, const ThreadId id)
+{
+    const int hasPassedMask = ComputeMask(inputValue, sortValue);
+    const int elementPrefixSum = ComputeExclusivePrefixSum(hasPassedMask, id.Local);
+    const int totalElementsInGroup = GetGroupSum();
     
+    TryWriteToBlockSum(id, sortValue, totalElementsInGroup);
     if (hasPassedMask)
     {
         LocalPrefixSum[id.Global] = elementPrefixSum;   
     }
 
-    const int aboba = THREADS - totalElementsInGroup;
-    const int indexIfTrue = aboba + elementPrefixSum;
-    const int indexIfFalse = id.Local - elementPrefixSum;
-    const int localScatterIndex = hasPassedMask ? indexIfTrue : indexIfFalse;
-    const int globalScatterIndex = id.Group * THREADS + localScatterIndex;
-    
-    Input[globalScatterIndex] = inputValue;
+    int scatterIndex = ComputeGlobalScatterIndex(id, hasPassedMask, elementPrefixSum, totalElementsInGroup);
+    Input[scatterIndex] = inputValue;
 }
 
 void SortChunk(const int inputValue, const ThreadId id)
