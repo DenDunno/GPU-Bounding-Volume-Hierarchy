@@ -1,29 +1,56 @@
-#pragma kernel CSMain
-#define BLOCKS 4
-#define OUT_OF_BOUND_VALUE -1
+#pragma kernel ChunkSort
+#define SORTED_BITS_PER_PASS 2
+#define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
+#define MAX_INT 2147483647
+#define OUT_OF_BOUND_VALUE MAX_INT
+#include "Assets/Code/ThreadId.hlsl"
+#include "Assets/Code/BitManipulation.hlsl"
 #include "Assets/Code/Threads.hlsl"
 #include "../PrefixSum/Shaders/BlellochPrefixSum.hlsl"
 
+RWStructuredBuffer<int> LocalPrefixSum; 
 RWStructuredBuffer<int> Input;
-RWStructuredBuffer<int> LocalPrefixSum;
 uniform int ThreadGroups;
 uniform int SortLength;
+uniform int BitOffset;
 
-[numthreads(THREADS,BLOCKS,1)]
-void CSMain(int3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
+int GetInputValue(uint globalId)
 {
-    const int mask = id.y;
-    const uint blockId = threadId.y;
-    const int value = id.x < SortLength ? Input[id.x] : OUT_OF_BOUND_VALUE;
-    const int hasPassedMask = value == mask;
-    const int elementPrefixSum = ComputeExclusivePrefixSum(hasPassedMask, threadId.x, blockId);
-    const int totalElementsInGroup = GetGroupSum(blockId);
-    const int blockSumIndex = id.y * ThreadGroups + groupId.x;
+    return globalId >= SortLength ?
+               OUT_OF_BOUND_VALUE :
+               ExtractBits(Input[globalId], BitOffset, SORTED_BITS_PER_PASS);
+}
+
+void SortPerValue(const int inputValue, const int sortValue, const ThreadId id)
+{
+    const int hasPassedMask = inputValue == sortValue;
+    const int sortValuePrefixSum = ComputeExclusivePrefixSum(hasPassedMask, id.Local);
     
-    BlockSum[blockSumIndex] = totalElementsInGroup;
+    if (id.Local == THREAD_LAST_INDEX)
+    {
+        const int blockSumIndex = sortValue * ThreadGroups + id.Group;
+        BlockSum[blockSumIndex] = GetGroupSum();   
+    }
     
     if (hasPassedMask)
     {
-        LocalPrefixSum[id.x] = elementPrefixSum;
+        LocalPrefixSum[id.Global] = sortValuePrefixSum;   
     }
+}
+
+void SortChunk(const int inputValue, const ThreadId id)
+{
+    [unroll(ALL_POSSIBLE_VALUES)]
+    for (int sortValue = 0; sortValue < ALL_POSSIBLE_VALUES; ++sortValue)
+    {
+        SortPerValue(inputValue, sortValue, id);
+    }
+}
+
+[numthreads(THREADS,1,1)]
+void ChunkSort(int3 globalId : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
+{
+    ThreadId id = CreateThreadId(globalId.x, threadId.x, groupId.x);
+    const int inputValue = GetInputValue(id.Global);
+    SortChunk(inputValue, id);
 }

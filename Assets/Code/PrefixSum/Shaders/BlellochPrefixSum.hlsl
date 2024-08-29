@@ -1,16 +1,12 @@
-#ifndef BLOCKS
-#error "BLOCKS is not defined. Please define 'BLOCKS' before including 'BlellochPrefixSum.hlsl'"
-#endif
-
 #ifndef THREADS
 #error "THREADS is not defined. Please define 'THREADS' before including 'BlellochPrefixSum.hlsl'"
 #endif
 
 #define THREAD_LAST_INDEX (THREADS - 1)
-groupshared int InclusiveScan[BLOCKS][THREADS];
+groupshared int InclusiveScan[THREADS];
 RWStructuredBuffer<int> BlockSum;
 
-void Reduce(uint threadId, uint blockId)
+void Reduce(uint threadId)
 {
     for (uint step = 1, threadsTotal = THREADS / 2; step < THREADS; step *= 2, threadsTotal >>= 1)
     {
@@ -21,60 +17,61 @@ void Reduce(uint threadId, uint blockId)
             int rightIndex = 2 * step * (threadId + 1) - 1;
             int leftIndex = rightIndex - step;
 
-            InclusiveScan[blockId][rightIndex] += InclusiveScan[blockId][leftIndex];
+            InclusiveScan[rightIndex] += InclusiveScan[leftIndex];
         }
     }
 }
 
-void DownSweep(uint threadId, uint blockId)
+void DownSweep(uint threadId)
 {
     for (uint threadsTotal = 2, step = THREADS / 2; threadsTotal < THREADS; threadsTotal <<= 1, step >>= 1)
     {
         GroupMemoryBarrierWithGroupSync();
+        
         if (threadId < threadsTotal - 1)
         {
             int leftIndex = step * (threadId + 1) - 1;
             int rightIndex = leftIndex + step / 2;
             
-            InclusiveScan[blockId][rightIndex] += InclusiveScan[blockId][leftIndex];
+            InclusiveScan[rightIndex] += InclusiveScan[leftIndex];
         }
     }
 
     GroupMemoryBarrierWithGroupSync();
 }
 
-void MoveDataToSharedMemory(uint threadId, uint blockId, int value)
+void MoveDataToSharedMemory(uint threadId, int value)
 {
-    InclusiveScan[blockId][threadId] = value;
+    InclusiveScan[threadId] = value;
 }
 
-int GetInclusivePrefixSum(uint threadId, uint blockId)
+int GetInclusivePrefixSum(uint threadId)
 {
-    return InclusiveScan[blockId][threadId];
+    return InclusiveScan[threadId];
 }
 
-int GetGroupSum(uint blockId = 0)
+int GetGroupSum()
 {
-    return InclusiveScan[blockId][THREAD_LAST_INDEX];
+    return InclusiveScan[THREAD_LAST_INDEX];
 }
 
 void WriteChunkSum(uint threadId, uint groupId)
 {
     if (threadId == THREAD_LAST_INDEX)
     {
-        BlockSum[groupId] = InclusiveScan[0][THREAD_LAST_INDEX];
+        BlockSum[groupId] = InclusiveScan[THREAD_LAST_INDEX];
     }
 }
 
-int ComputeInclusivePrefixSum(int inputValue, uint threadId, uint blockId = 0)
+int ComputeInclusivePrefixSum(int inputValue, uint threadId)
 {
-    MoveDataToSharedMemory(threadId, blockId, inputValue);
-    Reduce(threadId, blockId);
-    DownSweep(threadId, blockId);
-    return GetInclusivePrefixSum(threadId, blockId);
+    MoveDataToSharedMemory(threadId, inputValue);
+    Reduce(threadId);
+    DownSweep(threadId);
+    return GetInclusivePrefixSum(threadId);
 }
 
-int ComputeExclusivePrefixSum(int inputValue, uint threadId, uint blockId = 0)
+int ComputeExclusivePrefixSum(int inputValue, uint threadId)
 {
-    return ComputeInclusivePrefixSum(inputValue, threadId, blockId) - inputValue;
+    return ComputeInclusivePrefixSum(inputValue, threadId) - inputValue;
 }

@@ -16,7 +16,7 @@ namespace Code
 
         public GPURadixSort(GPURadixSortInput input)
         {
-            _chunkSortKernel = new Kernel(input.SortShader, "CSMain");
+            _chunkSortKernel = new Kernel(input.SortShader, "ChunkSort");
             _threadGroups = _chunkSortKernel.ComputeThreadGroups(input.PayloadDispatch);
             _buffers = new RadixSortBuffers(input.ArraySize, input.Blocks, _threadGroups.x);
             _shaderBridge = new CachedShaderBridge(new ComputeShaderBridge(input.SortShader));

@@ -2,7 +2,6 @@
 #pragma kernel ChunkPrefixSum
 #pragma kernel BlockSumAddition
 
-#define BLOCKS 1
 #include "Assets/Code/Threads.hlsl"
 #include "BlellochPrefixSum.hlsl"
 

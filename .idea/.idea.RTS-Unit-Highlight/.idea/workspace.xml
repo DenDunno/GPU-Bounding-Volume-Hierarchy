@@ -5,45 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/SortGlobalScatter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/SortGlobalScatter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/SortUpdateTest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/SortUpdateTest.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Threads.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/CollectionComparisonResult.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/CollectionComparisonResult.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BitManipulation.hlsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BitManipulation.hlsl.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/ThreadId.hlsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/ThreadId.hlsl.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Common.hlsl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Common.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Threads.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/PrefixSumGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumGeneration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/PrefixSumGeneration.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumGeneration.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/PrefixSumTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/PrefixSumTest.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumTest.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/RandomCollectionGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/RandomCollectionGeneration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/RandomCollectionGeneration.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/RandomCollectionGeneration.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/UpdateSizeButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UpdateSizeButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/UpdateSizeButton.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UpdateSizeButton.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/UpdateTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumUpdateTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PlaymodeTests/UpdateTest.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumUpdateTest.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.hlsl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/BlellochPrefixSum.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/LocalPrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/HillisAndSteelePrefixSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/LocalPrefixSum.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/HillisAndSteelePrefixSum.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/PrefixSum.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSortInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSortInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSortBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSortBuffers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sirenix/Odin Inspector/Config/Editor/OdinModuleConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Sirenix/Odin Inspector/Config/Editor/OdinModuleConfig.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/SortGlobalScatter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/SortGlobalScatter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/SortGlobalScatter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Threads.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Threads.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +67,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumFactory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumUpdateTest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/RadixSort/SortGlobalScatter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/ThirdParty/CameraMovement.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/KernelConstantDispatch.cs" root0="FORCE_HIGHLIGHTING" />
@@ -167,10 +142,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="20796">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="20796" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -221,7 +196,8 @@
       <workItem from="1724802334319" duration="7749000" />
       <workItem from="1724811903778" duration="374000" />
       <workItem from="1724812687995" duration="1193000" />
-      <workItem from="1724813908204" duration="2706000" />
+      <workItem from="1724813908204" duration="3303000" />
+      <workItem from="1724895138389" duration="8260000" />
     </task>
     <servers />
   </component>
