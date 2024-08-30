@@ -37,12 +37,21 @@ namespace Code
 
         public void Execute(ref int[] output, int sortLength)
         {
-            _shaderBridge.SetInt("SortLength", sortLength);
+            SetupBeforeDispatch(sortLength);
             _chunkSortKernel.Dispatch(_threadGroups);
             _blockSumPrefixSum.Dispatch();
             
             output = new int[_buffers.Input.count];
             _buffers.Input.GetData(output);
+        }
+
+        private void SetupBeforeDispatch(int sortLength)
+        {
+            int threads = _chunkSortKernel.ThreadsPerGroup.x * _threadGroups.x;
+            int outOfBoundsElementsCount = threads - sortLength;
+            
+            _shaderBridge.SetInt("SortLength", sortLength);
+            _shaderBridge.SetInt("OutOfBoundsElementsCount", outOfBoundsElementsCount);
         }
 
         public void Dispose()

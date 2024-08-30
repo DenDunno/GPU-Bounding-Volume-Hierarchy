@@ -11,7 +11,8 @@ RWStructuredBuffer<int> LocalPrefixSum;
 RWStructuredBuffer<int> BlockSum;
 RWStructuredBuffer<int> Input;
 groupshared int SortedChunk[THREADS];
-uniform int ThreadGroups;
+uniform uint OutOfBoundsElementsCount;
+uniform uint ThreadGroups;
 uniform uint SortLength;
 uniform int BitOffset;
 
@@ -44,7 +45,9 @@ void TryWriteToBlockSum(const ThreadId id, const int sortValue, const int totalE
     if (id.Local == THREAD_LAST_INDEX)
     {
         const int blockSumIndex = sortValue * ThreadGroups + id.Group;
-        BlockSum[blockSumIndex] = totalElementsInGroup;
+        const int isLastThreadGroup = id.Group == ThreadGroups - 1;
+        const int offset = isLastThreadGroup ? OutOfBoundsElementsCount : 0;
+        BlockSum[blockSumIndex] = totalElementsInGroup - offset;
     }
 }
 
