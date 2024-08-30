@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/ChunkGPUPrefixSum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/ChunkGPUPrefixSum.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/ThreadId.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/ThreadId.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Threads.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Threads.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
@@ -189,7 +193,7 @@
       <workItem from="1724812687995" duration="1193000" />
       <workItem from="1724813908204" duration="3303000" />
       <workItem from="1724895138389" duration="16015000" />
-      <workItem from="1724968774014" duration="4670000" />
+      <workItem from="1724968774014" duration="10094000" />
     </task>
     <servers />
   </component>

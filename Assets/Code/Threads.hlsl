@@ -1,2 +1,2 @@
 
-#define THREADS 4
+#define THREADS 16

@@ -22,10 +22,9 @@ namespace Code
 
         private void Setup()
         {
-            _common.Bridge.SetBuffer(_common.ChunksScanKernel.ID, "BlockSum", _blockSum);
+            _common.Bridge.SetBuffer(_common.ChunksScanKernel.ID, "ScanBlockSum", _blockSum);
             _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "Result", _input);
-            _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "BlockSum", _blockSum);
-            _common.Bridge.SetInt("BlockSumSize", _blockSum.count);
+            _common.Bridge.SetBuffer(_common.BlockSumAdditionKernel.ID, "ScanBlockSum", _blockSum);
         }
 
         public void Dispatch()

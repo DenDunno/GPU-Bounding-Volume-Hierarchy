@@ -2,16 +2,28 @@
 #define SORTED_BITS_PER_PASS 2
 #define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
 #define OUT_OF_BOUND_VALUE -1
-#include "Assets/Code/ThreadId.hlsl"
-#include "Assets/Code/BitManipulation.hlsl"
-#include "Assets/Code/Threads.hlsl"
+#include "../BitManipulation.hlsl"
+#include "../ThreadId.hlsl"
+#include "../Threads.hlsl"
 #include "../PrefixSum/Shaders/BlellochPrefixSum.hlsl"
 
-RWStructuredBuffer<int> LocalPrefixSum; 
+RWStructuredBuffer<int> LocalPrefixSum;
+RWStructuredBuffer<int> BlockSum;
 RWStructuredBuffer<int> Input;
+groupshared int SortedChunk[THREADS];
 uniform int ThreadGroups;
 uniform uint SortLength;
 uniform int BitOffset;
+
+void MoveInputToSharedMemory(const uint threadId, const int inputValue)
+{
+    SortedChunk[threadId] = inputValue;
+}
+
+int GetSortedValueFromSharedMemory(const uint threadId)
+{
+    return SortedChunk[threadId];
+}
 
 int GetInputValue(uint globalId)
 {
@@ -36,47 +48,45 @@ void TryWriteToBlockSum(const ThreadId id, const int sortValue, const int totalE
     }
 }
 
-int ComputeGlobalScatterIndex(ThreadId id, int hasPassedMask, int elementPrefixSum, int totalElementsInGroup)
+void ShuffleLocally(ThreadId id, int inputValue, int hasPassedMask, PrefixSum elementPrefixSum)
 {
-    const int nonMatchingElementsCount = THREADS - totalElementsInGroup;
-    const int indexIfTrue = nonMatchingElementsCount + elementPrefixSum;
-    const int indexIfFalse = id.Local - elementPrefixSum;
+    const int nonMatchingElementsCount = THREADS - elementPrefixSum.TotalInGroup;
+    const int indexIfTrue = nonMatchingElementsCount + elementPrefixSum.Value;
+    const int indexIfFalse = id.Local - elementPrefixSum.Value;
     const int localScatterIndex = hasPassedMask ? indexIfTrue : indexIfFalse;
-    const int globalScatterIndex = id.Group * THREADS + localScatterIndex;
 
-    return globalScatterIndex;
+    SortedChunk[localScatterIndex] = inputValue;
 }
 
-void SortPerValue(const int inputValue, const int sortValue, const ThreadId id)
+void SortPerValue(const int sortValue, const ThreadId id)
 {
+    const int inputValue = GetSortedValueFromSharedMemory(id.Local);
     const int hasPassedMask = ComputeMask(inputValue, sortValue);
-    const int elementPrefixSum = ComputeExclusivePrefixSum(hasPassedMask, id.Local);
-    const int totalElementsInGroup = GetGroupSum();
+    PrefixSum elementPrefixSum = PrefixSum::ComputeExclusive(hasPassedMask, id.Local);
+    TryWriteToBlockSum(id, sortValue, elementPrefixSum.TotalInGroup);
+    ShuffleLocally(id, inputValue, hasPassedMask, elementPrefixSum);
     
-    TryWriteToBlockSum(id, sortValue, totalElementsInGroup);
     if (hasPassedMask)
-    {
-        LocalPrefixSum[id.Global] = elementPrefixSum;   
-    }
-
-    int scatterIndex = ComputeGlobalScatterIndex(id, hasPassedMask, elementPrefixSum, totalElementsInGroup);
-    Input[scatterIndex] = inputValue;
+        LocalPrefixSum[id.Global] = elementPrefixSum.Value;
 }
 
-void SortChunk(const int inputValue, const ThreadId id)
+int SortChunk(const int inputValue, const ThreadId id)
 {
+    MoveInputToSharedMemory(id.Local, inputValue);
+    
     [unroll(ALL_POSSIBLE_VALUES)]
     for (int sortValue = 0; sortValue < ALL_POSSIBLE_VALUES; ++sortValue)
     {
-        const int newValue = GetInputValue(id.Global);
-        SortPerValue(newValue, sortValue, id);
+        SortPerValue(sortValue, id);
     }
+
+    return GetSortedValueFromSharedMemory(id.Local);
 }
 
 [numthreads(THREADS,1,1)]
 void ChunkSort(int3 globalId : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
 {
-    ThreadId id = CreateThreadId(globalId.x, threadId.x, groupId.x);
+    ThreadId id = ThreadId::Create(globalId.x, threadId.x, groupId.x);
     const int inputValue = GetInputValue(id.Global);
-    SortChunk(inputValue, id);
+    Input[id.Global] = SortChunk(inputValue, id);
 }

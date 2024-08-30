@@ -4,7 +4,7 @@
 
 #define THREAD_LAST_INDEX (THREADS - 1)
 groupshared int InclusiveScan[THREADS];
-RWStructuredBuffer<int> BlockSum;
+RWStructuredBuffer<int> ScanBlockSum;
 
 void Reduce(uint threadId)
 {
@@ -59,7 +59,7 @@ void WriteChunkSum(uint threadId, uint groupId)
 {
     if (threadId == THREAD_LAST_INDEX)
     {
-        BlockSum[groupId] = InclusiveScan[THREAD_LAST_INDEX];
+        ScanBlockSum[groupId] = GetGroupSum();
     }
 }
 
@@ -75,3 +75,18 @@ int ComputeExclusivePrefixSum(int inputValue, uint threadId)
 {
     return ComputeInclusivePrefixSum(inputValue, threadId) - inputValue;
 }
+
+struct PrefixSum
+{
+    int Value;
+    int TotalInGroup;
+
+    static PrefixSum ComputeExclusive(int inputValue, uint threadId)
+    {
+        PrefixSum result;
+        result.Value = ComputeExclusivePrefixSum(inputValue, threadId);
+        result.TotalInGroup = GetGroupSum();
+    
+        return result;
+    }
+};
