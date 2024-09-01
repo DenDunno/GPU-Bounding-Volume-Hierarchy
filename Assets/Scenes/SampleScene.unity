@@ -1188,6 +1188,7 @@ GameObject:
   - component: {fileID: 1801918983}
   - component: {fileID: 1801918984}
   - component: {fileID: 1801918985}
+  - component: {fileID: 1801918986}
   m_Layer: 0
   m_Name: UpdateTest
   m_TagString: Untagged
@@ -1223,14 +1224,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startIndex: 1
-  _endIndex: 10000
+  _endIndex: 128
   _coolDown: 0.02
-  _counter: 258
-  _rules:
-    Seed: 0
-    MinValue: 0
-    MaxValue: 10
-  _input: 00000000
+  _counter: 129
+  _minValue: 0
+  _maxValue: 10
+  _seed: 160
 --- !u!114 &1801918985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1243,7 +1242,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e99420e9a64eb688252009622f8698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Input: 
+  Output: 
   _sortShader: {fileID: 7200000, guid: 96268981ae7ad3243a92cf670f5e0434, type: 3}
+  _prefixSumShader: {fileID: 7200000, guid: e1f7cd46216640299b5fb52f6d413230, type: 3}
+--- !u!114 &1801918986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801918982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59732e4b3fd483aaa9c9a74d0f38b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Input: 
+  Output: 
   _prefixSumShader: {fileID: 7200000, guid: e1f7cd46216640299b5fb52f6d413230, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

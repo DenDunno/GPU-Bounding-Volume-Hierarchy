@@ -60,8 +60,6 @@ void InitializeOffsetTable(uint threadId)
 
 void BuildPrefixSumAndOffsetTable(const int inputValue, const ThreadId id)
 {
-    InitializeOffsetTable(id.Local);
-
     [unroll(ALL_POSSIBLE_VALUES)]
     for (int sortValue = 0; sortValue < ALL_POSSIBLE_VALUES; ++sortValue)
     {
@@ -74,50 +72,26 @@ void BuildPrefixSumAndOffsetTable(const int inputValue, const ThreadId id)
     GroupMemoryBarrierWithGroupSync();
 }
 
-int GetChunkSortedValue(const int inputValue, const ThreadId id)
-{
-    int targetElementPrefixSum = Scan[inputValue][id.Local];
-    int totalElementsLessThanTargetElement = OffsetTable[inputValue];
-    int localScatterIndex = targetElementPrefixSum + totalElementsLessThanTargetElement;
-
-    SortedChunk[localScatterIndex] = inputValue;
-    GroupMemoryBarrierWithGroupSync();
-
-    return SortedChunk[id.Local];
-}
-
-void MoveInputChunkToSharedMemory(const int inputValue, const ThreadId id)
-{
-    SortedChunk[id.Local] = inputValue;
-    GroupMemoryBarrierWithGroupSync();
-}
-
-void SortChunk(const int inputValue, const ThreadId id)
-{
-    MoveInputChunkToSharedMemory(inputValue, id);
-    BuildPrefixSumAndOffsetTable(inputValue, id);
-    LocalShuffle[id.Global] = GetChunkSortedValue(inputValue, id);
-}
-
 [numthreads(THREADS,1,1)]
 void ChunkSort(int3 globalId : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
 {
     ThreadId id = ThreadId::Create(globalId.x, threadId.x, groupId.x);
     const int inputValue = GetInputValue(id.Global);
-    SortChunk(inputValue, id);
+    BuildPrefixSumAndOffsetTable(inputValue, id);
+    LocalShuffle[id.Global] = Input[id.Global];
 }
 
 [numthreads(THREADS,1,1)]
 void GlobalScatter(int3 globalId : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
 {
-    uint index = min(globalId.x, SortLength - 1);
-    int inputValue = Input[index];
+    if (globalId.x >= SortLength) return;
+    int inputValue = LocalShuffle[globalId.x];
     int sortValue = ExtractBits(inputValue, BitOffset, SORTED_BITS_PER_PASS);
-    
     uint blockSumIndex = sortValue * ThreadGroups + groupId.x;
     int blockSumPrefixSum = BlockSum[blockSumIndex];
-    int localPrefixSum = LocalPrefixSum[index];
+    int localPrefixSum = LocalPrefixSum[globalId.x];
     int globalScatterPosition = localPrefixSum + blockSumPrefixSum;
     
     Input[globalScatterPosition] = inputValue;
+    //Input[globalId.x] = globalScatterPosition;
 }

@@ -1,6 +1,5 @@
-using System;
+using System.Collections;
 using System.Linq;
-using System.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -12,30 +11,36 @@ namespace Code.Test
         [SerializeField] private int _endIndex;
         [SerializeField] private float _coolDown;
         [SerializeField] private int _counter;
-        [SerializeField] private InputGenerationRules _rules;
-        [SerializeField] private int[] _input;
+        [SerializeField] private int _minValue;
+        [SerializeField] private int _maxValue;
+        [SerializeField] private int _seed;
 
         [Button]
-        private async void Run()
+        private void Run()
         {
             ITest[] tests = GetComponents<ITest>();
-            bool success = await RunTests(tests);
-            ReportResult(success);
+            StartCoroutine(RunTests(tests));
+        }
+        
+        [Button]
+        private void Stop()
+        {
+            StopAllCoroutines();
         }
 
-        private async Task<bool> RunTests(ITest[] tests)
+        private IEnumerator RunTests(ITest[] tests)
         {
             bool success = true;
             _counter = _startIndex;
 
-            while (_startIndex < _endIndex && success)
+            while (_counter++ < _endIndex && success)
             {
-                success = tests.All(test => test.Run(_counter++, _rules, _input));
-
-                await Task.Delay(TimeSpan.FromSeconds(_coolDown));
+                RandomCollectionGeneration collectionGeneration = new(_seed, _counter, _minValue, _maxValue);
+                success = tests.All(test => test.Run(collectionGeneration.Create()));
+                yield return null;
             }
 
-            return success;
+            ReportResult(success);
         }
 
         private void ReportResult(bool success)

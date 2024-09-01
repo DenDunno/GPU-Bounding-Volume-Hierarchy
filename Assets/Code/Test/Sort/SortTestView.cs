@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Code.Utils.Extensions;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Code.Test.Sort
@@ -9,23 +11,27 @@ namespace Code.Test.Sort
     {
         [SerializeField] private ComputeShader _sortShader;
         [SerializeField] private ComputeShader _prefixSumShader;
-
+        
         protected override string TestName => "Sorting";
-
-        protected override CollectionComparisonResult<int> RunComparisonTest(int index, InputGenerationRules rules, int[] input)
+        
+        [Button]
+        public void CPUSort()
         {
-            int[] inputData = new RandomCollectionGeneration(rules.Seed, index, rules.MinValue, rules.MaxValue).Create();
-            int[] output = new int[index];
-
-            GPURadixSortInput sortInput = new(_sortShader, _prefixSumShader, inputData.Length);
+            new CPURadixSortMock().Sort(Input, Output, 4);
+        }
+        
+        protected override CollectionComparisonResult<int> RunComparisonTest(int[] input)
+        {
+            GPURadixSortInput sortInput = new(_sortShader, _prefixSumShader, input.Length);
             using GPURadixSort sort = new(sortInput);
 
-            sort.SetData(inputData);
-            sort.Execute(ref output, inputData.Length);
+            sort.SetData(input);
+            sort.Execute(ref Output, input.Length);
+            
+            List<int> expectedOutput = new(input);
+            expectedOutput.Sort();
 
-            Array.Sort(inputData);
-
-            return output.IsSame(inputData);
+            return expectedOutput.IsSame(Output);
         }
     }
 }

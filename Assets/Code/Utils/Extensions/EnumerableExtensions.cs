@@ -17,7 +17,7 @@ namespace Code.Utils.Extensions
                 }
             }
 
-            return new CollectionComparisonResult<T>(isEqual: true, default, default, default);
+            return new CollectionComparisonResult<T>(isEqual: true, first, second, default);
         }
         
         public static IList<T> Fill<T>(this IList<T> collection, T value)

@@ -1,5 +1,6 @@
 using System;
 using Code.Test;
+using Code.Utils.Extensions;
 using UnityEngine;
 
 namespace Code
@@ -11,10 +12,21 @@ namespace Code
 
         protected override string TestName => "Prefix sum";
 
-        protected override CollectionComparisonResult<int> RunComparisonTest(int index, InputGenerationRules rules, int[] input)
+        protected override CollectionComparisonResult<int> RunComparisonTest(int[] input)
         {
-            using PrefixSumTest test = new(index, rules.Seed, _prefixSumShader);
-            return test.Run();
+            int[] outputPrefixSum = new int[input.Length];
+            ComputeBuffer buffer = new(input.Length, sizeof(int));
+            IGPUPrefixSum prefixSum = new GPUPrefixSumFactory(_prefixSumShader, buffer).Create();
+            int[] expectedPrefixSum = new PrefixSumGeneration().Generate(input);
+            
+            buffer.SetData(input);
+            prefixSum.Dispatch();
+            buffer.GetData(outputPrefixSum);
+
+            buffer.Dispose();
+            prefixSum.Dispose();
+            
+            return expectedPrefixSum.IsSame(outputPrefixSum);
         }
     }
 }

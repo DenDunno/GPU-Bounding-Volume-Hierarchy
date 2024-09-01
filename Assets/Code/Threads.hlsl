@@ -1,2 +1,2 @@
 
-#define THREADS 2
+#define THREADS 256
