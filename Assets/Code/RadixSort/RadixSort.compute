@@ -112,8 +112,9 @@ void GlobalScatter(int3 globalId : SV_DispatchThreadID, uint3 threadId : SV_Grou
 {
     uint index = min(globalId.x, SortLength - 1);
     int inputValue = Input[index];
+    int sortValue = ExtractBits(inputValue, BitOffset, SORTED_BITS_PER_PASS);
     
-    uint blockSumIndex = inputValue * ThreadGroups + groupId.x;
+    uint blockSumIndex = sortValue * ThreadGroups + groupId.x;
     int blockSumPrefixSum = BlockSum[blockSumIndex];
     int localPrefixSum = LocalPrefixSum[index];
     int globalScatterPosition = localPrefixSum + blockSumPrefixSum;

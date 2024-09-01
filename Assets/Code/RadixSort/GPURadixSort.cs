@@ -1,4 +1,5 @@
 using System;
+using Code.Utils.Extensions;
 using Code.Utils.ShaderUtils;
 using Code.Utils.ShaderUtils.Buffer;
 using MyFolder.ComputeShaderNM;
@@ -12,11 +13,13 @@ namespace Code
         private readonly IGPUPrefixSum _blockSumPrefixSum;
         private readonly RadixSortBuffers _buffers;
         private readonly Vector3Int _threadGroups;
+        private readonly int _sortedBitsPerPass;
         private readonly Kernel _globalScatter;
         private readonly Kernel _chunkSort;
 
         public GPURadixSort(GPURadixSortInput input)
         {
+            _sortedBitsPerPass = input.SortedBitsPerPass;
             _chunkSort = new Kernel(input.SortShader, "ChunkSort");
             _globalScatter = new Kernel(input.SortShader, "GlobalScatter");
             _threadGroups = _chunkSort.ComputeThreadGroups(input.PayloadDispatch);
@@ -41,12 +44,22 @@ namespace Code
         public void Execute(ref int[] output, int sortLength)
         {
             SetupBeforeDispatch(sortLength);
-            _chunkSort.Dispatch(_threadGroups);
-            _blockSumPrefixSum.Dispatch();
-            _globalScatter.Dispatch(_threadGroups);
+
+            for (int bitOffset = 0; bitOffset < 32; bitOffset += _sortedBitsPerPass)
+            {
+                SetBitOffset(bitOffset);
+                _chunkSort.Dispatch(_threadGroups);
+                _blockSumPrefixSum.Dispatch();
+                _globalScatter.Dispatch(_threadGroups);   
+            }
             
             output = new int[_buffers.Input.count];
             _buffers.Input.GetData(output);
+        }
+
+        private void SetBitOffset(int bitOffset)
+        {
+            _shaderBridge.SetInt("BitOffset", bitOffset);
         }
 
         private void SetupBeforeDispatch(int sortLength)

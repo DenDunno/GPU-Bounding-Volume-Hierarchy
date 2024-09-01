@@ -13,7 +13,7 @@ namespace Code.Utils.Extensions
             {
                 if (first[i].Equals(second[i]) == false)
                 {
-                    return new CollectionComparisonResult<T>(isEqual: false, first[i], second[i], i);
+                    return new CollectionComparisonResult<T>(isEqual: false, first, second, i);
                 }
             }
 

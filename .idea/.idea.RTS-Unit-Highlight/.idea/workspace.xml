@@ -5,17 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/Common.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/Common/CollectionComparisonTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/Common/CollectionComparisonTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/Common/ITest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/Common/ITest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/InputGenerationRules.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/InputGenerationRules.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTestView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTestView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/Sort.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/Sort/SortTestView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Test/Sort/SortTestView.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumUpdateTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumUpdateTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSort.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/ChunkRadixSort.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSort.compute.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumGeneration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumGeneration.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumGeneration.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumTest.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTest.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumUpdateTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumUpdateTest.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSortBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSortBuffers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/SortUpdateTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/SortUpdateTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Kernel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/Kernel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSort.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSort.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/SortGlobalScatter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/SortGlobalScatter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/SortUpdateTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/SortUpdateTest.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UpdateSizeButton.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UpdateSizeButton.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/CollectionComparisonResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/CollectionComparisonResult.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,9 +85,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/MortonCodeAssignment.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumFactory.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumTest.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/Test/PrefixSumUpdateTest.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Code/RadixSort/SortGlobalScatter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumGeneration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/ThirdParty/CameraMovement.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/KernelConstantDispatch.cs" root0="FORCE_HIGHLIGHTING" />
@@ -198,7 +219,8 @@
       <workItem from="1724895138389" duration="16015000" />
       <workItem from="1724968774014" duration="18993000" />
       <workItem from="1725077595768" duration="3906000" />
-      <workItem from="1725137268187" duration="10361000" />
+      <workItem from="1725137268187" duration="15108000" />
+      <workItem from="1725162052593" duration="2351000" />
     </task>
     <servers />
   </component>
