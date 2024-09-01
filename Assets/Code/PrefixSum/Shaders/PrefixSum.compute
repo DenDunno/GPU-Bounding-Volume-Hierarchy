@@ -2,6 +2,7 @@
 #pragma kernel ChunkPrefixSum
 #pragma kernel BlockSumAddition
 
+#define PREFIX_SUM_ROWS 1
 #include "Assets/Code/Threads.hlsl"
 #include "BlellochPrefixSum.hlsl"
 
@@ -16,8 +17,15 @@ void SinglePrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupTh
 [numthreads(THREADS,1,1)]
 void ChunkPrefixSum(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID, uint3 threadId : SV_GroupThreadID)
 {
-    Result[id.x] = ComputeExclusivePrefixSum(Result[id.x], threadId.x);
-    WriteChunkSum(threadId.x, groupId.x);
+    int inputValue = Result[id.x];
+    int exclusivePrefixSum = ComputeExclusivePrefixSum(Result[id.x], threadId.x);
+    Result[id.x] = exclusivePrefixSum;
+    
+    if (threadId.x == THREAD_LAST_INDEX)
+    {
+        int totalInGroup = exclusivePrefixSum + inputValue;
+        ScanBlockSum[groupId.x] = totalInGroup; 
+    }
 }
 
 [numthreads(THREADS,1,1)]

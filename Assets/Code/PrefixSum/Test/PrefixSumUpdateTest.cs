@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Code
@@ -30,15 +31,21 @@ namespace Code
         {
             if (_update)
             {
-                CollectionComparisonResult<int> result = _test.Run();
+                RunTest();
+            }
+        }
 
-                if (result.IsEqual == false)
-                {
-                    Debug.LogError($"Test failed. " +
-                                   $"Expected {result.FirstValue} " +
-                                   $"Actual = {result.SecondValue} " +
-                                   $"Index = {result.Index}");
-                }
+        [Button]
+        private void RunTest()
+        {
+            CollectionComparisonResult<int> result = _test.Run();
+
+            if (result.IsEqual == false)
+            {
+                Debug.LogError($"Test failed. " +
+                               $"Expected {result.FirstValue} " +
+                               $"Actual = {result.SecondValue} " +
+                               $"Index = {result.Index}");
             }
         }
 

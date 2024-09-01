@@ -2,11 +2,15 @@
 #error "THREADS is not defined. Please define 'THREADS' before including 'BlellochPrefixSum.hlsl'"
 #endif
 
+#ifndef PREFIX_SUM_ROWS
+#error "PREFIX_SUM_ROWS is not defined. Please define 'PREFIX_SUM_ROWS' before including 'BlellochPrefixSum.hlsl'"
+#endif
+
 #define THREAD_LAST_INDEX (THREADS - 1)
-groupshared int InclusiveScan[THREADS];
+groupshared int Scan[PREFIX_SUM_ROWS][THREADS];
 RWStructuredBuffer<int> ScanBlockSum;
 
-void Reduce(uint threadId)
+void Reduce(uint rowId, uint threadId)
 {
     for (uint step = 1, threadsTotal = THREADS / 2; step < THREADS; step *= 2, threadsTotal >>= 1)
     {
@@ -17,12 +21,12 @@ void Reduce(uint threadId)
             int rightIndex = 2 * step * (threadId + 1) - 1;
             int leftIndex = rightIndex - step;
 
-            InclusiveScan[rightIndex] += InclusiveScan[leftIndex];
+            Scan[rowId][rightIndex] += Scan[rowId][leftIndex];
         }
     }
 }
 
-void DownSweep(uint threadId)
+void DownSweep(uint rowId, uint threadId)
 {
     for (uint threadsTotal = 2, step = THREADS / 2; threadsTotal < THREADS; threadsTotal <<= 1, step >>= 1)
     {
@@ -33,60 +37,37 @@ void DownSweep(uint threadId)
             int leftIndex = step * (threadId + 1) - 1;
             int rightIndex = leftIndex + step / 2;
             
-            InclusiveScan[rightIndex] += InclusiveScan[leftIndex];
+            Scan[rowId][rightIndex] += Scan[rowId][leftIndex];
         }
     }
 
     GroupMemoryBarrierWithGroupSync();
 }
 
-void MoveDataToSharedMemory(uint threadId, int value)
+void MoveDataToSharedMemory(uint rowId, uint threadId, int value)
 {
-    InclusiveScan[threadId] = value;
+    Scan[rowId][threadId] = value;
 }
 
-int GetInclusivePrefixSum(uint threadId)
+int GetInclusivePrefixSum(uint rowId, uint threadId)
 {
-    return InclusiveScan[threadId];
+    return Scan[rowId][threadId];
 }
 
-int GetGroupSum()
+int ComputeInclusivePrefixSum(int inputValue, uint threadId, uint rowId = 0)
 {
-    return InclusiveScan[THREAD_LAST_INDEX];
+    MoveDataToSharedMemory(rowId, threadId, inputValue);
+    Reduce(rowId, threadId);
+    DownSweep(rowId, threadId);
+    return GetInclusivePrefixSum(rowId, threadId);
 }
 
-void WriteChunkSum(uint threadId, uint groupId)
+int ComputeExclusivePrefixSum(int inputValue, uint threadId, uint rowId = 0)
 {
-    if (threadId == THREAD_LAST_INDEX)
-    {
-        ScanBlockSum[groupId] = GetGroupSum();
-    }
-}
-
-int ComputeInclusivePrefixSum(int inputValue, uint threadId)
-{
-    MoveDataToSharedMemory(threadId, inputValue);
-    Reduce(threadId);
-    DownSweep(threadId);
-    return GetInclusivePrefixSum(threadId);
-}
-
-int ComputeExclusivePrefixSum(int inputValue, uint threadId)
-{
-    return ComputeInclusivePrefixSum(inputValue, threadId) - inputValue;
-}
-
-struct PrefixSum
-{
-    int Value;
-    int TotalInGroup;
-
-    static PrefixSum ComputeExclusive(int inputValue, uint threadId)
-    {
-        PrefixSum result;
-        result.Value = ComputeExclusivePrefixSum(inputValue, threadId);
-        result.TotalInGroup = GetGroupSum();
+    const int inclusivePrefixSum = ComputeInclusivePrefixSum(inputValue, threadId, rowId);
+    const int exclusivePrefixSum = inclusivePrefixSum - inputValue;
+    Scan[rowId][threadId] = exclusivePrefixSum;
+    GroupMemoryBarrierWithGroupSync();
     
-        return result;
-    }
-};
+    return exclusivePrefixSum;
+}

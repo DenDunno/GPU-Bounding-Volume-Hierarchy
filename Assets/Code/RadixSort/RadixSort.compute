@@ -1,0 +1,122 @@
+#pragma kernel GlobalScatter
+#pragma kernel ChunkSort
+#define SORTED_BITS_PER_PASS 2
+#define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
+#define OUT_OF_BOUND_VALUE -1
+#define PREFIX_SUM_ROWS ALL_POSSIBLE_VALUES
+#include "../BitManipulation.hlsl"
+#include "../ThreadId.hlsl"
+#include "../Threads.hlsl"
+#include "../PrefixSum/Shaders/BlellochPrefixSum.hlsl"
+
+RWStructuredBuffer<int> LocalPrefixSum;
+RWStructuredBuffer<int> LocalShuffle;
+RWStructuredBuffer<int> BlockSum;
+RWStructuredBuffer<int> Input;
+groupshared int OffsetTable[ALL_POSSIBLE_VALUES + 1];
+groupshared int SortedChunk[THREADS];
+uniform uint ThreadGroups;
+uniform uint SortLength;
+uniform int BitOffset;
+
+int GetInputValue(uint globalId)
+{
+    return globalId >= SortLength ?
+        OUT_OF_BOUND_VALUE :
+        ExtractBits(Input[globalId], BitOffset, SORTED_BITS_PER_PASS);
+}
+
+void WriteToBlockSum(const ThreadId id, const int sortValue, const int totalElementsInGroup)
+{
+    const int blockSumIndex = sortValue * ThreadGroups + id.Group;
+    BlockSum[blockSumIndex] = totalElementsInGroup;
+}
+
+void TryAddToOffsetTable(const ThreadId id, int sortValue, const int hasPassedMask, const int elementPrefixSum)
+{
+    if (id.Local == THREAD_LAST_INDEX)
+    {
+        int totalElementsInGroup = elementPrefixSum + hasPassedMask;
+        WriteToBlockSum(id, sortValue, totalElementsInGroup);
+        OffsetTable[sortValue + 1] = totalElementsInGroup + OffsetTable[sortValue];
+    }
+}
+
+void TryWriteToLocalPrefixSum(const uint globalId, const int hasPassedMask, const int elementPrefixSum)
+{
+    if (hasPassedMask)
+    {
+        LocalPrefixSum[globalId] = elementPrefixSum;
+    }
+}
+
+void InitializeOffsetTable(uint threadId)
+{
+    if (threadId == THREAD_LAST_INDEX)
+    {
+        OffsetTable[0] = 0;
+    }
+}
+
+void BuildPrefixSumAndOffsetTable(const int inputValue, const ThreadId id)
+{
+    InitializeOffsetTable(id.Local);
+
+    [unroll(ALL_POSSIBLE_VALUES)]
+    for (int sortValue = 0; sortValue < ALL_POSSIBLE_VALUES; ++sortValue)
+    {
+        const int hasPassedMask = inputValue == sortValue;
+        const int elementExclusivePrefixSum = ComputeExclusivePrefixSum(hasPassedMask, id.Local, sortValue);
+        TryAddToOffsetTable(id, sortValue, hasPassedMask, elementExclusivePrefixSum);
+        TryWriteToLocalPrefixSum(id.Global, hasPassedMask, elementExclusivePrefixSum);
+    }
+
+    GroupMemoryBarrierWithGroupSync();
+}
+
+int GetChunkSortedValue(const int inputValue, const ThreadId id)
+{
+    int targetElementPrefixSum = Scan[inputValue][id.Local];
+    int totalElementsLessThanTargetElement = OffsetTable[inputValue];
+    int localScatterIndex = targetElementPrefixSum + totalElementsLessThanTargetElement;
+
+    SortedChunk[localScatterIndex] = inputValue;
+    GroupMemoryBarrierWithGroupSync();
+
+    return SortedChunk[id.Local];
+}
+
+void MoveInputChunkToSharedMemory(const int inputValue, const ThreadId id)
+{
+    SortedChunk[id.Local] = inputValue;
+    GroupMemoryBarrierWithGroupSync();
+}
+
+void SortChunk(const int inputValue, const ThreadId id)
+{
+    MoveInputChunkToSharedMemory(inputValue, id);
+    BuildPrefixSumAndOffsetTable(inputValue, id);
+    LocalShuffle[id.Global] = GetChunkSortedValue(inputValue, id);
+}
+
+[numthreads(THREADS,1,1)]
+void ChunkSort(int3 globalId : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
+{
+    ThreadId id = ThreadId::Create(globalId.x, threadId.x, groupId.x);
+    const int inputValue = GetInputValue(id.Global);
+    SortChunk(inputValue, id);
+}
+
+[numthreads(THREADS,1,1)]
+void GlobalScatter(int3 globalId : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
+{
+    uint index = min(globalId.x, SortLength - 1);
+    int inputValue = Input[index];
+    
+    uint blockSumIndex = inputValue * ThreadGroups + groupId.x;
+    int blockSumPrefixSum = BlockSum[blockSumIndex];
+    int localPrefixSum = LocalPrefixSum[index];
+    int globalScatterPosition = localPrefixSum + blockSumPrefixSum;
+    
+    Input[globalScatterPosition] = inputValue;
+}

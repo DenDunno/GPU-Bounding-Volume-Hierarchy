@@ -7,6 +7,7 @@ namespace Code
     public class RadixSortBuffers : IDisposable
     {
         public readonly ComputeBuffer LocalPrefixSum;
+        public readonly ComputeBuffer LocalShuffle;
         public readonly ComputeBuffer BlockSum;
         public readonly ComputeBuffer Input;
 
@@ -14,12 +15,14 @@ namespace Code
         {
             BlockSum = new ComputeBuffer(threadGroupsX * blocks, sizeof(int));
             LocalPrefixSum = new ComputeBuffer(inputSize, sizeof(int));
+            LocalShuffle = new ComputeBuffer(inputSize, sizeof(int));
             Input = new ComputeBuffer(inputSize, sizeof(int));
         }
 
         public void Bind(int kernelId, IShaderBridge<string> shaderBridge)
         {
             shaderBridge.SetBuffer(kernelId, "LocalPrefixSum", LocalPrefixSum);
+            shaderBridge.SetBuffer(kernelId, "LocalShuffle", LocalShuffle);
             shaderBridge.SetBuffer(kernelId, "BlockSum", BlockSum);
             shaderBridge.SetBuffer(kernelId, "Input", Input);
         }
@@ -27,6 +30,7 @@ namespace Code
         public void Dispose()
         {
             LocalPrefixSum.Dispose();
+            LocalShuffle.Dispose();
             BlockSum.Dispose();
             Input.Dispose();
         }
