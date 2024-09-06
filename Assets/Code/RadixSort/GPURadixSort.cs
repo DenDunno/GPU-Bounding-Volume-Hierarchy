@@ -51,11 +51,8 @@ namespace Code
                 _chunkSort.Dispatch(_threadGroups);
                 _blockSumPrefixSum.Dispatch();
                 _globalScatter.Dispatch(_threadGroups);
-                
-                //_buffers.Input.PrintInt($"Bit offset {bitOffset} = ");
             }
-            
-            output = new int[_buffers.Input.count];
+
             _buffers.Input.GetData(output);
         }
 

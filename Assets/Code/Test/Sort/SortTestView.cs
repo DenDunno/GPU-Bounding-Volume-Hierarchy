@@ -11,9 +11,24 @@ namespace Code.Test.Sort
     {
         [SerializeField] private ComputeShader _sortShader;
         [SerializeField] private ComputeShader _prefixSumShader;
-        
+        [SerializeField] private int _size;
+        private GPURadixSort _sort;
+
         protected override string TestName => "Sorting";
-        
+
+        private void Start()
+        {
+            Input = new RandomCollectionGeneration(0, _size, 0, 100).Create();
+            GPURadixSortInput sortInput = new(_sortShader, _prefixSumShader, Input.Length);
+            _sort = new GPURadixSort(sortInput);
+        }
+
+        private void Update()
+        {
+            _sort.SetData(Input);
+            _sort.Execute(ref Output, Input.Length);
+        }
+
         [Button]
         public void CPUSort()
         {

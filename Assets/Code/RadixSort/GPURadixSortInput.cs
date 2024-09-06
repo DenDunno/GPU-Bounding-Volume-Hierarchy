@@ -17,7 +17,7 @@ namespace Code
         }
 
         public int Blocks => AllPossibleValues;
-        public Vector3Int PayloadDispatch => new(ArraySize, Blocks, 1);
+        public Vector3Int PayloadDispatch => new(ArraySize, 1, 1);
         private int AllPossibleValues => (int)Mathf.Pow(2, SortedBitsPerPass);
     }
 }

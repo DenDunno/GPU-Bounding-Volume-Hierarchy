@@ -14,7 +14,7 @@ namespace Code.Test
         [SerializeField] private int _minValue;
         [SerializeField] private int _maxValue;
         [SerializeField] private int _seed;
-
+        
         [Button]
         private void Run()
         {

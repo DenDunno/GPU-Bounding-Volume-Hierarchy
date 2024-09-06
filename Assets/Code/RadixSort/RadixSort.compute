@@ -4,6 +4,7 @@
 #define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
 #define OUT_OF_BOUND_VALUE -1
 #define PREFIX_SUM_ROWS ALL_POSSIBLE_VALUES
+#include "RadixSortBlockSum.hlsl"
 #include "../BitManipulation.hlsl"
 #include "../ThreadId.hlsl"
 #include "../Threads.hlsl"
@@ -11,11 +12,10 @@
 
 RWStructuredBuffer<int> LocalPrefixSum;
 RWStructuredBuffer<int> LocalShuffle;
-RWStructuredBuffer<int> BlockSum;
 RWStructuredBuffer<int> Input;
 groupshared int OffsetTable[ALL_POSSIBLE_VALUES + 1];
+groupshared int LocalPrefixSumChunk[THREADS];
 groupshared int SortedChunk[THREADS];
-uniform uint ThreadGroups;
 uniform uint SortLength;
 uniform int BitOffset;
 
@@ -26,27 +26,16 @@ int GetInputValue(uint globalId)
         ExtractBits(Input[globalId], BitOffset, SORTED_BITS_PER_PASS);
 }
 
-void WriteToBlockSum(const ThreadId id, const int sortValue, const int totalElementsInGroup)
+void AddToOffsetTable(int sortValue, const int totalElementsInGroup)
 {
-    const int blockSumIndex = sortValue * ThreadGroups + id.Group;
-    BlockSum[blockSumIndex] = totalElementsInGroup;
+    OffsetTable[sortValue + 1] = totalElementsInGroup + OffsetTable[sortValue];
 }
 
-void TryAddToOffsetTable(const ThreadId id, int sortValue, const int hasPassedMask, const int elementPrefixSum)
-{
-    if (id.Local == THREAD_LAST_INDEX)
-    {
-        int totalElementsInGroup = elementPrefixSum + hasPassedMask;
-        WriteToBlockSum(id, sortValue, totalElementsInGroup);
-        OffsetTable[sortValue + 1] = totalElementsInGroup + OffsetTable[sortValue];
-    }
-}
-
-void TryWriteToLocalPrefixSum(const uint globalId, const int hasPassedMask, const int elementPrefixSum)
+void TryWriteToLocalPrefixSumChunk(const uint threadId, const int hasPassedMask, const int elementPrefixSum)
 {
     if (hasPassedMask)
     {
-        LocalPrefixSum[globalId] = elementPrefixSum;
+        LocalPrefixSumChunk[threadId] = elementPrefixSum;
     }
 }
 
@@ -58,6 +47,16 @@ void InitializeOffsetTable(uint threadId)
     }
 }
 
+void HandleLastLocalThread(const ThreadId id, int sortValue, const int hasPassedMask, const int elementExclusivePrefixSum)
+{
+    if (id.Local == THREAD_LAST_INDEX)
+    {
+        const int totalElementsInGroup = elementExclusivePrefixSum + hasPassedMask;
+        WriteToBlockSum(sortValue, id.Group, totalElementsInGroup);
+        AddToOffsetTable(sortValue, totalElementsInGroup);
+    }
+}
+
 void BuildPrefixSumAndOffsetTable(const int inputValue, const ThreadId id)
 {
     [unroll(ALL_POSSIBLE_VALUES)]
@@ -65,33 +64,48 @@ void BuildPrefixSumAndOffsetTable(const int inputValue, const ThreadId id)
     {
         const int hasPassedMask = inputValue == sortValue;
         const int elementExclusivePrefixSum = ComputeExclusivePrefixSum(hasPassedMask, id.Local, sortValue);
-        TryAddToOffsetTable(id, sortValue, hasPassedMask, elementExclusivePrefixSum);
-        TryWriteToLocalPrefixSum(id.Global, hasPassedMask, elementExclusivePrefixSum);
+        TryWriteToLocalPrefixSumChunk(id.Local, hasPassedMask, elementExclusivePrefixSum);
+        HandleLastLocalThread(id, sortValue, hasPassedMask, elementExclusivePrefixSum);
     }
 
     GroupMemoryBarrierWithGroupSync();
 }
 
-[numthreads(THREADS,1,1)]
-void ChunkSort(int3 globalId : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
+void PerformLocalScatter(const int inputValue, const ThreadId id)
 {
-    ThreadId id = ThreadId::Create(globalId.x, threadId.x, groupId.x);
-    const int inputValue = GetInputValue(id.Global);
-    BuildPrefixSumAndOffsetTable(inputValue, id);
-    LocalShuffle[id.Global] = Input[id.Global];
+    int targetElementPrefixSum = LocalPrefixSumChunk[id.Local];
+    int totalElementsLessThanTargetElement = OffsetTable[inputValue];
+    int localScatterIndex = targetElementPrefixSum + totalElementsLessThanTargetElement;
+    GroupMemoryBarrierWithGroupSync();
+
+    LocalPrefixSumChunk[localScatterIndex] = targetElementPrefixSum;
+    SortedChunk[localScatterIndex] = inputValue;
+    GroupMemoryBarrierWithGroupSync();
+
+    LocalShuffle[id.Global] = SortedChunk[id.Local];
+    LocalPrefixSum[id.Global] = LocalPrefixSumChunk[id.Local];
 }
 
 [numthreads(THREADS,1,1)]
-void GlobalScatter(int3 globalId : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID, int3 groupId : SV_GroupID)
+void ChunkSort(int globalId : SV_DispatchThreadID, uint threadId : SV_GroupThreadID, int groupId : SV_GroupID)
 {
-    if (globalId.x >= SortLength) return;
-    int inputValue = LocalShuffle[globalId.x];
+    ThreadId id = ThreadId::Create(globalId, threadId, groupId);
+    const int inputValue = GetInputValue(id.Global);
+    InitializeOffsetTable(id.Local);
+    BuildPrefixSumAndOffsetTable(inputValue, id);
+    PerformLocalScatter(inputValue, id);
+}
+
+[numthreads(THREADS,1,1)]
+void GlobalScatter(int globalId : SV_DispatchThreadID, uint threadId : SV_GroupThreadID, int groupId : SV_GroupID)
+{
+    if (globalId >= SortLength) return;
+    int inputValue = LocalShuffle[globalId];
     int sortValue = ExtractBits(inputValue, BitOffset, SORTED_BITS_PER_PASS);
-    uint blockSumIndex = sortValue * ThreadGroups + groupId.x;
-    int blockSumPrefixSum = BlockSum[blockSumIndex];
-    int localPrefixSum = LocalPrefixSum[globalId.x];
+    
+    int blockSumPrefixSum = ReadBlockSumPrefixSum(sortValue, groupId);
+    int localPrefixSum = LocalPrefixSum[globalId];
     int globalScatterPosition = localPrefixSum + blockSumPrefixSum;
     
     Input[globalScatterPosition] = inputValue;
-    //Input[globalId.x] = globalScatterPosition;
 }
