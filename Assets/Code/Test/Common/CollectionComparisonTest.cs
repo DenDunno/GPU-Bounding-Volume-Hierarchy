@@ -1,4 +1,3 @@
-using System;
 using Code.Utils.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,7 +8,8 @@ namespace Code.Test
     {
         [SerializeField] protected int[] Input;
         [SerializeField] protected int[] Output;
-
+        [SerializeField] private int _seed;
+        
         private void OnValidate()
         {
             Output = new int[Input.Length];
@@ -24,7 +24,8 @@ namespace Code.Test
         [Button]
         public bool RunRandom(int size, int maxValue)
         {
-            Input = new RandomCollectionGeneration(0, size, 0, maxValue).Create();
+            Input = new RandomCollectionGeneration(_seed, size, 0, maxValue).Create();
+            Output = new int[Input.Length];
             return Run(Input);
         }
         

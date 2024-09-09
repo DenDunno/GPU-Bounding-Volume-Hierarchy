@@ -12,6 +12,7 @@ RWStructuredBuffer<int> ScanBlockSum;
 
 void Reduce(uint rowId, uint threadId)
 {
+    [unroll]
     for (uint step = 1, threadsTotal = THREADS / 2; step < THREADS; step *= 2, threadsTotal >>= 1)
     {
         GroupMemoryBarrierWithGroupSync();
@@ -28,6 +29,7 @@ void Reduce(uint rowId, uint threadId)
 
 void DownSweep(uint rowId, uint threadId)
 {
+    [unroll]
     for (uint threadsTotal = 2, step = THREADS / 2; threadsTotal < THREADS; threadsTotal <<= 1, step >>= 1)
     {
         GroupMemoryBarrierWithGroupSync();

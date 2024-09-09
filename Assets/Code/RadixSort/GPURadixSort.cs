@@ -1,5 +1,4 @@
 using System;
-using Code.Utils.Extensions;
 using Code.Utils.ShaderUtils;
 using Code.Utils.ShaderUtils.Buffer;
 using MyFolder.ComputeShaderNM;
@@ -16,6 +15,11 @@ namespace Code
         private readonly int _sortedBitsPerPass;
         private readonly Kernel _globalScatter;
         private readonly Kernel _chunkSort;
+
+        public GPURadixSort(ComputeShader sort, ComputeShader prefixSum, int size) : this(
+            new GPURadixSortInput(sort, prefixSum, size))
+        {
+        }
 
         public GPURadixSort(GPURadixSortInput input)
         {
@@ -53,7 +57,7 @@ namespace Code
                 _globalScatter.Dispatch(_threadGroups);
             }
 
-            _buffers.Input.GetData(output);
+            //_buffers.Input.GetData(output);
         }
 
         private void SetBitOffset(int bitOffset)

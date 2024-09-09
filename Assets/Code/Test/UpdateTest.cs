@@ -9,7 +9,6 @@ namespace Code.Test
     {
         [SerializeField] private int _startIndex;
         [SerializeField] private int _endIndex;
-        [SerializeField] private float _coolDown;
         [SerializeField] private int _counter;
         [SerializeField] private int _minValue;
         [SerializeField] private int _maxValue;

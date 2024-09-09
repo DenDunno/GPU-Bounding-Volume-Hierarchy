@@ -1,11 +1,11 @@
 
 struct ThreadId
 {
-    uint Local;
-    uint Group;
-    uint Global;
+    int Local;
+    int Group;
+    int Global;
 
-    static ThreadId Create(uint globalId, uint threadId, uint groupId)
+    static ThreadId Create(int globalId, int threadId, int groupId)
     {
         ThreadId result;
         result.Local = threadId;
