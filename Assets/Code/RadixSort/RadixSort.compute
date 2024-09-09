@@ -6,7 +6,7 @@
 #include "RadixSortInput.hlsl"
 #include "../ThreadId.hlsl"
 #include "../Threads.hlsl"
-#include "../PrefixSum/Shaders/BlellochPrefixSum.hlsl"
+#include "../PrefixSum/Shaders/HillisAndSteelePrefixSum.hlsl"
 
 RWStructuredBuffer<int> LocalPrefixSum;
 RWStructuredBuffer<int> LocalShuffle;

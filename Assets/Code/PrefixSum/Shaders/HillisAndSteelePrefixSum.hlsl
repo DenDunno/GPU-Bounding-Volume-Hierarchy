@@ -1,35 +1,20 @@
-#include "..//Threads.hlsl"
-groupshared int groupPrefixSum[BLOCKS][PREFIX_SUM_SIZE];
+#include "PrefixSumBase.hlsl"
 
-int ComputeInclusivePrefixSumForGroup(int3 threadId, int value)
+int ComputeInclusivePrefixSum(int inputValue, int threadId, int rowId)
 {
-    groupPrefixSum[threadId.y][threadId.x] = value;
-    GroupMemoryBarrierWithGroupSync();
+    MoveDataToSharedMemory(rowId, threadId, inputValue);
 
-    for (int offset = 1; offset < PREFIX_SUM_SIZE; offset *= 2)
+    [unroll]
+    for (int offset = 1; offset < THREADS; offset *= 2)
     {
-        bool inBounds = threadId.x >= offset;
-        int childLeftLeafSum = inBounds ? groupPrefixSum[threadId.y][threadId.x - offset] : 0;
-        int childRightLeafSum = groupPrefixSum[threadId.y][threadId.x];
+        bool inBounds = threadId >= offset;
+        int childLeftLeafSum = inBounds ? GetPrefixSum(rowId, threadId - offset) : 0;
+        int childRightLeafSum = GetPrefixSum(rowId, threadId);
         
         GroupMemoryBarrierWithGroupSync();
-        groupPrefixSum[threadId.y][threadId.x] = childLeftLeafSum + childRightLeafSum;
+        Scan[rowId][threadId] = childLeftLeafSum + childRightLeafSum;
+        GroupMemoryBarrierWithGroupSync();
     }
 
-    return groupPrefixSum[threadId.y][threadId.x];
-}
-
-int ComputeExclusivePrefixSumForGroup(int3 threadId, int value)
-{
-    return ComputeInclusivePrefixSumForGroup(threadId, value) - value;
-}
-
-uint GetGroupInclusivePrefixSum(int threadIdX, int threadIdY)
-{
-    return groupPrefixSum[threadIdY][threadIdX];
-}
-
-uint GetGroupSum(int threadIdY)
-{
-    return GetGroupInclusivePrefixSum(THREAD_LAST_INDEX, threadIdY);
+    return GetPrefixSum(rowId, threadId);
 }

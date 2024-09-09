@@ -1,19 +1,9 @@
-#ifndef THREADS
-#error "THREADS is not defined. Please define 'THREADS' before including 'BlellochPrefixSum.hlsl'"
-#endif
+#include "PrefixSumBase.hlsl"
 
-#ifndef PREFIX_SUM_ROWS
-#error "PREFIX_SUM_ROWS is not defined. Please define 'PREFIX_SUM_ROWS' before including 'BlellochPrefixSum.hlsl'"
-#endif
-
-#define THREAD_LAST_INDEX (THREADS - 1)
-groupshared int Scan[PREFIX_SUM_ROWS][THREADS];
-RWStructuredBuffer<int> ScanBlockSum;
-
-void Reduce(uint rowId, uint threadId)
+void Reduce(int rowId, int threadId)
 {
     [unroll]
-    for (uint step = 1, threadsTotal = THREADS / 2; step < THREADS; step *= 2, threadsTotal >>= 1)
+    for (int step = 1, threadsTotal = THREADS / 2; step < THREADS; step *= 2, threadsTotal >>= 1)
     {
         GroupMemoryBarrierWithGroupSync();
 
@@ -27,10 +17,10 @@ void Reduce(uint rowId, uint threadId)
     }
 }
 
-void DownSweep(uint rowId, uint threadId)
+void DownSweep(int rowId, int threadId)
 {
     [unroll]
-    for (uint threadsTotal = 2, step = THREADS / 2; threadsTotal < THREADS; threadsTotal <<= 1, step >>= 1)
+    for (int threadsTotal = 2, step = THREADS / 2; threadsTotal < THREADS; threadsTotal <<= 1, step >>= 1)
     {
         GroupMemoryBarrierWithGroupSync();
         
@@ -46,30 +36,10 @@ void DownSweep(uint rowId, uint threadId)
     GroupMemoryBarrierWithGroupSync();
 }
 
-void MoveDataToSharedMemory(uint rowId, uint threadId, int value)
-{
-    Scan[rowId][threadId] = value;
-}
-
-int GetInclusivePrefixSum(uint rowId, uint threadId)
-{
-    return Scan[rowId][threadId];
-}
-
-int ComputeInclusivePrefixSum(int inputValue, uint threadId, uint rowId = 0)
+int ComputeInclusivePrefixSum(int inputValue, int threadId, int rowId)
 {
     MoveDataToSharedMemory(rowId, threadId, inputValue);
     Reduce(rowId, threadId);
     DownSweep(rowId, threadId);
-    return GetInclusivePrefixSum(rowId, threadId);
-}
-
-int ComputeExclusivePrefixSum(int inputValue, uint threadId, uint rowId = 0)
-{
-    const int inclusivePrefixSum = ComputeInclusivePrefixSum(inputValue, threadId, rowId);
-    const int exclusivePrefixSum = inclusivePrefixSum - inputValue;
-    Scan[rowId][threadId] = exclusivePrefixSum;
-    GroupMemoryBarrierWithGroupSync();
-    
-    return exclusivePrefixSum;
+    return GetPrefixSum(rowId, threadId);
 }
