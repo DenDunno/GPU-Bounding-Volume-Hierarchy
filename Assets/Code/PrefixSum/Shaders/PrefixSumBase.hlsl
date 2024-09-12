@@ -1,34 +1,34 @@
 
 #ifndef THREADS
-#error "THREADS is not defined. Please define 'THREADS' before including 'BlellochPrefixSum.hlsl'"
+#error "THREADS is not defined. Please define 'THREADS' before including Scan library"
 #endif
 
-#ifndef PREFIX_SUM_ROWS
-#define PREFIX_SUM_ROWS 1
+#ifndef TYPE
+#define TYPE int
 #endif
 
 #define THREAD_LAST_INDEX (THREADS - 1)
-groupshared int Scan[PREFIX_SUM_ROWS][THREADS];
-RWStructuredBuffer<int> ScanBlockSum;
+groupshared TYPE Scan[THREADS];
+RWStructuredBuffer<TYPE> ScanBlockSum;
 
-int ComputeInclusivePrefixSum(int inputValue, int threadId, int rowId = 0);
+TYPE ComputeInclusiveScan(TYPE inputValue, int threadId);
 
-void MoveDataToSharedMemory(int rowId, int threadId, int value)
+void MoveDataToSharedMemory(int threadId, TYPE value)
 {
-    Scan[rowId][threadId] = value;
+    Scan[threadId] = value;
     GroupMemoryBarrierWithGroupSync();
 }
 
-int GetPrefixSum(int rowId, int threadId)
+TYPE GetPrefixSum(int threadId)
 {
-    return Scan[rowId][threadId];
+    return Scan[threadId];
 }
 
-int ComputeExclusivePrefixSum(int inputValue, int threadId, int rowId = 0)
+TYPE ComputeExclusiveScan(TYPE inputValue, int threadId)
 {
-    const int inclusivePrefixSum = ComputeInclusivePrefixSum(inputValue, threadId, rowId);
-    const int exclusivePrefixSum = inclusivePrefixSum - inputValue;
-    Scan[rowId][threadId] = exclusivePrefixSum;
+    const TYPE inclusivePrefixSum = ComputeInclusiveScan(inputValue, threadId);
+    const TYPE exclusivePrefixSum = inclusivePrefixSum - inputValue;
+    Scan[threadId] = exclusivePrefixSum;
     GroupMemoryBarrierWithGroupSync();
     
     return exclusivePrefixSum;

@@ -9,14 +9,14 @@ RWStructuredBuffer<int> Result;
 [numthreads(THREADS,1,1)]
 void SinglePrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID)
 {
-    Result[id.x] = ComputeExclusivePrefixSum(Result[id.x], threadId.x);
+    Result[id.x] = ComputeExclusiveScan(Result[id.x], threadId.x);
 }
 
 [numthreads(THREADS,1,1)]
 void ChunkPrefixSum(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID, uint3 threadId : SV_GroupThreadID)
 {
     int inputValue = Result[id.x];
-    int exclusivePrefixSum = ComputeExclusivePrefixSum(Result[id.x], threadId.x);
+    int exclusivePrefixSum = ComputeExclusiveScan(Result[id.x], threadId.x);
     Result[id.x] = exclusivePrefixSum;
     
     if (threadId.x == THREAD_LAST_INDEX)

@@ -1,6 +1,6 @@
 #include "PrefixSumBase.hlsl"
 
-void Reduce(int rowId, int threadId)
+void Reduce(int threadId)
 {
     [unroll]
     for (int step = 1, threadsTotal = THREADS / 2; step < THREADS; step *= 2, threadsTotal >>= 1)
@@ -12,12 +12,12 @@ void Reduce(int rowId, int threadId)
             int rightIndex = 2 * step * (threadId + 1) - 1;
             int leftIndex = rightIndex - step;
 
-            Scan[rowId][rightIndex] += Scan[rowId][leftIndex];
+            Scan[rightIndex] += Scan[leftIndex];
         }
     }
 }
 
-void DownSweep(int rowId, int threadId)
+void DownSweep(int threadId)
 {
     [unroll]
     for (int threadsTotal = 2, step = THREADS / 2; threadsTotal < THREADS; threadsTotal <<= 1, step >>= 1)
@@ -29,17 +29,17 @@ void DownSweep(int rowId, int threadId)
             int leftIndex = step * (threadId + 1) - 1;
             int rightIndex = leftIndex + step / 2;
             
-            Scan[rowId][rightIndex] += Scan[rowId][leftIndex];
+            Scan[rightIndex] += Scan[leftIndex];
         }
     }
 
     GroupMemoryBarrierWithGroupSync();
 }
 
-int ComputeInclusivePrefixSum(int inputValue, int threadId, int rowId)
+TYPE ComputeInclusiveScan(TYPE inputValue, int threadId)
 {
-    MoveDataToSharedMemory(rowId, threadId, inputValue);
-    Reduce(rowId, threadId);
-    DownSweep(rowId, threadId);
-    return GetPrefixSum(rowId, threadId);
+    MoveDataToSharedMemory(threadId, inputValue);
+    Reduce(threadId);
+    DownSweep(threadId);
+    return GetPrefixSum(threadId);
 }
