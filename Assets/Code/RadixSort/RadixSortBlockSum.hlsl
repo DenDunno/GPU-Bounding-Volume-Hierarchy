@@ -1,18 +1,18 @@
 
 RWStructuredBuffer<int> BlockSum;
-uniform uint ThreadGroups;
+uniform int ThreadGroups;
 
-int GetBlockSumId(int sortValue, uint groupId)
+int GetBlockSumId(int sortValue, int groupId)
 {
     return sortValue * ThreadGroups + groupId;
 }
 
-void WriteToBlockSum(int sortValue, uint groupId, int input)
+void WriteToBlockSum(int sortValue, int groupId, int input)
 {
     BlockSum[GetBlockSumId(sortValue, groupId)] = input;
 }
 
-int ReadBlockSumPrefixSum(int sortValue, uint groupId)
+int ReadBlockSumPrefixSum(int sortValue, int groupId)
 {
     return BlockSum[GetBlockSumId(sortValue, groupId)];
 }

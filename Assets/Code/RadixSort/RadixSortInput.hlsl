@@ -16,7 +16,7 @@ struct RadixSortInput
     int ExtractedBits;
     int4 HasPassedMask;
 
-    static int2 __CreateInput(uint globalId)
+    static int2 __CreateInput(int globalId)
     {
         int input = Input[globalId];
         return int2(input, ExtractBits(input, BitOffset, SORTED_BITS_PER_PASS));
