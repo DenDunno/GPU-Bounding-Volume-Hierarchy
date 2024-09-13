@@ -14,7 +14,7 @@ groupshared int4 OffsetTable; // int4 for optimization, int[ALL_POSSIBLE_VALUES 
 groupshared int LocalPrefixSumChunk[THREADS];
 groupshared int SortedChunk[THREADS];
 
-void BuildOffsetTableForLocalScattering(int4 totalElementsInGroup)
+void BuildOffsetTableForLocalScattering(const int4 totalElementsInGroup)
 {
     int4 offsetTable = 0;
 
@@ -28,36 +28,12 @@ void BuildOffsetTableForLocalScattering(int4 totalElementsInGroup)
     OffsetTable = offsetTable;
 }
 
-void WriteToBlockSum(int groupId, int4 totalElementsInGroup)
+void WriteToBlockSum(const int groupId, const int4 totalElementsInGroup)
 {
     [unroll(ALL_POSSIBLE_VALUES)]
     for (int sortValue = 0; sortValue < ALL_POSSIBLE_VALUES; ++sortValue)
     {
         WriteToBlockSum(sortValue, groupId, totalElementsInGroup[sortValue]);
-    }
-}
-
-void HandleLastLocalThread(ThreadId id, int4 hasPassedMask, int4 scanPerElement)
-{
-    if (id.Local == THREAD_LAST_INDEX)
-    {
-        const int4 totalElementsInGroup = scanPerElement + hasPassedMask;
-        BuildOffsetTableForLocalScattering(totalElementsInGroup);
-        WriteToBlockSum(id.Group, totalElementsInGroup);
-    }
-}
-
-void BuildLocalPrefixSumChunk(const int threadId, const int4 hasPassedMask, const int4 scanPerElement)
-{
-    [unroll(ALL_POSSIBLE_VALUES)]
-    for (int sortValue = 0; sortValue < ALL_POSSIBLE_VALUES; ++sortValue)
-    {
-        int sortValueExclusiveScan = scanPerElement[sortValue];
-
-        if (hasPassedMask[sortValue])
-        {
-            LocalPrefixSumChunk[threadId] = sortValueExclusiveScan;
-        }
     }
 }
 
@@ -84,8 +60,32 @@ void PerformLocalScatter(const RadixSortInput input, const ThreadId id)
     }
 }
 
+void HandleLastLocalThread(const ThreadId id, const int4 hasPassedMask, const int4 scanPerElement)
+{
+    if (id.Local == THREAD_LAST_INDEX)
+    {
+        const int4 totalElementsInGroup = scanPerElement + hasPassedMask;
+        BuildOffsetTableForLocalScattering(totalElementsInGroup);
+        WriteToBlockSum(id.Group, totalElementsInGroup);
+    }
+}
+
+void BuildLocalPrefixSumChunk(const int threadId, const int4 hasPassedMask, const int4 scanPerElement)
+{
+    [unroll(ALL_POSSIBLE_VALUES)]
+    for (int sortValue = 0; sortValue < ALL_POSSIBLE_VALUES; ++sortValue)
+    {
+        int sortValueExclusiveScan = scanPerElement[sortValue];
+
+        if (hasPassedMask[sortValue])
+        {
+            LocalPrefixSumChunk[threadId] = sortValueExclusiveScan;
+        }
+    }
+}
+
 [numthreads(THREADS,1,1)]
-void ChunkSort(int globalId : SV_DispatchThreadID, int threadId : SV_GroupThreadID, int groupId : SV_GroupID)
+void ChunkSort(const int globalId : SV_DispatchThreadID, const int threadId : SV_GroupThreadID, const int groupId : SV_GroupID)
 {
     const ThreadId id = ThreadId::Create(globalId, threadId, groupId);
     const RadixSortInput input = RadixSortInput::Fetch(id.Global);
@@ -96,7 +96,7 @@ void ChunkSort(int globalId : SV_DispatchThreadID, int threadId : SV_GroupThread
 }
 
 [numthreads(THREADS,1,1)]
-void GlobalScatter(int globalId : SV_DispatchThreadID, int groupId : SV_GroupID)
+void GlobalScatter(const int globalId : SV_DispatchThreadID, const int groupId : SV_GroupID)
 {
     if (IsOutOfBounds(globalId)) return;
 
