@@ -20,7 +20,7 @@ struct AABB
         return Create(min(minPoint, box.minPoint), max(maxPoint, box.maxPoint));
     }
 
-    float3 GetRelativeCoordinates(const float3 pointInside) 
+    float3 GetRelativeCoordinates(const float3 pointInside)
     {
         return (pointInside - minPoint) / (maxPoint - minPoint);
     }
