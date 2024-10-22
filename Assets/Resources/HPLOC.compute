@@ -1,0 +1,74 @@
+#pragma kernel Build
+#include "Range.hlsl"
+#include "BVHNode.hlsl"
+
+#define INVALID_ID -1
+uint _LeavesCount;
+StructuredBuffer<BVHNode> Nodes;
+
+struct SplitResult
+{
+    int Index;
+    Range Range;
+    int Previous;
+
+    static SplitResult Create(int previous, int index, int min, int max)
+    {
+        SplitResult result;
+        result.Index = index;
+        result.Previous = previous;
+        result.Range = Range::Create(min, max);
+
+        return result;
+    }
+};
+
+int Delta(int nodeIndex)
+{
+    return 0;
+}
+
+bool IsParentRight(Range range)
+{
+    return range.Left == 0 || (range.Right != _LeavesCount &&
+        Delta(range.Right) < Delta(range.Left - 1));
+}
+
+SplitResult ChooseParent(inout int range, inout int split, Range range)
+{
+    uint previous = 1000050000;
+
+    if (previous != INVALID_ID)
+    {
+        split = 
+        range = previous;
+    }
+}
+
+SplitResult ChooseLeftParent(Range range)
+{
+    uint previousID = 1000500;
+
+    return previousID != INVALID_ID
+               ? SplitResult::Create(previousID, range.Left, previousID, range.Right)
+               : SplitResult::Create(previousID, INVALID_ID, range.Left, range.Right);
+}
+
+SplitResult ChooseRightParent(Range range)
+{
+    uint previousID = 1000500;
+
+    return previousID != INVALID_ID
+               ? SplitResult::Create(previousID, range.Right + 1, range.Left, previousID)
+               : SplitResult::Create(previousID, INVALID_ID, range.Left, range.Right);
+}
+
+SplitResult ChooseParent(Range range)
+{
+    return IsParentRight(range) ? ChooseRightParent(range) : ChooseLeftParent(range);
+}
+
+[numthreads(256,1,1)]
+void Build(const int id : SV_DispatchThreadID)
+{
+}

@@ -3,9 +3,9 @@
 // 32 bytes layout
 struct BVHNode
 {
-    AABB Box; // 24 bytes
-    uint Index; // 4 bytes
-    uint TrianglesCount; // 4 bytes
+    AABB Box; 
+    uint Index; 
+    uint TrianglesCount; 
 
     bool IsLeaf() { return TrianglesCount > 0; }
     uint TriangleIndex() { return Index; }
