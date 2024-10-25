@@ -1,5 +1,6 @@
 #include "Range.hlsl"
 #define INVALID_PARENT_ID -1
+#pragma warning(disable: 4000)
 
 RWStructuredBuffer<uint> ParentIds;
 
@@ -16,14 +17,16 @@ struct ParentInfo
     Range Range;
     int SplitIndex;
     int PreviousId;
-    
-    static ParentInfo Create(const int previousParentId, const int splitIndex, const int min, const int max)
+    int Id;
+
+    static ParentInfo Create(const int id, const int previousParentId, const int splitIndex, const int min, const int max)
     {
         ParentInfo result;
         result.SplitIndex = splitIndex;
         result.Range = Range::Create(min, max);
         result.PreviousId = previousParentId;
-
+        result.Id = id;
+        
         return result;
     }
 

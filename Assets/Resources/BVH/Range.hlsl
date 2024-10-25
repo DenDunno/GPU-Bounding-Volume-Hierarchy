@@ -22,6 +22,10 @@ struct Range
 
         return result;
     }
-};
 
+    Range Union(const Range other)
+    {
+        return Create(min(Left, other.Left), max(Right, other.Right));
+    }
+};
 #endif

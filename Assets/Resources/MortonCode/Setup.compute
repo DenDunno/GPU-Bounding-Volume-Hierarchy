@@ -1,0 +1,23 @@
+#pragma kernel Setup
+#include "..//BVH/ParentInfo.hlsl"
+#include "..//BVH/BVHNode.hlsl"
+#include "MortonCode.hlsl"
+
+RWStructuredBuffer<MortonCode> MortonCodes;
+StructuredBuffer<AABB> BoundingBoxes;
+RWStructuredBuffer<BVHNode> Nodes;
+uint _LeavesCount;
+float4 _Min;
+float4 _Max;
+
+[numthreads(256,1,1)]
+void Setup(const uint id : SV_DispatchThreadID)
+{
+    AABB aabb = BoundingBoxes[id];
+    AABB sceneBox = AABB::Create(_Min.xyz, _Max.xyz);
+    float3 normalizedCentroid = sceneBox.GetRelativeCoordinates(aabb.Centroid());
+
+    MortonCodes[id] = MortonCode::Create(id, normalizedCentroid);
+    Nodes[_LeavesCount + id] = BVHNode::Create(aabb, id);
+    ParentIds[id] = INVALID_PARENT_ID;
+}

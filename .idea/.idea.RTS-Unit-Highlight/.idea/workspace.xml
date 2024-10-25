@@ -6,21 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/AABB.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/AABB.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Common/ThreadId.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Common/ThreadId.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Helpers.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Helpers.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCode.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCodeAssignment.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCodeAssignment.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PrefixSum/BlellochPrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/BlellochPrefixSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortBlockSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortBlockSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortInput.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortInput.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/RaytracingHelper.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RaytracingHelper.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/SpherePaint.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/SpherePaint.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Utilities/BitManipulation.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/BitManipulation.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCodeAssignment.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCodeAssignment.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +73,9 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst/Tests/Runtime/Shared/090-Vectors-HashCodes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections/Unity.Collections/UnsafeStream.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui/Runtime/TMP/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -243,6 +238,8 @@
       <workItem from="1729737206547" duration="6748000" />
       <workItem from="1729813740879" duration="101000" />
       <workItem from="1729813860733" duration="7962000" />
+      <workItem from="1729826552140" duration="410000" />
+      <workItem from="1729827274941" duration="2539000" />
     </task>
     <servers />
   </component>
