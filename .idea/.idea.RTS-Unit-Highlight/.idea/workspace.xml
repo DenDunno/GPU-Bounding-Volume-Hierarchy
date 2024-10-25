@@ -5,50 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Common.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCode.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/PrefixSumBase.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Utilities.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BitManipulation.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/BitManipulation.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BitManipulation.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/BitManipulation.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/BlellochPrefixSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/BlellochPrefixSum.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/BlellochPrefixSum.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/HillisAndSteelePrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/HillisAndSteelePrefixSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/HillisAndSteelePrefixSum.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/HillisAndSteelePrefixSum.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/PrefixSum.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSum.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/PrefixSum.compute.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSumBase.hlsl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/Shaders/PrefixSumBase.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/PrefixSumBase.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSort.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSort.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSort.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSort.compute.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSortBlockSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortBlockSum.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSortBlockSum.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortBlockSum.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSortInput.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortInput.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/RadixSortInput.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortInput.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/ThreadId.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Common/ThreadId.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/ThreadId.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Common/ThreadId.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Threads.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Common/Threads.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Threads.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Common/Threads.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVHNode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVHNode.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/HPLOC.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/HPLOC.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode.hlsl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCode.hlsl.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCodeAssignment.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCodeAssignment.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCodeAssignment.compute.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCodeAssignment.compute.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Range.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Range.hlsl.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/AABB.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/AABB.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Common/ThreadId.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Common/ThreadId.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Helpers.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Helpers.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCode.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCodeAssignment.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/MortonCodeAssignment.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/PrefixSum/BlellochPrefixSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/BlellochPrefixSum.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortBlockSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortBlockSum.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortInput.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortInput.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/RaytracingHelper.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RaytracingHelper.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/SpherePaint.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/SpherePaint.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Utilities/BitManipulation.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/BitManipulation.hlsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

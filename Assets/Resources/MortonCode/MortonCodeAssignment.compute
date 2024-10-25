@@ -9,7 +9,7 @@ float4 _Min;
 float4 _Max;
 
 [numthreads(32,1,1)]
-void CSMain (uint id : SV_DispatchThreadID)
+void CSMain (const uint id : SV_DispatchThreadID)
 {
     AABB aabb = _BoundingBoxes[id];
     AABB sceneBox = AABB::Create(_Min.xyz, _Max.xyz);

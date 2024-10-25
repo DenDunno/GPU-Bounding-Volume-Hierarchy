@@ -19,7 +19,7 @@ struct RaycastResult
     HitResult outer;
 };
 
-Ray CreateRay(float3 origin, float3 direction)
+Ray CreateRay(const float3 origin, const float3 direction)
 {
     Ray ray;
     ray.direction = direction;
@@ -28,7 +28,7 @@ Ray CreateRay(float3 origin, float3 direction)
     return ray;
 }
 
-Ray GetInitialRay(float2 uv, half4 cameraInput)
+Ray GetInitialRay(const float2 uv, const half4 cameraInput)
 {
     const float3 localViewPoint = float3(uv - 0.5, 1) * cameraInput;
     const float3 worldViewPoint = mul(unity_CameraToWorld, float4(localViewPoint, 1));
@@ -49,7 +49,7 @@ HitResult CreateHitResult()
     return hitResult;
 }
 
-HitResult BuildHitResult(float distance, float3 sphereCentre, Ray ray, float discriminant, float sceneDepth)
+HitResult BuildHitResult(const float distance, const float3 sphereCentre, const Ray ray, const float discriminant, const float sceneDepth)
 {
     const float3 hitPoint = ray.origin + distance * ray.direction;
     const float3 cameraViewPoint = mul(UNITY_MATRIX_V, float4(hitPoint, 1)).xyz;

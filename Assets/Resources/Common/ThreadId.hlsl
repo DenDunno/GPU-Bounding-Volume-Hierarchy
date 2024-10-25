@@ -5,7 +5,7 @@ struct ThreadId
     int Group;
     int Global;
 
-    static ThreadId Create(int globalId, int threadId, int groupId)
+    static ThreadId Create(const int globalId, const int threadId, const int groupId)
     {
         ThreadId result;
         result.Local = threadId;

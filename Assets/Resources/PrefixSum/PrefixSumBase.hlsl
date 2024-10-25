@@ -11,7 +11,7 @@
 groupshared PREFIX_SUM_TYPE Scan[THREADS];
 RWStructuredBuffer<PREFIX_SUM_TYPE> ScanBlockSum;
 
-PREFIX_SUM_TYPE ComputeInclusiveScan(PREFIX_SUM_TYPE inputValue, int threadId);
+PREFIX_SUM_TYPE ComputeInclusiveScan(const PREFIX_SUM_TYPE inputValue, int threadId);
 
 void MoveDataToSharedMemory(int threadId, PREFIX_SUM_TYPE value)
 {
@@ -24,7 +24,7 @@ PREFIX_SUM_TYPE GetPrefixSum(int threadId)
     return Scan[threadId];
 }
 
-PREFIX_SUM_TYPE ComputeExclusiveScan(PREFIX_SUM_TYPE inputValue, int threadId)
+PREFIX_SUM_TYPE ComputeExclusiveScan(const PREFIX_SUM_TYPE inputValue, int threadId)
 {
     const PREFIX_SUM_TYPE inclusivePrefixSum = ComputeInclusiveScan(inputValue, threadId);
     const PREFIX_SUM_TYPE exclusivePrefixSum = inclusivePrefixSum - inputValue;

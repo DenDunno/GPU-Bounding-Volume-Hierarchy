@@ -8,7 +8,7 @@ void Merge()
 {
 }
 
-uint ComputeNodeId(inout uint isLeaf, uint threadId)
+uint ComputeNodeId(inout uint isLeaf, const uint threadId)
 {
     uint nodeIndex = isLeaf ? threadId : threadId; 
     isLeaf = false;

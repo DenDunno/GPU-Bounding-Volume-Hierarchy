@@ -24,7 +24,7 @@ struct MortonCode
     uint ObjectId;
     uint Value;
 
-    static MortonCode Create(uint objectId, float3 input)
+    static MortonCode Create(const uint objectId, const float3 input)
     {
         MortonCode output;
         output.Value = Compute30BitCode(input);

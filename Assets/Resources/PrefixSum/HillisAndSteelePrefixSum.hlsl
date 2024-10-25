@@ -1,6 +1,6 @@
 #include "PrefixSumBase.hlsl"
 
-PREFIX_SUM_TYPE ComputeInclusiveScan(PREFIX_SUM_TYPE inputValue, int threadId)
+PREFIX_SUM_TYPE ComputeInclusiveScan(const PREFIX_SUM_TYPE inputValue, int threadId)
 {
     MoveDataToSharedMemory(threadId, inputValue);
 

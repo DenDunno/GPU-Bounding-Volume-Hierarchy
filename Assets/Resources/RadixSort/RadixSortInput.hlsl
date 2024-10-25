@@ -7,8 +7,8 @@ uniform int SortLength;
 uniform int BitOffset;
 static const int4 AllPossibleValues = int4(0, 1, 2, 3);
 
-bool IsInBounds(int index) { return index < SortLength; }
-bool IsOutOfBounds(int index) { return index >= SortLength; }
+bool IsInBounds(const int index) { return index < SortLength; }
+bool IsOutOfBounds(const int index) { return index >= SortLength; }
 
 struct RadixSortInput
 {
@@ -16,7 +16,7 @@ struct RadixSortInput
     int ExtractedBits;
     int4 HasPassedMask;
 
-    static int2 __CreateInput(int globalId)
+    static int2 __CreateInput(const int globalId)
     {
         int input = Input[globalId];
         return int2(input, ExtractBits(input, BitOffset, SORTED_BITS_PER_PASS));
@@ -27,14 +27,14 @@ struct RadixSortInput
         return int2(OUT_OF_BOUND_VALUE, OUT_OF_BOUND_VALUE);
     }
 
-    static int2 __GetParameters(int globalId)
+    static int2 __GetParameters(const int globalId)
     {
         return globalId < SortLength ?
             __CreateInput(globalId) :
             __GetDefault();
     }
 
-    static RadixSortInput Fetch(int globalId)
+    static RadixSortInput Fetch(const int globalId)
     {
         int2 parameters = __GetParameters(globalId);
         RadixSortInput input;

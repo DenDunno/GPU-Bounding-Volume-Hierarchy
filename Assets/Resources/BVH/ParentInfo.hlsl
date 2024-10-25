@@ -17,7 +17,7 @@ struct ParentInfo
     int SplitIndex;
     int PreviousId;
     
-    static ParentInfo Create(int previousParentId, int splitIndex, int min, int max)
+    static ParentInfo Create(const int previousParentId, const int splitIndex, const int min, const int max)
     {
         ParentInfo result;
         result.SplitIndex = splitIndex;

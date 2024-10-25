@@ -15,7 +15,7 @@ struct AABB
 
     float3 Centroid() { return (minPoint + maxPoint) * 0.5f; }
 
-    AABB Union(AABB box)
+    AABB Union(const AABB box)
     {
         return Create(min(minPoint, box.minPoint), max(maxPoint, box.maxPoint));
     }

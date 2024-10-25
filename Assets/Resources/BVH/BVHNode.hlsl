@@ -6,7 +6,7 @@ struct BVHNode
     AABB Box; 
     Range Range;
 
-    static BVHNode Create(const AABB box, uint threadId)
+    static BVHNode Create(const AABB box, const uint threadId)
     {
         BVHNode node;
         node.Box = box;
