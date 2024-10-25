@@ -30,6 +30,11 @@ namespace MyFolder.ComputeShaderNM
             };
         }
         
+        public void DispatchPayload(int payloadX = 1, int payloadY = 1, int payloadZ = 1)
+        {
+            Dispatch(ComputeThreadGroups(payloadX, payloadY, payloadZ));
+        }
+        
         public void Dispatch(int threadGroupX = 1, int threadGroupY = 1, int threadGroupZ = 1)
         {
             Dispatch(new Vector3Int(threadGroupX, threadGroupY, threadGroupZ));

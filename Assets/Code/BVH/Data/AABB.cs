@@ -41,8 +41,7 @@ namespace Code.Data
 
             Gizmos.color = color;
         }
-
-
+        
         public static int GetSize() // 24
         {
             return 3 * 4 + 
