@@ -1,7 +1,7 @@
 #pragma kernel SinglePrefixSum
 #pragma kernel ChunkPrefixSum
 #pragma kernel BlockSumAddition
-#include "..//..//Threads.hlsl"
+#include "..//Common/Threads.hlsl"
 #include "BlellochPrefixSum.hlsl"
 
 RWStructuredBuffer<int> Result;

@@ -1,6 +1,6 @@
 #define OUT_OF_BOUND_VALUE -1
 #define SORTED_BITS_PER_PASS 2
-#include "../BitManipulation.hlsl"
+#include "..//Utilities//BitManipulation.hlsl"
 
 RWStructuredBuffer<int> Input;
 uniform int SortLength;

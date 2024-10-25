@@ -56,8 +56,6 @@ namespace Code
                 _blockSumPrefixSum.Dispatch();
                 _globalScatter.Dispatch(_threadGroups);
             }
-
-            //_buffers.Input.GetData(output);
         }
 
         private void SetBitOffset(int bitOffset)

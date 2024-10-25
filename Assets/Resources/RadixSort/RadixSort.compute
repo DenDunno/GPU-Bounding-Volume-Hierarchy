@@ -1,12 +1,12 @@
 #pragma kernel GlobalScatter
 #pragma kernel ChunkSort
 #define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
-#define TYPE int4
+#define PREFIX_SUM_TYPE int4
 #include "RadixSortBlockSum.hlsl"
 #include "RadixSortInput.hlsl"
-#include "../ThreadId.hlsl"
-#include "../Threads.hlsl"
-#include "../PrefixSum/Shaders/HillisAndSteelePrefixSum.hlsl"
+#include "../Common/ThreadId.hlsl"
+#include "../Common/Threads.hlsl"
+#include "../PrefixSum/HillisAndSteelePrefixSum.hlsl"
 
 RWStructuredBuffer<int> LocalPrefixSum;
 RWStructuredBuffer<int> LocalShuffle;
@@ -55,8 +55,8 @@ void PerformLocalScatter(const RadixSortInput input, const ThreadId id)
 
     if (IsInBounds(id.Global))
     {
-        LocalShuffle[id.Global] = SortedChunk[id.Local];
         LocalPrefixSum[id.Global] = LocalPrefixSumChunk[id.Local];
+        LocalShuffle[id.Global] = SortedChunk[id.Local];
     }
 }
 

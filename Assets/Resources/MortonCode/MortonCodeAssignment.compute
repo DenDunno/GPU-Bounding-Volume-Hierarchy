@@ -1,20 +1,20 @@
 #pragma kernel CSMain
-#include "BVHNode.hlsl"
+#include "..//BVH/BVHNode.hlsl"
 #include "MortonCode.hlsl"
 
 StructuredBuffer<AABB> _BoundingBoxes;
 RWStructuredBuffer<BVHNode> _Nodes;
-RWStructuredBuffer<uint> MortonCodes;
+RWStructuredBuffer<MortonCode> MortonCodes;
 float4 _Min;
 float4 _Max;
 
 [numthreads(32,1,1)]
-void CSMain (uint3 id : SV_DispatchThreadID)
+void CSMain (uint id : SV_DispatchThreadID)
 {
-    AABB aabb = _BoundingBoxes[id.x];
+    AABB aabb = _BoundingBoxes[id];
     AABB sceneBox = AABB::Create(_Min.xyz, _Max.xyz);
     float3 normalizedCentroid = sceneBox.GetRelativeCoordinates(aabb.Centroid());
     
-    MortonCodes[id.x] = morton3D(normalizedCentroid);
-    _Nodes[id.x] = BVHNode::Create(aabb);
+    MortonCodes[id] = MortonCode::Create(id, normalizedCentroid);
+    _Nodes[id] = BVHNode::Create(aabb, id);
 }

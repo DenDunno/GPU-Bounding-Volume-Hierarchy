@@ -36,7 +36,7 @@ void DownSweep(int threadId)
     GroupMemoryBarrierWithGroupSync();
 }
 
-TYPE ComputeInclusiveScan(TYPE inputValue, int threadId)
+PREFIX_SUM_TYPE ComputeInclusiveScan(PREFIX_SUM_TYPE inputValue, int threadId)
 {
     MoveDataToSharedMemory(threadId, inputValue);
     Reduce(threadId);
