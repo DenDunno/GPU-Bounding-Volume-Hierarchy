@@ -4,6 +4,7 @@
 
 StructuredBuffer<MortonCode> SortedMortonCodes;
 RWStructuredBuffer<BVHNode> Nodes;
+StructuredBuffer<Range> Ranges;
 uint _LeavesCount;
 
 ParentInfo ChooseLeftParent(const Range range, const uint nodeIndex)
@@ -39,8 +40,11 @@ bool IsParentRight(const Range range)
         Delta(range.Right) < Delta(range.Left - 1));
 }
 
-ParentInfo ChooseParent(const Range range, const uint nodeIndex)
+ParentInfo ChooseParent(const uint threadId)
 {
+    const uint nodeIndex = SortedMortonCodes[threadId].ObjectId;
+    const Range range = Ranges[nodeIndex];
+    
     if (IsParentRight(range))
     {
         return ChooseRightParent(range, nodeIndex);

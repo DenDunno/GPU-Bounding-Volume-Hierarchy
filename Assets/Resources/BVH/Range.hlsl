@@ -23,7 +23,7 @@ struct Range
         return result;
     }
 
-    Range Union(const Range other)
+    Range Union(Range other)
     {
         return Create(min(Left, other.Left), max(Right, other.Right));
     }

@@ -1,36 +1,28 @@
 #pragma kernel Build
 #include "BinaryRadixTree.hlsl"
 
-uint ComputeNodeId(inout uint isLeaf, const uint threadId)
-{
-    uint nodeIndex = isLeaf ? _LeavesCount + threadId : threadId; 
-    isLeaf = false;
-    
-    return SortedMortonCodes[nodeIndex].ObjectId; 
-}
-
 void Merge(const int parentId)
 {
     BVHNode node = Nodes[parentId];
     BVHNode leftChild = Nodes[node.LeftChild()];
     BVHNode rightChild = Nodes[node.RightChild()];
-    
+
     node.Box = leftChild.Box.Union(rightChild.Box);
     Nodes[parentId] = node;
+    
+    Range leftChildRange = Ranges[node.LeftChild()];
+    Range rightChildRange = Ranges[node.RightChild()];
+    Ranges[parentId] = leftChildRange.Union(rightChildRange);
 }
 
 [numthreads(256,1,1)]
 void Build(const uint id : SV_DispatchThreadID)
 {
     bool isThreadActive = id < _LeavesCount;
-    uint isLeaf = true;
-    Range a = Range::Create(1);
     
     while (isThreadActive)
     {
-        uint nodeIndex = ComputeNodeId(isLeaf, id);
-        BVHNode node = Nodes[nodeIndex];
-        ParentInfo parentInfo = ChooseParent(a, nodeIndex);
+        ParentInfo parentInfo = ChooseParent(id);
         isThreadActive = parentInfo.HaveBothChildrenBeenProcessed();
         
         if (isThreadActive)
