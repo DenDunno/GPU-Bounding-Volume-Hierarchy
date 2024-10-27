@@ -28,10 +28,9 @@ public class UpdateSortTest : MonoBehaviour
 
     private void Update()
     {
-        int[] asd = null;
         Array.Copy(_randomCollection, _collectionToSort, _collectionToSort.Length);
         _gpuSort.SetData(_collectionToSort);
-        _gpuSort.Execute(ref asd, _collectionToSort.Length);
+        _gpuSort.Execute(_collectionToSort.Length);
     }
 
     private void OnDestroy()

@@ -1,21 +1,32 @@
 #include "..//AABB.hlsl"
-#include "Range.hlsl"
+#include "..//Utilities/BitManipulation.hlsl"
 
+// 32 bytes layout
+// __Data.x [1b - isInner] [31b - isInner ? LefChildIndex : TriangleIndex]
+// __Data.y [1b - isInner] [31b - isInner ? RightChildIndex : TriangleCount]
 struct BVHNode
 {
-    AABB Box; 
-    Range Range;
-    uint LeftChild;
-    uint RightChild;
-    
-    static BVHNode Create(const AABB box, const uint threadId)
+    AABB Box;
+    uint2 __Data;
+
+    static BVHNode Create(const AABB box)
     {
         BVHNode node;
         node.Box = box;
-        node.Range = Range::Create(threadId);
-        node.LeftChild = 0;
-        node.RightChild = 0;
-        
+        node.__Data = uint2(0, 0);
+
         return node;
     }
+
+    bool IsLeaf() { return ExtractTopBit(__Data.x); }
+    uint LeftChild() { return ExtractLower31Bits(__Data.x); }
+    uint RightChild() { return ExtractLower31Bits(__Data.y); }
+    uint TriangleIndex() { return LeftChild(); }
+    uint TriangleCount() { return RightChild(); }
+
+    void MarkAsLeaf() { __SetIsLeaf(1); }
+    void MarkAsInternalNode() { __SetIsLeaf(0); }
+    void __SetIsLeaf(const uint value) { __Data.x = SetTopBit(__Data.x, value); }
+    void SetLeftChild(const uint value) { __Data.x = SetLower31Bits(__Data.x, value); }
+    void SetRightChild(const uint value) { __Data.x = SetLower31Bits(__Data.y, value); }
 };

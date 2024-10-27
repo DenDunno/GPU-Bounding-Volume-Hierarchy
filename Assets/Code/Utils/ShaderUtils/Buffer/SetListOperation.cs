@@ -3,15 +3,18 @@ using UnityEngine;
 
 namespace Code.Utils.ShaderUtils.Buffer
 {
-    public class SetListOperation<TElement> : SetDataOperation<List<TElement>> where TElement : struct
+    public readonly struct SetListOperation<TElement> : ISetDataOperation where TElement : struct
     {
-        public SetListOperation(List<TElement> collection) : base(collection)
+        private readonly List<TElement> _collection;
+
+        public SetListOperation(List<TElement> collection)
         {
+            _collection = collection;
         }
 
-        public override void Execute(ComputeBuffer buffer)
+        public void Execute(ComputeBuffer buffer)
         {
-            buffer.SetData(Collection);
+            buffer.SetData(_collection);
         }
     }
 }

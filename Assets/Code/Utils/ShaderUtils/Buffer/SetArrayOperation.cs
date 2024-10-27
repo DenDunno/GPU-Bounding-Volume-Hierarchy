@@ -2,15 +2,18 @@ using UnityEngine;
 
 namespace Code.Utils.ShaderUtils.Buffer
 {
-    public class SetArrayOperation<TElement> : SetDataOperation<TElement[]> where TElement : struct
+    public readonly struct SetArrayOperation<TElement> : ISetDataOperation where TElement : struct
     {
-        public SetArrayOperation(TElement[] collection) : base(collection)
+        private readonly TElement[] _collection;
+
+        public SetArrayOperation(TElement[] collection)
         {
+            _collection = collection;
         }
 
-        public override void Execute(ComputeBuffer buffer)
+        public void Execute(ComputeBuffer buffer)
         {
-            buffer.SetData(Collection);
+            buffer.SetData(_collection);
         }
     }
 }

@@ -19,12 +19,12 @@ namespace Code
             Input = new ComputeBuffer(inputSize, sizeof(int));
         }
 
-        public void Bind(int kernelId, IShaderBridge<string> shaderBridge)
+        public void Bind(int kernelId, ComputeBuffer input, IShaderBridge<string> shaderBridge)
         {
             shaderBridge.SetBuffer(kernelId, "LocalPrefixSum", LocalPrefixSum);
             shaderBridge.SetBuffer(kernelId, "LocalShuffle", LocalShuffle);
             shaderBridge.SetBuffer(kernelId, "BlockSum", BlockSum);
-            shaderBridge.SetBuffer(kernelId, "Input", Input);
+            shaderBridge.SetBuffer(kernelId, "Input", input);
         }
 
         public void Dispose()

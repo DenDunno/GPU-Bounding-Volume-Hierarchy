@@ -12,12 +12,10 @@ uint ComputeNodeId(inout uint isLeaf, const uint threadId)
 void Merge(const int parentId)
 {
     BVHNode node = Nodes[parentId];
-    BVHNode leftChild = Nodes[node.LeftChild];
-    BVHNode rightChild = Nodes[node.RightChild];
+    BVHNode leftChild = Nodes[node.LeftChild()];
+    BVHNode rightChild = Nodes[node.RightChild()];
     
     node.Box = leftChild.Box.Union(rightChild.Box);
-    node.Range = leftChild.Range.Union(rightChild.Range);
-    
     Nodes[parentId] = node;
 }
 
@@ -26,12 +24,13 @@ void Build(const uint id : SV_DispatchThreadID)
 {
     bool isThreadActive = id < _LeavesCount;
     uint isLeaf = true;
+    Range a = Range::Create(1);
     
     while (isThreadActive)
     {
         uint nodeIndex = ComputeNodeId(isLeaf, id);
         BVHNode node = Nodes[nodeIndex];
-        ParentInfo parentInfo = ChooseParent(node.Range, nodeIndex);
+        ParentInfo parentInfo = ChooseParent(a, nodeIndex);
         isThreadActive = parentInfo.HaveBothChildrenBeenProcessed();
         
         if (isThreadActive)

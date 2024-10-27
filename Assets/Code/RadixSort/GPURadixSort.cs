@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Code.Utils.ShaderUtils;
 using Code.Utils.ShaderUtils.Buffer;
 using MyFolder.ComputeShaderNM;
+using Unity.Collections;
 using UnityEngine;
 
 namespace Code
@@ -32,20 +34,27 @@ namespace Code
             _blockSumPrefixSum = new GPUPrefixSumFactory(input.PrefixSumShader, _buffers.BlockSum).Create();
         }
 
-        public void SetData(int[] input)
-        {
-            SetData(new SetArrayOperation<int>(input));
-        }
+        public void SetData(int[] input) => 
+            Setup(_buffers.Input, new SetArrayOperation<int>(input));
 
-        private void SetData<TCollection>(SetDataOperation<TCollection> setDataOperation)
+        public void SetData(List<int> input) => 
+            Setup(_buffers.Input, new SetListOperation<int>(input));
+
+        public void SetData(NativeArray<int> input) =>
+            Setup(_buffers.Input, new SetNativeArrayOperation<int>(input));
+
+        public void SetData(ComputeBuffer input) => 
+            Setup(input, new SetVoidOperation());
+
+        private void Setup<T>(ComputeBuffer input, T setDataOperation) where T : ISetDataOperation
         {
-            setDataOperation.Execute(_buffers.Input);
-            _buffers.Bind(_chunkSort.ID, _shaderBridge);
-            _buffers.Bind(_globalScatter.ID, _shaderBridge);
+            setDataOperation.Execute(input);
+            _buffers.Bind(_chunkSort.ID, input, _shaderBridge);
+            _buffers.Bind(_globalScatter.ID, input, _shaderBridge);
             _shaderBridge.SetInt("ThreadGroups", _threadGroups.x);
         }
 
-        public void Execute(ref int[] output, int sortLength)
+        public void Execute(int sortLength)
         {
             SetupBeforeDispatch(sortLength);
 

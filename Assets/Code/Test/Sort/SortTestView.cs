@@ -20,7 +20,7 @@ namespace Code.Test.Sort
             using GPURadixSort sort = new(sortInput);
 
             sort.SetData(input);
-            sort.Execute(ref Output, input.Length);
+            sort.Execute(input.Length);
             
             List<int> expectedOutput = new(input);
             expectedOutput.Sort();

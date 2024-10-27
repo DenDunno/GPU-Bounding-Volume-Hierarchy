@@ -18,7 +18,8 @@ namespace Code.Components.MortonCodeAssignment
             AABB[] boxes = _spheres.Select(sphere => sphere.Provide()).ToArray();
             _buffers.Boxes.SetData(boxes);
 
-            _algorithm = new BVHAlgorithm(_buffers);
+            ShadersPresenter shaders = new ShadersPresenter().Load();
+            _algorithm = new BVHAlgorithm(_buffers, shaders, _spheres.Length);
             _algorithm.Initialize();
         }
 

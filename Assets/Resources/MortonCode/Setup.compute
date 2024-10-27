@@ -18,6 +18,6 @@ void Setup(const uint id : SV_DispatchThreadID)
     float3 normalizedCentroid = sceneBox.GetRelativeCoordinates(aabb.Centroid());
 
     MortonCodes[id] = MortonCode::Create(id, normalizedCentroid);
-    Nodes[_LeavesCount + id] = BVHNode::Create(aabb, id);
+    Nodes[_LeavesCount + id] = BVHNode::Create(aabb);
     ParentIds[id] = INVALID_PARENT_ID;
 }

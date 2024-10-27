@@ -9,16 +9,15 @@ namespace Code.Components.MortonCodeAssignment
         private readonly IShaderBridge<string> _shaderBridge;
         private readonly Kernel _kernel;
 
-        protected ComputeShaderPass(string path, string kernelName)
+        protected ComputeShaderPass(ComputeShader shader, string kernelName)
         {
-            ComputeShader shader = Resources.Load<ComputeShader>(path);
             _shaderBridge = new CachedShaderBridge(new ComputeShaderBridge(shader));
             _kernel = new Kernel(shader, kernelName);
         }
 
-        public void Initialize()
+        public void Prepare()
         {
-            Setup(_shaderBridge);
+            Setup(_kernel, _shaderBridge);
         }
 
         public void Dispatch(int payloadX = 1, int payloadY = 1, int payloadZ = 1)
@@ -27,7 +26,7 @@ namespace Code.Components.MortonCodeAssignment
             _kernel.DispatchPayload(payloadX, payloadY, payloadZ);
         }
 
-        protected virtual void Setup(IShaderBridge<string> shaderBridge) {}
+        protected virtual void Setup(Kernel kernel, IShaderBridge<string> shaderBridge) {}
         protected virtual void OnPreDispatch(IShaderBridge<string> shaderBridge) {}
     }
 }
