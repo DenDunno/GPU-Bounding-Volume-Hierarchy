@@ -47,5 +47,10 @@ namespace Code.Data
             return 3 * 4 + 
                    3 * 4; 
         }
+
+        public override string ToString()
+        {
+            return $"Max = {Max} Min = {Min}";
+        }
     }
 }

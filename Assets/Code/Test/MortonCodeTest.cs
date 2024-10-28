@@ -29,8 +29,8 @@ namespace DefaultNamespace
         private void Sort()
         {
             _output = new MortonCode[_input.Length];
-            ShadersPresenter shaders = new ShadersPresenter().Load();
-            using GPURadixSort<MortonCode> sort = new(shaders.Sorting, shaders.PrefixSum, _input.Length);
+            BVHShaders bvhShaders = BVHShaders.Load();
+            using GPURadixSort<MortonCode> sort = new(bvhShaders.Sorting, bvhShaders.PrefixSum, _input.Length);
             
             sort.SetData(_input);
             sort.Execute(_input.Length);

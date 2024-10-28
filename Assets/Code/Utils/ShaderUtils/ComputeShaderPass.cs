@@ -20,13 +20,13 @@ namespace Code.Components.MortonCodeAssignment
             Setup(_kernel, _shaderBridge);
         }
 
-        public void Dispatch(int payloadX = 1, int payloadY = 1, int payloadZ = 1)
+        public void Execute(int payloadX = 1, int payloadY = 1, int payloadZ = 1)
         {
-            OnPreDispatch(_shaderBridge);
+            OnPreDispatch(_shaderBridge, new Vector3Int(payloadX, payloadY, payloadZ));
             _kernel.DispatchPayload(payloadX, payloadY, payloadZ);
         }
 
         protected virtual void Setup(Kernel kernel, IShaderBridge<string> shaderBridge) {}
-        protected virtual void OnPreDispatch(IShaderBridge<string> shaderBridge) {}
+        protected virtual void OnPreDispatch(IShaderBridge<string> shaderBridge, Vector3Int payload) {}
     }
 }

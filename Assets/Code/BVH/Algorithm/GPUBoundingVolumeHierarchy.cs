@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using Code.Components.MortonCodeAssignment.TestTree;
 using Code.Data;
 using Code.Utils.Extensions;
 using DefaultNamespace;
@@ -10,9 +12,13 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class GPUBoundingVolumeHierarchy : InEditorLifetime
     {
+        [SerializeField] private int _test;
         [SerializeField] private Sphere[] _spheres;
+        [SerializeField] private float _depthFactor;
+        [SerializeField] private float _depthFactor2;
         private BVHAlgorithm _algorithm;
         private BVHBuffers _buffers;
+        private TreeNode _root;
 
         protected override void Reassemble()
         {
@@ -21,8 +27,8 @@ namespace Code.Components.MortonCodeAssignment
             AABB[] boxes = _spheres.Select(sphere => sphere.Provide()).ToArray();
             _buffers.Boxes.SetData(boxes);
 
-            ShadersPresenter shaders = new ShadersPresenter().Load();
-            _algorithm = new BVHAlgorithm(_buffers, shaders, _spheres.Length);
+            BVHShaders bvhShaders = BVHShaders.Load();
+            _algorithm = new BVHAlgorithm(_buffers, bvhShaders, _spheres.Length);
             _algorithm.Initialize();
         }
 
@@ -30,38 +36,17 @@ namespace Code.Components.MortonCodeAssignment
         private void Dispatch()
         {
             _algorithm.Execute(_spheres.Length);
-            
-            MortonCode[] mortonCodes = new MortonCode[_spheres.Length];
-            _buffers.MortonCodes.GetData(mortonCodes);
-            mortonCodes.Print();
+            _root = new TreeCalculator().Compute(_buffers.Nodes, _spheres.Length);
+        }
+
+        private void Update()
+        {
+            new TreeVisualization(_depthFactor, _depthFactor2).Draw(_root);
         }
 
         protected override void Dispose()
         {
             _algorithm?.Dispose();
-        }
-
-        Vector3 GetSpherePosition(MortonCode[] codes, int mortonCodeId)
-        {
-            uint sphereId = codes[mortonCodeId].ObjectId;
-            return _spheres[sphereId].transform.position;
-        }
-        
-        private void OnDrawGizmos()
-        {
-            Reassemble();
-            _spheres.ForEach(x => x.Provide().Draw());
-
-            _algorithm.Execute(_spheres.Length);
-            MortonCode[] mortonCodes = new MortonCode[_spheres.Length];
-            _buffers.MortonCodes.GetData(mortonCodes);
-            
-            for (int i = 0; i < mortonCodes.Length - 1; ++i)
-            {
-                Gizmos.DrawLine(
-                    GetSpherePosition(mortonCodes, i),
-                    GetSpherePosition(mortonCodes, i + 1));
-            }
         }
     }
 }

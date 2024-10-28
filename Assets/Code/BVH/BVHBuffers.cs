@@ -17,7 +17,7 @@ namespace Code.Components.MortonCodeAssignment
             MortonCodes = new ComputeBuffer(count, MortonCode.GetSize());
             ParentIds = new ComputeBuffer(count, sizeof(uint));
             Boxes = new ComputeBuffer(count, AABB.GetSize());
-            Nodes = new ComputeBuffer(count, 32);
+            Nodes = new ComputeBuffer(count + (count - 1), 32);
         }
 
         public void Dispose()

@@ -6,27 +6,34 @@ void Merge(const int parentId)
     BVHNode node = Nodes[parentId];
     BVHNode leftChild = Nodes[node.LeftChild()];
     BVHNode rightChild = Nodes[node.RightChild()];
-
     node.Box = leftChild.Box.Union(rightChild.Box);
     Nodes[parentId] = node;
-    
-    // Range leftChildRange = Ranges[node.LeftChild()];
-    // Range rightChildRange = Ranges[node.RightChild()];
-    // Ranges[parentId] = leftChildRange.Union(rightChildRange);
 }
 
-[numthreads(256,1,1)]
-void Build(const uint id : SV_DispatchThreadID)
+int ComputeNodeIndex(uint threadId, inout bool isLeaf)
 {
-    bool isThreadActive = id < _LeavesCount;
+    uint nodeIndex = isLeaf ? threadId + LeavesCount : threadId;
+    isLeaf = false;
+    return nodeIndex;
+}
+
+[numthreads(1,1,1)]
+void Build(uint id : SV_DispatchThreadID)
+{
+    bool isThreadActive = id < LeavesCount;
+    Range range = Range::Create(id);
+    bool isLeaf = true;
     
     while (isThreadActive)
     {
-        ParentInfo parentInfo = ChooseParent(id);
+        id = ComputeNodeIndex(id, isLeaf);
+        ParentInfo parentInfo = ChooseParent(id, range);
         isThreadActive = parentInfo.HaveBothChildrenBeenProcessed();
         
         if (isThreadActive)
         {
+            range = parentInfo.Range;
+            id = parentInfo.Id;
             Merge(parentInfo.Id);
         }
     }

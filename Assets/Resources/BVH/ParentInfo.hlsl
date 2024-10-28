@@ -15,14 +15,12 @@ uint ExchangeParentId(const uint id, const uint value)
 struct ParentInfo
 {
     Range Range;
-    int SplitIndex;
     int PreviousId;
     int Id;
 
-    static ParentInfo Create(const int id, const int previousParentId, const int splitIndex, const int min, const int max)
+    static ParentInfo Create(const int id, const int previousParentId, const int min, const int max)
     {
         ParentInfo result;
-        result.SplitIndex = splitIndex;
         result.Range = Range::Create(min, max);
         result.PreviousId = previousParentId;
         result.Id = id;

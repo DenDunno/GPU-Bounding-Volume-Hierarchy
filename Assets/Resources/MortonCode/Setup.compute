@@ -6,6 +6,7 @@
 RWStructuredBuffer<MortonCode> MortonCodes;
 StructuredBuffer<AABB> BoundingBoxes;
 RWStructuredBuffer<BVHNode> Nodes;
+int LeavesCount;
 float4 _Min;
 float4 _Max;
 
@@ -17,6 +18,6 @@ void Setup(const uint id : SV_DispatchThreadID)
     float3 normalizedCentroid = sceneBox.GetRelativeCoordinates(aabb.Centroid());
 
     MortonCodes[id] = MortonCode::Create(id, normalizedCentroid);
-    Nodes[id] = BVHNode::Create(aabb);
+    Nodes[LeavesCount + id] = BVHNode::Create(aabb);
     ParentIds[id] = INVALID_PARENT_ID;
 }
