@@ -3,16 +3,17 @@
 #define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
 #define PREFIX_SUM_TYPE int4
 #include "RadixSortBlockSum.hlsl"
+#include "MortoneCodeRadixSort.hlsl"
 #include "RadixSortInput.hlsl"
 #include "../Common/ThreadId.hlsl"
 #include "../Common/Threads.hlsl"
 #include "../PrefixSum/HillisAndSteelePrefixSum.hlsl"
 
+RWStructuredBuffer<SORTING_TYPE> LocalShuffle;
 RWStructuredBuffer<int> LocalPrefixSum;
-RWStructuredBuffer<int> LocalShuffle;
-groupshared int4 OffsetTable; // int4 for optimization, int[ALL_POSSIBLE_VALUES = 4]
+groupshared SORTING_TYPE SortedChunk[THREADS];
 groupshared int LocalPrefixSumChunk[THREADS];
-groupshared int SortedChunk[THREADS];
+groupshared int4 OffsetTable; // int4 for optimization, int[ALL_POSSIBLE_VALUES = 4]
 
 void BuildOffsetTableForLocalScattering(const int4 totalElementsInGroup)
 {
@@ -100,12 +101,12 @@ void GlobalScatter(const int globalId : SV_DispatchThreadID, const int groupId :
 {
     if (IsOutOfBounds(globalId)) return;
 
-    const int inputValue = LocalShuffle[globalId];
-    const int sortValue = ExtractBits(inputValue, BitOffset, SORTED_BITS_PER_PASS);
+    const SORTING_TYPE bufferValue = LocalShuffle[globalId];
+    const int sortValue = ExtractBits(bufferValue);
 
     const int blockSumPrefixSum = ReadBlockSumPrefixSum(sortValue, groupId);
     const int localPrefixSum = LocalPrefixSum[globalId];
     const int globalScatterPosition = localPrefixSum + blockSumPrefixSum;
 
-    Input[globalScatterPosition] = inputValue;
+    Input[globalScatterPosition] = bufferValue;
 }

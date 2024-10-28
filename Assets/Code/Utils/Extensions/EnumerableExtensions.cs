@@ -30,6 +30,11 @@ namespace Code.Utils.Extensions
             return collection;
         }
         
+        public static void Print<T>(this IList<T> list)
+        {
+            Print(list, string.Empty);
+        }
+        
         public static void Print<T>(this IList<T> list, string name)
         {
             Print(list, name, x => x.ToString());

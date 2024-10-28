@@ -8,7 +8,7 @@ public class Sphere : MonoBehaviour, IAABBProvider
     public AABB Provide()
     {
         return new AABB(
-            transform.position + Vector3.one * _radius,
-            transform.position - Vector3.one * _radius);
+            transform.position - Vector3.one * _radius,
+            transform.position + Vector3.one * _radius);
     }
 }

@@ -10,9 +10,9 @@ void Merge(const int parentId)
     node.Box = leftChild.Box.Union(rightChild.Box);
     Nodes[parentId] = node;
     
-    Range leftChildRange = Ranges[node.LeftChild()];
-    Range rightChildRange = Ranges[node.RightChild()];
-    Ranges[parentId] = leftChildRange.Union(rightChildRange);
+    // Range leftChildRange = Ranges[node.LeftChild()];
+    // Range rightChildRange = Ranges[node.RightChild()];
+    // Ranges[parentId] = leftChildRange.Union(rightChildRange);
 }
 
 [numthreads(256,1,1)]

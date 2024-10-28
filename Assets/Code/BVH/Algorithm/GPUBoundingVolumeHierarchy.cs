@@ -1,5 +1,8 @@
 using System.Linq;
 using Code.Data;
+using Code.Utils.Extensions;
+using DefaultNamespace;
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 
@@ -23,15 +26,42 @@ namespace Code.Components.MortonCodeAssignment
             _algorithm.Initialize();
         }
 
-        private void Update()
+        [Button]
+        private void Dispatch()
         {
-            _spheres.ForEach(x => x.Provide().Draw());
             _algorithm.Execute(_spheres.Length);
+            
+            MortonCode[] mortonCodes = new MortonCode[_spheres.Length];
+            _buffers.MortonCodes.GetData(mortonCodes);
+            mortonCodes.Print();
         }
 
         protected override void Dispose()
-        {            
-            _buffers.Dispose();
+        {
+            _algorithm?.Dispose();
+        }
+
+        Vector3 GetSpherePosition(MortonCode[] codes, int mortonCodeId)
+        {
+            uint sphereId = codes[mortonCodeId].ObjectId;
+            return _spheres[sphereId].transform.position;
+        }
+        
+        private void OnDrawGizmos()
+        {
+            Reassemble();
+            _spheres.ForEach(x => x.Provide().Draw());
+
+            _algorithm.Execute(_spheres.Length);
+            MortonCode[] mortonCodes = new MortonCode[_spheres.Length];
+            _buffers.MortonCodes.GetData(mortonCodes);
+            
+            for (int i = 0; i < mortonCodes.Length - 1; ++i)
+            {
+                Gizmos.DrawLine(
+                    GetSpherePosition(mortonCodes, i),
+                    GetSpherePosition(mortonCodes, i + 1));
+            }
         }
     }
 }

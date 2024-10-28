@@ -11,7 +11,7 @@ public class UpdateSortTest : MonoBehaviour
     [SerializeField] private ComputeShader _sortShader;
     private int[] _randomCollection;
     private int[] _collectionToSort;
-    private GPURadixSort _gpuSort;
+    private GPURadixSort<int> _gpuSort;
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class UpdateSortTest : MonoBehaviour
     {
         _gpuSort?.Dispose();
         _randomCollection = new RandomCollectionGeneration(_seed, size, 0, _maxValue).Create();
-        _gpuSort = new GPURadixSort(_sortShader, _prefixSumShader, size);
+        _gpuSort = new GPURadixSort<int>(_sortShader, _prefixSumShader, size);
         _collectionToSort = new int[size];
     }
 

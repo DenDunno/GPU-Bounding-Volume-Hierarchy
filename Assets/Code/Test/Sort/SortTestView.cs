@@ -16,15 +16,15 @@ namespace Code.Test.Sort
         
         protected override CollectionComparisonResult<int> RunComparisonTest(int[] input)
         {
-            GPURadixSortInput sortInput = new(_sortShader, _prefixSumShader, input.Length);
-            using GPURadixSort sort = new(sortInput);
+            GPURadixSort<int> sort = new(_sortShader, _prefixSumShader, input.Length);
 
             sort.SetData(input);
             sort.Execute(input.Length);
             
             List<int> expectedOutput = new(input);
             expectedOutput.Sort();
-
+            sort.GetData(Output);
+            
             return expectedOutput.IsSame(Output);
         }
     }
