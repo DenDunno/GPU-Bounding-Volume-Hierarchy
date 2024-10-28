@@ -6,45 +6,49 @@ namespace Code.Components.MortonCodeAssignment.TestTree
 {
     public class TreeVisualization
     {
-        private readonly float _depthFactor;
-        private readonly float _depthFactor2;
-        private readonly Material _material;
-        private readonly Mesh _mesh;
         private readonly Dictionary<uint, int> _widthPerNode = new();
+        private readonly Material _material;
+        private readonly int _leavesCount;
+        private readonly Mesh _mesh;
+        private int _height;
 
-        public TreeVisualization(float depthFactor, float depthFactor2)
+        public TreeVisualization(int leavesCount)
         {
-            _depthFactor = depthFactor;
-            _depthFactor2 = depthFactor2;
+            _leavesCount = leavesCount;
             _material = Resources.Load<Material>("Utilities/Digit");
             _mesh = MeshExtensions.BuildQuad(1);
         }
 
-        public void Draw(TreeNode node)
+        public void Draw(TreeNode node, float depthFactor)
         {
-            CalculateWidthPerNodeDFS(node);
-            DrawBFS(node);
+            DrawDFS(node, Vector2.zero, depthFactor, 0, 1);
         }
 
-        private void DrawBFS(TreeNode node)
+        public void Initialize(TreeNode node)
         {
-            Queue<TreeNode> queue = new();
-            queue.Enqueue(node);
+            _height = ComputeHeight(node, 1);
+            CalculateWidthPerNodeDFS(node);
+        }
 
-            while (queue.Count != 0)
-            {
-                int layerCount = queue.Count;
-                float distance = 0;
-                
-                while (layerCount-- > 0)
-                {
-                    TreeNode child = queue.Dequeue();
-                    Dra
-                    distance += _widthPerNode[child.Id];
-                }
-                queue.Enqueue(child.Left);
-                queue.Enqueue(child.Right);
-            }
+        private int ComputeHeight(TreeNode node, int depth)
+        {
+            if (node == null)
+                return depth;
+
+            return Mathf.Max(
+                ComputeHeight(node.Left, depth + 1), 
+                ComputeHeight(node.Right, depth + 1));
+        }
+
+        private void DrawDFS(TreeNode node, Vector2 parentPosition, float depthFactor, float offset, float depth)
+        {
+            if (node == null)
+                return;
+
+            Vector2 childPosition = parentPosition + new Vector2(offset * depth / _height * depthFactor, -2);
+            DrawNumber(node, parentPosition, childPosition);
+            DrawDFS(node.Left, childPosition, depthFactor, -_widthPerNode[node.Id] / 2f, depth + 1);
+            DrawDFS(node.Right, childPosition,depthFactor,  _widthPerNode[node.Id] / 2f, depth + 1);
         }
 
         private int CalculateWidthPerNodeDFS(TreeNode node)
@@ -56,23 +60,20 @@ namespace Code.Components.MortonCodeAssignment.TestTree
                                             CalculateWidthPerNodeDFS(node.Right);
         }
 
-        // public void Draw(TreeNode node, Vector2 position)
-        // {
-        //     if (node == null)
-        //         return;
-        //
-        //     Debug.DrawLine(parentPosition, position, Color.red);
-        //     DrawNumber(node, position);
-        //     float xOffset = depth * _depthFactor + _depthFactor2;
-        //     Draw(node.Left, position, position + new Vector2(-xOffset, -_offset), depth + 1, height);
-        //     Draw(node.Right, position, position + new Vector2(xOffset, -_offset), depth + 1, height);
-        // }
-
-        private void DrawNumber(TreeNode node, Vector2 position)
+        private void DrawNumber(TreeNode node, Vector2 parentPosition, Vector2 childPosition)
         {
             Material material = new(_material);
-            material.SetInt("_Value", (int)node.Id);
-            Graphics.DrawMesh(_mesh, position, Quaternion.identity, material, 0);
+            bool isLeaf = node.Id >= _leavesCount;
+            material.SetInt("_Value", isLeaf ? (int)node.Id - _leavesCount : (int)node.Id);
+            material.SetColor("_Color", isLeaf ? new Color(0.77f, 0.64f, 0f) : new Color(0.11f, 0.44f, 0.07f));
+
+            if (node.Id > _leavesCount + _leavesCount - 1) 
+            {
+                material.SetColor("_Color", Color.red);
+            }
+            
+            Debug.DrawLine(parentPosition, childPosition);
+            Graphics.DrawMesh(_mesh, childPosition, Quaternion.identity, material, 0);
         }
     }
 }

@@ -5,35 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHNode.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHNode.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeNode.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeNode.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/MeshExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/MeshExtensions.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/HPLOC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/HPLOC.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/MortonCode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/MortonCode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHBuffers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/AABB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/AABB.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/SetupStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/SetupStage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/ShadersPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHShaders.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/ShadersPresenter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHShaders.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/MortonCodeTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/MortonCodeTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ComputeShaderPass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ComputeShaderPass.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Utilities/Digit.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/Digit.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Utilities/Digit.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/Digit.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,22 +61,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "XThreadsFramesViewSplitterKey": "0.4980315",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.4980315&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/../../Build\RTS-Unit-Highlight.exe" />
@@ -136,10 +112,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="20340">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="20340" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -233,7 +209,8 @@
       <workItem from="1729976972266" duration="10091000" />
       <workItem from="1730056086465" duration="656000" />
       <workItem from="1730058711098" duration="4091000" />
-      <workItem from="1730065927293" duration="23412000" />
+      <workItem from="1730065927293" duration="25713000" />
+      <workItem from="1730148279408" duration="5862000" />
     </task>
     <servers />
   </component>

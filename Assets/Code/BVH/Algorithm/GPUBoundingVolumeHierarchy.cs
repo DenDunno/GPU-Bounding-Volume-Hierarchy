@@ -1,11 +1,7 @@
-using System;
 using System.Linq;
 using Code.Components.MortonCodeAssignment.TestTree;
 using Code.Data;
-using Code.Utils.Extensions;
-using DefaultNamespace;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
@@ -15,8 +11,8 @@ namespace Code.Components.MortonCodeAssignment
         [SerializeField] private int _test;
         [SerializeField] private Sphere[] _spheres;
         [SerializeField] private float _depthFactor;
-        [SerializeField] private float _depthFactor2;
         private BVHAlgorithm _algorithm;
+        private TreeVisualization _tree;
         private BVHBuffers _buffers;
         private TreeNode _root;
 
@@ -37,11 +33,13 @@ namespace Code.Components.MortonCodeAssignment
         {
             _algorithm.Execute(_spheres.Length);
             _root = new TreeCalculator().Compute(_buffers.Nodes, _spheres.Length);
+            _tree = new TreeVisualization(_spheres.Length);
+            _tree.Initialize(_root);
         }
 
         private void Update()
         {
-            new TreeVisualization(_depthFactor, _depthFactor2).Draw(_root);
+            _tree?.Draw(_root, _depthFactor);
         }
 
         protected override void Dispose()

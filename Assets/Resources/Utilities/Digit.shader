@@ -10,7 +10,13 @@ Shader "Custom/DigitShader"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags
+        {
+            "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"
+        }
+        ZWrite Off
+        Blend SrcAlpha OneMinusSrcAlpha
+        LOD 100
         Pass
         {
             CGPROGRAM
@@ -40,7 +46,7 @@ Shader "Custom/DigitShader"
             };
 
             // Vertex shader
-            v2f vert (appdata v)
+            v2f vert(appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
@@ -57,7 +63,7 @@ Shader "Custom/DigitShader"
             float InRect(float2 vUV, float4 vRect)
             {
                 float2 vTestMin = step(vRect.xy, vUV.xy);
-                float2 vTestMax = step(vUV.xy, vRect.zw);	
+                float2 vTestMax = step(vUV.xy, vRect.zw);
                 float2 vTest = vTestMin * vTestMax;
                 return vTest.x * vTest.y;
             }
@@ -77,46 +83,87 @@ Shader "Custom/DigitShader"
                 const float y4 = 4.0 / 5.0;
                 const float y5 = 5.0 / 5.0;
 
-                float4 vRect0 = float4(0.0,0.0,0.0,0.0);
-                float4 vRect1 = float4(0.0,0.0,0.0,0.0);
-                float4 vRect2 = float4(0.0,0.0,0.0,0.0);
+                float4 vRect0 = float4(0.0, 0.0, 0.0, 0.0);
+                float4 vRect1 = float4(0.0, 0.0, 0.0, 0.0);
+                float4 vRect2 = float4(0.0, 0.0, 0.0, 0.0);
 
-                if(fDigit < 0.5) { // 0
-                    vRect0 = float4(x0, y0, x3, y5); vRect1 = float4(x1, y1, x2, y4);
+                if (fDigit < 0.5)
+                {
+                    // 0
+                    vRect0 = float4(x0, y0, x3, y5);
+                    vRect1 = float4(x1, y1, x2, y4);
                 }
-                else if(fDigit < 1.5) { // 1
-                    vRect0 = float4(x1, y0, x2, y5); vRect1 = float4(x0, y0, x0, y0);
+                else if (fDigit < 1.5)
+                {
+                    // 1
+                    vRect0 = float4(x1, y0, x2, y5);
+                    vRect1 = float4(x0, y0, x0, y0);
                 }
-                else if(fDigit < 2.5) { // 2
-                    vRect0 = float4(x0, y0, x3, y5); vRect1 = float4(x0, y3, x2, y4); vRect2 = float4(x1, y1, x3, y2);
+                else if (fDigit < 2.5)
+                {
+                    // 2
+                    vRect0 = float4(x0, y0, x3, y5);
+                    vRect1 = float4(x0, y3, x2, y4);
+                    vRect2 = float4(x1, y1, x3, y2);
                 }
-                else if(fDigit < 3.5) { // 3
-                    vRect0 = float4(x0, y0, x3, y5); vRect1 = float4(x0, y3, x2, y4); vRect2 = float4(x0, y1, x2, y2);
+                else if (fDigit < 3.5)
+                {
+                    // 3
+                    vRect0 = float4(x0, y0, x3, y5);
+                    vRect1 = float4(x0, y3, x2, y4);
+                    vRect2 = float4(x0, y1, x2, y2);
                 }
-                else if(fDigit < 4.5) { // 4
-                    vRect0 = float4(x0, y1, x2, y5); vRect1 = float4(x1, y2, x2, y5); vRect2 = float4(x2, y0, x3, y3);
+                else if (fDigit < 4.5)
+                {
+                    // 4
+                    vRect0 = float4(x0, y1, x2, y5);
+                    vRect1 = float4(x1, y2, x2, y5);
+                    vRect2 = float4(x2, y0, x3, y3);
                 }
-                else if(fDigit < 5.5) { // 5
-                    vRect0 = float4(x0, y0, x3, y5); vRect1 = float4(x1, y3, x3, y4); vRect2 = float4(x0, y1, x2, y2);
+                else if (fDigit < 5.5)
+                {
+                    // 5
+                    vRect0 = float4(x0, y0, x3, y5);
+                    vRect1 = float4(x1, y3, x3, y4);
+                    vRect2 = float4(x0, y1, x2, y2);
                 }
-                else if(fDigit < 6.5) { // 6
-                    vRect0 = float4(x0, y0, x3, y5); vRect1 = float4(x1, y3, x3, y4); vRect2 = float4(x1, y1, x2, y2);
+                else if (fDigit < 6.5)
+                {
+                    // 6
+                    vRect0 = float4(x0, y0, x3, y5);
+                    vRect1 = float4(x1, y3, x3, y4);
+                    vRect2 = float4(x1, y1, x2, y2);
                 }
-                else if(fDigit < 7.5) { // 7
-                    vRect0 = float4(x0, y0, x3, y5); vRect1 = float4(x0, y0, x2, y4);
+                else if (fDigit < 7.5)
+                {
+                    // 7
+                    vRect0 = float4(x0, y0, x3, y5);
+                    vRect1 = float4(x0, y0, x2, y4);
                 }
-                else if(fDigit < 8.5) { // 8
-                    vRect0 = float4(x0, y0, x3, y5); vRect1 = float4(x1, y1, x2, y2); vRect2 = float4(x1, y3, x2, y4);
+                else if (fDigit < 8.5)
+                {
+                    // 8
+                    vRect0 = float4(x0, y0, x3, y5);
+                    vRect1 = float4(x1, y1, x2, y2);
+                    vRect2 = float4(x1, y3, x2, y4);
                 }
-                else if(fDigit < 9.5) { // 9
-                    vRect0 = float4(x0, y0, x3, y5); vRect1 = float4(x1, y3, x2, y4); vRect2 = float4(x0, y1, x2, y2);
+                else if (fDigit < 9.5)
+                {
+                    // 9
+                    vRect0 = float4(x0, y0, x3, y5);
+                    vRect1 = float4(x1, y3, x2, y4);
+                    vRect2 = float4(x0, y1, x2, y2);
                 }
-                else if(fDigit < 10.5) { // '.'
+                else if (fDigit < 10.5)
+                {
+                    // '.'
                     vRect0 = float4(x1, y0, x2, y1);
                 }
-                else if(fDigit < 11.5) { // '-' 
+                else if (fDigit < 11.5)
+                {
+                    // '-' 
                     vRect0 = float4(x0, y2, x3, y3);
-                }	
+                }
                 float fResult = InRect(vUV, vRect0) + InRect(vUV, vRect1) + InRect(vUV, vRect2);
                 return fmod(fResult, 2.0);
             }
@@ -131,22 +178,31 @@ Shader "Custom/DigitShader"
 
                 float fDigitCharacter = kCharBlank;
                 float fDigitIndex = fMaxDigits - fStringCharIndex;
-                if(fDigitIndex > (-fDecimalPlaces - 1.5)) {
-                    if(fDigitIndex > fBiggestDigitIndex) {
-                        if(fValue < 0.0) {
-                            if(fDigitIndex < (fBiggestDigitIndex+1.5)) {
+                if (fDigitIndex > (-fDecimalPlaces - 1.5))
+                {
+                    if (fDigitIndex > fBiggestDigitIndex)
+                    {
+                        if (fValue < 0.0)
+                        {
+                            if (fDigitIndex < (fBiggestDigitIndex + 1.5))
+                            {
                                 fDigitCharacter = kCharMinus;
                             }
                         }
                     }
-                    else {
-                        if(fDigitIndex == -1.0) {
-                            if(fDecimalPlaces > 0.0) {
+                    else
+                    {
+                        if (fDigitIndex == -1.0)
+                        {
+                            if (fDecimalPlaces > 0.0)
+                            {
                                 fDigitCharacter = kCharDecimalPoint;
                             }
                         }
-                        else {
-                            if(fDigitIndex < 0.0) {
+                        else
+                        {
+                            if (fDigitIndex < 0.0)
+                            {
                                 fDigitIndex += 1.0;
                             }
                             float fDigitValue = (fAbsValue / pow(10.0, fDigitIndex));
@@ -155,11 +211,12 @@ Shader "Custom/DigitShader"
                     }
                 }
                 float2 vCharPos = float2(frac(vStringCharCoords.x), vStringCharCoords.y);
-                return SampleDigit(fDigitCharacter, vCharPos);	
+                return SampleDigit(fDigitCharacter, vCharPos);
             }
 
             // Overloaded PrintValue function
-            float PrintValue(float2 fragCoord, float2 vPixelCoords, float2 vFontSize, float fValue, float fMaxDigits, float fDecimalPlaces)
+            float PrintValue(float2 fragCoord, float2 vPixelCoords, float2 vFontSize, float fValue, float fMaxDigits,
+                float fDecimalPlaces)
             {
                 float2 adjust = (fragCoord.xy - vPixelCoords) / vFontSize;
                 return PrintValue(adjust, fValue, fMaxDigits, fDecimalPlaces);
@@ -175,7 +232,7 @@ Shader "Custom/DigitShader"
             }
 
             // Fragment shader
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
                 float2 textureCoordinates = i.uv;
                 float2 vFontSize = float2(_Size, _Size);
@@ -192,7 +249,8 @@ Shader "Custom/DigitShader"
                 float4 circleColor = _Color;
 
                 // Create a circular mask
-                float distance = pow(textureCoordinates.x - 0.5f, 2) + pow(textureCoordinates.y - 0.5f, 2) - 0.45f * 0.45f; 
+                float distance = pow(textureCoordinates.x - 0.5f, 2) + pow(textureCoordinates.y - 0.5f, 2) - 0.45f *
+                    0.45f;
                 circleColor.a = smoothstep(0.01f, 0.0f, distance);
 
                 // Output the final color
