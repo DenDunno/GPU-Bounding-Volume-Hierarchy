@@ -19,9 +19,9 @@ namespace Code.Components.MortonCodeAssignment.TestTree
             _mesh = MeshExtensions.BuildQuad(1);
         }
 
-        public void Draw(TreeNode node, float depthFactor)
+        public void Draw(TreeNode node, float depthFactor, float lineLength)
         {
-            DrawDFS(node, Vector2.zero, depthFactor, 0, 1);
+            DrawDFS(node, Vector2.zero, depthFactor, lineLength, 0, 1);
         }
 
         public void Initialize(TreeNode node)
@@ -40,15 +40,17 @@ namespace Code.Components.MortonCodeAssignment.TestTree
                 ComputeHeight(node.Right, depth + 1));
         }
 
-        private void DrawDFS(TreeNode node, Vector2 parentPosition, float depthFactor, float offset, float depth)
+        private void DrawDFS(TreeNode node, Vector2 parentPosition, float depthFactor, float lineLength, float offset,
+            float depth)
         {
             if (node == null)
                 return;
 
             Vector2 childPosition = parentPosition + new Vector2(offset * depth / _height * depthFactor, -2);
-            DrawNumber(node, parentPosition, childPosition);
-            DrawDFS(node.Left, childPosition, depthFactor, -_widthPerNode[node.Id] / 2f, depth + 1);
-            DrawDFS(node.Right, childPosition,depthFactor,  _widthPerNode[node.Id] / 2f, depth + 1);
+            DrawLine(parentPosition, childPosition, lineLength);
+            DrawNumber(node, childPosition);
+            DrawDFS(node.Left, childPosition, depthFactor, lineLength, -_widthPerNode[node.Id] / 2f, depth + 1);
+            DrawDFS(node.Right, childPosition,depthFactor, lineLength,  _widthPerNode[node.Id] / 2f, depth + 1);
         }
 
         private int CalculateWidthPerNodeDFS(TreeNode node)
@@ -60,7 +62,7 @@ namespace Code.Components.MortonCodeAssignment.TestTree
                                             CalculateWidthPerNodeDFS(node.Right);
         }
 
-        private void DrawNumber(TreeNode node, Vector2 parentPosition, Vector2 childPosition)
+        private void DrawNumber(TreeNode node, Vector2 childPosition)
         {
             Material material = new(_material);
             bool isLeaf = node.Id >= _leavesCount;
@@ -72,8 +74,15 @@ namespace Code.Components.MortonCodeAssignment.TestTree
                 material.SetColor("_Color", Color.red);
             }
             
-            Debug.DrawLine(parentPosition, childPosition);
             Graphics.DrawMesh(_mesh, childPosition, Quaternion.identity, material, 0);
+        }
+
+        private void DrawLine(Vector2 parentPosition, Vector2 childPosition, float lineLength)
+        {
+            Vector2 direction = (parentPosition - childPosition).normalized;
+            parentPosition -= direction * lineLength;
+            childPosition += direction * lineLength;
+            Debug.DrawLine(parentPosition, childPosition);
         }
     }
 }

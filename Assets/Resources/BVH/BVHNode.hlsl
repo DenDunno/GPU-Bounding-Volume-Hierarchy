@@ -27,6 +27,6 @@ struct BVHNode
     void MarkAsLeaf() { __SetIsLeaf(1); }
     void MarkAsInternalNode() { __SetIsLeaf(0); }
     void __SetIsLeaf(const uint value) { __Data.x = SetTopBit(__Data.x, value); }
-    void SetLeftChild(const uint value) { __Data.x = SetLower31Bits(__Data.x, value); }
-    void SetRightChild(const uint value) { __Data.y = SetLower31Bits(__Data.y, value); }
+    void SetLeftChild(const uint value) { __Data.x = value; }
+    void SetRightChild(const uint value) { __Data.y = value; }
 };

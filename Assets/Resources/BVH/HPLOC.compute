@@ -1,4 +1,5 @@
 #pragma kernel Build
+#pragma enable_d3d11_debug_symbols
 #include "BinaryRadixTree.hlsl"
 
 void Merge(const int parentId)
@@ -7,6 +8,7 @@ void Merge(const int parentId)
     BVHNode leftChild = Nodes[node.LeftChild()];
     BVHNode rightChild = Nodes[node.RightChild()];
     node.Box = leftChild.Box.Union(rightChild.Box);
+    
     Nodes[parentId] = node;
 }
 
@@ -15,6 +17,11 @@ int ComputeNodeIndex(uint threadId, inout bool isLeaf)
     uint nodeIndex = isLeaf ? threadId + LeavesCount : threadId;
     isLeaf = false;
     return nodeIndex;
+}
+
+bool IsRoot(uint rangeSize)
+{
+    return rangeSize == LeavesCount;
 }
 
 [numthreads(1,1,1)]

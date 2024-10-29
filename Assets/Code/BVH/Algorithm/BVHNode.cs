@@ -12,8 +12,8 @@ struct BVHNode
     public uint ExtractTopBit(uint input) => input >> 31;
 
     public bool IsLeaf() { return ExtractTopBit(X) == 1; }
-    public uint LeftChild() { return ExtractLower31Bits(X); }
-    public uint RightChild() { return ExtractLower31Bits(Y); }
+    public uint LeftChild() { return X; }
+    public uint RightChild() { return Y; }
     public uint TriangleIndex() { return LeftChild(); }
     public uint TriangleCount() { return RightChild(); }
 
@@ -25,6 +25,6 @@ struct BVHNode
 
     public override string ToString()
     {
-        return $"{Box} LefChild = {LeftChild()} RightChild = {RightChild()}";
+        return $"LefChild = {LeftChild()} RightChild = {RightChild()} {Box}";
     }
 };

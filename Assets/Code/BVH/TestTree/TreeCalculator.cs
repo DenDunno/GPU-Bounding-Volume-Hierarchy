@@ -19,7 +19,10 @@ namespace Code.Components.MortonCodeAssignment.TestTree
                 Traverse(null, i, false, nodes);
             }
 
-            nodes.ForEach(x => Debug.Log(x.ToString()));
+            for (int i = 0; i < nodes.Length; ++i)
+            {
+                Debug.Log($"Index = {i} {nodes[i].ToString()}");
+            }
 
             return _root;
         }
@@ -36,8 +39,8 @@ namespace Code.Components.MortonCodeAssignment.TestTree
                 else
                     parent.Right = child;
             }
-
-            if (isVisited)
+            
+            if (isVisited && parent != null && Contains(_root, parent) == false)
             {
                 _root = parent;
                 return;
@@ -50,6 +53,26 @@ namespace Code.Components.MortonCodeAssignment.TestTree
             
             if (nodeIndex < nodes.Length)
                 Traverse(child, nodes[nodeIndex].RightChild(), false, nodes);
+        }
+
+        private bool Contains(TreeNode node, TreeNode target)
+        {
+            bool result = false;
+            Contains(node, target, ref result);
+            return result;
+        }
+        
+        private void Contains(TreeNode node, TreeNode target, ref bool contains)
+        {
+            if (contains)
+                return;
+            
+            if (node == null)
+                return;
+            
+            contains = node.Left == target || node.Right == target;
+            Contains(node.Left, target, ref contains);
+            Contains(node.Right, target, ref contains);
         }
     }
 }

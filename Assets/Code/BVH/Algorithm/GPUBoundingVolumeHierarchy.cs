@@ -11,6 +11,7 @@ namespace Code.Components.MortonCodeAssignment
         [SerializeField] private int _test;
         [SerializeField] private Sphere[] _spheres;
         [SerializeField] private float _depthFactor;
+        [SerializeField] private float _lineLength;
         private BVHAlgorithm _algorithm;
         private TreeVisualization _tree;
         private BVHBuffers _buffers;
@@ -19,7 +20,7 @@ namespace Code.Components.MortonCodeAssignment
         protected override void Reassemble()
         {
             _buffers = new BVHBuffers(_spheres.Length);
-            
+
             AABB[] boxes = _spheres.Select(sphere => sphere.Provide()).ToArray();
             _buffers.Boxes.SetData(boxes);
 
@@ -31,15 +32,19 @@ namespace Code.Components.MortonCodeAssignment
         [Button]
         private void Dispatch()
         {
+            Reassemble();
             _algorithm.Execute(_spheres.Length);
-            _root = new TreeCalculator().Compute(_buffers.Nodes, _spheres.Length);
+            _root = new TreeCalculator().Compute(_buffers.Nodes, _spheres.Length - 1);
             _tree = new TreeVisualization(_spheres.Length);
             _tree.Initialize(_root);
         }
 
         private void Update()
         {
-            _tree?.Draw(_root, _depthFactor);
+            if (Application.isPlaying)
+                Dispatch();
+            
+            _tree?.Draw(_root, _depthFactor, _lineLength);
         }
 
         protected override void Dispose()
