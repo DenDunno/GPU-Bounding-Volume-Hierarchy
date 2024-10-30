@@ -12,6 +12,7 @@ namespace Code.Components.MortonCodeAssignment
         [SerializeField] private Sphere[] _spheres;
         [SerializeField] private float _depthFactor;
         [SerializeField] private float _lineLength;
+        [SerializeField] private bool _showNodes;
         private BVHAlgorithm _algorithm;
         private TreeVisualization _tree;
         private BVHBuffers _buffers;
@@ -32,9 +33,10 @@ namespace Code.Components.MortonCodeAssignment
         [Button]
         private void Dispatch()
         {
+            Dispose();
             Reassemble();
             _algorithm.Execute(_spheres.Length);
-            _root = new TreeCalculator().Compute(_buffers.Nodes, _spheres.Length - 1);
+            _root = new TreeCalculator().Compute(_buffers.Nodes, _spheres.Length - 1, _showNodes);
             _tree = new TreeVisualization(_spheres.Length);
             _tree.Initialize(_root);
         }

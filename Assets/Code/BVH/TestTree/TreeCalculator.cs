@@ -6,10 +6,10 @@ namespace Code.Components.MortonCodeAssignment.TestTree
 {
     public class TreeCalculator
     {
-        private Dictionary<uint, TreeNode> _subTrees = new();
+        private readonly Dictionary<uint, TreeNode> _subTrees = new();
         private TreeNode _root;
 
-        public TreeNode Compute(ComputeBuffer nodeBuffer, int length)
+        public TreeNode Compute(ComputeBuffer nodeBuffer, int length, bool showNodes)
         {
             BVHNode[] nodes = new BVHNode[length];
             nodeBuffer.GetData(nodes);
@@ -19,9 +19,12 @@ namespace Code.Components.MortonCodeAssignment.TestTree
                 Traverse(null, i, false, nodes);
             }
 
-            for (int i = 0; i < nodes.Length; ++i)
+            if (showNodes)
             {
-                Debug.Log($"Index = {i} {nodes[i].ToString()}");
+                for (int i = 0; i < nodes.Length; ++i)
+                {
+                    Debug.Log($"Index = {i} {nodes[i].ToString()}");
+                }   
             }
 
             return _root;

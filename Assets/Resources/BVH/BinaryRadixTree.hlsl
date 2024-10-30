@@ -1,10 +1,8 @@
 #include "..//MortonCode/MortonCode.hlsl"
+#include "NodesInput.hlsl"
 #include "ParentInfo.hlsl"
-#include "BVHNode.hlsl"
 
 StructuredBuffer<MortonCode> SortedMortonCodes;
-RWStructuredBuffer<BVHNode> Nodes;
-uint LeavesCount;
 
 ParentInfo ChooseLeftParent(const Range range, const uint nodeIndex)
 {
@@ -41,8 +39,6 @@ bool IsParentRight(const Range range)
 
 ParentInfo ChooseParent(const uint threadId, const Range range)
 {
-    //const uint nodeIndex = SortedMortonCodes[threadId].ObjectId;
-    
     if (IsParentRight(range))
     {
         return ChooseRightParent(range, threadId);

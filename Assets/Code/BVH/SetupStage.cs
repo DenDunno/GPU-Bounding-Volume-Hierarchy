@@ -14,11 +14,6 @@ namespace Code.Components.MortonCodeAssignment
             _buffers = buffers;
         }
 
-        protected override void OnPreDispatch(IShaderBridge<string> shaderBridge, Vector3Int payload)
-        {
-            shaderBridge.SetInt("LeavesCount", payload.x);
-        }
-
         protected override void Setup(Kernel kernel, IShaderBridge<string> shaderBridge)
         {
             shaderBridge.SetVector("_Min", -Vector4.one * _sceneBoxSize);
@@ -27,6 +22,11 @@ namespace Code.Components.MortonCodeAssignment
             shaderBridge.SetBuffer(kernel.ID, "BoundingBoxes", _buffers.Boxes);
             shaderBridge.SetBuffer(kernel.ID, "ParentIds", _buffers.ParentIds);
             shaderBridge.SetBuffer(kernel.ID, "Nodes", _buffers.Nodes);
+        }
+
+        protected override void OnPreDispatch(IShaderBridge<string> shaderBridge, Vector3Int payload)
+        {
+            shaderBridge.SetInt("LeavesCount", payload.x);
         }
     }
 }

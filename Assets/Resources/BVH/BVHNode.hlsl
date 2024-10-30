@@ -13,7 +13,7 @@ struct BVHNode
     {
         BVHNode node;
         node.Box = box;
-        node.__Data = uint2(0, 0);
+        node.__Data = uint2(-100, -100);
 
         return node;
     }

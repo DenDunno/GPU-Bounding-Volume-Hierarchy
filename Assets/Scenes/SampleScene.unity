@@ -2585,7 +2585,9 @@ MonoBehaviour:
   - {fileID: 411836822}
   - {fileID: 1839197451}
   - {fileID: 258437729}
-  _depthFactor: 1.04
+  _depthFactor: 1.041
+  _lineLength: 0.5
+  _showNodes: 0
 --- !u!1 &625746325
 GameObject:
   m_ObjectHideFlags: 0
