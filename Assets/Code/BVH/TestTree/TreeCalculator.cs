@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Sirenix.Utilities;
+using Code.Utils.Extensions;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment.TestTree
@@ -9,25 +9,36 @@ namespace Code.Components.MortonCodeAssignment.TestTree
         private readonly Dictionary<uint, TreeNode> _subTrees = new();
         private TreeNode _root;
 
-        public TreeNode Compute(ComputeBuffer nodeBuffer, int length, bool showNodes)
+        public TreeNode Compute(BVHBuffers buffers, int length, bool showNodes)
         {
             BVHNode[] nodes = new BVHNode[length];
-            nodeBuffer.GetData(nodes);
+            buffers.Nodes.GetData(nodes);
 
+            Build(nodes);
+            TryPrint(buffers, showNodes, nodes);
+
+            return _root;
+        }
+
+        private void Build(BVHNode[] nodes)
+        {
             for (uint i = 0; i < nodes.Length; ++i)
             {
                 Traverse(null, i, false, nodes);
             }
+        }
 
+        private static void TryPrint(BVHBuffers buffers, bool showNodes, BVHNode[] nodes)
+        {
             if (showNodes)
             {
                 for (int i = 0; i < nodes.Length; ++i)
                 {
                     Debug.Log($"Index = {i} {nodes[i].ToString()}");
-                }   
+                }
+                
+                buffers.Root.PrintInt("Root = ");
             }
-
-            return _root;
         }
 
         private void Traverse(TreeNode parent, uint nodeIndex, bool isLeft, BVHNode[] nodes)

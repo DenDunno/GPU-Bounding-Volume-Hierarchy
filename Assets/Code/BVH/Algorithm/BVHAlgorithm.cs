@@ -8,19 +8,19 @@ namespace Code.Components.MortonCodeAssignment
         private readonly GPURadixSort<MortonCode> _mortonCodesSorting;
         private readonly HPLOC _bvhConstruction;
         private readonly SetupStage _setupStage;
-        private readonly BVHBuffers _buffers;
+        public readonly BVHBuffers Buffers;
 
-        public BVHAlgorithm(BVHBuffers buffers, BVHShaders bvhShaders, int bufferSize)
+        public BVHAlgorithm(BVHShaders bvhShaders, int bufferSize)
         {
+            Buffers = new BVHBuffers(bufferSize);
+            _setupStage = new SetupStage(bvhShaders.Setup, Buffers);
+            _bvhConstruction = new HPLOC(bvhShaders.BVHConstruction, Buffers);
             _mortonCodesSorting = new GPURadixSort<MortonCode>(bvhShaders.Sorting, bvhShaders.PrefixSum, bufferSize);
-            _bvhConstruction = new HPLOC(bvhShaders.BVHConstruction, buffers);
-            _setupStage = new SetupStage(bvhShaders.Setup, buffers);
-            _buffers = buffers;
         }
 
         public void Initialize()
         {
-            _mortonCodesSorting.SetData(_buffers.MortonCodes);
+            _mortonCodesSorting.SetData(Buffers.MortonCodes);
             _bvhConstruction.Prepare();
             _setupStage.Prepare();
         }
@@ -29,26 +29,13 @@ namespace Code.Components.MortonCodeAssignment
         {
             _setupStage.Execute(count);
             _mortonCodesSorting.Execute(count);
-            
-            _buffers.MortonCodes.SetData(new MortonCode[]
-            {
-                new(0,2),
-                new(1,3),
-                new(2,4),
-                new(3,5),
-                new(4,8),
-                new(5,12),
-                new(6,13),
-                new(7,15),
-            });
-            
             _bvhConstruction.Execute(count);
         }
 
         public void Dispose()
         {
+            Buffers.Dispose();
             _mortonCodesSorting.Dispose();
-            _buffers.Dispose();
         }
     }
 }

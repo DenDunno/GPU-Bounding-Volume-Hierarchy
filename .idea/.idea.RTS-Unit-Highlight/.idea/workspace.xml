@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/NodesInput.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/NodesInput.hlsl.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/ConstructionResult.hlsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/ConstructionResult.hlsl.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/SetupStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/SetupStage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/HPLOC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/HPLOC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHBuffers.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/NodesInput.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/NodesInput.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,10 +113,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="25396">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="25396" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />

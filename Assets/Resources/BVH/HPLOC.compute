@@ -1,6 +1,7 @@
 #pragma kernel Build
 #pragma enable_d3d11_debug_symbols
 #include "BinaryRadixTree.hlsl"
+#include "ConstructionResult.hlsl"
 
 void Merge(const int parentId)
 {
@@ -19,8 +20,7 @@ int ComputeNodeIndex(uint threadId, inout bool isLeaf)
     return nodeIndex;
 }
 
-[numthreads(1,1,1)]
-void Build(uint id : SV_DispatchThreadID)
+ConstructionResult Run(uint id)
 {
     bool isThreadActive = id < LeavesCount;
     Range range = Range::Create(id);
@@ -39,4 +39,13 @@ void Build(uint id : SV_DispatchThreadID)
             Merge(parentInfo.Id);
         }
     }
+    
+    return ConstructionResult::Create(id, range.Size());
+}
+
+[numthreads(1,1,1)]
+void Build(uint id : SV_DispatchThreadID)
+{
+    ConstructionResult result = Run(id);
+    TrySetRoot(result.NodeIndex, result.RangeSize);
 }

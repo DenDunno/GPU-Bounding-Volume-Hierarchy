@@ -17,6 +17,7 @@ public class HPLOC : ComputeShaderPass
     {
         shaderBridge.SetBuffer(kernel.ID, "SortedMortonCodes", _buffers.MortonCodes);
         shaderBridge.SetBuffer(kernel.ID, "ParentIds", _buffers.ParentIds);
+        shaderBridge.SetBuffer(kernel.ID, "RootIndex", _buffers.Root);
         shaderBridge.SetBuffer(kernel.ID, "Nodes", _buffers.Nodes);
     }
 
