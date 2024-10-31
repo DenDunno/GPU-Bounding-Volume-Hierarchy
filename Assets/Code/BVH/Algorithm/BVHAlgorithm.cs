@@ -1,5 +1,7 @@
 using System;
+using Code.Utils.Extensions;
 using DefaultNamespace;
+using Random = UnityEngine.Random;
 
 namespace Code.Components.MortonCodeAssignment
 {
@@ -28,8 +30,20 @@ namespace Code.Components.MortonCodeAssignment
         public void Execute(int count)
         {
             _setupStage.Execute(count);
-            _mortonCodesSorting.Execute(count);
-            _bvhConstruction.Execute(count);
+            Buffers.MortonCodes.Print<MortonCode>("", x => $"{x.Code} ");
+            //_mortonCodesSorting.Execute(count);
+
+            // Random.InitState(Environment.TickCount);
+            // MortonCode[] mortonCodes = new MortonCode[8];
+            // for (int i = 3; i < mortonCodes.Length; ++i)
+            // {
+            //     mortonCodes[i].ObjectId = 0;
+            //     mortonCodes[i].Code = mortonCodes[i - 1].Code + (uint)Random.Range(0, 1000);
+            // }
+            
+            // mortonCodes.Print();
+            // Buffers.MortonCodes.SetData(mortonCodes);
+            //_bvhConstruction.Execute(count);
         }
 
         public void Dispose()

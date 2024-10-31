@@ -17,7 +17,8 @@ namespace Code.Data
 
         public void Draw()
         {
-            Draw(Color.green);
+            Gizmos.DrawCube(Centroid, Max - Min);
+            Gizmos.DrawWireCube(Centroid, Max - Min);
         }
 
         public Vector3 GetRelativeCoordinates(Vector3 point)
@@ -30,16 +31,6 @@ namespace Code.Data
             point.z /= Max.z - Min.z;
             
             return point;
-        }
-        
-        public void Draw(Color gizmoColor)
-        {
-            Color color = Gizmos.color;
-            Gizmos.color = gizmoColor;
-
-            Gizmos.DrawWireCube(Centroid, Max - Min);
-
-            Gizmos.color = color;
         }
         
         public static int GetSize() // 24

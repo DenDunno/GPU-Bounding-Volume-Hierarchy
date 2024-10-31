@@ -1,8 +1,8 @@
 using Code.Data;
 
-struct BVHNode
+public struct BVHNode
 {
-    AABB Box;
+    public AABB Box;
     private uint X;
     private uint Y;
     

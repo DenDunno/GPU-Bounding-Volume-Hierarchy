@@ -1,43 +1,29 @@
 using System.Collections.Generic;
-using Code.Utils.Extensions;
-using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment.TestTree
 {
     public class TreeCalculator
     {
         private readonly Dictionary<uint, TreeNode> _subTrees = new();
+        private readonly BVHNode[] _nodes;
         private TreeNode _root;
 
-        public TreeNode Compute(BVHBuffers buffers, int length, bool showNodes)
+        public TreeCalculator(BVHNode[] nodes)
         {
-            BVHNode[] nodes = new BVHNode[length];
-            buffers.Nodes.GetData(nodes);
+            _nodes = nodes;
+        }
 
-            Build(nodes);
-            TryPrint(buffers, showNodes, nodes);
-
+        public TreeNode Compute()
+        {
+            Build();
             return _root;
         }
 
-        private void Build(BVHNode[] nodes)
+        private void Build()
         {
-            for (uint i = 0; i < nodes.Length; ++i)
+            for (uint i = 0; i < _nodes.Length; ++i)
             {
-                Traverse(null, i, false, nodes);
-            }
-        }
-
-        private static void TryPrint(BVHBuffers buffers, bool showNodes, BVHNode[] nodes)
-        {
-            if (showNodes)
-            {
-                for (int i = 0; i < nodes.Length; ++i)
-                {
-                    Debug.Log($"Index = {i} {nodes[i].ToString()}");
-                }
-                
-                buffers.Root.PrintInt("Root = ");
+                Traverse(null, i, false, _nodes);
             }
         }
 
@@ -46,6 +32,20 @@ namespace Code.Components.MortonCodeAssignment.TestTree
             bool isVisited = _subTrees.ContainsKey(nodeIndex); 
             TreeNode child = isVisited ? _subTrees[nodeIndex] : new TreeNode(nodeIndex);
 
+            ConnectChildToParent(parent, isLeft, child);
+            
+            if (isVisited && parent != null && Contains(_root, parent) == false)
+            {
+                _root = parent;
+                return;
+            }
+
+            VisitChildren(nodeIndex, nodes, child);
+            _subTrees[nodeIndex] = child;
+        }
+
+        private void ConnectChildToParent(TreeNode parent, bool isLeft, TreeNode child)
+        {
             if (parent != null)
             {
                 if (isLeft)
@@ -53,18 +53,13 @@ namespace Code.Components.MortonCodeAssignment.TestTree
                 else
                     parent.Right = child;
             }
-            
-            if (isVisited && parent != null && Contains(_root, parent) == false)
-            {
-                _root = parent;
-                return;
-            }
-            
-            _subTrees[nodeIndex] = child;
-            
+        }
+
+        private void VisitChildren(uint nodeIndex, BVHNode[] nodes, TreeNode child)
+        {
             if (nodeIndex < nodes.Length)
                 Traverse(child, nodes[nodeIndex].LeftChild(), true, nodes);
-            
+
             if (nodeIndex < nodes.Length)
                 Traverse(child, nodes[nodeIndex].RightChild(), false, nodes);
         }
