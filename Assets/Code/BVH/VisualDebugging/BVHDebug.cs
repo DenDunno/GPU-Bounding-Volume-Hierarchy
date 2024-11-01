@@ -1,5 +1,6 @@
 using System;
 using Code.Components.MortonCodeAssignment.TestTree;
+using Code.Utils.Extensions;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
@@ -11,12 +12,13 @@ namespace Code.Components.MortonCodeAssignment
         [SerializeField] private BVHTreeDebug _bvhTreeDebug;
         [SerializeField] private bool _showLeafsBounds;
         
-        public void Initialize(int innerNodesCount, ComputeBuffer nodes)
+        public void Initialize(int innerNodesCount, BVHBuffers buffers)
         {
             BVHNode[] innerNodes = new BVHNode[innerNodesCount];
-            nodes.GetData(innerNodes);
+            buffers.Nodes.GetData(innerNodes);
+            uint rootIndex = buffers.Root.GetValue<uint>();
 
-            BinaryTree tree = new(new TreeCalculator(innerNodes).Compute());
+            BinaryTree tree = new(new TreeCalculator(innerNodes, rootIndex).Compute());
             _binaryTreeDebug.Initialize(innerNodesCount, tree.Root);
             _bvhTreeDebug.Initialize(tree, innerNodes);
         }

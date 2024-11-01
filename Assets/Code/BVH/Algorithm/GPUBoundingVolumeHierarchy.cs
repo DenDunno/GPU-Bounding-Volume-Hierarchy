@@ -21,6 +21,7 @@ namespace Code.Components.MortonCodeAssignment
             AABB[] boxes = _spheres.Select(sphere => sphere.Provide()).ToArray();
             _algorithm.Buffers.Boxes.SetData(boxes);
             _algorithm.Initialize();
+            Run();
         }
 
         [Button]
@@ -28,8 +29,13 @@ namespace Code.Components.MortonCodeAssignment
         {
             Dispose();
             Reassemble();
+            Run();
+        }
+
+        private void Run()
+        {
             _algorithm.Execute(_spheres.Length);
-            _debug.Initialize(_spheres.Length - 1, _algorithm.Buffers.Nodes);
+            _debug.Initialize(_spheres.Length - 1, _algorithm.Buffers);
         }
 
         private void OnDrawGizmos()

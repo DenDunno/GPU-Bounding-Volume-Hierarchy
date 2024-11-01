@@ -3,8 +3,8 @@ using Code.Data;
 public struct BVHNode
 {
     public AABB Box;
-    private uint X;
-    private uint Y;
+    public uint X;
+    public uint Y;
     
     public uint ExtractLower31Bits(uint input) => input & 0x7FFFFFFF;
     public uint SetTopBit(uint input, uint topBit) => ExtractLower31Bits(input) | topBit << 31;

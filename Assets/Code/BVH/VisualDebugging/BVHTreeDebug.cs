@@ -39,7 +39,7 @@ namespace Code.Components.MortonCodeAssignment
             {
                 Random.InitState(depth);
                 Color color = RandomUtils.GenerateBrightColor();
-                color.a = (depth + _alpha + 1f) / _height;
+                color.a = _showAll ? (depth + _alpha + 1f) / _height : 0.25f; 
                 Gizmos.color = color; 
                 _innerNodes[node.Id].Box.Draw();
             }

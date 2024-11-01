@@ -26,14 +26,14 @@ uint HighestDifferingBitIndex(const uint nodeIndex)
         SortedMortonCodes[nodeIndex + 1].Value);
 }
 
-int Delta(const uint nodeIndex)
+uint Delta(const uint nodeIndex)
 {
     return HighestDifferingBitIndex(nodeIndex);
 }
 
 bool IsParentRight(const Range range)
 {
-    return range.Left == 0 || (range.Right != LeavesCount &&
+    return range.Left == 0 || (range.Right != InnerNodes() &&
         Delta(range.Right) < Delta(range.Left - 1));
 }
 

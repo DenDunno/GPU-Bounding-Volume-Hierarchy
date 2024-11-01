@@ -5,29 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/BinaryTree.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/BinaryTree.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTreeDebug.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTreeDebug.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTreeDebug.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTreeDebug.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/DebugElement.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/DebugElement.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GizmosUtils.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GizmosUtils.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/RandomUtils.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/RandomUtils.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHNode.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/AABB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/AABB.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTreeDebug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTreeDebug.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,10 +112,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="25396">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15836">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="25396" />
+      <option name="pid" value="15836" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -265,28 +251,21 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Code/Test/UpdateSortTest.cs</url>
           <line>30</line>
-          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\UpdateSortTest.cs" containingFunctionPresentation="Method 'Update'">
-            <startOffsets>
-              <option value="840" />
-            </startOffsets>
-            <endOffsets>
-              <option value="915" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\UpdateSortTest.cs" containingFunctionPresentation="Method 'Update'" />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTreeDebug.cs</url>
-          <line>44</line>
-          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\BVH\VisualDebugging\BinaryTreeDebug.cs" containingFunctionPresentation="Method 'DrawDFS'">
+          <url>file://$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs</url>
+          <line>16</line>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\BVH\TestTree\TreeCalculator.cs" containingFunctionPresentation="Method 'Compute'">
             <startOffsets>
-              <option value="1465" />
+              <option value="387" />
             </startOffsets>
             <endOffsets>
-              <option value="1482" />
+              <option value="419" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="11" />
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

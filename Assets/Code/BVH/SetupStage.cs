@@ -6,7 +6,7 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class SetupStage : ComputeShaderPass 
     {
-        private readonly float _sceneBoxSize = 10000;
+        private readonly float _sceneBoxSize = 100;
         private readonly BVHBuffers _buffers;
 
         public SetupStage(ComputeShader shader, BVHBuffers buffers) : base(shader, "Setup")
