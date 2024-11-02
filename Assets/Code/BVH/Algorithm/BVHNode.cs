@@ -1,4 +1,5 @@
 using Code.Data;
+using UnityEngine;
 
 public struct BVHNode
 {
@@ -26,5 +27,11 @@ public struct BVHNode
     public override string ToString()
     {
         return $"LefChild = {LeftChild()} RightChild = {RightChild()} {Box}";
+    }
+
+    public float ComputeSurfaceArea()
+    {
+        Vector3 size = Box.Max - Box.Min;
+        return 2f * (size.x * size.y + size.y * size.z + size.z * size.x);
     }
 };

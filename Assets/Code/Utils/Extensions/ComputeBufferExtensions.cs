@@ -7,9 +7,14 @@ namespace Code.Utils.Extensions
     {
         public static T GetValue<T>(this ComputeBuffer computeBuffer)
         {
-            T[] output = new T[1];
+            return FetchData<T>(computeBuffer, 1)[0];
+        }
+        
+        public static T[] FetchData<T>(this ComputeBuffer computeBuffer, int size)
+        {
+            T[] output = new T[size];
             computeBuffer.GetData(output);
-            return output[0];
+            return output;
         }
 
         public static void PrintInt(this ComputeBuffer computeBuffer, string name)

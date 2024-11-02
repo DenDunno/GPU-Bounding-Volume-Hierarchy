@@ -5,15 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SAHView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SAHView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SurfaceAreaHeuristic.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SurfaceAreaHeuristic.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/SurfaceAreaHeuristic.compute" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/SurfaceAreaHeuristic.compute.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHNode.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTreeDebug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTreeDebug.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/ParentInfo.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/ComputeBufferExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/ComputeBufferExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/InEditorLifetime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/InEditorLifetime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +36,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1fd52158108c4fe3a6817b50854eb75e46ac00/43/5944e2a0/Dictionary`2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/321eb2db7c6d43ea8fc39b54eaca345246ae00/29/e4468011/Dictionary`2.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ff3bcb667574bf9a8630184172fcfbf176600/fc/b66ceabc/ComputeBuffer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b5bf0c891ea345fe93688f835df32fdc1dda00/da/2c7db0d3/ComputeBuffer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVH.cs" root0="FORCE_HIGHLIGHTING" />
@@ -112,10 +120,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15836">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="15836" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -212,6 +220,7 @@
       <workItem from="1730065927293" duration="25713000" />
       <workItem from="1730148279408" duration="8150000" />
       <workItem from="1730161622158" duration="5647000" />
+      <workItem from="1730580945068" duration="3409000" />
     </task>
     <servers />
   </component>
@@ -251,7 +260,14 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Code/Test/UpdateSortTest.cs</url>
           <line>30</line>
-          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\UpdateSortTest.cs" containingFunctionPresentation="Method 'Update'" />
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\UpdateSortTest.cs" containingFunctionPresentation="Method 'Update'">
+            <startOffsets>
+              <option value="840" />
+            </startOffsets>
+            <endOffsets>
+              <option value="915" />
+            </endOffsets>
+          </properties>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">

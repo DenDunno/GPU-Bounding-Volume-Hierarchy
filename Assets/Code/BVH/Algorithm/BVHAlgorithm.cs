@@ -1,15 +1,14 @@
 using System;
-using Code.Utils.Extensions;
 using DefaultNamespace;
 
 namespace Code.Components.MortonCodeAssignment
 {
     public class BVHAlgorithm : IDisposable
     {
+        public readonly BVHBuffers Buffers;
         private readonly GPURadixSort<MortonCode> _mortonCodesSorting;
         private readonly HPLOC _bvhConstruction;
         private readonly SetupStage _setupStage;
-        public readonly BVHBuffers Buffers;
 
         public BVHAlgorithm(BVHShaders bvhShaders, int bufferSize)
         {

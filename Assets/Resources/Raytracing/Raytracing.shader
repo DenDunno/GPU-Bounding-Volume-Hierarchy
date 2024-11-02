@@ -20,7 +20,7 @@ Shader "ColorBlit"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
             #include "HLSLSupport.cginc"
             #include "SphereData.hlsl"
-            #include "Helpers.hlsl"
+            #include "..//Utilities/Helpers.hlsl"
             #include "RaytracingHelper.hlsl"
             #include "SpherePaint.hlsl"
             

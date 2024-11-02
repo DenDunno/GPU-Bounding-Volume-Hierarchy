@@ -1,4 +1,4 @@
-#include "..//AABB.hlsl"
+#include "..//Utilities/AABB.hlsl"
 #include "..//Utilities/BitManipulation.hlsl"
 
 // 32 bytes layout

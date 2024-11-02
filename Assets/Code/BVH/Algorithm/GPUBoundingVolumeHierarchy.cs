@@ -1,5 +1,7 @@
+using System;
 using System.Linq;
 using Code.Data;
+using Code.Utils.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -11,6 +13,8 @@ namespace Code.Components.MortonCodeAssignment
         [SerializeField] private BVHDebug _debug;
         private BVHAlgorithm _algorithm;
 
+        public event Action Rebuilt;
+        
         protected override void Reassemble()
         {
             if (_spheres.Length <= 0) return;
@@ -21,21 +25,20 @@ namespace Code.Components.MortonCodeAssignment
             AABB[] boxes = _spheres.Select(sphere => sphere.Provide()).ToArray();
             _algorithm.Buffers.Boxes.SetData(boxes);
             _algorithm.Initialize();
-            Run();
+            _algorithm.Execute(_spheres.Length);
+            _debug.Initialize(_spheres.Length - 1, _algorithm.Buffers);
+            Rebuilt?.Invoke();
+        }
+
+        public BVHNode[] FetchInnerNodes()
+        {
+            return _algorithm.Buffers.Nodes.FetchData<BVHNode>(_spheres.Length - 1);
         }
 
         [Button]
         private void Dispatch()
         {
-            Dispose();
-            Reassemble();
-            Run();
-        }
-
-        private void Run()
-        {
-            _algorithm.Execute(_spheres.Length);
-            _debug.Initialize(_spheres.Length - 1, _algorithm.Buffers);
+            OnValidate();
         }
 
         private void OnDrawGizmos()
