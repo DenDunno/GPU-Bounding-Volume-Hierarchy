@@ -1,28 +1,20 @@
-using System.Collections.Generic;
-using Code.Data;
 using Code.Utils.Extensions;
-using Unity.Collections;
-using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
     public class BVHGPUBridge
     {
-        public readonly ComputeBuffer Nodes;
-        public readonly ComputeBuffer Root;
-        private readonly int _innerNodesCount;
-        private List<AABB> _boxes;
+        private readonly BVHBuffers _buffers;
+        private readonly BVHContent _content;
 
-        public BVHGPUBridge(ComputeBuffer nodes, ComputeBuffer root, int innerNodesCount, List<AABB> boxes)
+        public BVHGPUBridge(BVHBuffers buffers, BVHContent content)
         {
-            _innerNodesCount = innerNodesCount;
-            _boxes = boxes;
-            Nodes = nodes;
-            Root = root;
+            _buffers = buffers;
+            _content = content;
         }
 
-        public void SendBoxesToGPU() => Nodes.SetData(_boxes);
-        public BVHNode[] FetchInnerNodes() => Nodes.FetchData<BVHNode>(_innerNodesCount);
-        public int FetchRoot() => Root.FetchValue<int>();
+        public void SendBoxesToGPU() => _buffers.Boxes.SetData(_content.BoundingBoxes);
+        public BVHNode[] FetchInnerNodes() => _buffers.Nodes.FetchData<BVHNode>(_content.Count - 1);
+        public int FetchRoot() => _buffers.Root.FetchValue<int>();
     }
 }

@@ -12,12 +12,12 @@ namespace Code
 
         private void OnEnable()
         {
-            _bvh.Rebuilt += OnBVHRebuilt;
+            _bvh.RebuiltEvent.AddListener(OnBVHRebuilt);
         }
         
         private void OnDisable()
         {
-            _bvh.Rebuilt -= OnBVHRebuilt;
+            _bvh.RebuiltEvent.RemoveListener(OnBVHRebuilt);
         }
 
         private void OnBVHRebuilt()

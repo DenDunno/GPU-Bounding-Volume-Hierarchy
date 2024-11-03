@@ -7,7 +7,6 @@ struct Range
     uint Right;
 
     uint Size() { return Right - Left + 1; }
-    uint HighestDifferingBitIndex() { return firstbithigh(Left ^ Right); }
 
     static Range Create(uint index)
     {

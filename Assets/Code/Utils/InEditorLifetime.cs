@@ -7,12 +7,17 @@ using UnityEditor;
 [DefaultExecutionOrder(-10)]
 public abstract class InEditorLifetime : MonoBehaviour
 {
-    public void OnValidate()
+    protected void OnValidate()
+    {
+        Start();
+    }
+
+    private void Start()
     {
         Dispose();
         Reassemble();
     }
-        
+
     #if UNITY_EDITOR
     private void OnEnable()
     {

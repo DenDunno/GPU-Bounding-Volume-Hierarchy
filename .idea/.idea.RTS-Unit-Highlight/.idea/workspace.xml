@@ -5,23 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHComponents.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHComponents.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHGPUBridge.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHGPUBridge.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHTestPayload.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHTestPayload.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebugView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebugView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHContent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHContent.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHVisualization.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Event.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Event/EventWrapper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Event/EventWrapper.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Event/IEventClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Event/IEventClient.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Event/IEventPublisher.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Event/IEventPublisher.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHBuffers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHComponents.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHGPUBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHGPUBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHTestPayload.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHTestPayload.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SAHView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SAHView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/ComputeBufferExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/ComputeBufferExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebug.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebugView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHDebugView.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/InEditorLifetime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/InEditorLifetime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ShaderBridge/CachedShaderBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ShaderBridge/CachedShaderBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ShaderBridge/IShaderBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ShaderBridge/IShaderBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ShaderBridge/MaterialBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/ShaderBridge/MaterialBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/Range.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
@@ -42,7 +53,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4cc3f85df87f4312a48b525cdaef083929200/1e/58084d95/UnityExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ff3bcb667574bf9a8630184172fcfbf176600/fc/b66ceabc/ComputeBuffer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b5bf0c891ea345fe93688f835df32fdc1dda00/da/2c7db0d3/ComputeBuffer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f166f0da872149af89094dc770a74774305200/ee/23ed33d3/DefaultMethodDrawer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f97e6fd576fd281059ea78f11aa1a56892db812556f9ffc5c76415330db87b8/System.Diagnostics.Tracing.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVH.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/HPLOC.cs" root0="FORCE_HIGHLIGHTING" />
@@ -125,10 +138,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="22312">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="22312" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -225,7 +238,8 @@
       <workItem from="1730065927293" duration="25713000" />
       <workItem from="1730148279408" duration="8150000" />
       <workItem from="1730161622158" duration="5647000" />
-      <workItem from="1730580945068" duration="8610000" />
+      <workItem from="1730580945068" duration="9482000" />
+      <workItem from="1730659628770" duration="5931000" />
     </task>
     <servers />
   </component>
@@ -287,6 +301,45 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/Utils/Extensions/ComputeBufferExtensions.cs</url>
+          <line>14</line>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\Utils\Extensions\ComputeBufferExtensions.cs" containingFunctionPresentation="Method 'FetchData'">
+            <startOffsets>
+              <option value="382" />
+            </startOffsets>
+            <endOffsets>
+              <option value="407" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/BVH/BVHTestPayload.cs</url>
+          <line>16</line>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\BVH\BVHTestPayload.cs" containingFunctionPresentation="Method 'Rebuild'">
+            <startOffsets>
+              <option value="401" />
+            </startOffsets>
+            <endOffsets>
+              <option value="428" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs</url>
+          <line>32</line>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\BVH\Algorithm\BVHAlgorithm.cs" containingFunctionPresentation="Method 'Execute'">
+            <startOffsets>
+              <option value="1179" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1206" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
