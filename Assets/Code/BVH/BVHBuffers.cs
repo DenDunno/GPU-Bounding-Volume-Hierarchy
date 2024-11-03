@@ -12,14 +12,16 @@ namespace Code.Components.MortonCodeAssignment
         public readonly ComputeBuffer Boxes;
         public readonly ComputeBuffer Nodes;
         public readonly ComputeBuffer Root;
-        
-        public BVHBuffers(int count)
+        public readonly int Size;
+
+        public BVHBuffers(int size)
         {
-            MortonCodes = new ComputeBuffer(count, MortonCode.GetSize());
-            ParentIds = new ComputeBuffer(count, sizeof(uint));
-            Boxes = new ComputeBuffer(count, AABB.GetSize());
-            Nodes = new ComputeBuffer(count + (count - 1), 32);
+            MortonCodes = new ComputeBuffer(size, MortonCode.GetSize());
+            ParentIds = new ComputeBuffer(size, sizeof(uint));
+            Boxes = new ComputeBuffer(size, AABB.GetSize());
+            Nodes = new ComputeBuffer(size + (size - 1), 32);
             Root = new ComputeBuffer(1, sizeof(uint));
+            Size = size;
         }
 
         public void Dispose()

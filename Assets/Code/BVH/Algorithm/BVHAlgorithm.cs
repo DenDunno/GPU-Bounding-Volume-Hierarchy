@@ -5,22 +5,22 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class BVHAlgorithm : IDisposable
     {
-        public readonly BVHBuffers Buffers;
         private readonly GPURadixSort<MortonCode> _mortonCodesSorting;
         private readonly HPLOC _bvhConstruction;
         private readonly SetupStage _setupStage;
+        private readonly BVHBuffers _buffers;
 
-        public BVHAlgorithm(BVHShaders bvhShaders, int bufferSize)
+        public BVHAlgorithm(BVHShaders bvhShaders, BVHBuffers buffers)
         {
-            Buffers = new BVHBuffers(bufferSize);
-            _setupStage = new SetupStage(bvhShaders.Setup, Buffers);
-            _bvhConstruction = new HPLOC(bvhShaders.BVHConstruction, Buffers);
-            _mortonCodesSorting = new GPURadixSort<MortonCode>(bvhShaders.Sorting, bvhShaders.PrefixSum, bufferSize);
+            _buffers = buffers;
+            _setupStage = new SetupStage(bvhShaders.Setup, _buffers);
+            _bvhConstruction = new HPLOC(bvhShaders.BVHConstruction, _buffers);
+            _mortonCodesSorting = new GPURadixSort<MortonCode>(bvhShaders.Sorting, bvhShaders.PrefixSum, buffers.Size);
         }
 
         public void Initialize()
         {
-            _mortonCodesSorting.SetData(Buffers.MortonCodes);
+            _mortonCodesSorting.SetData(_buffers.MortonCodes);
             _bvhConstruction.Prepare();
             _setupStage.Prepare();
         }
@@ -34,8 +34,8 @@ namespace Code.Components.MortonCodeAssignment
 
         public void Dispose()
         {
-            Buffers.Dispose();
             _mortonCodesSorting.Dispose();
+            _buffers.Dispose();
         }
     }
 }

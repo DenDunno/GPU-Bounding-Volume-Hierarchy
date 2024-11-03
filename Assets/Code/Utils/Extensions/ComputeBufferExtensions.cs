@@ -5,7 +5,7 @@ namespace Code.Utils.Extensions
 {
     public static class ComputeBufferExtensions
     {
-        public static T GetValue<T>(this ComputeBuffer computeBuffer)
+        public static T FetchValue<T>(this ComputeBuffer computeBuffer)
         {
             return FetchData<T>(computeBuffer, 1)[0];
         }

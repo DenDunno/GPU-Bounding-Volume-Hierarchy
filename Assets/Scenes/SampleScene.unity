@@ -2184,6 +2184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 622661194}
   - component: {fileID: 622661195}
+  - component: {fileID: 622661196}
   m_Layer: 0
   m_Name: BVH
   m_TagString: Untagged
@@ -2218,15 +2219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45a16c8c7b549cd8234b9f9a6fe9155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spheres:
-  - {fileID: 1350532369}
-  - {fileID: 1441738682}
-  - {fileID: 1507634156}
-  - {fileID: 590962003}
-  - {fileID: 2109674826}
-  - {fileID: 1132062922}
-  - {fileID: 1236694324}
-  - {fileID: 1457588020}
   _debug:
     _binaryTreeDebug:
       _show: 1
@@ -2239,6 +2231,28 @@ MonoBehaviour:
       _showAll: 0
       _alpha: 0
     _showLeafsBounds: 0
+--- !u!114 &622661196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622661193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3c9e0d0ebf448a1be4417ae0f58ace3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bvh: {fileID: 622661195}
+  _spheres:
+  - {fileID: 1350532369}
+  - {fileID: 1441738682}
+  - {fileID: 1507634156}
+  - {fileID: 590962003}
+  - {fileID: 2109674826}
+  - {fileID: 1132062922}
+  - {fileID: 1236694324}
+  - {fileID: 1457588020}
 --- !u!1 &625746325
 GameObject:
   m_ObjectHideFlags: 0
@@ -9465,7 +9479,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 705507995}
   - {fileID: 471327971}
-  - {fileID: 622661194}
   - {fileID: 272390554}
   - {fileID: 1350532373}
   - {fileID: 1441738686}
@@ -9477,3 +9490,4 @@ SceneRoots:
   - {fileID: 1457588024}
   - {fileID: 1711771730}
   - {fileID: 1790022232}
+  - {fileID: 622661194}

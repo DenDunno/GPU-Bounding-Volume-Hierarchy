@@ -1,15 +1,13 @@
-using Code.Components.MortonCodeAssignment;
-using TMPro;
 using UnityEngine;
 
-namespace Code
+namespace Code.Components.MortonCodeAssignment
 {
     [ExecuteInEditMode]
-    public class SAHView : MonoBehaviour
+    public class BVHDebugView : MonoBehaviour
     {
         [SerializeField] private GPUBoundingVolumeHierarchy _bvh;
-        [SerializeField] private TMP_Text _text;
-
+        [SerializeField] private BVHDebug _debug;
+        
         private void OnEnable()
         {
             _bvh.Rebuilt += OnBVHRebuilt;
@@ -22,12 +20,7 @@ namespace Code
 
         private void OnBVHRebuilt()
         {
-            UpdateView(_bvh.GPUBridge.FetchInnerNodes());
-        }
-
-        private void UpdateView(BVHNode[] nodes)
-        {
-            _text.text = $"SAH = {new SurfaceAreaHeuristic(nodes).Compute()}";
+            _debug.Initialize(_bvh.GPUBridge.FetchInnerNodes(), (uint)_bvh.GPUBridge.FetchRoot());
         }
     }
 }

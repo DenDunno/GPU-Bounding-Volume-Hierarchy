@@ -1,57 +1,40 @@
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using Code.Data;
-using Code.Utils.Extensions;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
     public class GPUBoundingVolumeHierarchy : InEditorLifetime
     {
-        [SerializeField] private Sphere[] _spheres;
         [SerializeField] private BVHDebug _debug;
-        private BVHAlgorithm _algorithm;
+        [SerializeField] [Min(1)] private int _bufferSize;
+        private BVHComponents _components;
 
+        public List<AABB> BoundingBoxes => _components.BoundingBoxes;
+        public BVHGPUBridge GPUBridge => _components.GPUBridge;
         public event Action Rebuilt;
-        
+
         protected override void Reassemble()
         {
-            if (_spheres.Length <= 0) return;
+            _components = new BVHComponents(_bufferSize);
+            _components.Initialize();
+            Rebuild();
+        }
 
-            BVHShaders bvhShaders = BVHShaders.Load();
-            _algorithm = new BVHAlgorithm(bvhShaders, _spheres.Length);
-            
-            AABB[] boxes = _spheres.Select(sphere => sphere.Provide()).ToArray();
-            _algorithm.Buffers.Boxes.SetData(boxes);
-            _algorithm.Initialize();
-            _algorithm.Execute(_spheres.Length);
-            _debug.Initialize(_spheres.Length - 1, _algorithm.Buffers);
+        public void SendAndRebuild()
+        {
+            _components.GPUBridge.SendBoxesToGPU();
+            Rebuild();
+        }
+        
+        public void Rebuild()
+        {
+            _components.Algorithm.Execute(_components.BoundingBoxes.Count);
             Rebuilt?.Invoke();
         }
 
-        public BVHNode[] FetchInnerNodes()
-        {
-            return _algorithm.Buffers.Nodes.FetchData<BVHNode>(_spheres.Length - 1);
-        }
-
-        [Button]
-        private void Dispatch()
-        {
-            OnValidate();
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (Application.isPlaying)
-                Dispatch();
-
-            _debug?.Draw();
-        }
-
-        protected override void Dispose()
-        {
-            _algorithm?.Dispose();
-        }
+        private void OnDrawGizmos() => _debug?.Draw();
+        protected override void Dispose() => _components?.Dispose();
     }
 }
