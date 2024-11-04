@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 1b9e1d338dec4748976d730f44bf6ec3
+timeCreated: 1699721631
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271432
+  packageName: Terraforming Terrain 2D
+  packageVersion: 2.0
+  assetPath: Assets/TerraformingTerrain2D/TerraformingTerrain2D/Code/Editor/EditorWrapper/HideIfDrawable.cs
+  uploadId: 699491

@@ -11,9 +11,11 @@ namespace Code.Components.MortonCodeAssignment
         private readonly HPLOC _bvhConstruction;
         private readonly SetupStage _setupStage;
         private readonly BVHBuffers _buffers;
+        private readonly BVHContent _content;
 
-        public BVHAlgorithm(BVHShaders bvhShaders, BVHBuffers buffers, IEventPublisher rebuiltEvent)
+        public BVHAlgorithm(BVHShaders bvhShaders, BVHBuffers buffers, IEventPublisher rebuiltEvent, BVHContent content)
         {
+            _content = content;
             _buffers = buffers;
             _rebuiltEvent = rebuiltEvent;
             _setupStage = new SetupStage(bvhShaders.Setup, _buffers);
@@ -28,11 +30,11 @@ namespace Code.Components.MortonCodeAssignment
             _setupStage.Prepare();
         }
 
-        public void Execute(int count)
+        public void Execute()
         {
-            _setupStage.Execute(count);
-            _mortonCodesSorting.Execute(count);
-            _bvhConstruction.Execute(count);
+            _setupStage.Execute(_content.Count);
+            _mortonCodesSorting.Execute(_content.Count);
+            _bvhConstruction.Execute(_content.Count);
             _rebuiltEvent.Raise();
         }
 

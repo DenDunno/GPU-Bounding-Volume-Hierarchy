@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Code
 {
-    [ExecuteInEditMode]
     public class SAHView : MonoBehaviour
     {
         [SerializeField] private GPUBoundingVolumeHierarchy _bvh;

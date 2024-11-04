@@ -14,9 +14,9 @@ namespace Code.Components.MortonCodeAssignment
         [Button]
         public void Rebuild()
         {
-            _bvh.BoundingBoxes.Clear();
+            _bvh.Content.BoundingBoxes.Clear();
             AABB[] aabbs = _spheres.Select(sphere => sphere.Provide()).ToArray();
-            aabbs.ForEach(aabb => _bvh.BoundingBoxes.Add(aabb));
+            aabbs.ForEach(aabb => _bvh.Content.BoundingBoxes.Add(aabb));
             _bvh.SendAndRebuild();
         }
 

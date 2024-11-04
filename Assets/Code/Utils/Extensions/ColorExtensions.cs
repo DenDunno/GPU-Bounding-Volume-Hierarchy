@@ -4,6 +4,11 @@ namespace Code.Utils.Extensions
 {
     public static class ColorExtensions
     {
+        public static Vector4 ToVector4(this Color color)
+        {
+            return new Vector4(color.r, color.g, color.b, color.a);
+        }
+        
         public static Color GetRandom()
         {
             Vector3 randomColor = new Vector3(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));

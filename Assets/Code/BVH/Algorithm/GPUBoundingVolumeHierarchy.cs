@@ -1,27 +1,26 @@
-using System.Collections.Generic;
 using Code.Components.MortonCodeAssignment.Event;
-using Code.Data;
-using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
-    public class GPUBoundingVolumeHierarchy : InEditorLifetime
+    public class GPUBoundingVolumeHierarchy : InEditorLifetime<BVHData>
     {
-        [SerializeField] [Min(1)] private int _bufferSize;
         private BVHComponents _components;
-
-        public List<AABB> BoundingBoxes => _components.Content.BoundingBoxes;
-        public IEventClient RebuiltEvent => _components.RebuiltEvent;
+        
+        public BVHContent Content => Data.Content;
         public BVHGPUBridge GPUBridge => _components.GPUBridge;
+        public IEventClient RebuiltEvent => _components.RebuiltEvent;
 
-        protected override void Reassemble()
+        protected override void Reassemble(BVHData data)
         {
-            _components = new BVHComponents(_bufferSize);
-            _components.Initialize();
+            _components = new BVHComponents(data);
+            _components.Algorithm.Initialize();
+            SendAndRebuild();
         }
 
         public void Rebuild() => _components.Rebuild();
         public void SendAndRebuild() => _components.SendAndRebuild();
+        
+        private void OnDrawGizmos() => _components?.Visualization?.Draw();
         protected override void Dispose() => _components?.Dispose();
     }
 }

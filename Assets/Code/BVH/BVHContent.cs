@@ -1,18 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Code.Data;
+using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
-    public class BVHContent : IDisposable
+    [Serializable]
+    public class BVHContent
     {
-        public List<AABB> BoundingBoxes = new();
+        [SerializeField] public List<AABB> BoundingBoxes;
 
         public int Count => BoundingBoxes.Count;
-
-        public void Dispose()
-        {
-            BoundingBoxes.Clear();
-        }
     }
 }

@@ -1,3 +1,4 @@
+using Code.Components.MortonCodeAssignment;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -5,8 +6,12 @@ using UnityEditor;
 
 [ExecuteInEditMode]
 [DefaultExecutionOrder(-10)]
-public abstract class InEditorLifetime : MonoBehaviour
+public abstract class InEditorLifetime<TData> : MonoBehaviour where TData : IValidatedData
 {
+    [SerializeField] private TData _data;
+
+    public TData Data => _data;
+    
     protected void OnValidate()
     {
         Start();
@@ -14,8 +19,16 @@ public abstract class InEditorLifetime : MonoBehaviour
 
     private void Start()
     {
-        Dispose();
-        Reassemble();
+        if (_data != null)
+        {
+            _data.OnValidate();
+
+            if (_data.IsValid())
+            {
+                Dispose();
+                Reassemble(_data);   
+            }
+        }
     }
 
     #if UNITY_EDITOR
@@ -35,6 +48,6 @@ public abstract class InEditorLifetime : MonoBehaviour
         Dispose();
     }
     
-    protected abstract void Reassemble();
+    protected abstract void Reassemble(TData data);
     protected abstract void Dispose();
 }

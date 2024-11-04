@@ -2183,9 +2183,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 622661194}
-  - component: {fileID: 622661195}
-  - component: {fileID: 622661197}
   - component: {fileID: 622661196}
+  - component: {fileID: 622661195}
   m_Layer: 0
   m_Name: BVH
   m_TagString: Untagged
@@ -2217,23 +2216,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 622661193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e45a16c8c7b549cd8234b9f9a6fe9155, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bufferSize: 20
---- !u!114 &622661196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 622661193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3c9e0d0ebf448a1be4417ae0f58ace3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bvh: {fileID: 622661195}
+  _bvh: {fileID: 622661196}
   _spheres:
   - {fileID: 1350532369}
   - {fileID: 1441738682}
@@ -2243,7 +2229,7 @@ MonoBehaviour:
   - {fileID: 1132062922}
   - {fileID: 1236694324}
   - {fileID: 1457588020}
---- !u!114 &622661197
+--- !u!114 &622661196
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2252,19 +2238,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 622661193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 665e85fc6d5c4aa8b5f4b84e79722ba7, type: 3}
+  m_Script: {fileID: 11500000, guid: e45a16c8c7b549cd8234b9f9a6fe9155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _binaryTreeDebug:
-    _show: 1
-    _depthFactor: 0.25
-    _lineLength: 0.5
-  _bvhTreeDebug:
-    _show: 1
-    _visibleDepth: 0
-    _depth: 4
-    _showAll: 0
-    _alpha: 0
+  _data:
+    <VisualizationData>k__BackingField:
+      <Show>k__BackingField: 1
+      <BinaryTree>k__BackingField:
+        <Show>k__BackingField: 1
+        <Offset>k__BackingField: {x: 0.28, y: -1.31}
+        <LineLength>k__BackingField: 0.5
+        <InternalNodeColor>k__BackingField: {r: 0, g: 0.4641509, b: 0.14142585, a: 0}
+        <LeafColor>k__BackingField: {r: 0.8792453, g: 0.5922435, b: 0, a: 0}
+    <BufferSize>k__BackingField: 10
+    <Content>k__BackingField:
+      BoundingBoxes:
+      - Min: {x: -0.019999862, y: -2.08, z: -10.99}
+        Max: {x: 0.98000014, y: -1.08, z: -9.99}
+      - Min: {x: 5.06, y: -0.02000001, z: -12.65}
+        Max: {x: 6.06, y: 0.98, z: -11.65}
+      - Min: {x: 0.8700001, y: -2.99, z: -12.09}
+        Max: {x: 1.8700001, y: -1.99, z: -11.09}
+      - Min: {x: 0.01999998, y: 1.08, z: -13.14}
+        Max: {x: 1.02, y: 2.08, z: -12.14}
+      - Min: {x: -1.76, y: -3.24, z: -8.84}
+        Max: {x: -0.76, y: -2.24, z: -7.84}
+      - Min: {x: 3.69, y: -2.08, z: -14.42}
+        Max: {x: 4.69, y: -1.08, z: -13.42}
+      - Min: {x: 0.72000015, y: -1.1800001, z: -14.610001}
+        Max: {x: 1.7200001, y: -0.18, z: -13.610001}
+      - Min: {x: 0.61000013, y: 0.42000002, z: -10.13}
+        Max: {x: 1.6100001, y: 1.4200001, z: -9.13}
 --- !u!1 &625746325
 GameObject:
   m_ObjectHideFlags: 0
@@ -2671,7 +2675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765b619ad5894f599f6413a3c7238916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bvh: {fileID: 622661195}
+  _bvh: {fileID: 0}
   _text: {fileID: 758866400}
 --- !u!114 &758866400
 MonoBehaviour:

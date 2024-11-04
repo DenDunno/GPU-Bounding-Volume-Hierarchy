@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 4c7eb540f4f74322addaf89cc1129ed4
+timeCreated: 1699451423
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271432
+  packageName: Terraforming Terrain 2D
+  packageVersion: 2.0
+  assetPath: Assets/TerraformingTerrain2D/TerraformingTerrain2D/Code/Editor/EditorWrapper/Space.cs
+  uploadId: 699491

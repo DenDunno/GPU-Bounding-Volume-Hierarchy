@@ -1,12 +1,13 @@
 using System;
 using Code.Components.MortonCodeAssignment.TestTree;
+using EditorWrapper;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Code.Components.MortonCodeAssignment
 {
     [Serializable]
-    public class BVHTreeDebug : DebugElement
+    public class BVHTreeVisualization : IDrawable
     {
         [SerializeField] [Range(0, 10)] private int _visibleDepth;
         [SerializeField] [Range(0, 10)] private int _depth;
@@ -23,7 +24,7 @@ namespace Code.Components.MortonCodeAssignment
             _tree = tree;
         }
 
-        protected override void OnDraw()
+        public void Draw()
         {
             GizmosUtils.SaveColor();
             _tree?.Traverse(DrawBVH);

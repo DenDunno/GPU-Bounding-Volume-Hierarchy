@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 03614e0339a34e0ebbeb3f535677d7ba
+timeCreated: 1699457569
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271432
+  packageName: Terraforming Terrain 2D
+  packageVersion: 2.0
+  assetPath: Assets/TerraformingTerrain2D/TerraformingTerrain2D/Code/Editor/EditorWrapper/ConditionalDraw.cs
+  uploadId: 699491
