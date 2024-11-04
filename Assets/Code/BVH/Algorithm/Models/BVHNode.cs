@@ -1,6 +1,8 @@
+using System;
 using Code.Data;
 using UnityEngine;
 
+[Serializable]
 public struct BVHNode
 {
     public AABB Box;

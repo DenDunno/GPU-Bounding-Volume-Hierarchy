@@ -1,26 +1,22 @@
 using System;
 using Code.Components.MortonCodeAssignment.Event;
-using EditorWrapper;
 
 namespace Code.Components.MortonCodeAssignment
 {
     public class BVHComponents : IDisposable
     {
-        public IDrawable Visualization;
         public readonly BVHGPUBridge GPUBridge;
         public readonly BVHAlgorithm Algorithm;
-        public readonly EventWrapper RebuiltEvent;
-        private readonly BVHVisualizationFactory _bvhVisualizationFactory;
+        public readonly BVHContent Content;
 
-        public BVHComponents(BVHData data)
+        public BVHComponents(BVHData data, EventWrapper rebuiltEvent)
         {
-            RebuiltEvent = new EventWrapper();
+            Content = new BVHContent();
             BVHBuffers buffers = new(data.BufferSize);
-            GPUBridge = new BVHGPUBridge(buffers, data.Content);
-            Algorithm = new BVHAlgorithm(BVHShaders.Load(), buffers, RebuiltEvent, data.Content);
-            _bvhVisualizationFactory = new BVHVisualizationFactory(GPUBridge, data.Content, data.VisualizationData);
+            GPUBridge = new BVHGPUBridge(buffers, Content);
+            Algorithm = new BVHAlgorithm(BVHShaders.Load(), buffers, rebuiltEvent, Content);
         }
-        
+
         public void SendAndRebuild()
         {
             GPUBridge.SendBoxesToGPU();
@@ -30,7 +26,6 @@ namespace Code.Components.MortonCodeAssignment
         public void Rebuild()
         {
             Algorithm.Execute();
-            Visualization = _bvhVisualizationFactory.Create();
         }
 
         public void Dispose()

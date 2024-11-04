@@ -4,10 +4,10 @@ using UnityEngine;
 namespace Code.Data
 {
     [Serializable]
-    public struct AABB
+    public readonly struct AABB
     {
-        public Vector3 Min;
-        public Vector3 Max;
+        public readonly Vector3 Min;
+        public readonly Vector3 Max;
 
         public AABB(Vector3 min, Vector3 max)
         {

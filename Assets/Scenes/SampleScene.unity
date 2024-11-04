@@ -2184,6 +2184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 622661194}
   - component: {fileID: 622661196}
+  - component: {fileID: 622661197}
   - component: {fileID: 622661195}
   m_Layer: 0
   m_Name: BVH
@@ -2242,33 +2243,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    <VisualizationData>k__BackingField:
-      <Show>k__BackingField: 1
-      <BinaryTree>k__BackingField:
-        <Show>k__BackingField: 1
-        <Offset>k__BackingField: {x: 0.28, y: -1.31}
-        <LineLength>k__BackingField: 0.5
-        <InternalNodeColor>k__BackingField: {r: 0, g: 0.4641509, b: 0.14142585, a: 0}
-        <LeafColor>k__BackingField: {r: 0.8792453, g: 0.5922435, b: 0, a: 0}
     <BufferSize>k__BackingField: 10
-    <Content>k__BackingField:
-      BoundingBoxes:
-      - Min: {x: -0.019999862, y: -2.08, z: -10.99}
-        Max: {x: 0.98000014, y: -1.08, z: -9.99}
-      - Min: {x: 5.06, y: -0.02000001, z: -12.65}
-        Max: {x: 6.06, y: 0.98, z: -11.65}
-      - Min: {x: 0.8700001, y: -2.99, z: -12.09}
-        Max: {x: 1.8700001, y: -1.99, z: -11.09}
-      - Min: {x: 0.01999998, y: 1.08, z: -13.14}
-        Max: {x: 1.02, y: 2.08, z: -12.14}
-      - Min: {x: -1.76, y: -3.24, z: -8.84}
-        Max: {x: -0.76, y: -2.24, z: -7.84}
-      - Min: {x: 3.69, y: -2.08, z: -14.42}
-        Max: {x: 4.69, y: -1.08, z: -13.42}
-      - Min: {x: 0.72000015, y: -1.1800001, z: -14.610001}
-        Max: {x: 1.7200001, y: -0.18, z: -13.610001}
-      - Min: {x: 0.61000013, y: 0.42000002, z: -10.13}
-        Max: {x: 1.6100001, y: 1.4200001, z: -9.13}
+--- !u!114 &622661197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622661193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca19691ec0c464cb5720225de978966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    <BinaryTree>k__BackingField:
+      <Show>k__BackingField: 1
+      <HorizontalOffset>k__BackingField: 0.25
+      <VerticalOffset>k__BackingField: -1
+      <LineLength>k__BackingField: 0.5
+      <InternalNodeColor>k__BackingField: {r: 0, g: 0.4641509, b: 0.14142585, a: 0}
+      <LeafColor>k__BackingField: {r: 0.8792453, g: 0.5922435, b: 0, a: 0}
+  _nodes:
+  - X: 7
+    Y: 4
+  - X: 8
+    Y: 9
+  - X: 1
+    Y: 3
+  - X: 10
+    Y: 11
+  - X: 2
+    Y: 5
+  - X: 12
+    Y: 6
+  - X: 13
+    Y: 14
+  _root: 0
 --- !u!1 &625746325
 GameObject:
   m_ObjectHideFlags: 0
