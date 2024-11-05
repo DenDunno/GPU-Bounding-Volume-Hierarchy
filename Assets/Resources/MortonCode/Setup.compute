@@ -6,8 +6,8 @@
 RWStructuredBuffer<MortonCode> MortonCodes;
 StructuredBuffer<AABB> BoundingBoxes;
 
-float4 _Min;
-float4 _Max;
+float3 _Min;
+float3 _Max;
 
 [numthreads(256,1,1)]
 void Setup(const uint id : SV_DispatchThreadID)
@@ -15,7 +15,7 @@ void Setup(const uint id : SV_DispatchThreadID)
     if (id >= LeavesCount) return;
     
     AABB aabb = BoundingBoxes[id];
-    AABB sceneBox = AABB::Create(_Min.xyz, _Max.xyz);
+    AABB sceneBox = AABB::Create(_Min, _Max);
     float3 normalizedCentroid = sceneBox.GetRelativeCoordinates(aabb.Centroid());
 
     MortonCodes[id] = MortonCode::Create(id, normalizedCentroid);

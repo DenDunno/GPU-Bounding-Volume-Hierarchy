@@ -1,36 +1,41 @@
 using System;
 using Code.Components.MortonCodeAssignment.Event;
+using Code.Data;
+using EditorWrapper;
 
 namespace Code.Components.MortonCodeAssignment
 {
     public class BVHComponents : IDisposable
     {
+        public readonly EventWrapper RebuiltEvent;
         public readonly BVHGPUBridge GPUBridge;
-        public readonly BVHAlgorithm Algorithm;
-        public readonly BVHContent Content;
+        private readonly IBoundingBoxesInput _boxesInput;
+        private readonly BVHAlgorithm _algorithm;
+        private readonly BVHBuffers _buffers;
 
-        public BVHComponents(BVHData data, EventWrapper rebuiltEvent)
+        public BVHComponents(BVHData data)
         {
-            Content = new BVHContent();
-            BVHBuffers buffers = new(data.BufferSize);
-            GPUBridge = new BVHGPUBridge(buffers, Content);
-            Algorithm = new BVHAlgorithm(BVHShaders.Load(), buffers, rebuiltEvent, Content);
+            RebuiltEvent = new EventWrapper();
+            _boxesInput = data.BoxesInput.Value;
+            _buffers = new BVHBuffers(data.BoxesInput.Count);
+            GPUBridge = new BVHGPUBridge(_buffers, data.BoxesInput.Count);
+            _algorithm = new BVHAlgorithm(BVHShaders.Load(), _buffers, RebuiltEvent, data.SceneBox);
         }
 
-        public void SendAndRebuild()
+        public void Initialize()
         {
-            GPUBridge.SendBoxesToGPU();
-            Rebuild();
+            _algorithm.Initialize();
+            _buffers.Boxes.SetData(_boxesInput.Calculate());
         }
-        
+
         public void Rebuild()
         {
-            Algorithm.Execute();
+            _algorithm.Execute(_buffers.Size);
         }
 
         public void Dispose()
         {
-            Algorithm.Dispose();
+            _algorithm.Dispose();
         }
     }
 }

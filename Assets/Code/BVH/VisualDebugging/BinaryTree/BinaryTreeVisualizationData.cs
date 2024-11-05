@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Code.Components.MortonCodeAssignment
 {
     [Serializable]
-    public class BinaryTreeVisualizationInput : VisualizationElementDataBase
+    public class BinaryTreeVisualizationData : VisualizationElementDataBase
     {
         [field: SerializeField] public float HorizontalOffset { get; private set; }
         [field: SerializeField] public float VerticalOffset { get; private set; }

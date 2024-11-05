@@ -22,7 +22,8 @@ namespace Code.Components.MortonCodeAssignment.TestTree
 
         private bool IsInnerNode(uint nodeIndex)
         {
-            return nodeIndex < _nodes.Length;
+            int leavesCount = (_nodes.Length + 1) / 2;
+            return nodeIndex < leavesCount - 1;
         }
         
         private void Traverse(TreeNode parent, uint nodeIndex, bool isLeft)

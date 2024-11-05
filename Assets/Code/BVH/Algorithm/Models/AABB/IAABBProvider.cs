@@ -2,6 +2,6 @@ namespace Code.Data
 {
     public interface IAABBProvider
     {
-        AABB Provide();
+        AABB CalculateBox();
     }
 }

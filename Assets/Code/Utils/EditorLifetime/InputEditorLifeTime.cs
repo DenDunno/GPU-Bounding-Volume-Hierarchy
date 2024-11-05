@@ -11,14 +11,10 @@ namespace Code
 
         protected override void Regenerate()
         {
-            if (_data != null)
+            if (_data != null && _data.IsValid())
             {
                 _data.OnValidate();
-
-                if (_data.IsValid())
-                {
-                    base.Regenerate();   
-                }
+                base.Regenerate();
             }
         }
     }

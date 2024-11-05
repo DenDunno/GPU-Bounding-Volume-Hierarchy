@@ -5,18 +5,18 @@ using UnityEngine;
 namespace Code.Components.MortonCodeAssignment
 {
     [ExecuteInEditMode]
-    [RequireComponent(typeof(GPUBoundingVolumeHierarchy))]
+    [RequireComponent(typeof(StaticBVH))]
     public class BVHVisualization : InEditorLifetime
     {
         [SerializeField] private VisualizationData _data;
         [HideInInspector] [SerializeField] private BVHNode[] _nodes;
         [HideInInspector] [SerializeField] private int _root;
-        private GPUBoundingVolumeHierarchy _bvh;
+        private StaticBVH _bvh;
         private IDrawable _drawable;
-        
+
         private void Awake()
         {
-            _bvh = GetComponent<GPUBoundingVolumeHierarchy>();
+            _bvh = GetComponent<StaticBVH>();
         }
 
         private void OnEnable()
@@ -31,15 +31,19 @@ namespace Code.Components.MortonCodeAssignment
 
         protected override void Reassemble()
         {
+            Debug.Log("BVHVisualization enabled");
             if (_nodes != null && _nodes.Length != 0)
             {
                 TreeNode root = new TreeCalculator(_nodes, (uint)_root).Compute();
-                BinaryTreeVisualization binaryTree = new(_data.BinaryTree, root, _nodes.Length);
-                binaryTree.Initialize();   
+                BinaryTreeSize treeSize = new(root);
+                treeSize.Initialize();
                 
                 _drawable = new DrawableIfTrue(new DrawableComposite(new IDrawable[]
                 {
-                    new DrawableIfTrue(binaryTree, _data.BinaryTree.Show),
+                    new DrawableIfTrue(new BinaryTreeVisualization(_data.BinaryTree, root, _nodes.Length, treeSize),
+                        _data.BinaryTree.Show),
+                    new DrawableIfTrue(new BVHTreeVisualization(_nodes, treeSize.Height, root, _data.BVHTree),
+                        _data.BVHTree.Show),
                 }), enabled);
             }
         }
@@ -50,10 +54,10 @@ namespace Code.Components.MortonCodeAssignment
             _root = _bvh.GPUBridge.FetchRoot();
             Reassemble();
         }
-        
+
         private void OnDrawGizmos()
         {
-            _drawable?.Draw();   
+            _drawable?.Draw();
         }
     }
 }

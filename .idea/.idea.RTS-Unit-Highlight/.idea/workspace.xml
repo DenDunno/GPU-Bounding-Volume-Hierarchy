@@ -5,70 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHVisualization.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHVisualization.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/EditorLifetime.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/EditorLifetime/InEditorLifetime.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/EditorLifetime/InputEditorLifeTime.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/EditorLifetime/InputEditorLifeTime.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Utils.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/BoundingBoxesInput.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/BoundingBoxesInput.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/IBoundingBoxesInput.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/IBoundingBoxesInput.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/InputFromMesh.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/InputFromMesh.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/ManualBoundingBoxesInput.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/ManualBoundingBoxesInput.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/Triangle.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/Triangle.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualizationData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualizationData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/VisualizationFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/VisualizationFactory.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/AABB.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/AABB/AABB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/AABB.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/AABB/AABB.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/AABB.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/AABB/IAABBProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/IAABBProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/AABB/IAABBProvider.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/IAABBProvider.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVH.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVH.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/BVHNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHNode.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/BVHNode.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/GPUBoundingVolumeHierarchy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/GPUBoundingVolumeHierarchy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/GPUBoundingVolumeHierarchy.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/MortonCode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/MortonCode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/MortonCode.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/MortonCode.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHBuffers.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHComponents.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHContent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHContent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHContent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHContent.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHGPUBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHGPUBridge.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHShaders.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHShaders.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHShaders.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHShaders.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHTestPayload.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BVHTestPayload.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHTestPayload.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BVHTestPayload.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BVHTestPayload.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BVHTestPayload.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/AABB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/AABB.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/IAABBProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/IAABBProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/BinaryTree.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/BinaryTree.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/BinaryTreeSize.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeCalculator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/VisualizationData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/VisualizationData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/SetupStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/SetupStage.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/BinaryTree.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/BinaryTree.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/BinaryTree.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/BinaryTree.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeCalculator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeCalculator.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeCalculator.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeNode.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeNode.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TestTree/TreeVisualization.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHVisualizationFactory.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHVisualizationFactory.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualizationInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualizationInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/CPURadixSortMock.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/CPURadixSortMock.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GizmosUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Utils/GizmosUtils.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GizmosUtils.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Utils/GizmosUtils.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/InEditorLifetime.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/InEditorLifetime.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/EditorLifetime/InEditorLifetime.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/InspectorExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/InspectorExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/InspectorExtensions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/InspectorExtensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/RandomCollectionGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/RandomCollectionGeneration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/RandomCollectionGeneration.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/RandomCollectionGeneration.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/RandomUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Utils/RandomUtils.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/RandomUtils.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Utils/RandomUtils.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/GPUBoundingVolumeHierarchy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/StaticBVH.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/GPUBoundingVolumeHierarchy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/StaticBVH.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SAHView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SAHView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualization.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHVisualization.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualization.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualizationInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualizationData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualizationInput.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualizationData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeWidth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/BinaryTreeSize.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeWidth.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/EditorLifetime/InputEditorLifeTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/EditorLifetime/InputEditorLifeTime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sphere.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sphere.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,8 +60,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1fd52158108c4fe3a6817b50854eb75e46ac00/43/5944e2a0/Dictionary`2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/321eb2db7c6d43ea8fc39b54eaca345246ae00/29/e4468011/Dictionary`2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4cc3f85df87f4312a48b525cdaef083929200/1e/58084d95/UnityExtensions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -93,10 +69,11 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f166f0da872149af89094dc770a74774305200/ee/23ed33d3/DefaultMethodDrawer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f97e6fd576fd281059ea78f11aa1a56892db812556f9ffc5c76415330db87b8/System.Diagnostics.Tracing.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Tools/UnityEditors/2022.3.51f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.render-pipelines.universal/Runtime/External/LibTessDotNet/MeshUtils.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/HPLOC.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeNode.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/GPUBoundingVolumeHierarchy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/StaticBVH.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumFactory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumGeneration.cs" root0="FORCE_HIGHLIGHTING" />
@@ -107,7 +84,15 @@
     <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/KernelConstantDispatch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@2.5.1/Unity.Collections/NativeList.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.22/Editor/COMIntegration/COMIntegration~/COMIntegration.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/Editor/Lighting/ProbeVolume/ProbeSubdivisionResult.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/ShaderLibrary/Color.hlsl" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/ShaderLibrary/Common.hlsl" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/ShaderLibrary/CommonLighting.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@14.0.11/Runtime/UniversalRenderPipeline.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.searcher@4.9.2/Tests/Editor/SearcherTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.settings-manager@2.0.1/Editor/FileSettingsRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.settings-manager@2.0.1/Editor/PackageSettingsRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.testtools.codecoverage@1.2.6/Editor/CodeCoverage.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -174,10 +159,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="22312">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15128">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="22312" />
+      <option name="pid" value="15128" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -276,6 +261,7 @@
       <workItem from="1730161622158" duration="5647000" />
       <workItem from="1730580945068" duration="9482000" />
       <workItem from="1730659628770" duration="5931000" />
+      <workItem from="1730751854809" duration="16486000" />
     </task>
     <servers />
   </component>
@@ -315,8 +301,28 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Code/Test/UpdateSortTest.cs</url>
           <line>30</line>
-          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\UpdateSortTest.cs" containingFunctionPresentation="Method 'Update'" />
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\UpdateSortTest.cs" containingFunctionPresentation="Method 'Update'">
+            <startOffsets>
+              <option value="840" />
+            </startOffsets>
+            <endOffsets>
+              <option value="915" />
+            </endOffsets>
+          </properties>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHVisualization.cs</url>
+          <line>52</line>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\BVH\VisualDebugging\BVHVisualization.cs" containingFunctionPresentation="Method 'OnRebuilt'">
+            <startOffsets>
+              <option value="1741" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1783" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

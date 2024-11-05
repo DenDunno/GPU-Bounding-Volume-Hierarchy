@@ -6,7 +6,7 @@ namespace Code
 {
     public class SAHView : MonoBehaviour
     {
-        [SerializeField] private GPUBoundingVolumeHierarchy _bvh;
+        [SerializeField] private StaticBVH _bvh;
         [SerializeField] private TMP_Text _text;
 
         private void OnEnable()

@@ -1,10 +1,11 @@
 ﻿using System;
+using EditorWrapper;
 using UnityEngine;
 
 namespace Code.Data
 {
     [Serializable]
-    public readonly struct AABB
+    public readonly struct AABB : IDrawable
     {
         public readonly Vector3 Min;
         public readonly Vector3 Max;
@@ -15,8 +16,9 @@ namespace Code.Data
             Max = max;
         }
 
+        public Vector3 Size => Max - Min;
         public Vector3 Centroid => (Min + Max) / 2f;
-
+        
         public void Draw()
         {
             Gizmos.DrawCube(Centroid, Max - Min);

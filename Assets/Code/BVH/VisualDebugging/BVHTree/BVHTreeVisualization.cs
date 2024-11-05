@@ -1,4 +1,3 @@
-using System;
 using Code.Components.MortonCodeAssignment.TestTree;
 using EditorWrapper;
 using UnityEngine;
@@ -6,45 +5,42 @@ using Random = UnityEngine.Random;
 
 namespace Code.Components.MortonCodeAssignment
 {
-    [Serializable]
     public class BVHTreeVisualization : IDrawable
     {
-        [SerializeField] [Range(0, 10)] private int _visibleDepth;
-        [SerializeField] [Range(0, 10)] private int _depth;
-        [SerializeField] private bool _showAll;
-        [SerializeField] private float _alpha;
-        private BVHNode[] _innerNodes;
-        private BinaryTree _tree;
-        private int _height;
+        private readonly BVHTreeVisualizationData _data;
+        private readonly BVHNode[] _innerNodes;
+        private readonly TreeNode _root;
+        private readonly int _height;
 
-        public void Initialize(BinaryTree tree, BVHNode[] innerNodes)
+        public BVHTreeVisualization(BVHNode[] innerNodes, int height, TreeNode root, BVHTreeVisualizationData data)
         {
-            _height = tree.ComputeHeight();
             _innerNodes = innerNodes;
-            _tree = tree;
+            _height = height;
+            _data = data;
+            _root = root;
         }
 
         public void Draw()
         {
-            GizmosUtils.SaveColor();
-            _tree?.Traverse(DrawBVH);
+            GizmosUtils.SetColor(_data.Color);
+            DrawBVH(_root, 0);
             GizmosUtils.RestoreColor();
         }
 
         private void DrawBVH(TreeNode node, int depth)
         {
-            if (node.Id >= _innerNodes.Length || depth > _depth)
+            if (node == null || node.Id >= _innerNodes.Length)
                 return;
 
-            if (_showAll || depth == _visibleDepth)
+            if (_data.ShowAll && _height - depth < _data.Depth || depth == _data.VisibleDepth)
             {
                 Random.InitState(depth);
                 Color color = RandomUtils.GenerateBrightColor();
-                color.a = _showAll ? (depth + _alpha + 1f) / _height : 0.25f; 
+                color.a = _data.ShowAll ? Mathf.Pow((float)depth / _height, _data.Alpha)  : 0.25f; 
                 Gizmos.color = color; 
                 _innerNodes[node.Id].Box.Draw();
             }
-            
+
             DrawBVH(node.Left, depth + 1);
             DrawBVH(node.Right, depth + 1);
         }

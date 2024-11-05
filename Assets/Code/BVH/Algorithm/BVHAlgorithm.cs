@@ -1,5 +1,6 @@
 using System;
 using Code.Components.MortonCodeAssignment.Event;
+using Code.Data;
 using DefaultNamespace;
 
 namespace Code.Components.MortonCodeAssignment
@@ -11,15 +12,13 @@ namespace Code.Components.MortonCodeAssignment
         private readonly HPLOC _bvhConstruction;
         private readonly SetupStage _setupStage;
         private readonly BVHBuffers _buffers;
-        private readonly BVHContent _content;
 
-        public BVHAlgorithm(BVHShaders bvhShaders, BVHBuffers buffers, IEventPublisher rebuiltEvent, BVHContent content)
+        public BVHAlgorithm(BVHShaders bvhShaders, BVHBuffers buffers, IEventPublisher rebuiltEvent, AABB sceneSize)
         {
-            _content = content;
             _buffers = buffers;
             _rebuiltEvent = rebuiltEvent;
-            _setupStage = new SetupStage(bvhShaders.Setup, _buffers);
             _bvhConstruction = new HPLOC(bvhShaders.BVHConstruction, _buffers);
+            _setupStage = new SetupStage(bvhShaders.Setup, _buffers, sceneSize);
             _mortonCodesSorting = new GPURadixSort<MortonCode>(bvhShaders.Sorting, bvhShaders.PrefixSum, buffers.Size);
         }
 
@@ -30,11 +29,11 @@ namespace Code.Components.MortonCodeAssignment
             _setupStage.Prepare();
         }
 
-        public void Execute()
+        public void Execute(int count)
         {
-            _setupStage.Execute(_content.Count);
-            _mortonCodesSorting.Execute(_content.Count);
-            _bvhConstruction.Execute(_content.Count);
+            _setupStage.Execute(count);
+            _mortonCodesSorting.Execute(count);
+            _bvhConstruction.Execute(count);
             _rebuiltEvent.Raise();
         }
 
