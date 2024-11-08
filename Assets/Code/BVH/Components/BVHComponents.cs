@@ -19,7 +19,7 @@ namespace Code.Components.MortonCodeAssignment
             _boxesInput = data.BoxesInput.Value;
             _buffers = new BVHBuffers(data.BoxesInput.Count);
             GPUBridge = new BVHGPUBridge(_buffers, data.BoxesInput.Count);
-            _algorithm = new BVHAlgorithm(BVHShaders.Load(), _buffers, RebuiltEvent, data.SceneBox);
+            _algorithm = new BVHAlgorithm(BVHShaders.Load(), _buffers, RebuiltEvent, data.SceneSize.Box);
         }
 
         public void Initialize()

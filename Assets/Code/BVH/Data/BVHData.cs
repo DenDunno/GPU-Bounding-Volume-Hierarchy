@@ -9,11 +9,9 @@ namespace Code.Components.MortonCodeAssignment
     {
         [field: SerializeField] public VisualizationData Visualization { get; private set; }
         [field: SerializeField] public BoundingBoxesInput BoxesInput { get; private set; }
+        [field: SerializeField] public SceneSize SceneSize { get; private set; }
         [HideInInspector] [SerializeField] public BVHNode[] Nodes;
         [HideInInspector] [SerializeField] public int Root;
-        [SerializeField] private float _sceneSize = 10;
-
-        public AABB SceneBox => new(_sceneSize * Vector3.one, _sceneSize * Vector3.one);
         
         void IValidatedData.OnValidate()
         {

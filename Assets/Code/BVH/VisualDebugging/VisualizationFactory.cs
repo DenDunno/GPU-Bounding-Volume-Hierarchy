@@ -34,7 +34,7 @@ namespace Code.Components.MortonCodeAssignment
                     Visualization.BinaryTree.Show),
                 new DrawableIfTrue(new BVHTreeVisualization(_data.Nodes, treeSize.Height, root, Visualization.BVHTree),
                     Visualization.BVHTree.Show),
-                _data.SceneBox
+                new DrawableIfTrue(_data.SceneSize.Box, _data.SceneSize.Show)
             });
         }
     }
