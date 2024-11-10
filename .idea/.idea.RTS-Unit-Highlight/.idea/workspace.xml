@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/SceneSize.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/SceneSize.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.hlsl.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualization.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/VisualizationFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/VisualizationFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Utilities/AABB.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/AABB.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +228,8 @@
       <workItem from="1730580945068" duration="9482000" />
       <workItem from="1730659628770" duration="5931000" />
       <workItem from="1730751854809" duration="18895000" />
-      <workItem from="1731022356932" duration="3754000" />
+      <workItem from="1731022356932" duration="10050000" />
+      <workItem from="1731195021550" duration="2983000" />
     </task>
     <servers />
   </component>
