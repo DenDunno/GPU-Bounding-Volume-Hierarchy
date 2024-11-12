@@ -1,14 +1,15 @@
+#include "..//..//Utilities/BitManipulation.hlsl"
+#include "..//NodesInput.hlsl"
+
 #ifndef THREADS
 #define THREADS 256
 #endif
-
-#include "..//..//Utilities/BitManipulation.hlsl"
-#include "..//NodesInput.hlsl"
 #define UINT_MAX_VALUE -1
-#define SEARCH_RADIUS_SHIFT 3
-#define SEARCH_RADIUS 1 << SEARCH_RADIUS_SHIFT
-#define ENCODE_MASK ~(1 << (SEARCH_RADIUS_SHIFT + 1) - 1)
-groupshared uint Neighbours[THREADS];
+#define RADIUS_SHIFT 3
+#define RADIUS 1 << RADIUS_SHIFT
+#define ENCODE_MASK ~(1 << (RADIUS_SHIFT + 1) - 1)
+groupshared uint Neighbours[THREADS + 4 * RADIUS];
+groupshared AABB Boxes[THREADS + 4 * RADIUS];
 
 // To store range from [-8, 8] we need 4 bits.
 // 3 bits for the (value - 1). Last bit for the sign.
@@ -28,21 +29,26 @@ uint EncodeOffsetIntoLowerBits(const uint id, const uint neighbor)
 
 int DecodeOffsetFromLowerBits(const uint encodedValue)
 {
-    uint offset = ExtractBits(encodedValue, 1, SEARCH_RADIUS_SHIFT) + 1;
+    uint offset = ExtractBits(encodedValue, 1, RADIUS_SHIFT) + 1;
     uint sign = ExtractLowestBit(encodedValue);
-    
+
     return sign ? -offset : offset;
 }
 
 void InitializeNeighbours(uint threadId)
 {
-    Neighbours[threadId] = UINT_MAX_VALUE;
+    for (int id = int(threadId) - 2 * RADIUS; id < THREADS + 2 * RADIUS; id += THREADS)
+    {
+        Neighbours[id] = UINT_MAX_VALUE;
+        Boxes[id] = Nodes[id].Box;
+    }
+    
     GroupMemoryBarrierWithGroupSync();
 }
 
 float ComputeDistanceBetweenNodes(uint first, uint second)
 {
-    return Nodes[first].Box.Union(Nodes[second].Box).ComputeSurfaceArea();
+    return Boxes[first].Union(Boxes[second]).ComputeSurfaceArea();
 }
 
 void UpdateNeighbourFromTheLeft(uint selfId, uint i, uint distanceUpperBits)
@@ -69,26 +75,29 @@ void UpdateMinDistanceIndex(uint id, uint i, uint distanceUpperBits, inout uint 
     minDistanceIndex = min(minDistanceIndex, selfEncodedDistance);
 }
 
-uint UpdateRightNeighboursBasedOnSelf(uint id)
+uint UpdateRightNeighboursBasedOnSelf(uint threadId)
 {
     uint minDistanceIndex = UINT_MAX_VALUE;
     uint encodeMask = ENCODE_MASK;
-    
-    [unroll(SEARCH_RADIUS)]
-    for (uint i = 1; i <= SEARCH_RADIUS; i++)
+
+    for (int id = int(threadId) - 2 * RADIUS; id < THREADS + RADIUS; id += THREADS)
     {
-        uint distanceUpperBits = GetDistanceToNeighbourUpperBits(id, encodeMask); 
-        UpdateMinDistanceIndex(distanceUpperBits, id, i, minDistanceIndex);
-        UpdateNeighbourFromTheLeft(id, i, distanceUpperBits);
+        [unroll(RADIUS)]
+        for (uint i = 1; i <= RADIUS; i++)
+        {
+            uint distanceUpperBits = GetDistanceToNeighbourUpperBits(id, encodeMask);
+            UpdateMinDistanceIndex(distanceUpperBits, id, i, minDistanceIndex);
+            UpdateNeighbourFromTheLeft(id, i, distanceUpperBits);
+        }
     }
 
     return minDistanceIndex;
 }
 
-uint FindNearestNeighbour(uint id)
+uint FindNearestNeighbour(uint threadId)
 {
-    InitializeNeighbours(id);
-    uint minDistanceIndex = UpdateRightNeighboursBasedOnSelf(id);
-    UpdateSelfBasedOnRightNeighbours(id, minDistanceIndex);
-    return Neighbours[id];
+    InitializeNeighbours(threadId);
+    uint minDistanceIndex = UpdateRightNeighboursBasedOnSelf(threadId);
+    UpdateSelfBasedOnRightNeighbours(threadId, minDistanceIndex);
+    return Neighbours[threadId];
 }
