@@ -1,3 +1,6 @@
+#ifndef BIT_MANIPULATION_HLSL
+#define BIT_MANIPULATION_HLSL
+
 uint ExtractLower31Bits(const uint value)
 {
     return value & 0x7FFFFFFF;
@@ -15,7 +18,7 @@ uint SetLower31Bits(const uint value, const uint lowerBits)
 
 uint ExtractLowestBit(uint input)
 {
-    return input & (-input);
+    return input & (~input + 1u);
 }
 
 uint ExtractTopBit(const uint value)
@@ -35,3 +38,4 @@ uint ExtractLowerBits(uint input, uint count)
     uint mask = (1 << count) - 1;
     return input & mask;
 }
+#endif

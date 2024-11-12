@@ -4,6 +4,8 @@
 // 32 bytes layout
 // __Data.x [1b - isInner] [31b - isInner ? LefChildIndex : TriangleIndex]
 // __Data.y [1b - isInner] [31b - isInner ? RightChildIndex : TriangleCount]
+#ifndef BVH_NODE_HLSL
+#define BVH_NODE_HLSL
 struct BVHNode
 {
     AABB Box;
@@ -30,3 +32,4 @@ struct BVHNode
     void SetLeftChild(const uint value) { __Data.x = value; }
     void SetRightChild(const uint value) { __Data.y = value; }
 };
+#endif

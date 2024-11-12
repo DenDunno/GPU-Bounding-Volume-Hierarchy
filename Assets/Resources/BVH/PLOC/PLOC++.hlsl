@@ -9,6 +9,7 @@ void Compress()
 {
 }
 
-void PLOCMerge(uint threadId, Range range, uint parentId)
+void PLOCMerge(Range range, uint globalId, uint threadId, uint parentId)
 {
+    uint nearestNeighbour = FindNearestNeighbour(threadId);
 }

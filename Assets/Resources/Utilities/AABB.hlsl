@@ -1,4 +1,6 @@
 
+#ifndef AABB_HLSL
+#define AABB_HLSL
 struct AABB
 {
     float3 Max;
@@ -32,3 +34,4 @@ struct AABB
         return 2 * (size.x * size.y + size.y * size.z + size.z * size.x);
     }
 };
+#endif
