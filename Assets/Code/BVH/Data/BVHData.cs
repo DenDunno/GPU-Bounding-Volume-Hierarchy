@@ -1,5 +1,4 @@
 using System;
-using Code.Data;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
@@ -9,6 +8,7 @@ namespace Code.Components.MortonCodeAssignment
     {
         [field: SerializeField] public VisualizationData Visualization { get; private set; }
         [field: SerializeField] public BoundingBoxesInput BoxesInput { get; private set; }
+        [field: SerializeField] public BVHConstructionId Algorithm { get; private set; }
         [field: SerializeField] public SceneSize SceneSize { get; private set; }
         [HideInInspector] [SerializeField] public BVHNode[] Nodes;
         [HideInInspector] [SerializeField] public int Root;

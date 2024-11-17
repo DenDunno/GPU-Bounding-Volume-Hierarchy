@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
-    public abstract class ComputeShaderPass
+    public abstract class ComputeShaderPass 
     {
         private readonly IShaderBridge<string> _shaderBridge;
         private readonly Kernel _kernel;
@@ -19,8 +19,13 @@ namespace Code.Components.MortonCodeAssignment
         {
             Setup(_kernel, _shaderBridge);
         }
-
-        public void Execute(int payloadX = 1, int payloadY = 1, int payloadZ = 1)
+        
+        public void Execute(int payload)
+        {
+            Execute(payload, 1, 1);
+        }
+        
+        public void Execute(int payloadX, int payloadY, int payloadZ)
         {
             OnPreDispatch(_shaderBridge, new Vector3Int(payloadX, payloadY, payloadZ));
             _kernel.DispatchPayload(payloadX, payloadY, payloadZ);

@@ -8,16 +8,17 @@ namespace Code.Components.MortonCodeAssignment
     public class BVHAlgorithm : IDisposable
     {
         private readonly GPURadixSort<MortonCode> _mortonCodesSorting;
+        private readonly IBVHConstructionAlgorithm _bvhConstruction;
         private readonly IEventPublisher _rebuiltEvent;
-        private readonly HPLOC _bvhConstruction;
         private readonly SetupStage _setupStage;
         private readonly BVHBuffers _buffers;
 
-        public BVHAlgorithm(BVHShaders bvhShaders, BVHBuffers buffers, IEventPublisher rebuiltEvent, AABB sceneSize)
+        public BVHAlgorithm(BVHShaders bvhShaders, BVHBuffers buffers, IEventPublisher rebuiltEvent,
+            IBVHConstructionAlgorithm bvhConstruction, AABB sceneSize)
         {
             _buffers = buffers;
             _rebuiltEvent = rebuiltEvent;
-            _bvhConstruction = new HPLOC(bvhShaders.BVHConstruction, _buffers);
+            _bvhConstruction = bvhConstruction;
             _setupStage = new SetupStage(bvhShaders.Setup, _buffers, sceneSize);
             _mortonCodesSorting = new GPURadixSort<MortonCode>(bvhShaders.Sorting, bvhShaders.PrefixSum, buffers.Size);
         }

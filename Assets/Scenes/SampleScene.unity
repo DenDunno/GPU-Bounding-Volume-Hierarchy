@@ -2244,7 +2244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 622661194}
-  - component: {fileID: 622661196}
+  - component: {fileID: 622661195}
   m_Layer: 0
   m_Name: BVH
   m_TagString: Untagged
@@ -2267,7 +2267,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &622661196
+--- !u!114 &622661195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2307,6 +2307,7 @@ MonoBehaviour:
       - {fileID: 1132062922}
       - {fileID: 1236694324}
       _meshFilter: {fileID: 715148816}
+    <Algorithm>k__BackingField: 0
     <SceneSize>k__BackingField:
       <Show>k__BackingField: 0
       _sceneSize: 4

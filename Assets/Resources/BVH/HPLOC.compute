@@ -2,7 +2,6 @@
 #pragma enable_d3d11_debug_symbols
 #include "BinaryRadixTree.hlsl"
 #include "ConstructionResult.hlsl"
-#include "PLOC/PLOC++.hlsl"
 
 void Merge(const int parentId)
 {
@@ -21,7 +20,7 @@ int ComputeNodeIndex(uint threadId, inout bool isLeaf)
     return nodeIndex;
 }
 
-ConstructionResult RunHPLOC(uint id, uint globalId, uint threadId)
+ConstructionResult RunHPLOC(uint id)
 {
     bool isThreadActive = id < LeavesCount;
     Range range = Range::Create(id);
@@ -37,7 +36,7 @@ ConstructionResult RunHPLOC(uint id, uint globalId, uint threadId)
         {
             range = parentInfo.Range;
             id = parentInfo.Id;
-            PLOCMerge(range, globalId, threadId, parentInfo.Id);
+            Merge(parentInfo.Id);
         }
     }
     
@@ -45,8 +44,8 @@ ConstructionResult RunHPLOC(uint id, uint globalId, uint threadId)
 }
 
 [numthreads(1,1,1)]
-void Build(const uint globalId : SV_DispatchThreadID, const uint threadId : SV_GroupThreadID)
+void Build(const uint globalId : SV_DispatchThreadID)
 {
-    ConstructionResult result = RunHPLOC(globalId, globalId, threadId);
+    ConstructionResult result = RunHPLOC(globalId);
     TrySetRoot(result.NodeIndex, result.RangeSize);
 }

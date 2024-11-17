@@ -36,7 +36,7 @@ int DecodeOffsetFromLowerBits(const uint encodedValue)
     return sign ? -offset : offset;
 }
 
-void InitializePLOCNeighbours(uint globalId, uint threadId)
+void InitializeNeighbours(uint globalId, uint threadId)
 {
     for (uint id = threadId; id < PLOC_RANGE_SIZE; id += THREADS)
     {
@@ -44,7 +44,7 @@ void InitializePLOCNeighbours(uint globalId, uint threadId)
         Boxes[id] = Nodes[globalId].Box;
     }
     
-    //GroupMemoryBarrierWithGroupSync();
+    GroupMemoryBarrierWithGroupSync();
 }
 
 void UpdateNeighbourFromTheLeft(uint selfId, uint i, uint distanceUpperBits)
@@ -95,8 +95,9 @@ void RunSearch(uint threadId)
     }
 }
 
-uint FindNearestNeighbour(uint threadId)
+uint FindNearestNeighbour(uint globalId, uint threadId)
 {
-    //RunSearch(threadId);
+    InitializeNeighbours(globalId, threadId);
+    RunSearch(threadId);
     return Neighbours[threadId];
 }

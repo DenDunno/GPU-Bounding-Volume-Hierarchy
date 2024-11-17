@@ -1,0 +1,17 @@
+#pragma kernel RunPlocPlusPlus
+#include "NearestNeighbour.hlsl"
+#include "..//Range.hlsl"
+
+void Merge()
+{
+}
+
+void Compress()
+{
+}
+
+[numthreads(1,1,1)]
+void RunPlocPlusPlus(const uint globalId : SV_DispatchThreadID, const uint threadId : SV_GroupThreadID)
+{
+    uint nearestNeighbour = FindNearestNeighbour(globalId, threadId);
+}

@@ -3,8 +3,7 @@ using Code.Utils.ShaderUtils;
 using MyFolder.ComputeShaderNM;
 using UnityEngine;
 
-// Hierarchical Parallel Locally-Ordered Clustering
-public class HPLOC : ComputeShaderPass
+public class HPLOC : ComputeShaderPass, IBVHConstructionAlgorithm
 {
     private readonly BVHBuffers _buffers;
 

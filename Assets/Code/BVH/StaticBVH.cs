@@ -6,11 +6,11 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class StaticBVH : InputEditorLifeTime<BVHData>
     {
-        private BVHComponents _components;
+        private AssetFacade _facade;
         private IDrawable _visualization;
 
-        public BVHGPUBridge GPUBridge => _components.GPUBridge;
-        public IEventClient RebuiltEvent => _components.RebuiltEvent;
+        public IEventClient RebuiltEvent => _facade.Components.RebuiltEvent;
+        public BVHGPUBridge GPUBridge => _facade.Components.GPUBridge;
 
         protected override void Reassemble()
         {
@@ -19,18 +19,18 @@ namespace Code.Components.MortonCodeAssignment
         [Button]
         public void Bake()
         {
-            _components?.Dispose();
-            _components = new BVHComponents(Data);
-            _components.Initialize();
-            _components.Rebuild();
-            Data.Nodes = _components.GPUBridge.FetchTree();
-            Data.Root = _components.GPUBridge.FetchRoot();
+            _facade?.Dispose();
+            _facade = new AssetFacade(Data, BVHShaders.Load());
+            _facade.Initialize();
+            _facade.Rebuild();
+            Data.Nodes = GPUBridge.FetchTree();
+            Data.Root = GPUBridge.FetchRoot();
             _visualization = new VisualizationFactory(Data).Create();
         }
         
-        public void Rebuild() => _components.Rebuild();
+        public void Rebuild() => _facade.Rebuild();
         //private void OnDrawGizmos() => Data.BoxesInput.Value.Calculate().ForEach(x => x.Draw());
         private void OnDrawGizmos() => _visualization?.Draw();
-        protected override void Dispose() => _components?.Dispose();
+        protected override void Dispose() => _facade?.Dispose();
     }
 }
