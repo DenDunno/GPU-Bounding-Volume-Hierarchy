@@ -5,34 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/BatchTest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/BatchTest.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/GPUShaderEmulator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/GPUShaderEmulator.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/IBlockTask.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/IBlockTask.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/ThreadBlockBatch.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/ThreadBlockBatch.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/ThreadId.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/ThreadId.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/BVHNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/BVHNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/AssetFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/ParallelBVHFacade.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/AssetFacade.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/ParallelBVHFacade.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionId.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionId.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/IBVHConstructionAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/IBVHConstructionAlgorithm.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/StaticBVH.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/StaticBVH.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/NodesInput.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/NodesInput.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Utilities/AABB.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/AABB.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/BatchTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/PlocPlusPlusCPUTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/BatchTest.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/PlocPlusPlusCPUTest.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +41,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f97e6fd576fd281059ea78f11aa1a56892db812556f9ffc5c76415330db87b8/System.Diagnostics.Tracing.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Tools/UnityEditors/2022.3.51f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.render-pipelines.universal/Editor/VFXGraph/VFXAbstractParticleURPLitOutput.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Tools/UnityEditors/2022.3.51f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.render-pipelines.universal/Runtime/External/LibTessDotNet/MeshUtils.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/HPLOC.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" root0="FORCE_HIGHLIGHTING" />
@@ -271,7 +254,7 @@
       <workItem from="1731632991830" duration="597000" />
       <workItem from="1731805431442" duration="3463000" />
       <workItem from="1731885956409" duration="7515000" />
-      <workItem from="1731969537753" duration="7665000" />
+      <workItem from="1731969537753" duration="10732000" />
     </task>
     <servers />
   </component>
@@ -333,6 +316,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/PlocPlusPlusCPUTest.cs</url>
+          <line>25</line>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\Utils\GPUShaderEmulator\PlocPlusPlusCPUTest.cs" containingFunctionPresentation="Method 'RunStupidSearch'">
+            <startOffsets>
+              <option value="718" />
+            </startOffsets>
+            <endOffsets>
+              <option value="754" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

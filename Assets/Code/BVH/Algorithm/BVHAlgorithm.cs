@@ -41,6 +41,7 @@ namespace Code.Components.MortonCodeAssignment
         public void Dispose()
         {
             _mortonCodesSorting.Dispose();
+            _bvhConstruction.Dispose();
             _buffers.Dispose();
         }
     }

@@ -13,6 +13,7 @@ namespace Code.Components.MortonCodeAssignment
             _targetAlgorithm = target;
             _algorithms = new Dictionary<BVHConstructionId, IBVHConstructionAlgorithm>()
             {
+                [BVHConstructionId.CPU] = new CPUConstruction(buffers.Nodes),
                 [BVHConstructionId.HPLOC] = new HPLOC(shaders.HPLOCShader, buffers),
                 [BVHConstructionId.PLOCPlusPlus] = new PLOCPlusPLus(shaders.PlocPlusPLusShader, buffers),
             };

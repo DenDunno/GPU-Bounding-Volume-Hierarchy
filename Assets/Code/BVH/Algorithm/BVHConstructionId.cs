@@ -5,5 +5,6 @@ namespace Code.Components.MortonCodeAssignment
     {
         HPLOC,
         PLOCPlusPlus,
+        CPU
     }
 }

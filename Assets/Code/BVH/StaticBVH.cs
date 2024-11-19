@@ -1,9 +1,7 @@
 using Code.Components.MortonCodeAssignment.Event;
 using Code.Utils.Extensions;
-using Code.Utils.GPUShaderEmulator;
 using EditorWrapper;
 using Sirenix.OdinInspector;
-using Unity.Collections;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
@@ -27,16 +25,11 @@ namespace Code.Components.MortonCodeAssignment
         [Button]
         public void Bake()
         {
-            NativeArray<int> buffer = new(8, Allocator.TempJob);
-            GPUShaderEmulator<BatchTest> test = new(2, 4, new BatchTest(buffer));
-            test.Execute();
-            buffer.ToArray().Print();
-            buffer.Dispose();
-            // _facade?.Dispose();
-            // _facade = new ParallelBVHFacade(Data, BVHShaders.Load());
-            // _facade.Initialize();
-            // _facade.Rebuild();
-            // GPUBridge.FetchTree().Print("", x => $"\n{x}");
+            _facade?.Dispose();
+            _facade = new ParallelBVHFacade(Data, BVHShaders.Load());
+            _facade.Initialize();
+            _facade.Rebuild();
+            _facade.Components.Buffers.Nodes.Print<BVHNode>("", x => $"{x}\n");
         }
         
         public void Rebuild() => _facade.Rebuild();
