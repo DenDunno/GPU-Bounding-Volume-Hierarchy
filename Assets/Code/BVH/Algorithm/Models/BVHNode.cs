@@ -28,12 +28,17 @@ public struct BVHNode
 
     public override string ToString()
     {
-        return $"LefChild = {LeftChild()} RightChild = {RightChild()} {Box}";
+        return $"LefChild = {(int)LeftChild()} RightChild = {(int)RightChild()} {Box}";
     }
 
     public float ComputeSurfaceArea()
     {
         Vector3 size = Box.Max - Box.Min;
         return 2f * (size.x * size.y + size.y * size.z + size.z * size.x);
+    }
+
+    public static int GetSize()
+    {
+        return AABB.GetSize() + 4 + 4;
     }
 };

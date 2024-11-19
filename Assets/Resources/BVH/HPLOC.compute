@@ -22,7 +22,7 @@ int ComputeNodeIndex(uint threadId, inout bool isLeaf)
 
 ConstructionResult RunHPLOC(uint id)
 {
-    bool isThreadActive = id < LeavesCount;
+    bool isThreadActive = IsInBounds(id);
     Range range = Range::Create(id);
     bool isLeaf = true;
 

@@ -16,10 +16,10 @@ namespace Code.Components.MortonCodeAssignment
 
         public BVHBuffers(int size)
         {
+            Nodes = new ComputeBuffer(size + (size - 1) + 1, BVHNode.GetSize()); // leaves + innerNodes + root 
             MortonCodes = new ComputeBuffer(size, MortonCode.GetSize());
             ParentIds = new ComputeBuffer(size, sizeof(uint));
             Boxes = new ComputeBuffer(size, AABB.GetSize());
-            Nodes = new ComputeBuffer(size + (size - 1), 32);
             Root = new ComputeBuffer(1, sizeof(uint));
             Size = size;
         }

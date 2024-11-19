@@ -45,5 +45,29 @@ namespace Code.Utils.Extensions
             IEnumerable<string> output = list.Select(format);
             Debug.Log(name + string.Join(", ", output));
         }
+        
+        public static void Shuffle<T>(this IList<T> ts)
+        {
+            int count = ts.Count;
+            int last = count - 1;
+            for (int i = 0; i < last; ++i)
+            {
+                int r = UnityEngine.Random.Range(i, count);
+                (ts[i], ts[r]) = (ts[r], ts[i]);
+            }
+        }
+
+        public static int[] GetRandomOrderedArray(int size)
+        {
+            int[] array = new int[size];
+            for (int i = 0; i < array.Length; ++i)
+            {
+                array[i] = i;
+            }
+            
+            array.Shuffle();
+
+            return array;
+        }
     }
 }

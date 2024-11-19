@@ -1,11 +1,18 @@
 
 #ifndef AABB_HLSL
 #define AABB_HLSL
+#define FLOAT_MAX 3.402823466e+38
+
 struct AABB
 {
     float3 Max;
     float3 Min;
 
+    static AABB CreateMaxBox()
+    {
+        return Create(float3(-FLOAT_MAX, -FLOAT_MAX, -FLOAT_MAX), float3(FLOAT_MAX, FLOAT_MAX, FLOAT_MAX));
+    }
+    
     static AABB Create(const float3 min, const float3 max)
     {
         AABB result;

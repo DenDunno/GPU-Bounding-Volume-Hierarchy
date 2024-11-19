@@ -6,12 +6,14 @@ RWStructuredBuffer<uint> RootIndex;
 RWStructuredBuffer<BVHNode> Nodes;
 uint LeavesCount;
 
+// layout: innerNodes (n - 1) | Root (1) | leaves (n) = 2n
 uint InnerNodes() { return LeavesCount - 1; }
-uint ComputeLeafIndex(uint threadId) { return InnerNodes() + threadId; }
+uint ComputeLeafIndex(uint threadId) { return LeavesCount + threadId; }
 
 bool IsRoot(uint rangeSize) { return rangeSize == LeavesCount; }
 bool IsNotRoot(uint rangeSize) { return IsRoot(rangeSize) == false; }
-bool IsIndexInBound(uint id) { return id < LeavesCount; }
+bool IsInBounds(uint id) { return id < LeavesCount; }
+bool IsInBounds(int id) { return id >= 0 && id < int(LeavesCount); }
 
 void TrySetRoot(uint nodeIndex, uint rangeSize)
 {

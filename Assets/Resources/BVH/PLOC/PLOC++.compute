@@ -1,6 +1,7 @@
 #pragma kernel RunPlocPlusPlus
+#pragma enable_d3d11_debug_symbols
+#define THREADS 2
 #include "NearestNeighbour.hlsl"
-#include "..//Range.hlsl"
 
 void Merge()
 {
@@ -10,8 +11,9 @@ void Compress()
 {
 }
 
-[numthreads(1,1,1)]
-void RunPlocPlusPlus(const uint globalId : SV_DispatchThreadID, const uint threadId : SV_GroupThreadID)
+[numthreads(THREADS,1,1)]
+void RunPlocPlusPlus(const int globalId : SV_DispatchThreadID, const int threadId : SV_GroupThreadID, const int groupId : SV_GroupID)
 {
-    uint nearestNeighbour = FindNearestNeighbour(globalId, threadId);
+    uint nn = FindNearestNeighbour(threadId, groupId * THREADS, globalId);
+    Nodes[globalId].SetLeftChild(nn);
 }

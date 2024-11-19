@@ -5,12 +5,12 @@
 #define THREADS 256
 #endif
 #define UINT_MAX_VALUE -1
-#define RADIUS_SHIFT 3
-#define RADIUS 1 << RADIUS_SHIFT
-#define PLOC_RANGE_SIZE THREADS + 4 * RADIUS
+#define RADIUS_SHIFT 1
+#define RADIUS (1 << RADIUS_SHIFT)
+#define PLOC_RANGE_SIZE (THREADS + 4 * RADIUS)
 #define ENCODE_MASK ~(1 << (RADIUS_SHIFT + 1) - 1)
 groupshared uint Neighbours[THREADS + 4 * RADIUS];
-groupshared AABB Boxes[THREADS + 4 * RADIUS];
+//groupshared AABB Boxes[THREADS + 4 * RADIUS];
 
 // To store range from [-8, 8] we need 4 bits.
 // 3 bits for the (value - 1). Last bit for the sign.
@@ -36,14 +36,23 @@ int DecodeOffsetFromLowerBits(const uint encodedValue)
     return sign ? -offset : offset;
 }
 
-void InitializeNeighbours(uint globalId, uint threadId)
+void InitializeNeighbours(int threadId, int blockOffset)
 {
-    for (uint id = threadId; id < PLOC_RANGE_SIZE; id += THREADS)
+    for (int id = threadId; id < PLOC_RANGE_SIZE; id += THREADS)
     {
+        int globalId = id - 2 * RADIUS + blockOffset;
         Neighbours[id] = UINT_MAX_VALUE;
-        Boxes[id] = Nodes[globalId].Box;
+
+        // if (IsInBounds(globalId))
+        // {
+        //     Boxes[id] = Nodes[ComputeLeafIndex(globalId)].Box;
+        // }
+        // else
+        // {
+        //     Boxes[id] = AABB::CreateMaxBox();
+        // }
     }
-    
+
     GroupMemoryBarrierWithGroupSync();
 }
 
@@ -60,7 +69,7 @@ void UpdateSelfBasedOnRightNeighbours(uint id, uint minDistanceIndex)
 
 uint GetDistanceToNeighbourUpperBits(uint neighbourId, AABB box, uint encodeMask)
 {
-    float distance = box.Union(Boxes[neighbourId]).ComputeSurfaceArea();
+    float distance = box.Union(Nodes[neighbourId].Box).ComputeSurfaceArea();
     uint positiveDistanceInteger = asuint(distance) << 1;
     return positiveDistanceInteger & encodeMask;
 }
@@ -71,23 +80,23 @@ void UpdateMinDistanceIndex(uint id, uint i, uint distanceUpperBits, inout uint 
     minDistanceIndex = min(minDistanceIndex, selfEncodedDistance);
 }
 
-void RunSearch(uint threadId)
+void RunSearch(uint threadId, int blockOffset)
 {
     uint minDistanceIndex = UINT_MAX_VALUE;
     uint encodeMask = ENCODE_MASK;
-    
+
     for (uint id = threadId; id < THREADS + 3 * RADIUS; id += THREADS)
     {
-        AABB box = Boxes[id];
-        
+        AABB box = Nodes[id + blockOffset].Box;
+
         [unroll(RADIUS)]
         for (uint i = 1; i <= RADIUS; i++)
         {
-            if (IsIndexInBound(id))
+            if (IsInBounds(id))
             {
-                uint distanceUpperBits = GetDistanceToNeighbourUpperBits(id, box, encodeMask);
+                uint distanceUpperBits = GetDistanceToNeighbourUpperBits(id + blockOffset, box, encodeMask);
                 UpdateMinDistanceIndex(distanceUpperBits, id, i, minDistanceIndex);
-                UpdateNeighbourFromTheLeft(id, i, distanceUpperBits);   
+                UpdateNeighbourFromTheLeft(id, i, distanceUpperBits);
             }
         }
 
@@ -95,9 +104,30 @@ void RunSearch(uint threadId)
     }
 }
 
-uint FindNearestNeighbour(uint globalId, uint threadId)
+uint RunStupidSearch(int globalId)
 {
-    InitializeNeighbours(globalId, threadId);
-    RunSearch(threadId);
-    return Neighbours[threadId];
+    uint minDistanceIndex = UINT_MAX_VALUE;
+    float minDistance = FLOAT_MAX;
+
+    for (int globalNeighbourId = globalId - RADIUS; globalNeighbourId < globalId + RADIUS; ++globalNeighbourId)
+    {
+        if (IsInBounds(globalNeighbourId))
+        {
+            //float distance = Nodes[globalId].Box.Union(Nodes[globalNeighbourId].Box).ComputeSurfaceArea();
+            float distance = length(Nodes[globalId].Box.Centroid() - Nodes[globalNeighbourId].Box.Centroid());
+
+            if (distance < minDistance)
+            {
+                minDistanceIndex = globalNeighbourId;
+                minDistance = distance;
+            }   
+        }
+    }
+
+    return minDistanceIndex;
+}
+
+uint FindNearestNeighbour(uint threadId, int blockOffset, int globalId)
+{
+    return RunStupidSearch(globalId);
 }

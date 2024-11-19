@@ -30,11 +30,11 @@ namespace Code.Components.MortonCodeAssignment
             _setupStage.Prepare();
         }
 
-        public void Execute(int count)
+        public void Execute(int leavesCount)
         {
-            _setupStage.Execute(count);
-            _mortonCodesSorting.Execute(count);
-            _bvhConstruction.Execute(count);
+            _setupStage.Execute(leavesCount);
+            _mortonCodesSorting.Execute(leavesCount);
+            _bvhConstruction.Execute(leavesCount);
             _rebuiltEvent.Raise();
         }
 
