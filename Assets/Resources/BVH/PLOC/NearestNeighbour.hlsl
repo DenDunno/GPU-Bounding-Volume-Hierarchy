@@ -5,7 +5,7 @@
 #define THREADS 256
 #endif
 #define UINT_MAX_VALUE -1
-#define RADIUS_SHIFT 1
+#define RADIUS_SHIFT 0
 #define RADIUS (1 << RADIUS_SHIFT)
 #define PLOC_RANGE_SIZE (THREADS + 4 * RADIUS)
 #define ENCODE_MASK ~(1 << (RADIUS_SHIFT + 1) - 1)
@@ -104,17 +104,16 @@ void RunSearch(uint threadId, int blockOffset)
     }
 }
 
-uint RunStupidSearch(int globalId)
+int RunStupidSearch(int globalId)
 {
-    uint minDistanceIndex = UINT_MAX_VALUE;
+    int minDistanceIndex = INT_MAX;
     float minDistance = FLOAT_MAX;
 
-    for (int globalNeighbourId = globalId - RADIUS; globalNeighbourId < globalId + RADIUS; ++globalNeighbourId)
+    for (int globalNeighbourId = globalId - RADIUS; globalNeighbourId <= globalId + RADIUS; ++globalNeighbourId)
     {
-        if (IsInBounds(globalNeighbourId))
+        if (IsInBounds(globalNeighbourId) && globalNeighbourId != globalId)
         {
-            //float distance = Nodes[globalId].Box.Union(Nodes[globalNeighbourId].Box).ComputeSurfaceArea();
-            float distance = length(Nodes[globalId].Box.Centroid() - Nodes[globalNeighbourId].Box.Centroid());
+            float distance = Nodes[globalId].Box.Union(Nodes[globalNeighbourId].Box).ComputeSurfaceArea();
 
             if (distance < minDistance)
             {
@@ -125,9 +124,4 @@ uint RunStupidSearch(int globalId)
     }
 
     return minDistanceIndex;
-}
-
-uint FindNearestNeighbour(uint threadId, int blockOffset, int globalId)
-{
-    return RunStupidSearch(globalId);
 }

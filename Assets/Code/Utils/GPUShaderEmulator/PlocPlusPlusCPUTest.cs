@@ -30,7 +30,7 @@ namespace Code.Utils.GPUShaderEmulator
             {
                 if (IsInBounds(globalNeighbourId) && globalNeighbourId != globalId)
                 {
-                    float distance = (_nodes[globalId].Box.Centroid - _nodes[globalNeighbourId].Box.Centroid).magnitude;
+                    float distance = _nodes[globalId].Box.Union(_nodes[globalNeighbourId].Box).ComputeSurfaceArea();
 
                     if (distance < minDistance)
                     {
@@ -45,10 +45,8 @@ namespace Code.Utils.GPUShaderEmulator
 
         public void Execute(int threadsPerBlock, ThreadId threadId)
         {
-            int neighbour = RunStupidSearch(threadId.Global);
             BVHNode bvhNode = _nodes[threadId.Global];
-            bvhNode.X = (uint)neighbour;
-
+            bvhNode.X = (uint)RunStupidSearch(threadId.Global);
             _nodes[threadId.Global] = bvhNode;
         }
     }

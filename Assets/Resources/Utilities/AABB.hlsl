@@ -1,12 +1,14 @@
 
 #ifndef AABB_HLSL
 #define AABB_HLSL
+#define INT_MAX 2147483647
+#define INT_MIN -2147483648
 #define FLOAT_MAX 3.402823466e+38
 
 struct AABB
 {
-    float3 Max;
     float3 Min;
+    float3 Max;
 
     static AABB CreateMaxBox()
     {

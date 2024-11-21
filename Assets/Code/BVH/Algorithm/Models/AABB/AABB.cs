@@ -47,5 +47,16 @@ namespace Code.Data
         {
             return $"Max = {Max} Min = {Min}";
         }
+
+        public AABB Union(AABB box)
+        {
+            return new AABB(Vector3.Min(Min, box.Min), Vector3.Max(Max, box.Max));
+        }
+
+        public float ComputeSurfaceArea()
+        {
+            Vector3 size = Size;
+            return 2 * (size.x * size.y + size.y * size.z + size.z * size.x);
+        }
     }
 }

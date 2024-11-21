@@ -14,6 +14,5 @@ void Compress()
 [numthreads(THREADS,1,1)]
 void RunPlocPlusPlus(const int globalId : SV_DispatchThreadID, const int threadId : SV_GroupThreadID, const int groupId : SV_GroupID)
 {
-    uint nn = FindNearestNeighbour(threadId, groupId * THREADS, globalId);
-    Nodes[globalId].SetLeftChild(nn);
+    Nodes[globalId].__Data.x = RunStupidSearch(globalId);
 }
