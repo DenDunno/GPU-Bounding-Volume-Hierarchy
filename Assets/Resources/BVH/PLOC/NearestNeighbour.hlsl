@@ -5,7 +5,7 @@
 #define THREADS 256
 #endif
 #define UINT_MAX_VALUE -1
-#define RADIUS_SHIFT 0
+#define RADIUS_SHIFT 4
 #define RADIUS (1 << RADIUS_SHIFT)
 #define PLOC_RANGE_SIZE (THREADS + 4 * RADIUS)
 #define ENCODE_MASK ~(1 << (RADIUS_SHIFT + 1) - 1)

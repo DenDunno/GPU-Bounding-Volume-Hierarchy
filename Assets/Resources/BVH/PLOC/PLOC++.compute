@@ -1,6 +1,6 @@
 #pragma kernel RunPlocPlusPlus
 #pragma enable_d3d11_debug_symbols
-#define THREADS 2
+#define THREADS 4
 #include "NearestNeighbour.hlsl"
 
 void Merge()
@@ -14,5 +14,8 @@ void Compress()
 [numthreads(THREADS,1,1)]
 void RunPlocPlusPlus(const int globalId : SV_DispatchThreadID, const int threadId : SV_GroupThreadID, const int groupId : SV_GroupID)
 {
-    Nodes[globalId].__Data.x = RunStupidSearch(globalId);
+    if (IsInBounds(globalId))
+    {
+        Nodes[globalId].__Data.x = RunStupidSearch(globalId);
+    }
 }

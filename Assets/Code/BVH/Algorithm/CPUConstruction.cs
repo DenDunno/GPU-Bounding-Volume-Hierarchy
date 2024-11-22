@@ -20,8 +20,10 @@ namespace Code.Components.MortonCodeAssignment
 
         public void Execute(int leavesCount)
         {
+            int blockSize = 4;
+            int groups = Mathf.CeilToInt((float)leavesCount / blockSize);
             NativeArray<BVHNode> nodes = new(_nodesBuffer.FetchData<BVHNode>(_nodesBuffer.count), Allocator.TempJob);
-            GPUShaderEmulator<PlocPlusPlusCPUTest> test = new(2, 4, new PlocPlusPlusCPUTest(nodes, _nodesBuffer.count));
+            GPUShaderEmulator<PlocPlusPlusCPUTest> test = new(blockSize, groups, new PlocPlusPlusCPUTest(nodes, leavesCount));
             test.Execute();
             _nodesBuffer.SetData(nodes);
             nodes.Dispose();

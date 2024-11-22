@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 
@@ -13,7 +14,7 @@ namespace Code.Utils.GPUShaderEmulator
         {
             _leavesCount = leavesCount;
             _nodes = nodes;
-            _radius = 1;
+            _radius = 16;
         }
 
         private bool IsInBounds(int id)
@@ -45,9 +46,12 @@ namespace Code.Utils.GPUShaderEmulator
 
         public void Execute(int threadsPerBlock, ThreadId threadId)
         {
-            BVHNode bvhNode = _nodes[threadId.Global];
-            bvhNode.X = (uint)RunStupidSearch(threadId.Global);
-            _nodes[threadId.Global] = bvhNode;
+            if (IsInBounds(threadId.Global))
+            {
+                BVHNode bvhNode = _nodes[threadId.Global];
+                bvhNode.X = (uint)RunStupidSearch(threadId.Global);
+                _nodes[threadId.Global] = bvhNode;   
+            }
         }
     }
 }

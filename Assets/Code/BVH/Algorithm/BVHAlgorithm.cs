@@ -23,6 +23,8 @@ namespace Code.Components.MortonCodeAssignment
             _mortonCodesSorting = new GPURadixSort<MortonCode>(bvhShaders.Sorting, bvhShaders.PrefixSum, buffers.Size);
         }
 
+        public string Name => _bvhConstruction.GetType().Name;
+
         public void Initialize()
         {
             _mortonCodesSorting.SetData(_buffers.MortonCodes);
