@@ -23,7 +23,7 @@ namespace Code.Components.MortonCodeAssignment
             int blockSize = 4;
             int groups = Mathf.CeilToInt((float)leavesCount / blockSize);
             NativeArray<BVHNode> nodes = new(_nodesBuffer.FetchData<BVHNode>(_nodesBuffer.count), Allocator.TempJob);
-            GPUShaderEmulator<PlocPlusPlusCPUTest> test = new(blockSize, groups, new PlocPlusPlusCPUTest(nodes, leavesCount));
+            GPUShaderEmulator<PlocPlusStupidSearch> test = new(blockSize, groups, new PlocPlusStupidSearch(nodes, leavesCount));
             test.Execute();
             _nodesBuffer.SetData(nodes);
             nodes.Dispose();

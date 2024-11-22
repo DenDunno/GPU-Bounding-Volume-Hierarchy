@@ -1,16 +1,15 @@
-using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 
 namespace Code.Utils.GPUShaderEmulator
 {
-    public struct PlocPlusPlusCPUTest : IBlockTask
+    public struct PlocPlusStupidSearch : IBlockTask
     {
         [NativeDisableContainerSafetyRestriction] private NativeArray<BVHNode> _nodes;
         private readonly int _leavesCount;
         private readonly int _radius;
         
-        public PlocPlusPlusCPUTest(NativeArray<BVHNode> nodes, int leavesCount)
+        public PlocPlusStupidSearch(NativeArray<BVHNode> nodes, int leavesCount)
         {
             _leavesCount = leavesCount;
             _nodes = nodes;

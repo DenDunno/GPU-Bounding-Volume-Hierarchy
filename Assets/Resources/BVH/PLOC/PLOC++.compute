@@ -16,6 +16,6 @@ void RunPlocPlusPlus(const int globalId : SV_DispatchThreadID, const int threadI
 {
     if (IsInBounds(globalId))
     {
-        Nodes[globalId].__Data.x = RunStupidSearch(globalId);
+        Nodes[globalId].__Data.x = FindNearestNeighbour(threadId, groupId * THREADS);
     }
 }

@@ -125,3 +125,10 @@ int RunStupidSearch(int globalId)
 
     return minDistanceIndex;
 }
+
+uint FindNearestNeighbour(int threadId, int blockOffset)
+{
+    InitializeNeighbours(threadId, blockOffset);
+    RunSearch(threadId, blockOffset);
+    return Neighbours[threadId];
+}
