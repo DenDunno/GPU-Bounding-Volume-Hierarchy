@@ -6,9 +6,9 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class ManualBoundingBoxesInput : IBoundingBoxesInput
     {
-        private readonly IReadOnlyList<MonoBehaviour> _input;
+        private readonly IReadOnlyList<GameObject> _input;
 
-        public ManualBoundingBoxesInput(IReadOnlyList<MonoBehaviour> input)
+        public ManualBoundingBoxesInput(IReadOnlyList<GameObject> input)
         {
             _input = input;
         }
@@ -19,7 +19,8 @@ namespace Code.Components.MortonCodeAssignment
 
             for (int i = 0; i < _input.Count; ++i)
             {
-                output[i] = ((IAABBProvider)_input[i]).CalculateBox();
+                IAABBProvider aabbProvider = _input[i].GetComponent<IAABBProvider>();
+                output[i] = aabbProvider.CalculateBox();
             }
 
             return output;

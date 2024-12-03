@@ -5,40 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Cube.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Cube/CubeGenerationData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Cube/CubeGenerationData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Editor.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Line.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Line/LineGenerationData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Line/LineGenerationData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Line/LinePointGeneration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Line/LinePointGeneration.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Nested.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Nested.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/ObjectPlacementData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/ObjectPlacementData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Placement.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Placement.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Sphere.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Sphere/SphereGenerationData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Sphere/SphereGenerationData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/ObjectsGenerationListener.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/ObjectsGenerationListener.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/IObjectPlacementListener.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/IObjectPlacementListener.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Utils.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/GPUShaderEmulator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/GPUShaderEmulator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/PlocPlocSmartSearch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/PlocPlocSmartSearch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/ThreadBlockBatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/ThreadBlockBatch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/CubePointGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Cube/CubePointGeneration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/CubePointGeneration.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Cube/CubePointGeneration.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/BoundingBoxesInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/BoundingBoxesInput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/ManualBoundingBoxesInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/ManualBoundingBoxesInput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Nested.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Utils/Nested.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Nested.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Utils/Nested.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/ObjectPlacement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/ObjectPlacement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/PointInSphereGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Sphere/SpherePointGeneration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/PointInSphereGeneration.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Sphere/SpherePointGeneration.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Placement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Utils/Placement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Placement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Utils/Placement.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +270,7 @@
       <workItem from="1731885956409" duration="7515000" />
       <workItem from="1731969537753" duration="10732000" />
       <workItem from="1732234148699" duration="6090000" />
-      <workItem from="1733182623529" duration="8244000" />
+      <workItem from="1733182623529" duration="9102000" />
     </task>
     <servers />
   </component>
