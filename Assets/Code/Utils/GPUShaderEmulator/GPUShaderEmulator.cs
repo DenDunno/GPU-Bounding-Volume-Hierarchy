@@ -22,9 +22,8 @@ namespace Code.Utils.GPUShaderEmulator
 
             foreach (int groupId in groups)
             {
-                new ThreadBlockBatch<TBlockTask>(_blockSize, groupId, _task)
-                    .Schedule(_blockSize, 32)
-                    .Complete();
+                ThreadBlockBatch<TBlockTask> batch = new(_blockSize, groupId, _task);
+                batch.Schedule(_blockSize, 32).Complete();
             }
         }
     }

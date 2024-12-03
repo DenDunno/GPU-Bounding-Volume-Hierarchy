@@ -8,9 +8,11 @@ namespace Code.Components.MortonCodeAssignment
     public class CPUConstruction : IBVHConstructionAlgorithm
     {
         private readonly ComputeBuffer _nodesBuffer;
+        private readonly bool _isStupidSearch;
 
-        public CPUConstruction(ComputeBuffer nodesBuffer)
+        public CPUConstruction(ComputeBuffer nodesBuffer, bool isStupidSearch)
         {
+            _isStupidSearch = isStupidSearch;
             _nodesBuffer = nodesBuffer;
         }
 
@@ -23,10 +25,25 @@ namespace Code.Components.MortonCodeAssignment
             int blockSize = 4;
             int groups = Mathf.CeilToInt((float)leavesCount / blockSize);
             NativeArray<BVHNode> nodes = new(_nodesBuffer.FetchData<BVHNode>(_nodesBuffer.count), Allocator.TempJob);
-            GPUShaderEmulator<PlocPlusStupidSearch> test = new(blockSize, groups, new PlocPlusStupidSearch(nodes, leavesCount));
-            test.Execute();
+            
+            if (_isStupidSearch)
+            {
+                Execute(blockSize, groups, new PlocPlusStupidSearch(nodes, leavesCount));
+            }
+            else
+            {
+                Execute(blockSize, groups, new PlocPlocSmartSearch(nodes, leavesCount, blockSize, 4));
+            }
+
             _nodesBuffer.SetData(nodes);
             nodes.Dispose();
+        }
+
+        private void Execute<TBlockTask>(int blockSize, int groups, TBlockTask blockTask) where TBlockTask : struct, IBlockTask
+        {
+            GPUShaderEmulator<TBlockTask> test = new(blockSize, groups, blockTask);
+            test.Execute();
+            blockTask.Dispose();
         }
     }
 }

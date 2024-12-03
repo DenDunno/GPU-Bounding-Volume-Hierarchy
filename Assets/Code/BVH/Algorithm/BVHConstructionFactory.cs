@@ -8,12 +8,12 @@ namespace Code.Components.MortonCodeAssignment
         private readonly Dictionary<BVHConstructionId, IBVHConstructionAlgorithm> _algorithms;
         private readonly BVHConstructionId _targetAlgorithm;
 
-        public BVHConstructionFactory(BVHBuffers buffers, BVHShaders shaders, BVHConstructionId target)
+        public BVHConstructionFactory(BVHBuffers buffers, BVHShaders shaders, BVHConstructionId target, bool isStupidSearch)
         {
             _targetAlgorithm = target;
             _algorithms = new Dictionary<BVHConstructionId, IBVHConstructionAlgorithm>()
             {
-                [BVHConstructionId.CPU] = new CPUConstruction(buffers.Nodes),
+                [BVHConstructionId.CPU] = new CPUConstruction(buffers.Nodes, isStupidSearch),
                 [BVHConstructionId.HPLOC] = new HPLOC(shaders.HPLOCShader, buffers),
                 [BVHConstructionId.PLOCPlusPlus] = new PLOCPlusPLus(shaders.PlocPlusPLusShader, buffers),
             };

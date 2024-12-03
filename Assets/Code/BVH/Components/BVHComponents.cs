@@ -16,7 +16,7 @@ namespace Code.Components.MortonCodeAssignment
             BoxesInput = data.BoxesInput.Value;
             Buffers = new BVHBuffers(data.BoxesInput.Count);
             GPUBridge = new BVHGPUBridge(Buffers, data.BoxesInput.Count);
-            IBVHConstructionAlgorithm construction = new BVHConstructionFactory(Buffers, shaders, data.Algorithm).Create();
+            IBVHConstructionAlgorithm construction = new BVHConstructionFactory(Buffers, shaders, data.Algorithm, data.IsStupidSearch).Create();
             Algorithm = new BVHAlgorithm(shaders, Buffers, RebuiltEvent, construction, data.SceneSize.Box);
         }
     }

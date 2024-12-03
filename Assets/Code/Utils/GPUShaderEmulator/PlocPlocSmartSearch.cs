@@ -9,22 +9,24 @@ namespace Code.Utils.GPUShaderEmulator
     public struct PlocPlocSmartSearch : IBlockTask
     {
         [NativeDisableContainerSafetyRestriction] private NativeArray<BVHNode> _nodes;
-        private NativeArray<int> _neighbours;
+        [NativeDisableContainerSafetyRestriction] private NativeArray<int> _neighbours;
         private readonly int _leavesCount;
         private readonly int _encodeMask;
         private readonly int _blockSize;
+        private readonly int _radiusShift;
         private readonly int _plocRange;
         private readonly int _radius;
 
-        public PlocPlocSmartSearch(NativeArray<BVHNode> nodes, int leavesCount, int blockSize, int radius)
+        public PlocPlocSmartSearch(NativeArray<BVHNode> nodes, int leavesCount, int blockSize, int radiusShift)
         {
-            _neighbours = new NativeArray<int>(blockSize * 4 * radius, Allocator.TempJob);
-            _plocRange = blockSize * 4 * radius;
-            _encodeMask = ~(1 << radius - 1);
-            _leavesCount = leavesCount;
-            _blockSize = blockSize;
-            _radius = radius;
             _nodes = nodes;
+            _blockSize = blockSize;
+            _leavesCount = leavesCount;
+            _radius = 1 << radiusShift;
+            _radiusShift = radiusShift;
+            _encodeMask = ~(1 << _radius - 1);
+            _plocRange = blockSize * 4 * _radius;
+            _neighbours = new NativeArray<int>(blockSize * 4 * _radius, Allocator.TempJob);
         }
 
         private bool IsInBounds(int id)
@@ -38,6 +40,26 @@ namespace Code.Utils.GPUShaderEmulator
             {
                 _neighbours[id] = int.MaxValue;
             }
+        }
+        
+        int ExtractBits(int input, int bitOffset, int extractedBitsCount)
+        {
+            int mask = (1 << extractedBitsCount) - 1;
+            int shiftedInput = input >> bitOffset;
+            return shiftedInput & mask;
+        }
+
+        int ExtractLowestBit(int input)
+        {
+            return input & (~input + 1);
+        }
+        
+        int DecodeOffsetFromLowerBits(int encodedValue)
+        {
+            int offset = ExtractBits(encodedValue, 1, _radiusShift) + 1;
+            int sign = ExtractLowestBit(encodedValue);
+
+            return sign == 0 ? -offset : offset;
         }
         
         int EncodeOffsetIntoLowerBits(int id, int neighbor)
@@ -98,7 +120,7 @@ namespace Code.Utils.GPUShaderEmulator
         {
             InitializeNeighbours(threadId);
             RunSearch(threadId, blockOffset);
-            return _neighbours[threadId];
+            return DecodeOffsetFromLowerBits(_neighbours[threadId]) + threadId + blockOffset;
         }
 
         public void Execute(int threadsPerBlock, ThreadId threadId)

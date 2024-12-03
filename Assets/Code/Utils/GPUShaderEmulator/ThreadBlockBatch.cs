@@ -23,5 +23,10 @@ namespace Code.Utils.GPUShaderEmulator
             _blockTask.Execute(_threadsPerGroup, 
                 new ThreadId(index, _groupId, index + _groupId * _threadsPerGroup));
         }
+
+        public void Dispose()
+        {
+            _blockTask.Dispose();
+        }
     }
 }
