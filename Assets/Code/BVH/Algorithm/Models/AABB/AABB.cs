@@ -42,6 +42,11 @@ namespace Code.Data
             return 3 * 4 + 
                    3 * 4; 
         }
+        
+        public static AABB CreateMaxBox()
+        {
+            return new AABB(float.MinValue * Vector3.one, float.MaxValue * Vector3.one);
+        }
 
         public override string ToString()
         {
