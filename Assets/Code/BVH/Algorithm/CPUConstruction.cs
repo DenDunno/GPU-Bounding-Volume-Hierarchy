@@ -22,17 +22,18 @@ namespace Code.Components.MortonCodeAssignment
 
         public void Execute(int leavesCount)
         {
-            int blockSize = 8;
+            int blockSize = leavesCount;
+            int radiusShift = 2;
             int groups = Mathf.CeilToInt((float)leavesCount / blockSize);
             NativeArray<BVHNode> nodes = new(_nodesBuffer.FetchData<BVHNode>(_nodesBuffer.count), Allocator.TempJob);
 
             if (_isStupidSearch)
             {
-                Execute(blockSize, groups, new PlocPlusStupidSearch(nodes, leavesCount));
+                Execute(blockSize, groups, new PlocPlusStupidSearch(nodes, leavesCount, radiusShift));
             }
             else
             {
-                PlocPlusPlusSmartSearchData data = new(nodes, leavesCount, blockSize, radiusShift: 1);
+                PlocPlusPlusSmartSearchData data = new(nodes, leavesCount, blockSize, radiusShift);
                 Execute(blockSize, groups, new NeighboursInitialization(data));
                 Execute(blockSize, groups, new PlocPlocSmartSearch(data));
                 

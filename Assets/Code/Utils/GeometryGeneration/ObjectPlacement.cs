@@ -32,7 +32,7 @@ public class ObjectPlacement : MonoBehaviour
         {
             GameObject instance = Instantiate(prefab, transform, true);
             instance.transform.position = pointGeneration.Evaluate();
-            instance.name = $"Index = {i + 1}";
+            instance.name = $"Index = {i}";
             instance.SetActive(true);
             objects.Add(instance);
         }

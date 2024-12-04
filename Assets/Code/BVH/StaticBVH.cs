@@ -34,6 +34,7 @@ namespace Code.Components.MortonCodeAssignment
             _facade.Rebuild();
             _facade.Components.Buffers.Nodes.Print<BVHNode>(
                 _enableNaming ? $"{_facade.Components.Algorithm.Name}\n" : string.Empty, x => $"{x}\n");
+            _visualization = new VisualizationFactory(Data, _facade.Components.GPUBridge).Create();
         }
 
         public void Rebuild() => _facade.Rebuild();

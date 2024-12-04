@@ -9,11 +9,11 @@ namespace Code.Utils.GPUShaderEmulator
         private readonly int _leavesCount;
         private readonly int _radius;
         
-        public PlocPlusStupidSearch(NativeArray<BVHNode> nodes, int leavesCount)
+        public PlocPlusStupidSearch(NativeArray<BVHNode> nodes, int leavesCount, int radiusShift)
         {
             _leavesCount = leavesCount;
+            _radius = 1 << radiusShift;
             _nodes = nodes;
-            _radius = 16;
         }
 
         private bool IsInBounds(int id)
