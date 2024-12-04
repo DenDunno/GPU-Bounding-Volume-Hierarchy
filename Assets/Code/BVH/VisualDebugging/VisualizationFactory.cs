@@ -20,7 +20,8 @@ namespace Code.Components.MortonCodeAssignment
         {
             BVHNode[] tree = _gpuBridge.FetchTree();
             int leavesCount = (tree.Length + 1) / 2;
-            return new NearestNeighbourVisualization(tree, leavesCount);
+            return new DrawableIfTrue(new NearestNeighbourVisualization(tree, leavesCount),
+                _data.Visualization.ShowNearestNeighbours);
             //return _data.Nodes.Length == 0 ? DummyDrawable.Instance : CreateVisualization();
         }
 

@@ -23,7 +23,7 @@ namespace Code.Components.MortonCodeAssignment
         public void Execute(int leavesCount)
         {
             int blockSize = leavesCount;
-            int radiusShift = 2;
+            int radiusShift = 4;
             int groups = Mathf.CeilToInt((float)leavesCount / blockSize);
             NativeArray<BVHNode> nodes = new(_nodesBuffer.FetchData<BVHNode>(_nodesBuffer.count), Allocator.TempJob);
 

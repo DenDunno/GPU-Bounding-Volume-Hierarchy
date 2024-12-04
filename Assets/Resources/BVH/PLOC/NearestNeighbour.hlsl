@@ -8,7 +8,7 @@
 #define RADIUS_SHIFT 4
 #define RADIUS (1 << RADIUS_SHIFT)
 #define PLOC_RANGE_SIZE (THREADS + 4 * RADIUS)
-#define ENCODE_MASK ~(1 << (RADIUS_SHIFT + 1) - 1)
+#define ENCODE_MASK ~((1u << (RADIUS_SHIFT + 1)) - 1)
 groupshared uint Neighbours[PLOC_RANGE_SIZE];
 groupshared AABB NeighboursBoxes[PLOC_RANGE_SIZE];
 

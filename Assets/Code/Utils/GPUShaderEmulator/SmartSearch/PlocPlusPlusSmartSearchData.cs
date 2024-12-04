@@ -17,7 +17,7 @@ namespace Code.Utils.GPUShaderEmulator
         public NativeArray<AABB> NeighboursBoxes;
 
         public readonly int LeavesCount;
-        public readonly int EncodeMask;
+        public readonly uint EncodeMask;
         public readonly int BlockSize;
         public readonly int RadiusShift;
         public readonly int PLOCRange;
@@ -30,8 +30,8 @@ namespace Code.Utils.GPUShaderEmulator
             LeavesCount = leavesCount;
             Radius = 1 << radiusShift;
             RadiusShift = radiusShift;
-            EncodeMask = ~(1 << Radius - 1);
             PLOCRange = blockSize + 4 * Radius;
+            EncodeMask = ~((1u << (radiusShift + 1)) - 1);
             Neighbours = new NativeArray<uint>(PLOCRange, Allocator.TempJob);
             NeighboursBoxes = new NativeArray<AABB>(PLOCRange, Allocator.TempJob);
         }

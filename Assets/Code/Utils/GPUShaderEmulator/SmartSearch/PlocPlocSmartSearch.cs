@@ -53,12 +53,12 @@ namespace Code.Utils.GPUShaderEmulator
             _data.Neighbours.InterlockedMin(id, minDistanceIndex);
         }
 
-        uint GetDistanceToNeighbourUpperBits(int neighbourId, AABB box, int encodeMask)
+        uint GetDistanceToNeighbourUpperBits(int neighbourId, AABB box, uint encodeMask)
         {
             float distance = box.Union(_data.NeighboursBoxes[neighbourId]).ComputeSurfaceArea();
             uint castedValue = (uint)BitConverter.SingleToInt32Bits(distance);
             uint positiveDistanceInteger = castedValue << 1;
-            return positiveDistanceInteger & (uint)encodeMask;
+            return positiveDistanceInteger & encodeMask;
         }
 
         void UpdateMinDistanceIndex(uint id, uint i, uint distanceUpperBits, ref uint minDistanceIndex)
