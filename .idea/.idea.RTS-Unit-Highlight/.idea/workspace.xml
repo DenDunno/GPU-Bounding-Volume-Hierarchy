@@ -5,21 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PrecompiledJobs.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/NeighboursInitialization.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/NeighboursInitialization.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlusPlusSmartSearchData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlusPlusSmartSearchData.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/AABB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/AABB.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/InterlockedExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/InterlockedExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/PlocPlocSmartSearch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlocSmartSearch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/PlocPlocSmartSearch.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlocSmartSearch.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/NeighboursInitialization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/NeighboursInitialization.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlocSmartSearch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlocSmartSearch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Utilities/BitManipulation.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/BitManipulation.hlsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +24,49 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
@@ -279,7 +313,7 @@
       <workItem from="1731969537753" duration="10732000" />
       <workItem from="1732234148699" duration="6090000" />
       <workItem from="1733182623529" duration="9102000" />
-      <workItem from="1733264956822" duration="7770000" />
+      <workItem from="1733264956822" duration="12553000" />
     </task>
     <servers />
   </component>
@@ -354,6 +388,34 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint type="DotNet Breakpoints">
+          <condition expression="(i + rangeId - 2 * _data.Radius) == 6" language="C#" />
+          <url>file://$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlocSmartSearch.cs</url>
+          <line>84</line>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\Utils\GPUShaderEmulator\SmartSearch\PlocPlocSmartSearch.cs" containingFunctionPresentation="Method 'Execute'">
+            <startOffsets>
+              <option value="3196" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3289" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint type="DotNet Breakpoints">
+          <condition expression="threadId.Local + 2 * _data.Radius == 6" language="C#" />
+          <url>file://$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlocSmartSearch.cs</url>
+          <line>89</line>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\Utils\GPUShaderEmulator\SmartSearch\PlocPlocSmartSearch.cs" containingFunctionPresentation="Method 'Execute'">
+            <startOffsets>
+              <option value="3525" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3585" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

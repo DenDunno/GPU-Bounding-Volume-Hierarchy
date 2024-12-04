@@ -18,7 +18,7 @@ uint SetLower31Bits(const uint value, const uint lowerBits)
 
 uint ExtractLowestBit(uint input)
 {
-    return input & (~input + 1u);
+    return input & (~input - 1u);
 }
 
 uint ExtractTopBit(const uint value)

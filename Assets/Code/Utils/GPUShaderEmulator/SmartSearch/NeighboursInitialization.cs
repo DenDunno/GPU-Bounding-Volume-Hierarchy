@@ -18,7 +18,7 @@ namespace Code.Utils.GPUShaderEmulator
             for (int rangeId = threadId.Local; rangeId < _data.PLOCRange; rangeId += _data.BlockSize)
             {
                 int globalId = rangeId - 2 * _data.Radius + blockOffset;
-                _data.Neighbours[rangeId] = int.MaxValue;
+                _data.Neighbours[rangeId] = uint.MaxValue;
 
                 if (_data.IsInBounds(globalId))
                 {

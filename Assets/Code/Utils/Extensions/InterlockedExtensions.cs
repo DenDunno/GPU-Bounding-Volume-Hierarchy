@@ -11,7 +11,7 @@ namespace Code.Utils.Extensions
         {
             InterlockedMin(array, (int)index, value);
         }
-        
+
         public static unsafe void InterlockedMin(this NativeArray<uint> array, int index, uint value)
         {
             // Get a pointer to the underlying array data
@@ -19,43 +19,27 @@ namespace Code.Utils.Extensions
             // Get a pointer to the specific element
             uint* elementPtr = ptr + index;
 
-            uint currentValue;
+            uint currentValue, newValue;
 
-            while (true)
+            do
             {
                 // Read the current value atomically
                 currentValue = Volatile.Read(ref *elementPtr);
 
-                // If the current value is already less than or equal to the new value, no update is needed
-                if (currentValue <= value)
+                // Determine the new value as the minimum
+                newValue = Math.Min(currentValue, value);
+
+                // If the current value is already the minimum, no update is needed
+                if (currentValue == newValue)
                 {
                     break;
                 }
 
                 // Attempt to replace the current value with the new minimum value atomically
-                uint previousValue = InterlockedCompareExchange(ref *elementPtr, value, currentValue);
-
-                // If the exchange was successful, exit the loop
-                if (previousValue == currentValue)
-                {
-                    break;
-                }
-
-                // Another thread updated the value; retry with the new current value
-                // The loop will continue until the exchange is successful or no update is needed
-            }
-        }
-
-        private static unsafe uint InterlockedCompareExchange(ref uint location, uint value, uint comparand)
-        {
-            // Use UnsafeUtility to reinterpret the uints as ints for the Interlocked.CompareExchange method
-            int result = Interlocked.CompareExchange(
-                ref UnsafeUtility.As<uint, int>(ref location),
-                UnsafeUtility.As<uint, int>(ref value),
-                UnsafeUtility.As<uint, int>(ref comparand));
-
-            // Reinterpret the result back to uint
-            return UnsafeUtility.As<int, uint>(ref result);
+            } while (Interlocked.CompareExchange(
+                         ref *(int*)elementPtr,
+                         *(int*)&newValue,
+                         *(int*)&currentValue) != *(int*)&currentValue);
         }
     }
 }

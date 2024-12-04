@@ -22,7 +22,7 @@ namespace Code.Utils.GPUShaderEmulator
 
         uint ExtractLowestBit(uint input)
         {
-            return input & (~input + 1);
+            return input & (~input - 1);
         }
         
         int DecodeOffsetFromLowerBits(uint encodedValue)
@@ -36,9 +36,10 @@ namespace Code.Utils.GPUShaderEmulator
         uint EncodeOffsetIntoLowerBits(uint id, uint neighbor)
         {
             int signedOffset = (int)(neighbor - id);
-            uint signLastLowerBit = (uint)(signedOffset >> 31);
+            uint signLastLowerBit = (uint)((signedOffset >> 31) + 1);
             uint valueUpperBits = (uint)((Math.Abs(signedOffset) - 1) << 1);
-            return valueUpperBits | signLastLowerBit;
+            uint result = valueUpperBits | signLastLowerBit;
+            return result;
         }
         
         void UpdateNeighbourFromTheLeft(uint selfId, uint i, uint distanceUpperBits)
@@ -68,7 +69,7 @@ namespace Code.Utils.GPUShaderEmulator
         
         public int FindNearestNeighbour(int threadId, int blockOffset)
         {
-            return DecodeOffsetFromLowerBits(_data.Neighbours[threadId]) + threadId + blockOffset;
+            return DecodeOffsetFromLowerBits(_data.Neighbours[threadId + 2 * _data.Radius]) + threadId + blockOffset;
         }
 
         public void Execute(int threadsPerBlock, ThreadId threadId)
@@ -82,11 +83,11 @@ namespace Code.Utils.GPUShaderEmulator
                 for (int i = 1; i <= _data.Radius; i++)
                 {
                     uint distanceUpperBits = GetDistanceToNeighbourUpperBits(rangeId + i, box, _data.EncodeMask);
-                    UpdateMinDistanceIndex(distanceUpperBits, (uint)rangeId, (uint)i, ref minDistanceIndex);
+                    UpdateMinDistanceIndex((uint)rangeId, (uint)i, distanceUpperBits, ref minDistanceIndex);
                     UpdateNeighbourFromTheLeft((uint)rangeId, (uint)i, distanceUpperBits);
                 }
 
-                UpdateSelfBasedOnRightNeighbours(threadId.Local, minDistanceIndex);
+                UpdateSelfBasedOnRightNeighbours(rangeId, minDistanceIndex);
             }
         }
     }

@@ -93,11 +93,11 @@ void RunSearch(uint threadId)
         for (uint i = 1; i <= RADIUS; i++)
         {
             uint distanceUpperBits = GetDistanceToNeighbourUpperBits(rangeId, box, encodeMask);
-            UpdateMinDistanceIndex(distanceUpperBits, rangeId, i, minDistanceIndex);
+            UpdateMinDistanceIndex(rangeId, i, distanceUpperBits, minDistanceIndex);
             UpdateNeighbourFromTheLeft(rangeId, i, distanceUpperBits);
         }
 
-        UpdateSelfBasedOnRightNeighbours(threadId, minDistanceIndex);
+        UpdateSelfBasedOnRightNeighbours(rangeId, minDistanceIndex);
     }
 
     GroupMemoryBarrierWithGroupSync();
