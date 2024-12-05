@@ -1,6 +1,6 @@
 #pragma kernel RunPlocPlusPlus
 #pragma enable_d3d11_debug_symbols
-#define THREADS 4
+#define THREADS 1024
 #include "NearestNeighbour.hlsl"
 
 void Merge()
