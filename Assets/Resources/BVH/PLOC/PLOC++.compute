@@ -12,7 +12,7 @@ void Compress()
 }
 
 [numthreads(THREADS,1,1)]
-void RunPlocPlusPlus(const int globalId : SV_DispatchThreadID, const int threadId : SV_GroupThreadID, const int groupId : SV_GroupID)
+void RunPlocPlusPlus(const int globalId : SV_DispatchThreadID, const uint threadId : SV_GroupThreadID, const uint groupId : SV_GroupID)
 {
     Nodes[globalId].__Data.x = FindNearestNeighbour(threadId, groupId * THREADS);
 }
