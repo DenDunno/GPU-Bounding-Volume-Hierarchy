@@ -7,23 +7,28 @@ namespace Code.Utils.GPUShaderEmulator
     {
         private readonly TBlockTask _task;
         private readonly int _blockSize;
-        private readonly int _blocks;
+        private readonly int _groups;
 
-        public GPUShaderEmulator(int blockSize, int blocks, TBlockTask task)
+        public GPUShaderEmulator(int blockSize, int groups, TBlockTask task)
         {
             _blockSize = blockSize;
-            _blocks = blocks;
+            _groups = groups;
             _task = task;
+        }
+
+        public void Execute(int groupId)
+        {
+            ThreadBlockBatch<TBlockTask> batch = new(_blockSize, groupId, _task);
+            batch.Schedule(_blockSize, 32).Complete();
         }
 
         public void Execute()
         {
-            int[] groups = EnumerableExtensions.GetRandomOrderedArray(_blocks);
+            int[] groups = EnumerableExtensions.GetRandomOrderedArray(_groups);
 
             foreach (int groupId in groups)
             {
-                ThreadBlockBatch<TBlockTask> batch = new(_blockSize, groupId, _task);
-                batch.Schedule(_blockSize, 32).Complete();
+                Execute(groupId);
             }
         }
     }

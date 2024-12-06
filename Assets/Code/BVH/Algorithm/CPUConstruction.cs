@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Code.Utils.Extensions;
 using Code.Utils.GPUShaderEmulator;
 using Unity.Collections;
@@ -22,7 +24,7 @@ namespace Code.Components.MortonCodeAssignment
 
         public void Execute(int leavesCount)
         {
-            int blockSize = leavesCount;
+            int blockSize = 1024;
             int radiusShift = 4;
             int groups = Mathf.CeilToInt((float)leavesCount / blockSize);
             NativeArray<BVHNode> nodes = new(_nodesBuffer.FetchData<BVHNode>(_nodesBuffer.count), Allocator.TempJob);
@@ -34,15 +36,25 @@ namespace Code.Components.MortonCodeAssignment
             else
             {
                 PlocPlusPlusSmartSearchData data = new(nodes, leavesCount, blockSize, radiusShift);
-                Execute(blockSize, groups, new NeighboursInitialization(data));
-                Execute(blockSize, groups, new PlocPlocSmartSearch(data));
+                GPUShaderEmulator<NeighboursInitialization> initialization = new(blockSize, groups, new NeighboursInitialization(data));
+                GPUShaderEmulator<PlocPlocSmartSearch> search = new(blockSize, groups, new PlocPlocSmartSearch(data));
                 
-                for (int i = 0; i < leavesCount; ++i)
+                int[] groupsArray = EnumerableExtensions.GetRandomOrderedArray(groups);
+
+                foreach (int groupId in groupsArray)
                 {
-                    BVHNode bvhNode = nodes[i];
-                    bvhNode.X = (uint)new PlocPlocSmartSearch(data).FindNearestNeighbour(i, 0);
-                    nodes[i] = bvhNode;
+                    initialization.Execute(groupId);
+                    search.Execute(groupId);
+                    
+                    for (int threadId = 0; threadId < blockSize; ++threadId)
+                    {
+                        int globalId = groupId * blockSize + threadId;
+                        BVHNode bvhNode = nodes[globalId];
+                        bvhNode.X = (uint)new PlocPlocSmartSearch(data).FindNearestNeighbour(threadId, groupId * blockSize);
+                        nodes[globalId] = bvhNode;
+                    }
                 }
+                
                 data.Dispose();
             }
 

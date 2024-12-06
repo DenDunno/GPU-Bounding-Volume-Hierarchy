@@ -14,7 +14,8 @@ namespace DefaultNamespace.Code.GeometryGeneration
 
         public Vector3 Evaluate()
         {
-            return _data.Distance * _data.Direction * _index++;
+            return _data.Distance * _data.Direction * _index++ + 
+                   _data.Direction * Random.value * _data.RandomMaxOffset;
         }
     }
 }

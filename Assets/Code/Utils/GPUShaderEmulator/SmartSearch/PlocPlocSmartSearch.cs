@@ -74,10 +74,9 @@ namespace Code.Utils.GPUShaderEmulator
 
         public void Execute(int threadsPerBlock, ThreadId threadId)
         {
-            uint minDistanceIndex = uint.MaxValue;
-
             for (int rangeId = threadId.Local; rangeId < _data.BlockSize + 3 * _data.Radius; rangeId += _data.BlockSize)
             {
+                uint minDistanceIndex = uint.MaxValue;
                 AABB box = _data.NeighboursBoxes[rangeId];
                 
                 for (int i = 1; i <= _data.Radius; i++)

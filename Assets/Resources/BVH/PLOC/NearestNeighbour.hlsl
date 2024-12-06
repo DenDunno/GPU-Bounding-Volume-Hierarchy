@@ -80,17 +80,16 @@ void UpdateSelfBasedOnRightNeighbours(uint id, uint minDistanceIndex)
 uint GetDistanceToNeighbourUpperBits(uint neighbourId, AABB box)
 {
     float distance = box.Union(NeighboursBoxes[neighbourId]).ComputeSurfaceArea();
-    uint castedValue = asuint(distance);
-    uint positiveDistanceInteger = castedValue << 1;
+    uint distanceInteger = asuint(distance);
+    uint positiveDistanceInteger = distanceInteger << 1;
     return positiveDistanceInteger & ENCODE_MASK;
 }
 
 void RunSearch(uint threadId)
 {
-    uint minEncodedDistance = UINT_MAX_VALUE;
-
     for (uint rangeId = threadId; rangeId < THREADS + 3 * RADIUS; rangeId += THREADS)
     {
+        uint minEncodedDistance = UINT_MAX_VALUE;
         AABB box = NeighboursBoxes[rangeId];
 
         [unroll(RADIUS)]
