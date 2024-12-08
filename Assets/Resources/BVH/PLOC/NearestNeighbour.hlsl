@@ -110,5 +110,5 @@ uint FindNearestNeighbour(uint threadId, uint blockOffset)
 {
     InitializeNeighbours(threadId, blockOffset);
     RunSearch(threadId);
-    return DecodeOffsetFromLowerBits(Neighbours[threadId + 2 * RADIUS]) + threadId + blockOffset;
+    return DecodeOffsetFromLowerBits(Neighbours[threadId + 2 * RADIUS]) + threadId;
 }
