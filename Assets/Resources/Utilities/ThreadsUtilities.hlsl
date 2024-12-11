@@ -1,5 +1,10 @@
 RWStructuredBuffer<uint> BlockCounter;
 
+uint GetLastValidIndexInGroup(uint totalElements, uint groupSize, uint groupId)
+{
+    return min(groupSize, totalElements - groupId * groupSize);
+}
+
 void __WaitForPreviousThreadGroups(uint groupId)
 {
     uint blockCounter = 0;

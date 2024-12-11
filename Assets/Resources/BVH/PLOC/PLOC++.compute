@@ -2,19 +2,12 @@
 #pragma enable_d3d11_debug_symbols
 #define THREADS 4
 #include "MergingPhase.hlsl"
-
-void Compress()
-{
-}
+#include "CompressPhase.hlsl"
 
 [numthreads(THREADS,1,1)]
 void RunPlocPlusPlus(const uint globalId : SV_DispatchThreadID, const uint threadId : SV_GroupThreadID,const uint groupId : SV_GroupID)
 {
     uint nearestNeighbourRangeId = FindNearestNeighbour(threadId, groupId * THREADS);
-    uint b = TryMerge(nearestNeighbourRangeId, threadId, groupId, groupId * THREADS);
-
-    if (globalId < LeavesCount)
-    {
-        Nodes[globalId].__Data.x = b;
-    }
+    uint isInvalidNode = Merge(nearestNeighbourRangeId, threadId, groupId * THREADS);
+    Compress(isInvalidNode, threadId, groupId);
 }

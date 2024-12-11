@@ -5,14 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/ThreadsUtilities.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/ThreadsUtilities.hlsl.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/CompressPhase.hlsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/CompressPhase.hlsl.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/MergingPhase.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/MergingPhase.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Utilities/ThreadsUtilities.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/ThreadsUtilities.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,7 +278,7 @@
       <workItem from="1733376745671" duration="14701000" />
       <workItem from="1733623138653" duration="2693000" />
       <workItem from="1733788453250" duration="1210000" />
-      <workItem from="1733876892691" duration="12092000" />
+      <workItem from="1733876892691" duration="16547000" />
     </task>
     <servers />
   </component>
