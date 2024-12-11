@@ -1,6 +1,6 @@
 #pragma kernel RunPlocPlusPlus
 #pragma enable_d3d11_debug_symbols
-#define THREADS 1024
+#define THREADS 4
 #include "MergingPhase.hlsl"
 
 void Compress()
@@ -8,10 +8,13 @@ void Compress()
 }
 
 [numthreads(THREADS,1,1)]
-void RunPlocPlusPlus(const int globalId : SV_DispatchThreadID, const uint threadId : SV_GroupThreadID,const uint groupId : SV_GroupID)
+void RunPlocPlusPlus(const uint globalId : SV_DispatchThreadID, const uint threadId : SV_GroupThreadID,const uint groupId : SV_GroupID)
 {
     uint nearestNeighbourRangeId = FindNearestNeighbour(threadId, groupId * THREADS);
-    TryMerge(nearestNeighbourRangeId, threadId, groupId * THREADS);
+    uint b = TryMerge(nearestNeighbourRangeId, threadId, groupId, groupId * THREADS);
 
-    Nodes[globalId].__Data.x = nearestNeighbourRangeId;
+    if (globalId < LeavesCount)
+    {
+        Nodes[globalId].__Data.x = b;
+    }
 }

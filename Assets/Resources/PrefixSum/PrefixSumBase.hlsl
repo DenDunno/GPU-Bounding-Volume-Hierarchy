@@ -24,6 +24,11 @@ PREFIX_SUM_TYPE GetPrefixSum(int threadId)
     return Scan[threadId];
 }
 
+PREFIX_SUM_TYPE GetTotalSum()
+{
+    return GetPrefixSum(THREAD_LAST_INDEX);
+}
+
 PREFIX_SUM_TYPE ComputeExclusiveScan(const PREFIX_SUM_TYPE inputValue, int threadId)
 {
     const PREFIX_SUM_TYPE inclusivePrefixSum = ComputeInclusiveScan(inputValue, threadId);

@@ -106,9 +106,14 @@ void RunSearch(uint threadId)
     GroupMemoryBarrierWithGroupSync();
 }
 
+uint GetNeighbour(uint threadId)
+{
+    return DecodeOffsetFromLowerBits(Neighbours[threadId + 2 * RADIUS]) + threadId;
+}
+
 uint FindNearestNeighbour(uint threadId, uint blockOffset)
 {
     InitializeNeighbours(threadId, blockOffset);
     RunSearch(threadId);
-    return DecodeOffsetFromLowerBits(Neighbours[threadId + 2 * RADIUS]) + threadId;
+    return GetNeighbour(threadId);
 }

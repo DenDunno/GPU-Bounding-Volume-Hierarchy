@@ -48,10 +48,13 @@ namespace Code.Components.MortonCodeAssignment
                     
                     for (int threadId = 0; threadId < blockSize; ++threadId)
                     {
-                        int globalId = groupId * blockSize + threadId;
-                        BVHNode bvhNode = nodes[globalId];
-                        bvhNode.X = (uint)new PlocPlocSmartSearch(data).FindNearestNeighbour(threadId, groupId * blockSize);
-                        nodes[globalId] = bvhNode;
+                        if (threadId < leavesCount)
+                        {
+                            int globalId = groupId * blockSize + threadId;
+                            BVHNode bvhNode = nodes[globalId];
+                            bvhNode.X = (uint)new PlocPlocSmartSearch(data).FindNearestNeighbour(threadId, groupId * blockSize);
+                            nodes[globalId] = bvhNode;   
+                        }
                     }
                 }
                 

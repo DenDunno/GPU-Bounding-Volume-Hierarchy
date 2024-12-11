@@ -1,15 +1,13 @@
 #include "NearestNeighbour.hlsl"
+#define PREFIX_SUM_TYPE uint
+#include "..//..//PrefixSum/HillisAndSteelePrefixSum.hlsl"
 
-bool IsValidToMerge(uint nearestNeighbourRangeId, uint threadId)
+uint IsValidToMerge(uint nearestNeighbourRangeId, uint threadId)
 {
-    bool areNodesMutuallyClosest = Neighbours[nearestNeighbourRangeId] == threadId;
+    bool areNodesMutuallyClosest = GetNeighbour(nearestNeighbourRangeId) == threadId;
     bool isNodeFromTheLeft = threadId < nearestNeighbourRangeId;
 
     return areNodesMutuallyClosest && isNodeFromTheLeft;
-}
-
-void InvalidateRightNode(uint nodeGlobalIndex)
-{
 }
 
 void Merge(uint nearestNeighbourRangeId, uint threadId, uint blockOffset)
@@ -20,11 +18,28 @@ void Merge(uint nearestNeighbourRangeId, uint threadId, uint blockOffset)
     node.SetRightChild(nearestNeighbourRangeId + blockOffset);
 }
 
-void TryMerge(uint nearestNeighbourRangeId, uint threadId, uint blockOffset)
+uint GetLastValidIndexInGroup(uint totalElements, uint groupId)
 {
-    if (IsValidToMerge(nearestNeighbourRangeId, threadId))
+    return min(THREADS, totalElements - groupId * THREADS);
+}
+
+uint TryMerge(uint nearestNeighbourRangeId, uint threadId, uint groupId, uint blockOffset)
+{
+    bool areNodesMutuallyClosest = GetNeighbour(nearestNeighbourRangeId) == threadId;
+    bool isNodeFromTheLeft = threadId < nearestNeighbourRangeId;
+    uint isValidToMerge = areNodesMutuallyClosest && isNodeFromTheLeft;
+    uint isNodeFromTheRight = isNodeFromTheLeft == false;
+    uint isInvalidatedNode = areNodesMutuallyClosest && isNodeFromTheRight;
+    uint isInvalidatedNodeScan = ComputeInclusiveScan(isInvalidatedNode, threadId) - isInvalidatedNode;
+    uint totalNodesToMerge = GetTotalSum();
+    uint groupCompressIndex = isInvalidatedNode
+                            ? GetLastValidIndexInGroup(LeavesCount, groupId) - totalNodesToMerge + isInvalidatedNodeScan
+                            : threadId - isInvalidatedNodeScan;
+
+    if (isValidToMerge)
     {
         Merge(nearestNeighbourRangeId, threadId, blockOffset);
-        InvalidateRightNode(nearestNeighbourRangeId + blockOffset);
     }
+
+    return groupCompressIndex;
 }
