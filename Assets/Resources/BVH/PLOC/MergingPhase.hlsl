@@ -1,6 +1,9 @@
 #include "NearestNeighbour.hlsl"
 #define PREFIX_SUM_TYPE uint
 #include "..//..//PrefixSum/HillisAndSteelePrefixSum.hlsl"
+#include "..//..//Utilities/ThreadsUtilities.hlsl"
+RWStructuredBuffer<uint> BlockOffset;
+groupshared uint SumOfMergedNodesInPreviousGroups;
 
 uint IsValidToMerge(uint nearestNeighbourRangeId, uint threadId)
 {
@@ -35,11 +38,17 @@ uint TryMerge(uint nearestNeighbourRangeId, uint threadId, uint groupId, uint bl
     uint groupCompressIndex = isInvalidatedNode
                             ? GetLastValidIndexInGroup(LeavesCount, groupId) - totalNodesToMerge + isInvalidatedNodeScan
                             : threadId - isInvalidatedNodeScan;
-
+    
+    WAIT_FOR_PREVIOUS_GROUPS_SINGLE(threadId, THREAD_LAST_INDEX, groupId,
+        InterlockedAdd(BlockOffset[0], totalNodesToMerge, SumOfMergedNodesInPreviousGroups);
+    )
+    
+    uint globalCompressIndex = SumOfMergedNodesInPreviousGroups + groupCompressIndex;
+    
     if (isValidToMerge)
     {
         Merge(nearestNeighbourRangeId, threadId, blockOffset);
     }
 
-    return groupCompressIndex;
+    return globalCompressIndex;
 }

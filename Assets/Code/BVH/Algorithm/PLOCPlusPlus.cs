@@ -16,6 +16,8 @@ namespace Code.Components.MortonCodeAssignment
         protected override void Setup(Kernel kernel, IShaderBridge<string> shaderBridge)
         {
             shaderBridge.SetBuffer(kernel.ID, "SortedMortonCodes", _buffers.MortonCodes);
+            shaderBridge.SetBuffer(kernel.ID, "BlockCounter", _buffers.BlockCounter);
+            shaderBridge.SetBuffer(kernel.ID, "BlockOffset", _buffers.BlockOffset);
             shaderBridge.SetBuffer(kernel.ID, "ParentIds", _buffers.ParentIds);
             shaderBridge.SetBuffer(kernel.ID, "RootIndex", _buffers.Root);
             shaderBridge.SetBuffer(kernel.ID, "Nodes", _buffers.Nodes);
