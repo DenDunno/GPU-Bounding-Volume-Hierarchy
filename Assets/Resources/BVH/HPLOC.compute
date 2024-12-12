@@ -13,22 +13,13 @@ void Merge(const int parentId)
     Nodes[parentId] = node;
 }
 
-int ComputeNodeIndex(uint threadId, inout bool isLeaf)
-{
-    uint nodeIndex = isLeaf ? ComputeLeafIndex(threadId) : threadId;
-    isLeaf = false;
-    return nodeIndex;
-}
-
 ConstructionResult RunHPLOC(uint id)
 {
     bool isThreadActive = IsInBounds(id);
     Range range = Range::Create(id);
-    bool isLeaf = true;
 
     while (isThreadActive && IsNotRoot(range.Size()))
     {
-        id = ComputeNodeIndex(id, isLeaf);
         ParentInfo parentInfo = ChooseParent(id, range);
         isThreadActive = parentInfo.HaveBothChildrenBeenProcessed();
 

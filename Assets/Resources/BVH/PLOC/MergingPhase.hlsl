@@ -1,23 +1,44 @@
 #include "NearestNeighbour.hlsl"
+#include "CompressPhase.hlsl"
 
-void MergeInternal(uint nearestNeighbourRangeId, uint threadId, uint blockOffset)
+RWStructuredBuffer<uint> TreeSize;
+
+void MergeInternal(uint nearestNeighbour, uint threadId, uint blockOffset)
 {
-    BVHNode node;
-    node.Box = NeighboursBoxes[nearestNeighbourRangeId].Union(NeighboursBoxes[threadId]);
-    node.SetLeftChild(threadId + blockOffset);
-    node.SetRightChild(nearestNeighbourRangeId + blockOffset);
+    Nodes[threadId + blockOffset] = BVHNode::Create(
+        threadId + blockOffset,
+        nearestNeighbour + blockOffset,
+        NeighboursBoxes[threadId + PLOC_OFFSET].Union(NeighboursBoxes[nearestNeighbour + PLOC_OFFSET]));
 }
 
-uint Merge(uint nearestNeighbourRangeId, uint threadId, uint blockOffset)
+void Merge(uint nearestNeighbour, uint threadId, uint groupId, uint blockOffset)
 {
-    bool areNodesMutuallyClosest = GetNeighbour(nearestNeighbourRangeId) == threadId;
-    bool isNodeFromTheLeft = threadId < nearestNeighbourRangeId;
-    uint mergeConditionIsMet = areNodesMutuallyClosest && isNodeFromTheLeft;
+    uint areNodesMutuallyClosest = GetNeighbour(nearestNeighbour) == threadId;
+    uint isNodeFromTheLeft = threadId < nearestNeighbour;
+    uint mergeConditionIsMet = areNodesMutuallyClosest * isNodeFromTheLeft;
+    uint isInvalidNode = areNodesMutuallyClosest * (1 - isNodeFromTheLeft);
+
+    uint invalidNodeScan = ComputeInclusiveScan(isInvalidNode, threadId) - isInvalidNode;
+    uint mergedNodesInGroup = GetTotalSum();
+
+    BVHNode leftNode = Nodes[threadId + blockOffset];
+    BVHNode rightNode = Nodes[nearestNeighbour + blockOffset];
     
+    WAIT_FOR_PREVIOUS_GROUPS_SINGLE(threadId, THREAD_LAST_INDEX, groupId,
+        InterlockedAdd(BlockOffset[0], mergedNodesInGroup, SumOfMergedNodesInPreviousGroups);
+    )
+    
+    uint childrenScan = ComputeExclusiveScan(areNodesMutuallyClosest, threadId);
     if (mergeConditionIsMet)
     {
-        MergeInternal(nearestNeighbourRangeId, threadId, blockOffset);
+        uint leftChildIndex = childrenScan + SumOfMergedNodesInPreviousGroups * 2 + TreeSize[0];
+        uint rightChildIndex = Scan[nearestNeighbour] + SumOfMergedNodesInPreviousGroups * 2 + TreeSize[0];;
+        AABB mergedBox = NeighboursBoxes[threadId + PLOC_OFFSET].Union(NeighboursBoxes[nearestNeighbour + PLOC_OFFSET]);
+        
+        Nodes[threadId + blockOffset] = BVHNode::Create(leftChildIndex, rightChildIndex, mergedBox);
+        Tree[leftChildIndex] = leftNode;
+        Tree[rightChildIndex] = rightNode;
     }
 
-    return areNodesMutuallyClosest && isNodeFromTheLeft == false;
+    CompressValidNodes(isInvalidNode, threadId, blockOffset, invalidNodeScan);
 }

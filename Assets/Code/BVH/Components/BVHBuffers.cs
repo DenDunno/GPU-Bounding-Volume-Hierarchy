@@ -8,22 +8,26 @@ namespace Code.Components.MortonCodeAssignment
     public class BVHBuffers : IDisposable
     {
         public readonly ComputeBuffer BlockCounter;
+        public readonly ComputeBuffer TreeSize;
         public readonly ComputeBuffer BlockOffset;
         public readonly ComputeBuffer MortonCodes;
         public readonly ComputeBuffer ParentIds;
         public readonly ComputeBuffer Boxes;
         public readonly ComputeBuffer Nodes;
+        public readonly ComputeBuffer Tree;
         public readonly ComputeBuffer Root;
         public readonly int Size;
 
         public BVHBuffers(int size)
         {
-            Nodes = new ComputeBuffer(size + (size - 1) + 1, BVHNode.GetSize()); // leaves + innerNodes + root 
+            Tree = new ComputeBuffer(size + (size - 1) + 1, BVHNode.GetSize()); // leaves + innerNodes + root 
             MortonCodes = new ComputeBuffer(size, MortonCode.GetSize());
+            Nodes = new ComputeBuffer(size, BVHNode.GetSize()); 
             ParentIds = new ComputeBuffer(size, sizeof(uint));
             BlockCounter = new ComputeBuffer(1, sizeof(uint));
             BlockOffset = new ComputeBuffer(1, sizeof(uint));
             Boxes = new ComputeBuffer(size, AABB.GetSize());
+            TreeSize = new ComputeBuffer(1, sizeof(uint));
             Root = new ComputeBuffer(1, sizeof(uint));
             Size = size;
         }
@@ -34,8 +38,10 @@ namespace Code.Components.MortonCodeAssignment
             BlockOffset.Dispose();
             MortonCodes.Dispose();
             ParentIds.Dispose();
+            TreeSize.Dispose();
             Boxes.Dispose();
             Nodes.Dispose();
+            Tree.Dispose();
             Root.Dispose();
         }
     }

@@ -6,6 +6,7 @@
 #define UINT_MAX_VALUE -1
 #define RADIUS_SHIFT 4
 static const uint RADIUS = 1 << RADIUS_SHIFT;
+static const uint PLOC_OFFSET = 2 * RADIUS;
 static const uint PLOC_RANGE_SIZE = THREADS + 4 * RADIUS;
 static const uint ENCODE_MASK = ~((1u << RADIUS_SHIFT + 1) - 1);
 groupshared uint Neighbours[PLOC_RANGE_SIZE];
@@ -39,12 +40,12 @@ void InitializeNeighbours(uint threadId, uint blockOffset)
 {
     for (uint rangeId = threadId; rangeId < PLOC_RANGE_SIZE; rangeId += THREADS)
     {
-        int globalId = rangeId - 2 * RADIUS + blockOffset;
+        int globalId = rangeId - PLOC_OFFSET + blockOffset;
         Neighbours[rangeId] = UINT_MAX_VALUE;
 
         if (IsInBounds(globalId))
         {
-            NeighboursBoxes[rangeId] = Nodes[ComputeLeafIndex(globalId)].Box;
+            NeighboursBoxes[rangeId] = Nodes[globalId].Box;
         }
         else
         {
@@ -108,7 +109,7 @@ void RunSearch(uint threadId)
 
 uint GetNeighbour(uint threadId)
 {
-    return DecodeOffsetFromLowerBits(Neighbours[threadId + 2 * RADIUS]) + threadId;
+    return DecodeOffsetFromLowerBits(Neighbours[threadId + PLOC_OFFSET]) + threadId;
 }
 
 uint FindNearestNeighbour(uint threadId, uint blockOffset)

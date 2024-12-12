@@ -26,6 +26,7 @@ namespace Code.Components.MortonCodeAssignment
             shaderBridge.SetBuffer(kernel.ID, "BoundingBoxes", _buffers.Boxes);
             shaderBridge.SetBuffer(kernel.ID, "ParentIds", _buffers.ParentIds);
             shaderBridge.SetBuffer(kernel.ID, "Nodes", _buffers.Nodes);
+            shaderBridge.SetBuffer(kernel.ID, "Tree", _buffers.Tree);
         }
 
         protected override void OnPreDispatch(IShaderBridge<string> shaderBridge, Vector3Int payload)

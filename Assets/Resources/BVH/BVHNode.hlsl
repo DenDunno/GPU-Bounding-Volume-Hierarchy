@@ -11,13 +11,18 @@ struct BVHNode
     AABB Box;
     uint2 __Data;
 
-    static BVHNode Create(const AABB box)
+    static BVHNode Create(const uint leftChild, const uint rightChild, const AABB box)
     {
         BVHNode node;
         node.Box = box;
-        node.__Data = uint2(-100, -100);
+        node.__Data = uint2(leftChild, rightChild);
 
         return node;
+    }
+
+    static BVHNode Create(const AABB box)
+    {
+        return Create(-100, -100, box);
     }
 
     bool IsLeaf() { return ExtractTopBit(__Data.x); }

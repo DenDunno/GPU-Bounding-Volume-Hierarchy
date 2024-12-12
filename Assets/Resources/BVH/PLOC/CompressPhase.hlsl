@@ -13,13 +13,13 @@ void WaitForSumOfMergedNodesInPreviousGroups(uint threadId, uint groupId)
     )
 }
 
-void CompressValidNodes(uint isInvalidatedNode, uint threadId, uint blockOffset, uint isInvalidatedNodeScan)
+void CompressValidNodes(uint isInvalidNode, uint threadId, uint blockOffset, uint invalidNodeScan)
 {
-    bool isValidNode = isInvalidatedNode == 0u;
+    bool isValidNode = isInvalidNode == 0u;
     
     if (isValidNode)
     {
-        uint groupCompressIndex = threadId - isInvalidatedNodeScan;
+        uint groupCompressIndex = threadId - invalidNodeScan;
         uint globalCompressIndex = SumOfMergedNodesInPreviousGroups + groupCompressIndex;
         Nodes[globalCompressIndex] = Nodes[blockOffset + threadId];
     }
