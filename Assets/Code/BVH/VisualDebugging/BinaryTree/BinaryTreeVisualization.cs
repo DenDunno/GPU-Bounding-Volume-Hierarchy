@@ -48,8 +48,8 @@ namespace Code.Components.MortonCodeAssignment
 
         private void DrawNumber(TreeNode node, Vector2 childPosition)
         {
-            bool isLeaf = node.Id >= _nodesCount;
-            _materialBridge.SetInt("_Value", isLeaf ? (int)node.Id - _nodesCount : (int)node.Id);
+            bool isLeaf = node.Left == null || node.Right == null;
+            _materialBridge.SetInt("_Value", (int)node.Id);
             _materialBridge.SetColor("_Color", isLeaf ? _data.LeafColor : _data.InternalNodeColor);
 
             if (node.Id > _nodesCount + _nodesCount + 1)

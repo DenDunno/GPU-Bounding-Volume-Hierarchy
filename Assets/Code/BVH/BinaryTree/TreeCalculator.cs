@@ -15,32 +15,25 @@ namespace Code.Components.MortonCodeAssignment.TestTree
         public TreeNode Compute()
         {
             TreeNode root = new(_rootIndex);
-            Traverse(root, _nodes[_rootIndex].LeftChild(), true);
-            Traverse(root, _nodes[_rootIndex].RightChild(), false);
+            Traverse(root);
             return root;
         }
 
-        private bool IsInnerNode(uint nodeIndex)
+        private bool IsInnerNode(uint index)
         {
-            int leavesCount = (_nodes.Length + 1) / 2;
-            return nodeIndex < leavesCount - 1;
+            return (int)_nodes[index].LeftChild() >= 0 &&
+                   (int)_nodes[index].RightChild() >= 0;
         }
-        
-        private void Traverse(TreeNode parent, uint nodeIndex, bool isLeft)
-        {
-            TreeNode child = new(nodeIndex);
-            if (parent != null)
-            {
-                if (isLeft)
-                    parent.Left = child;
-                else
-                    parent.Right = child;
-            }
 
-            if (IsInnerNode(nodeIndex))
+        private void Traverse(TreeNode parent)
+        {
+            if (IsInnerNode(parent.Id))
             {
-                Traverse(child, _nodes[nodeIndex].LeftChild(), true);
-                Traverse(child, _nodes[nodeIndex].RightChild(), false);
+                parent.Left = new TreeNode(_nodes[parent.Id].LeftChild());
+                parent.Right = new TreeNode(_nodes[parent.Id].RightChild());
+            
+                Traverse(parent.Left);
+                Traverse(parent.Right);
             }
         }
     }

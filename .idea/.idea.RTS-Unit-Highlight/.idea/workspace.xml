@@ -7,18 +7,15 @@
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHHierarchyInputListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHHierarchyInputListener.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeCalculator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/StaticBVH.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/StaticBVH.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/NodesInput.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/NodesInput.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/CompressPhase.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/CompressPhase.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/MergingPhase.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/MergingPhase.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/PLOC++.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualization.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BinaryTree/BinaryTreeVisualization.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/VisualizationFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/VisualizationFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Utils/RandomUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Utils/RandomUtils.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +78,9 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/ShaderLibrary/Common.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/ShaderLibrary/CommonLighting.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/ShaderLibrary/EntityLighting.hlsl" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/ShaderLibrary/ImageBasedLighting.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/ShaderLibrary/Macros.hlsl" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/ShaderLibrary/Random.hlsl" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.11/Tests/Editor/CoreUnsafeUtilsTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@14.0.11/Runtime/UniversalRenderPipeline.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.searcher@4.9.2/Editor/Searcher/SearcherDatabase.cs" root0="SKIP_HIGHLIGHTING" />
@@ -165,10 +164,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="6452">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15156">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="6452" />
+      <option name="pid" value="15156" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -287,7 +286,7 @@
       <workItem from="1733623138653" duration="2693000" />
       <workItem from="1733788453250" duration="1210000" />
       <workItem from="1733876892691" duration="16744000" />
-      <workItem from="1733963163508" duration="10045000" />
+      <workItem from="1733963163508" duration="13649000" />
     </task>
     <servers />
   </component>
@@ -390,19 +389,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/VisualizationFactory.cs</url>
-          <line>33</line>
-          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\BVH\VisualDebugging\VisualizationFactory.cs" containingFunctionPresentation="Method 'CreateVisualization'">
-            <startOffsets>
-              <option value="1141" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1188" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint type="DotNet Breakpoints">
           <condition expression="rangeId == 4" language="C#" />

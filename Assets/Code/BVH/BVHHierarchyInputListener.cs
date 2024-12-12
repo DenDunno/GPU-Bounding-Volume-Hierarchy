@@ -11,6 +11,7 @@ namespace Code.Components.MortonCodeAssignment
         public void Accept(IReadOnlyList<GameObject> objects)
         {
             _bvh.Data.BoxesInput.List = new List<GameObject>(objects);
+            _bvh.Bake();
         }
     }
 }

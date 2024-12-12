@@ -15,7 +15,16 @@ namespace Code.Components.MortonCodeAssignment
         }
 
         public void SendBoxesToGPU() => _buffers.Boxes.SetData(_content.BoundingBoxes);
-        public BVHNode[] FetchTree() => _buffers.Tree.FetchData<BVHNode>(2 * _leavesCount);
+        
+        public BVHNode[] FetchTree()
+        {
+            BVHNode[] tree = _buffers.Tree.FetchData<BVHNode>(_leavesCount + _leavesCount - 1);
+            BVHNode[] root = _buffers.Nodes.FetchData<BVHNode>(1);
+            tree[^1] = root[0];
+            
+            return tree;
+        }
+
         public BVHNode[] FetchInnerNodes() => _buffers.Nodes.FetchData<BVHNode>(_leavesCount - 1);
         public int FetchRoot() => _buffers.Root.FetchValue<int>();
     }

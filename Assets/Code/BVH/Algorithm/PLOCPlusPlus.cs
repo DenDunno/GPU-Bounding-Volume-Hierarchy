@@ -25,12 +25,8 @@ namespace Code.Components.MortonCodeAssignment
                 _buffers.TreeSize.SetData(new[] { treeSize });
                 _buffers.BlockOffset.SetData(new uint[1]);
                 _buffers.BlockCounter.SetData(new uint[1]);
-
-                _buffers.Tree.Print<BVHNode>("Tree before: \n", x => $"{x}\n");
-                _buffers.Nodes.Print<BVHNode>("Nodes before: \n", x => $"{x}\n");
+                
                 Execute(leavesCount);
-                _buffers.Tree.Print<BVHNode>("Tree after: \n", x => $"{x}\n");
-                _buffers.Nodes.Print<BVHNode>("Nodes: \n", x => $"{x}\n");
                 
                 int mergedNodes = _buffers.BlockOffset.FetchValue<int>();
                 leavesCount -= mergedNodes;

@@ -20,7 +20,7 @@ namespace Code.Components.MortonCodeAssignment
 
         public BVHBuffers(int size)
         {
-            Tree = new ComputeBuffer(size + (size - 1) + 1, BVHNode.GetSize()); // leaves + innerNodes + root 
+            Tree = new ComputeBuffer(size + (size - 1), BVHNode.GetSize()); // leaves + innerNodes + root 
             MortonCodes = new ComputeBuffer(size, MortonCode.GetSize());
             Nodes = new ComputeBuffer(size, BVHNode.GetSize()); 
             ParentIds = new ComputeBuffer(size, sizeof(uint));
