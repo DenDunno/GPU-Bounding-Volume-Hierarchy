@@ -1,4 +1,5 @@
 using Code.Components.MortonCodeAssignment.Event;
+using Code.Utils.Extensions;
 using EditorWrapper;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace Code.Components.MortonCodeAssignment
 
         protected override void Reassemble()
         {
-            if (_tree.Length != 0)
+            if (_tree.Length != 0 && Data.Visualization.Show)
                 _visualization = new VisualizationFactory(Data).Create(_tree, _tree.Length - 1);
         }
 
@@ -35,6 +36,7 @@ namespace Code.Components.MortonCodeAssignment
             _facade.Initialize();
             _facade.Rebuild();
             _tree = GPUBridge.FetchTree();
+            _tree.Print(x => $"{x}\n");
             Reassemble();
         }
 

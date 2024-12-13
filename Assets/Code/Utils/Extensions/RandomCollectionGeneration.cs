@@ -20,13 +20,14 @@ namespace Code
         public int[] Create()
         {
             int[] randomCollection = new int[_size];
-            Random.InitState(_seed);
+            RandomUtils.InitState(_seed);
             
             for (int i = 0; i < randomCollection.Length; ++i)
             {
                 randomCollection[i] = Random.Range(_minValue, _maxValue);
             }
-
+            
+            RandomUtils.RestoreState();
             return randomCollection;
         }
     }

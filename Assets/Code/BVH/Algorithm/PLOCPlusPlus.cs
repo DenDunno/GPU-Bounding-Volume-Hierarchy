@@ -1,6 +1,5 @@
 using Code.Utils.Extensions;
 using Code.Utils.ShaderUtils;
-using MyFolder.ComputeShaderNM;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
@@ -14,21 +13,42 @@ namespace Code.Components.MortonCodeAssignment
             _buffers = buffers;
         }
 
-        void IBVHConstructionAlgorithm.Execute(int leavesCount)
+        protected override void Setup(IShaderBridge<string> shaderBridge, int kernelId)
         {
+            shaderBridge.SetBuffer(kernelId, "MergedNodesCount", _buffers.MergedNodesCount);
+            shaderBridge.SetBuffer(kernelId, "SortedMortonCodes", _buffers.MortonCodes);
+            shaderBridge.SetBuffer(kernelId, "BlockCounter", _buffers.BlockCounter);
+            shaderBridge.SetBuffer(kernelId, "BlockOffset", _buffers.BlockOffset);
+            shaderBridge.SetBuffer(kernelId, "ParentIds", _buffers.ParentIds);
+            shaderBridge.SetBuffer(kernelId, "TreeSize", _buffers.TreeSize);
+            shaderBridge.SetBuffer(kernelId, "RootIndex", _buffers.Root);
+            shaderBridge.SetBuffer(kernelId, "Nodes", _buffers.Nodes);
+            shaderBridge.SetBuffer(kernelId, "Tree", _buffers.Tree);
+        }
+
+        protected override void Execute(IShaderBridge<string> shaderBridge, Vector3Int payload)
+        {
+            int leavesCount = payload.x;
             int treeSize = 0;
             int safetyCheck = 0;
             int safetyCheckMax = 30;
             
+            _buffers.Tree.Print<BVHNode>("Tree before:\n", x => $"{x}\n");
+            _buffers.Nodes.Print<BVHNode>("Nodes before:\n", x => $"{x}\n");
+            
             while (leavesCount > 1 && safetyCheck++ < safetyCheckMax)
             {
+                shaderBridge.SetInt("LeavesCount", leavesCount);
                 _buffers.TreeSize.SetData(new[] { treeSize });
                 _buffers.BlockOffset.SetData(new uint[1]);
                 _buffers.BlockCounter.SetData(new uint[1]);
+                _buffers.MergedNodesCount.SetData(new uint[1]);
                 
-                Execute(leavesCount);
+                Dispatch(leavesCount, payload.y, payload.z);
+                _buffers.Tree.Print<BVHNode>("Tree after:\n", x => $"{x}\n");
+                _buffers.Nodes.Print<BVHNode>("Nodes after:\n", x => $"{x}\n");
                 
-                int mergedNodes = _buffers.BlockOffset.FetchValue<int>();
+                int mergedNodes = _buffers.MergedNodesCount.FetchValue<int>();
                 leavesCount -= mergedNodes;
                 treeSize += mergedNodes * 2;
             }
@@ -37,23 +57,6 @@ namespace Code.Components.MortonCodeAssignment
             {
                 Debug.LogError("BVH construction error. Termination");
             }
-        }
-
-        protected override void Setup(Kernel kernel, IShaderBridge<string> shaderBridge)
-        {
-            shaderBridge.SetBuffer(kernel.ID, "SortedMortonCodes", _buffers.MortonCodes);
-            shaderBridge.SetBuffer(kernel.ID, "BlockCounter", _buffers.BlockCounter);
-            shaderBridge.SetBuffer(kernel.ID, "BlockOffset", _buffers.BlockOffset);
-            shaderBridge.SetBuffer(kernel.ID, "ParentIds", _buffers.ParentIds);
-            shaderBridge.SetBuffer(kernel.ID, "TreeSize", _buffers.TreeSize);
-            shaderBridge.SetBuffer(kernel.ID, "RootIndex", _buffers.Root);
-            shaderBridge.SetBuffer(kernel.ID, "Nodes", _buffers.Nodes);
-            shaderBridge.SetBuffer(kernel.ID, "Tree", _buffers.Tree);
-        }
-
-        protected override void OnPreDispatch(IShaderBridge<string> shaderBridge, Vector3Int payload)
-        {
-            shaderBridge.SetInt("LeavesCount", payload.x);
         }
     }
 }

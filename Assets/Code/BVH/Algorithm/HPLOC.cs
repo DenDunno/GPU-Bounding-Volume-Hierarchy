@@ -12,12 +12,12 @@ public class HPLOC : ComputeShaderPass, IBVHConstructionAlgorithm
         _buffers = buffers;
     }
 
-    protected override void Setup(Kernel kernel, IShaderBridge<string> shaderBridge)
+    protected override void Setup(IShaderBridge<string> shaderBridge, int kernelId)
     {
-        shaderBridge.SetBuffer(kernel.ID, "SortedMortonCodes", _buffers.MortonCodes);
-        shaderBridge.SetBuffer(kernel.ID, "ParentIds", _buffers.ParentIds);
-        shaderBridge.SetBuffer(kernel.ID, "RootIndex", _buffers.Root);
-        shaderBridge.SetBuffer(kernel.ID, "Nodes", _buffers.Nodes);
+        shaderBridge.SetBuffer(kernelId, "SortedMortonCodes", _buffers.MortonCodes);
+        shaderBridge.SetBuffer(kernelId, "ParentIds", _buffers.ParentIds);
+        shaderBridge.SetBuffer(kernelId, "RootIndex", _buffers.Root);
+        shaderBridge.SetBuffer(kernelId, "Nodes", _buffers.Nodes);
     }
 
     protected override void OnPreDispatch(IShaderBridge<string> shaderBridge, Vector3Int payload)

@@ -35,6 +35,11 @@ namespace Code.Utils.Extensions
             Print(list, string.Empty);
         }
         
+        public static void Print<T>(this IList<T> list, Func<T, string> format)
+        {
+            Print(list, string.Empty, format);
+        }
+        
         public static void Print<T>(this IList<T> list, string name)
         {
             Print(list, name, x => x.ToString());

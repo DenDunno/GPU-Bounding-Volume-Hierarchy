@@ -1,7 +1,7 @@
 using Code.Components.MortonCodeAssignment.TestTree;
+using Code.Utils.Extensions;
 using EditorWrapper;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Code.Components.MortonCodeAssignment
 {
@@ -36,7 +36,7 @@ namespace Code.Components.MortonCodeAssignment
             if (_data.ShowAll && _height - depth < _data.Depth || depth == _data.VisibleDepth)
             {
                 RandomUtils.InitState(depth);
-                Gizmos.color = _data.Color; 
+                Gizmos.color = RandomUtils.GenerateBrightColor();
                 _nodes[node.Id].Box.Draw();
             }
 

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Code;
 using DefaultNamespace.Code.GeometryGeneration;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -27,6 +29,7 @@ public class ObjectPlacement : MonoBehaviour
     private List<GameObject> Generate(IPointGeneration pointGeneration, GameObject prefab, int count)
     {
         List<GameObject> objects = new();
+        RandomUtils.InitState(Environment.TickCount);
         
         for (int i = 0; i < count; ++i)
         {
@@ -37,6 +40,8 @@ public class ObjectPlacement : MonoBehaviour
             objects.Add(instance);
         }
 
+        RandomUtils.RestoreState();
+        
         return objects;
     }
 
