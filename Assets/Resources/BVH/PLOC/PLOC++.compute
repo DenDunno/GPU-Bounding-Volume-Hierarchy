@@ -1,6 +1,5 @@
 #pragma kernel RunPlocPlusPlus
-#pragma enable_d3d11_debug_symbols
-#define THREADS 4
+#define THREADS 2
 #include "MergingPhase.hlsl"
 
 [numthreads(THREADS,1,1)]
