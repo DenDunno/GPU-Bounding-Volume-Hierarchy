@@ -15,7 +15,7 @@ namespace Code.Components.MortonCodeAssignment
 
         protected override void Setup(IShaderBridge<string> shaderBridge, int kernelId)
         {
-            shaderBridge.SetBuffer(kernelId, "MergedNodesCount", _buffers.MergedNodesCount);
+            shaderBridge.SetBuffer(kernelId, "ValidNodesCount", _buffers.ValidNodesCount);
             shaderBridge.SetBuffer(kernelId, "SortedMortonCodes", _buffers.MortonCodes);
             shaderBridge.SetBuffer(kernelId, "BlockCounter", _buffers.BlockCounter);
             shaderBridge.SetBuffer(kernelId, "BlockOffset", _buffers.BlockOffset);
@@ -42,15 +42,15 @@ namespace Code.Components.MortonCodeAssignment
                 _buffers.TreeSize.SetData(new[] { treeSize });
                 _buffers.BlockOffset.SetData(new uint[1]);
                 _buffers.BlockCounter.SetData(new uint[1]);
-                _buffers.MergedNodesCount.SetData(new uint[1]);
+                _buffers.ValidNodesCount.SetData(new uint[1]);
                 
                 Dispatch(leavesCount, payload.y, payload.z);
                 _buffers.Tree.Print<BVHNode>("Tree after:\n", x => $"{x}\n");
                 _buffers.Nodes.Print<BVHNode>("Nodes after:\n", x => $"{x}\n");
                 
-                int mergedNodes = _buffers.MergedNodesCount.FetchValue<int>();
-                leavesCount -= mergedNodes;
-                treeSize += mergedNodes * 2;
+                int validNodes = _buffers.ValidNodesCount.FetchValue<int>();
+                treeSize += leavesCount - validNodes + 1;
+                leavesCount = validNodes;
             }
 
             if (safetyCheck >= safetyCheckMax)

@@ -7,7 +7,7 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class BVHBuffers : IDisposable
     {
-        public readonly ComputeBuffer MergedNodesCount;
+        public readonly ComputeBuffer ValidNodesCount;
         public readonly ComputeBuffer BlockCounter;
         public readonly ComputeBuffer TreeSize;
         public readonly ComputeBuffer BlockOffset;
@@ -23,7 +23,7 @@ namespace Code.Components.MortonCodeAssignment
         {
             Tree = new ComputeBuffer(size + (size - 1), BVHNode.GetSize()); // leaves + innerNodes + root 
             MortonCodes = new ComputeBuffer(size, MortonCode.GetSize());
-            MergedNodesCount = new ComputeBuffer(1, sizeof(uint));
+            ValidNodesCount = new ComputeBuffer(1, sizeof(uint));
             Nodes = new ComputeBuffer(size, BVHNode.GetSize());
             ParentIds = new ComputeBuffer(size, sizeof(uint));
             BlockCounter = new ComputeBuffer(1, sizeof(uint));
@@ -36,7 +36,7 @@ namespace Code.Components.MortonCodeAssignment
 
         public void Dispose()
         {
-            MergedNodesCount.Dispose();
+            ValidNodesCount.Dispose();
             BlockCounter.Dispose();
             BlockOffset.Dispose();
             MortonCodes.Dispose();

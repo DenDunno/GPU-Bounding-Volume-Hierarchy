@@ -1,14 +1,13 @@
-groupshared uint SumOfMergedNodesInPreviousGroups;
+groupshared uint SumOfValidNodesInPreviousGroups;
+groupshared uint TreeSizeShared;
 RWStructuredBuffer<uint> BlockOffset;
+RWStructuredBuffer<uint> ValidNodesCount;
 
-void CompressValidNodes(uint isInvalidNode, uint threadId, uint blockOffset, uint invalidNodeScan)
+void CompressValidNodes(uint isValidNode, uint threadId, uint blockOffset, uint groupCompressIndex)
 {
-    bool isValidNode = isInvalidNode == 0u;
-    
     if (isValidNode)
     {
-        uint groupCompressIndex = threadId - invalidNodeScan;
-        uint globalCompressIndex = SumOfMergedNodesInPreviousGroups + groupCompressIndex;
+        uint globalCompressIndex = SumOfValidNodesInPreviousGroups + groupCompressIndex;
         Nodes[globalCompressIndex] = Nodes[blockOffset + threadId];
     }
 }
