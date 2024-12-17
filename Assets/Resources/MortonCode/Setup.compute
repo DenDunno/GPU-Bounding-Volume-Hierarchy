@@ -27,4 +27,6 @@ void Setup(const uint id : SV_DispatchThreadID)
     Nodes[id] = BVHNode::Create(aabb);
     Tree[id].Box = AABB::Create(float3(0, 0, 0), float3(0, 0, 0));
     Tree[id].__Data = uint2(0, 0);
+    Tree[id + LeavesCount].Box = AABB::Create(float3(0, 0, 0), float3(0, 0, 0));
+    Tree[id + LeavesCount].__Data = uint2(0, 0);
 }

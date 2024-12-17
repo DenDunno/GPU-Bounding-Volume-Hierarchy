@@ -1,3 +1,4 @@
+using System;
 using Code.Utils.Extensions;
 using Code.Utils.ShaderUtils;
 using UnityEngine;
@@ -30,30 +31,34 @@ namespace Code.Components.MortonCodeAssignment
         {
             int leavesCount = payload.x;
             int treeSize = 0;
-            int safetyCheck = 0;
+            int iterations = 0;
             int safetyCheckMax = 30;
-            
+
             _buffers.Tree.Print<BVHNode>("Tree before:\n", x => $"{x}\n");
             _buffers.Nodes.Print<BVHNode>("Nodes before:\n", x => $"{x}\n");
-            
-            while (leavesCount > 1 && safetyCheck++ < safetyCheckMax)
+
+            while (leavesCount > 1 && iterations < safetyCheckMax)
             {
                 shaderBridge.SetInt("LeavesCount", leavesCount);
+                
                 _buffers.TreeSize.SetData(new[] { treeSize });
                 _buffers.BlockOffset.SetData(new uint[1]);
                 _buffers.BlockCounter.SetData(new uint[1]);
                 _buffers.ValidNodesCount.SetData(new uint[1]);
-                
+
                 Dispatch(leavesCount, payload.y, payload.z);
                 _buffers.Tree.Print<BVHNode>("Tree after:\n", x => $"{x}\n");
                 _buffers.Nodes.Print<BVHNode>("Nodes after:\n", x => $"{x}\n");
-                
+
                 int validNodes = _buffers.ValidNodesCount.FetchValue<int>();
-                treeSize += leavesCount - validNodes + 1;
+                treeSize += _buffers.BlockOffset.FetchValue<int>();
+                Debug.Log($"Tree size = {treeSize}");
                 leavesCount = validNodes;
+                iterations++;
             }
 
-            if (safetyCheck >= safetyCheckMax)
+            Debug.Log($"Iterations: {iterations}");
+            if (iterations >= safetyCheckMax)
             {
                 Debug.LogError("BVH construction error. Termination");
             }
