@@ -1,3 +1,4 @@
+using System;
 using Code.Utils.Extensions;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -32,6 +33,7 @@ namespace Code.Test
         public bool Run(int[] input)
         {
             CollectionComparisonResult<int> result = RunComparisonTest(input);
+            Array.Copy((int[])result.SecondCollection, Output, Output.Length);
             
             if (result.IsEqual == false)
             {

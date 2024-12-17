@@ -1,10 +1,14 @@
 #pragma kernel SinglePrefixSum
 #pragma kernel ChunkPrefixSum
 #pragma kernel BlockSumAddition
-#include "..//Common/Threads.hlsl"
+#pragma kernel PrefixSumSinglePass
+#define THREADS 1024
 #include "BlellochPrefixSum.hlsl"
+#include "..//Utilities/ThreadsUtilities.hlsl"
 
 RWStructuredBuffer<int> Result;
+RWStructuredBuffer<int> BlockSum;
+groupshared int SumOfBlocksInPreviousGroups;
 
 [numthreads(THREADS,1,1)]
 void SinglePrefixSum(uint3 id : SV_DispatchThreadID, uint3 threadId : SV_GroupThreadID)
@@ -30,4 +34,16 @@ void ChunkPrefixSum(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID, 
 void BlockSumAddition(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID)
 {
     Result[id.x] += ScanBlockSum[groupId.x];
+}
+
+[numthreads(THREADS,1,1)]
+void PrefixSumSinglePass(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_GroupID, uint3 threadId : SV_GroupThreadID)
+{
+    int input = Result[id.x];
+    int inclusiveScan = ComputeInclusiveScan(input, threadId.x);
+
+    WAIT_FOR_PREVIOUS_GROUPS_SINGLE(threadId.x, THREAD_LAST_INDEX, groupId.x,
+        InterlockedAdd(BlockSum[0], inclusiveScan, SumOfBlocksInPreviousGroups);)
+
+    Result[id.x] = inclusiveScan - input + SumOfBlocksInPreviousGroups;
 }
