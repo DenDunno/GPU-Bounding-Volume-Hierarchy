@@ -6,5 +6,6 @@ namespace DefaultNamespace.Code.GeometryGeneration
         Cube,
         Line,
         Sphere,
+        Plane
     }
 }

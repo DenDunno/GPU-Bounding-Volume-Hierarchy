@@ -2,13 +2,20 @@ using System;
 using System.Collections.Generic;
 using Code;
 using DefaultNamespace.Code.GeometryGeneration;
+using EditorWrapper;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class ObjectPlacement : MonoBehaviour
 {
     [SerializeField, Nested] private ObjectPlacementData _data;
-    
+    private IDrawable _visualization;
+
+    private void OnValidate()
+    {
+        _visualization = new DrawableIfTrue(_data.CreateGenerationVisualization(), _data.ShowGenerationBounds);
+    }
+
     [Button]
     private void Generate()
     {
@@ -53,5 +60,10 @@ public class ObjectPlacement : MonoBehaviour
         {
             listener.Accept(objects);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        _visualization?.Draw();
     }
 }

@@ -5,12 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumTest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/CircleVisualization.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/CircleVisualization.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Plane.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Plane/PlaneDebug.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Plane/PlaneDebug.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Plane/PlaneGenerationData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Plane/PlaneGenerationData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Plane/PlanePointGeneration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Plane/PlanePointGeneration.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Sphere/SphereVisualization.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Sphere/SphereVisualization.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/Common/CollectionComparisonTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/Common/CollectionComparisonTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTestView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTestView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PrefixSum/PrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/PrefixSum.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/ObjectPlacement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/ObjectPlacement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/ObjectPlacementData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/ObjectPlacementData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Utils/Placement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Utils/Placement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/MergingPhase.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/MergingPhase.hlsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,10 +37,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1cb3d10a2b5f4220af9c2670b0e7b26210fc00/af/5694bc9b/Enumerable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1fd52158108c4fe3a6817b50854eb75e46ac00/43/5944e2a0/Dictionary`2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1fd52158108c4fe3a6817b50854eb75e46ac00/d1/86cad846/String.cs" root0="FORCE_HIGHLIGHTING" />
@@ -36,6 +44,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4cc3f85df87f4312a48b525cdaef083929200/1e/58084d95/UnityExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/6d/e6728697/IComparer`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/ff/8dbe7736/IComparable`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6756c66228dc4735a485573b8482713619c00/8b/90b40df4/ShowIfAttribute.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ff3bcb667574bf9a8630184172fcfbf176600/50/0c20c0a7/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ff3bcb667574bf9a8630184172fcfbf176600/fc/b66ceabc/ComputeBuffer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b5bf0c891ea345fe93688f835df32fdc1dda00/da/2c7db0d3/ComputeBuffer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -60,6 +69,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/Code/Test/UpdateSortTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/ThirdParty/CameraMovement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/Extensions/EnumerableExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Line/LineGenerationData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/Plane/PlaneGenerationData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Utils/ShaderUtils/KernelConstantDispatch.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Resources/BVH/PLOC/MergingPhase.hlsl" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@2.5.1/Unity.Collections/NativeList.cs" root0="SKIP_HIGHLIGHTING" />
@@ -121,7 +132,7 @@
   &quot;keyToString&quot;: {
     &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.4980315&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.5650224&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -168,10 +179,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="3748">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="3748" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -294,6 +305,7 @@
       <workItem from="1734056217030" duration="10017000" />
       <workItem from="1734309350496" duration="6628000" />
       <workItem from="1734395401017" duration="6111000" />
+      <workItem from="1734577687995" duration="3128000" />
     </task>
     <servers />
   </component>

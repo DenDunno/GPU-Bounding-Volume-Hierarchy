@@ -44,6 +44,7 @@ void Merge(uint nearestNeighbour, uint threadId, uint groupId, uint blockOffset)
     
     BVHNode leftNode = Nodes[threadId + blockOffset];
     BVHNode rightNode = Nodes[nearestNeighbour + blockOffset];
+    BVHNode result = leftNode;
 
     uint validNodesInclusiveScan = ComputeInclusiveScan(isValidNode, threadId).x;
     ScanRadius(threadId, nearestNeighbour);
@@ -59,7 +60,7 @@ void Merge(uint nearestNeighbour, uint threadId, uint groupId, uint blockOffset)
         uint rightChildIndex = GetPrefixSumFromScan(nearestNeighbour) + TreeSizeShared + TreeSize[0];;
         AABB mergedBox = NeighboursBoxes[threadId + PLOC_OFFSET].Union(NeighboursBoxes[nearestNeighbour + PLOC_OFFSET]);
         
-        Nodes[threadId + blockOffset] = BVHNode::Create(leftChildIndex, rightChildIndex, mergedBox);
+        result = BVHNode::Create(leftChildIndex, rightChildIndex, mergedBox);
         Tree[leftChildIndex] = leftNode;
         Tree[rightChildIndex] = rightNode;
     }
@@ -68,6 +69,6 @@ void Merge(uint nearestNeighbour, uint threadId, uint groupId, uint blockOffset)
     {
         uint groupCompressIndex = validNodesInclusiveScan - isValidNode;
         uint globalCompressIndex = SumOfValidNodesInPreviousGroups + groupCompressIndex;
-        Nodes[globalCompressIndex] = Nodes[blockOffset + threadId];
+        Nodes[globalCompressIndex] = result;
     }
 }
