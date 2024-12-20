@@ -33,10 +33,10 @@ namespace Code.Components.MortonCodeAssignment
             int leavesCount = payload.x;
             int treeSize = 0;
             int iterations = 0;
-            int safetyCheckMax = 30;
+            int safetyCheckMax = 100;
 
-            // _buffers.Tree.Print<BVHNode>("Tree before:\n", x => $"{x}\n");
-            _buffers.Nodes.Print<BVHNode>("Nodes before:\n", x => $"{x}\n");
+            //  _buffers.Tree.Print<BVHNode>("Tree before:\n", x => $"{x}\n");
+            // _buffers.Nodes.Print<BVHNode>("Nodes before:\n", x => $"{x}\n");
 
             while (leavesCount > 1 && iterations < safetyCheckMax)
             {
@@ -48,17 +48,17 @@ namespace Code.Components.MortonCodeAssignment
                 _buffers.ValidNodesCount.SetData(new uint[1]);
 
                 Dispatch(leavesCount, payload.y, payload.z);
-                 _buffers.Tree.Print<BVHNode>($"Iteration: {iterations}. Tree after:\n", x => $"{x}\n");
-                //_buffers.Nodes.Print<BVHNode>($"Iteration: {iterations}. Nodes after:\n", x => $"{x}\n");
-                //_buffers.Test.Print<int>($"Iteration: {iterations}. Test:\n", x => x.ToString());
+                // _buffers.Tree.Print<BVHNode>($"Iteration: {iterations}. Tree after:\n", x => $"{x}\n");
+                // _buffers.Nodes.Print<BVHNode>($"Iteration: {iterations}. Nodes after:\n", x => $"{x}\n");
+                //_buffers.Test.Print<Vector2Int>($"Iteration: {iterations}. Test:\n", x => $"{x}\n");
 
                 int validNodes = _buffers.ValidNodesCount.FetchValue<int>();
-                treeSize += _buffers.BlockOffset.FetchValue<int>();
+                treeSize += _buffers.BlockOffset.FetchValue<int>() * 2;
                 leavesCount = validNodes;
                 iterations++;
             }
             //_buffers.Nodes.Print<BVHNode>($"Iteration: {iterations}. Nodes after:\n", x => $"{x}\n");
-            Debug.Log($"Iterations: {iterations}");
+            //Debug.Log($"Iterations: {iterations}");
             if (iterations >= safetyCheckMax)
             {
                 Debug.LogError("BVH construction error. Termination");

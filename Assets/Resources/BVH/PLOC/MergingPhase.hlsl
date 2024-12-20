@@ -4,7 +4,7 @@
 #include "..//..//Utilities/ThreadsUtilities.hlsl"
 #include "CompressPhase.hlsl"
 RWStructuredBuffer<uint> TreeSize;
-RWStructuredBuffer<uint> Test;
+RWStructuredBuffer<uint2> Test;
 
 void MergeInternal(uint nearestNeighbour, uint threadId, uint blockOffset)
 {
@@ -43,30 +43,30 @@ uint GetPrefixSumFromScan(uint neighbourId)
 
 void Merge(uint nearestNeighbour, uint threadId, uint groupId, uint blockOffset)
 {
-    bool inBounds = IsInBounds(threadId + blockOffset);
     uint areNodesMutuallyClosest = GetNeighbour(nearestNeighbour) == threadId;
     uint isNodeFromTheLeft = (int)threadId < (int)nearestNeighbour;
     uint mergeConditionIsMet = areNodesMutuallyClosest && isNodeFromTheLeft;
-    uint isValidNode = (areNodesMutuallyClosest == 0 || isNodeFromTheLeft) && inBounds;
+    uint isValidNode = (areNodesMutuallyClosest == 0 || isNodeFromTheLeft) && IsInBounds(threadId + blockOffset);
     
     BVHNode leftNode = Nodes[threadId + blockOffset];
     BVHNode rightNode = Nodes[nearestNeighbour + blockOffset];
     BVHNode result = leftNode;
-    uint validNodesInclusiveScan = ComputeInclusiveScan(isValidNode, threadId).x;
-    ScanRadius(threadId, blockOffset, nearestNeighbour);
     
+    uint2 scan = ComputeInclusiveScan(uint2(isValidNode, mergeConditionIsMet), threadId);
+    uint validNodesInclusiveScan = scan.x;
+    uint mergedNodesInclusiveScan = scan.y;
+
     WAIT_FOR_PREVIOUS_GROUPS_SINGLE(threadId, THREAD_LAST_INDEX, groupId,
-        InterlockedAdd(BlockOffset[0], GetTotalSum().x, TreeSizeShared);
+        InterlockedAdd(BlockOffset[0], mergedNodesInclusiveScan, SumOfMergedNodesInPreviousGroups);
         InterlockedAdd(ValidNodesCount[0], validNodesInclusiveScan, SumOfValidNodesInPreviousGroups);
     )
-
-    if (inBounds == false)
-        return;
     
     if (mergeConditionIsMet)
     {
-        uint leftChildIndex = GetPrefixSumFromScan(threadId) + TreeSizeShared + TreeSize[0];
-        uint rightChildIndex = GetPrefixSumFromScan(nearestNeighbour) + TreeSizeShared + TreeSize[0];;
+        uint groupCompressIndex = mergedNodesInclusiveScan - 1;
+        uint globalOffset = SumOfMergedNodesInPreviousGroups * 2;
+        uint leftChildIndex = groupCompressIndex + globalOffset + TreeSize[0];
+        uint rightChildIndex = leftChildIndex + 1;
         AABB mergedBox = NeighboursBoxes[threadId + PLOC_OFFSET].Union(NeighboursBoxes[nearestNeighbour + PLOC_OFFSET]);
         
         result = BVHNode::Create(leftChildIndex, rightChildIndex, mergedBox);

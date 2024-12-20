@@ -36,7 +36,7 @@ namespace Code.Components.MortonCodeAssignment
             _facade.Initialize();
             _facade.Rebuild();
             _tree = GPUBridge.FetchTree();
-            //_tree.Print(x => $"{x}\n");
+            _tree.Print(x => $"{x}\n");
             Reassemble();
         }
 

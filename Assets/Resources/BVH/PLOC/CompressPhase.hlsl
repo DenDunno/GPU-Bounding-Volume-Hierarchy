@@ -1,5 +1,5 @@
 groupshared uint SumOfValidNodesInPreviousGroups;
-groupshared uint TreeSizeShared;
+groupshared uint SumOfMergedNodesInPreviousGroups;
 RWStructuredBuffer<uint> BlockOffset;
 RWStructuredBuffer<uint> ValidNodesCount;
 

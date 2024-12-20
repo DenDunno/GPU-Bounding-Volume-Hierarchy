@@ -28,10 +28,10 @@ namespace Code.Components.MortonCodeAssignment
             Nodes = new ComputeBuffer(size, BVHNode.GetSize());
             ParentIds = new ComputeBuffer(size, sizeof(uint));
             BlockCounter = new ComputeBuffer(1, sizeof(uint));
+            Test = new ComputeBuffer(size, sizeof(uint) * 2);
             BlockOffset = new ComputeBuffer(1, sizeof(uint));
             Boxes = new ComputeBuffer(size, AABB.GetSize());
             TreeSize = new ComputeBuffer(1, sizeof(uint));
-            Test = new ComputeBuffer(size, sizeof(uint));
             Root = new ComputeBuffer(1, sizeof(uint));
             Size = size;
         }
