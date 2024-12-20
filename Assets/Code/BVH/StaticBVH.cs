@@ -18,8 +18,9 @@ namespace Code.Components.MortonCodeAssignment
 
         protected override void Reassemble()
         {
-            if (_tree.Length != 0 && Data.Visualization.Show)
-                _visualization = new VisualizationFactory(Data).Create(_tree, _tree.Length - 1);
+            _visualization = new DrawableIfTrue(
+                new VisualizationFactory(Data).Create(_tree, _tree.Length - 1),
+                Data.Visualization.Show);
         }
 
         private void Update()

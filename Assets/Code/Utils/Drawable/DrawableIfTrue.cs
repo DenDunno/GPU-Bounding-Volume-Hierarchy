@@ -12,7 +12,7 @@ namespace EditorWrapper
         
         public DrawableIfTrue(IDrawable drawable, Func<bool> drawCondition)
         {
-            _conditionalDrawable = new ConditionalDraw(drawable, new DummyDrawable(), drawCondition);
+            _conditionalDrawable = new ConditionalDraw(drawable, DummyDrawable.Instance, drawCondition);
         }
         
         public void Draw()

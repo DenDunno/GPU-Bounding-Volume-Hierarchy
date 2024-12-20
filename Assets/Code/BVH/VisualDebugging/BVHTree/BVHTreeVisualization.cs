@@ -36,7 +36,9 @@ namespace Code.Components.MortonCodeAssignment
             if (_data.ShowAll && _height - depth < _data.Depth || depth == _data.VisibleDepth)
             {
                 RandomUtils.InitState(depth);
-                Gizmos.color = RandomUtils.GenerateBrightColor();
+                Color color = RandomUtils.GenerateBrightColor();
+                color.a *= _data.ShowAll ? Mathf.Lerp(0.1f, 1f, (float)depth / _height) : 1f;
+                Gizmos.color = color;
                 _nodes[node.Id].Box.Draw();
             }
 

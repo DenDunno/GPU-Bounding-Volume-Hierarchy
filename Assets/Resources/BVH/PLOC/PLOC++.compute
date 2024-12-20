@@ -1,5 +1,5 @@
 #pragma kernel RunPlocPlusPlus
-#define THREADS 4
+#define THREADS 512
 #include "MergingPhase.hlsl"
 
 [numthreads(THREADS,1,1)]

@@ -35,8 +35,7 @@ namespace Code.Components.MortonCodeAssignment
             int iterations = 0;
             int safetyCheckMax = 100;
 
-            //  _buffers.Tree.Print<BVHNode>("Tree before:\n", x => $"{x}\n");
-            // _buffers.Nodes.Print<BVHNode>("Nodes before:\n", x => $"{x}\n");
+            //_buffers.Nodes.Print<BVHNode>("Nodes before:\n", x => $"{x}\n");
 
             while (leavesCount > 1 && iterations < safetyCheckMax)
             {
@@ -48,8 +47,8 @@ namespace Code.Components.MortonCodeAssignment
                 _buffers.ValidNodesCount.SetData(new uint[1]);
 
                 Dispatch(leavesCount, payload.y, payload.z);
-                // _buffers.Tree.Print<BVHNode>($"Iteration: {iterations}. Tree after:\n", x => $"{x}\n");
-                // _buffers.Nodes.Print<BVHNode>($"Iteration: {iterations}. Nodes after:\n", x => $"{x}\n");
+                //_buffers.Tree.Print<BVHNode>($"Iteration: {iterations}. Tree after:\n", x => $"{x}\n");
+                //_buffers.Nodes.Print<BVHNode>($"Iteration: {iterations}. Nodes after:\n", x => $"{x}\n");
                 //_buffers.Test.Print<Vector2Int>($"Iteration: {iterations}. Test:\n", x => $"{x}\n");
 
                 int validNodes = _buffers.ValidNodesCount.FetchValue<int>();
