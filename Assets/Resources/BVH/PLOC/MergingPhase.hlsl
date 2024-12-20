@@ -4,6 +4,7 @@
 #include "..//..//Utilities/ThreadsUtilities.hlsl"
 #include "CompressPhase.hlsl"
 RWStructuredBuffer<uint> TreeSize;
+RWStructuredBuffer<uint> Test;
 
 void MergeInternal(uint nearestNeighbour, uint threadId, uint blockOffset)
 {
@@ -14,7 +15,7 @@ void MergeInternal(uint nearestNeighbour, uint threadId, uint blockOffset)
 }
 
 groupshared uint2 Output[THREADS];
-void ScanRadius(uint threadId, uint nearestNeighbour)
+void ScanRadius(uint threadId, uint blockOffset, uint nearestNeighbour)
 {
     uint2 areNodesMutuallyClosest;
     areNodesMutuallyClosest.x = GetNeighbour(nearestNeighbour) == threadId;
@@ -25,6 +26,11 @@ void ScanRadius(uint threadId, uint nearestNeighbour)
         areNodesMutuallyClosest.y = GetNeighbour(GetNeighbour(threadId + THREADS)) == threadId + THREADS;
     }
 
+    if (IsInBounds(threadId + blockOffset) == false)
+    {
+        areNodesMutuallyClosest = uint2(0, 0);
+    }
+    
     uint2 scan = ComputeInclusiveScan(areNodesMutuallyClosest, threadId) - areNodesMutuallyClosest;
     Output[threadId] = scan + uint2(0, GetTotalSum().x);
     GroupMemoryBarrierWithGroupSync();
@@ -37,22 +43,25 @@ uint GetPrefixSumFromScan(uint neighbourId)
 
 void Merge(uint nearestNeighbour, uint threadId, uint groupId, uint blockOffset)
 {
+    bool inBounds = IsInBounds(threadId + blockOffset);
     uint areNodesMutuallyClosest = GetNeighbour(nearestNeighbour) == threadId;
     uint isNodeFromTheLeft = (int)threadId < (int)nearestNeighbour;
-    uint mergeConditionIsMet = areNodesMutuallyClosest * isNodeFromTheLeft;
-    uint isValidNode = (areNodesMutuallyClosest == 0 || isNodeFromTheLeft) && threadId + blockOffset < LeavesCount;
+    uint mergeConditionIsMet = areNodesMutuallyClosest && isNodeFromTheLeft;
+    uint isValidNode = (areNodesMutuallyClosest == 0 || isNodeFromTheLeft) && inBounds;
     
     BVHNode leftNode = Nodes[threadId + blockOffset];
     BVHNode rightNode = Nodes[nearestNeighbour + blockOffset];
     BVHNode result = leftNode;
-
     uint validNodesInclusiveScan = ComputeInclusiveScan(isValidNode, threadId).x;
-    ScanRadius(threadId, nearestNeighbour);
+    ScanRadius(threadId, blockOffset, nearestNeighbour);
     
     WAIT_FOR_PREVIOUS_GROUPS_SINGLE(threadId, THREAD_LAST_INDEX, groupId,
         InterlockedAdd(BlockOffset[0], GetTotalSum().x, TreeSizeShared);
         InterlockedAdd(ValidNodesCount[0], validNodesInclusiveScan, SumOfValidNodesInPreviousGroups);
     )
+
+    if (inBounds == false)
+        return;
     
     if (mergeConditionIsMet)
     {

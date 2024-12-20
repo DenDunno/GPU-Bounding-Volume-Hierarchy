@@ -25,6 +25,7 @@ namespace Code.Components.MortonCodeAssignment
             shaderBridge.SetBuffer(kernelId, "RootIndex", _buffers.Root);
             shaderBridge.SetBuffer(kernelId, "Nodes", _buffers.Nodes);
             shaderBridge.SetBuffer(kernelId, "Tree", _buffers.Tree);
+            shaderBridge.SetBuffer(kernelId, "Test", _buffers.Test);
         }
 
         protected override void Execute(IShaderBridge<string> shaderBridge, Vector3Int payload)
@@ -35,7 +36,7 @@ namespace Code.Components.MortonCodeAssignment
             int safetyCheckMax = 30;
 
             // _buffers.Tree.Print<BVHNode>("Tree before:\n", x => $"{x}\n");
-            // _buffers.Nodes.Print<BVHNode>("Nodes before:\n", x => $"{x}\n");
+            _buffers.Nodes.Print<BVHNode>("Nodes before:\n", x => $"{x}\n");
 
             while (leavesCount > 1 && iterations < safetyCheckMax)
             {
@@ -47,16 +48,16 @@ namespace Code.Components.MortonCodeAssignment
                 _buffers.ValidNodesCount.SetData(new uint[1]);
 
                 Dispatch(leavesCount, payload.y, payload.z);
-                // _buffers.Tree.Print<BVHNode>("Tree after:\n", x => $"{x}\n");
-                // _buffers.Nodes.Print<BVHNode>("Nodes after:\n", x => $"{x}\n");
+                 _buffers.Tree.Print<BVHNode>($"Iteration: {iterations}. Tree after:\n", x => $"{x}\n");
+                //_buffers.Nodes.Print<BVHNode>($"Iteration: {iterations}. Nodes after:\n", x => $"{x}\n");
+                //_buffers.Test.Print<int>($"Iteration: {iterations}. Test:\n", x => x.ToString());
 
                 int validNodes = _buffers.ValidNodesCount.FetchValue<int>();
                 treeSize += _buffers.BlockOffset.FetchValue<int>();
-                //Debug.Log($"Tree size = {treeSize}");
                 leavesCount = validNodes;
                 iterations++;
             }
-
+            //_buffers.Nodes.Print<BVHNode>($"Iteration: {iterations}. Nodes after:\n", x => $"{x}\n");
             Debug.Log($"Iterations: {iterations}");
             if (iterations >= safetyCheckMax)
             {

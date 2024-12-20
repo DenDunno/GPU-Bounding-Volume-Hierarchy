@@ -20,11 +20,6 @@ struct BVHNode
         return node;
     }
 
-    static BVHNode Create(const AABB box)
-    {
-        return Create(-100, -100, box);
-    }
-
     bool IsLeaf() { return ExtractTopBit(__Data.x); }
     uint LeftChild() { return ExtractLower31Bits(__Data.x); }
     uint RightChild() { return ExtractLower31Bits(__Data.y); }

@@ -3,7 +3,7 @@
 #include "MergingPhase.hlsl"
 
 [numthreads(THREADS,1,1)]
-void RunPlocPlusPlus(const uint threadId : SV_GroupThreadID,const uint groupId : SV_GroupID)
+void RunPlocPlusPlus(const uint threadId : SV_GroupThreadID,const uint groupId : SV_GroupID, const uint globalId : SV_DispatchThreadID)
 {
     uint nearestNeighbour = FindNearestNeighbour(threadId, groupId * THREADS);
     Merge(nearestNeighbour, threadId, groupId, groupId * THREADS);

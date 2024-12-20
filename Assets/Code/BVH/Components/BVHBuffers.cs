@@ -17,6 +17,7 @@ namespace Code.Components.MortonCodeAssignment
         public readonly ComputeBuffer Nodes;
         public readonly ComputeBuffer Tree;
         public readonly ComputeBuffer Root;
+        public readonly ComputeBuffer Test;
         public readonly int Size;
 
         public BVHBuffers(int size)
@@ -30,6 +31,7 @@ namespace Code.Components.MortonCodeAssignment
             BlockOffset = new ComputeBuffer(1, sizeof(uint));
             Boxes = new ComputeBuffer(size, AABB.GetSize());
             TreeSize = new ComputeBuffer(1, sizeof(uint));
+            Test = new ComputeBuffer(size, sizeof(uint));
             Root = new ComputeBuffer(1, sizeof(uint));
             Size = size;
         }
@@ -46,6 +48,7 @@ namespace Code.Components.MortonCodeAssignment
             Nodes.Dispose();
             Tree.Dispose();
             Root.Dispose();
+            Test.Dispose();
         }
     }
 }

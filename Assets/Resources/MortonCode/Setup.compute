@@ -24,9 +24,7 @@ void Setup(const uint id : SV_DispatchThreadID)
     BlockOffset[0] = 0;
     MortonCodes[id] = MortonCode::Create(id, normalizedCentroid);
     ParentIds[id] = INVALID_PARENT_ID;
-    Nodes[id] = BVHNode::Create(aabb);
-    // Tree[id].Box = AABB::Create(float3(0, 0, 0), float3(0, 0, 0));
-    // Tree[id].__Data = uint2(0, 0);
-    // Tree[id + LeavesCount].Box = AABB::Create(float3(0, 0, 0), float3(0, 0, 0));
-    // Tree[id + LeavesCount].__Data = uint2(0, 0);
+    Nodes[id] = BVHNode::Create(-1, -1, aabb);
+    Tree[id] = BVHNode::Create(-1, -1, AABB::Create(float3(0, 0, 0), float3(0, 0, 0)));
+    Tree[id + LeavesCount] = BVHNode::Create(-1, -1, AABB::Create(float3(0, 0, 0), float3(0, 0, 0)));
 }
