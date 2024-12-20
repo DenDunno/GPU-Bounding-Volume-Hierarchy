@@ -1,6 +1,6 @@
 groupshared uint SumOfValidNodesInPreviousGroups;
 groupshared uint SumOfMergedNodesInPreviousGroups;
-RWStructuredBuffer<uint> BlockOffset;
+RWStructuredBuffer<uint> MergedNodesCount;
 RWStructuredBuffer<uint> ValidNodesCount;
 
 void CompressValidNodes(uint isValidNode, uint threadId, uint blockOffset, uint groupCompressIndex)

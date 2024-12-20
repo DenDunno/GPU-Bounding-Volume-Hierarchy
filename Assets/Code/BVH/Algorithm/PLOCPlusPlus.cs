@@ -1,4 +1,3 @@
-using System;
 using Code.Utils.Extensions;
 using Code.Utils.ShaderUtils;
 using UnityEngine;
@@ -16,10 +15,10 @@ namespace Code.Components.MortonCodeAssignment
 
         protected override void Setup(IShaderBridge<string> shaderBridge, int kernelId)
         {
+            shaderBridge.SetBuffer(kernelId, "MergedNodesCount", _buffers.MergedNodesCount);
             shaderBridge.SetBuffer(kernelId, "ValidNodesCount", _buffers.ValidNodesCount);
             shaderBridge.SetBuffer(kernelId, "SortedMortonCodes", _buffers.MortonCodes);
             shaderBridge.SetBuffer(kernelId, "BlockCounter", _buffers.BlockCounter);
-            shaderBridge.SetBuffer(kernelId, "BlockOffset", _buffers.BlockOffset);
             shaderBridge.SetBuffer(kernelId, "ParentIds", _buffers.ParentIds);
             shaderBridge.SetBuffer(kernelId, "TreeSize", _buffers.TreeSize);
             shaderBridge.SetBuffer(kernelId, "RootIndex", _buffers.Root);
@@ -31,33 +30,27 @@ namespace Code.Components.MortonCodeAssignment
         protected override void Execute(IShaderBridge<string> shaderBridge, Vector3Int payload)
         {
             int leavesCount = payload.x;
-            int treeSize = 0;
-            int iterations = 0;
             int safetyCheckMax = 100;
-
-            //_buffers.Nodes.Print<BVHNode>("Nodes before:\n", x => $"{x}\n");
+            int iterations = 0;
+            int treeSize = 0;
 
             while (leavesCount > 1 && iterations < safetyCheckMax)
             {
                 shaderBridge.SetInt("LeavesCount", leavesCount);
                 
                 _buffers.TreeSize.SetData(new[] { treeSize });
-                _buffers.BlockOffset.SetData(new uint[1]);
+                _buffers.MergedNodesCount.SetData(new uint[1]);
                 _buffers.BlockCounter.SetData(new uint[1]);
                 _buffers.ValidNodesCount.SetData(new uint[1]);
 
                 Dispatch(leavesCount, payload.y, payload.z);
-                //_buffers.Tree.Print<BVHNode>($"Iteration: {iterations}. Tree after:\n", x => $"{x}\n");
-                //_buffers.Nodes.Print<BVHNode>($"Iteration: {iterations}. Nodes after:\n", x => $"{x}\n");
-                //_buffers.Test.Print<Vector2Int>($"Iteration: {iterations}. Test:\n", x => $"{x}\n");
 
                 int validNodes = _buffers.ValidNodesCount.FetchValue<int>();
-                treeSize += _buffers.BlockOffset.FetchValue<int>() * 2;
+                treeSize += _buffers.MergedNodesCount.FetchValue<int>() * 2;
                 leavesCount = validNodes;
                 iterations++;
             }
-            //_buffers.Nodes.Print<BVHNode>($"Iteration: {iterations}. Nodes after:\n", x => $"{x}\n");
-            //Debug.Log($"Iterations: {iterations}");
+            
             if (iterations >= safetyCheckMax)
             {
                 Debug.LogError("BVH construction error. Termination");

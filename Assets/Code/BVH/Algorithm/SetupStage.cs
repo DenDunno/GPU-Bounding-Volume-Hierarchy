@@ -21,7 +21,7 @@ namespace Code.Components.MortonCodeAssignment
             shaderBridge.SetVector("_Min", _sceneSize.Min);
             shaderBridge.SetVector("_Max", _sceneSize.Max);
             shaderBridge.SetBuffer(kernelId, "BlockCounter", _buffers.BlockCounter);
-            shaderBridge.SetBuffer(kernelId, "BlockOffset", _buffers.BlockOffset);
+            shaderBridge.SetBuffer(kernelId, "BlockOffset", _buffers.MergedNodesCount);
             shaderBridge.SetBuffer(kernelId, "MortonCodes", _buffers.MortonCodes);
             shaderBridge.SetBuffer(kernelId, "BoundingBoxes", _buffers.Boxes);
             shaderBridge.SetBuffer(kernelId, "ParentIds", _buffers.ParentIds);

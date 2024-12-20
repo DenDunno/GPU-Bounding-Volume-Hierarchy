@@ -42,7 +42,7 @@ void PrefixSumSinglePass(uint3 id : SV_DispatchThreadID, uint3 groupId : SV_Grou
     int input = Result[id.x];
     int inclusiveScan = ComputeInclusiveScan(input, threadId.x);
 
-    WAIT_FOR_PREVIOUS_GROUPS_SINGLE(threadId.x, THREAD_LAST_INDEX, groupId.x,
+    SYNCHRONIZE(threadId.x, THREAD_LAST_INDEX, groupId.x,
         InterlockedAdd(BlockSum[0], inclusiveScan, SumOfBlocksInPreviousGroups);)
 
     Result[id.x] = inclusiveScan - input + SumOfBlocksInPreviousGroups;
