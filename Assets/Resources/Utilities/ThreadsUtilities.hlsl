@@ -33,3 +33,13 @@ if (threadId == targetThreadId) \
     __UnlockNextGroup(); \
 } \
 GroupMemoryBarrierWithGroupSync(); \
+
+
+void __SynchronizeAllThreads(uint threadId, uint groupId, uint groupSize, uint payload)
+{
+    SYNCHRONIZE(threadId, groupSize - 1, groupId,
+        if (groupId * groupSize >= payload)
+        {
+            BlockCounter[0] = 0;
+        })
+}

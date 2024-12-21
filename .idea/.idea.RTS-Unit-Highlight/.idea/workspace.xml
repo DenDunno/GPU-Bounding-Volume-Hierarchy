@@ -5,17 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/ScanPhase.hlsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/ScanPhase.hlsl.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/CompressPhase.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/CompressPhase.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/MergingPhase.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/MergingPhase.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PrefixSum/PrefixSum.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PrefixSum/PrefixSum.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/ChunkGPUPrefixSum.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/ChunkGPUPrefixSum.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSum.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumCommon.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumCommon.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumFactory.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/GPUPrefixSumTest.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/IGPUPrefixSum.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/PrefixSum/IGPUPrefixSum.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/RadixSort/GPURadixSort.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTest.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTestView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/PrefixSum/PrefixSumTestView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/Sort/SortTestView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/Sort/SortTestView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/InspectorExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/InspectorExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Common/Threads.hlsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Common/Threads.hlsl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSort.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSort.compute" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortBlockSum.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/RadixSort/RadixSortBlockSum.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Utilities/ThreadsUtilities.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Utilities/ThreadsUtilities.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/New Universal Render Pipeline Asset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/New Universal Render Pipeline Asset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +157,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Build\RTS-Unit-Highlight.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Builds/BVHBuild\RTS-Unit-Highlight.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="D:\Build" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -174,10 +190,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="15044">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="12092">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="15044" />
+      <option name="pid" value="12092" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -302,6 +318,7 @@
       <workItem from="1734395401017" duration="6111000" />
       <workItem from="1734577687995" duration="13437000" />
       <workItem from="1734668395423" duration="12301000" />
+      <workItem from="1734747465509" duration="5449000" />
     </task>
     <servers />
   </component>
@@ -341,14 +358,7 @@
         <line-breakpoint type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Code/Test/UpdateSortTest.cs</url>
           <line>30</line>
-          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\UpdateSortTest.cs" containingFunctionPresentation="Method 'Update'">
-            <startOffsets>
-              <option value="840" />
-            </startOffsets>
-            <endOffsets>
-              <option value="915" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\UpdateSortTest.cs" containingFunctionPresentation="Method 'Update'" />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint type="DotNet Breakpoints">

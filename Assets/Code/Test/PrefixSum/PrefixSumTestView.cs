@@ -17,7 +17,7 @@ namespace Code
             int[] outputPrefixSum = new int[input.Length];
             ComputeBuffer buffer = new(input.Length, sizeof(int));
             int[] expectedPrefixSum = new PrefixSumGeneration().Generate(input);
-            GPUPrefixSumTest prefixSum = new(_prefixSumShader, buffer);
+            GPUPrefixSum prefixSum = new(_prefixSumShader, buffer);
             prefixSum.Initialize();
 
             buffer.SetData(input);

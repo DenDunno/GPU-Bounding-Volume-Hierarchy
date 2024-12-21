@@ -25,6 +25,7 @@ namespace Code.Test.Sort
             expectedOutput.Sort();
             sort.GetData(Output);
             
+            sort.Dispose();
             return expectedOutput.IsSame(Output);
         }
     }

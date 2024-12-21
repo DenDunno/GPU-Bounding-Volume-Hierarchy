@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 
@@ -21,3 +22,4 @@ public static class InspectorExtensions
         ActiveEditorTracker.sharedTracker.ForceRebuild();
     }
 }
+#endif

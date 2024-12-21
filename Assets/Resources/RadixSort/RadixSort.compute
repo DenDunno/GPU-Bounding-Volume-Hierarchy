@@ -2,12 +2,13 @@
 #pragma kernel ChunkSort
 #define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
 #define PREFIX_SUM_TYPE int4
+#define THREADS 256
 #include "RadixSortBlockSum.hlsl"
-#include "MortoneCodeRadixSort.hlsl"
+#include "IntegerRadixSort.hlsl"
 #include "RadixSortInput.hlsl"
 #include "../Common/ThreadId.hlsl"
-#include "../Common/Threads.hlsl"
 #include "../PrefixSum/HillisAndSteelePrefixSum.hlsl"
+#include "..//Utilities/ThreadsUtilities.hlsl"
 
 RWStructuredBuffer<SORTING_TYPE> LocalShuffle;
 RWStructuredBuffer<int> LocalPrefixSum;
@@ -86,17 +87,6 @@ void BuildLocalPrefixSumChunk(const int threadId, const int4 hasPassedMask, cons
 }
 
 [numthreads(THREADS,1,1)]
-void ChunkSort(const int globalId : SV_DispatchThreadID, const int threadId : SV_GroupThreadID, const int groupId : SV_GroupID)
-{
-    const ThreadId id = ThreadId::Create(globalId, threadId, groupId);
-    const RadixSortInput input = RadixSortInput::Fetch(id.Global);
-    const int4 scanPerElement = ComputeExclusiveScan(input.HasPassedMask, id.Local);
-    BuildLocalPrefixSumChunk(id.Local, input.HasPassedMask, scanPerElement);
-    HandleLastLocalThread(id, input.HasPassedMask, scanPerElement);
-    PerformLocalScatter(input, id);
-}
-
-[numthreads(THREADS,1,1)]
 void GlobalScatter(const int globalId : SV_DispatchThreadID, const int groupId : SV_GroupID)
 {
     if (IsOutOfBounds(globalId)) return;
@@ -109,4 +99,19 @@ void GlobalScatter(const int globalId : SV_DispatchThreadID, const int groupId :
     const int globalScatterPosition = localPrefixSum + blockSumPrefixSum;
 
     Input[globalScatterPosition] = bufferValue;
+}
+
+[numthreads(THREADS,1,1)]
+void ChunkSort(const int globalId : SV_DispatchThreadID, const int threadId : SV_GroupThreadID, const int groupId : SV_GroupID)
+{
+    const ThreadId id = ThreadId::Create(globalId, threadId, groupId);
+    const RadixSortInput input = RadixSortInput::Fetch(id.Global);
+    const int4 scanPerElement = ComputeExclusiveScan(input.HasPassedMask, id.Local);
+    BuildLocalPrefixSumChunk(id.Local, input.HasPassedMask, scanPerElement);
+    HandleLastLocalThread(id, input.HasPassedMask, scanPerElement);
+    PerformLocalScatter(input, id);
+    // __SynchronizeAllThreads(threadId, groupId, THREADS, SortLength);
+    // PerformBlockSumPrefixSum(globalId);
+    // __SynchronizeAllThreads(threadId, groupId, THREADS, SortLength);
+    // GlobalScatter(globalId, groupId);
 }

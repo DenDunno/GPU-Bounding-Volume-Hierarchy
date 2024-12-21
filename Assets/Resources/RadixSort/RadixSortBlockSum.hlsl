@@ -16,3 +16,11 @@ int ReadBlockSumPrefixSum(const int sortValue, const int groupId)
 {
     return BlockSum[GetBlockSumId(sortValue, groupId)];
 }
+
+void PerformBlockSumPrefixSum(const uint globalId)
+{
+    uint blockSumLength;
+    uint stride;
+
+    BlockSum.GetDimensions(blockSumLength, stride);
+}

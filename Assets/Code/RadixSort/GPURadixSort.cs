@@ -11,7 +11,7 @@ namespace Code
     public class GPURadixSort<T> : IDisposable where T : struct
     {
         private readonly IShaderBridge<string> _shaderBridge;
-        private readonly IGPUPrefixSum _blockSumPrefixSum;
+        private readonly GPUPrefixSum _blockSumPrefixSum;
         private readonly RadixSortBuffers<T> _buffers;
         private readonly Vector3Int _threadGroups;
         private readonly int _sortedBitsPerPass;
@@ -27,7 +27,7 @@ namespace Code
             _threadGroups = _chunkSort.ComputeThreadGroups(input.PayloadDispatch);
             _buffers = new RadixSortBuffers<T>(input.ArraySize, input.Blocks, _threadGroups.x);
             _shaderBridge = new CachedShaderBridge(new ComputeShaderBridge(input.SortShader));
-            _blockSumPrefixSum = new GPUPrefixSumFactory(input.PrefixSumShader, _buffers.BlockSum).Create();
+            _blockSumPrefixSum = new GPUPrefixSum(input.PrefixSumShader, _buffers.BlockSum);
         }
 
         public void GetData(Array array) => _buffers.Input.GetData(array);
@@ -50,12 +50,13 @@ namespace Code
             _buffers.Bind(_chunkSort.ID, input, _shaderBridge);
             _buffers.Bind(_globalScatter.ID, input, _shaderBridge);
             _shaderBridge.SetInt("ThreadGroups", _threadGroups.x);
+            _blockSumPrefixSum.Initialize();
         }
 
         public void Execute(int sortLength)
         {
             SetupBeforeDispatch(sortLength);
-
+            
             for (int bitOffset = 0; bitOffset < 32; bitOffset += _sortedBitsPerPass)
             {
                 SetBitOffset(bitOffset);
