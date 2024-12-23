@@ -1,14 +1,14 @@
 #pragma kernel GlobalScatter
 #pragma kernel ChunkSort
 #define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
-#define PREFIX_SUM_TYPE int4
+#define PREFIX_SUM_TYPE int
 #define THREADS 256
 #include "RadixSortBlockSum.hlsl"
 #include "IntegerRadixSort.hlsl"
 #include "RadixSortInput.hlsl"
 #include "../Common/ThreadId.hlsl"
 #include "../PrefixSum/HillisAndSteelePrefixSum.hlsl"
-#include "..//Utilities/ThreadsUtilities.hlsl"
+//#include "..//Utilities/ThreadsUtilities.hlsl"
 
 RWStructuredBuffer<SORTING_TYPE> LocalShuffle;
 RWStructuredBuffer<int> LocalPrefixSum;
@@ -106,11 +106,13 @@ void ChunkSort(const int globalId : SV_DispatchThreadID, const int threadId : SV
 {
     const ThreadId id = ThreadId::Create(globalId, threadId, groupId);
     const RadixSortInput input = RadixSortInput::Fetch(id.Global);
-    const int4 scanPerElement = ComputeExclusiveScan(input.HasPassedMask, id.Local);
+    const int encodedMask = EncodeInt4(input.HasPassedMask);
+    const int encodedScanPerElement = ComputeExclusiveScan(encodedMask, id.Local);
+    const int4 scanPerElement = DecodeInt4(encodedScanPerElement);
     BuildLocalPrefixSumChunk(id.Local, input.HasPassedMask, scanPerElement);
     HandleLastLocalThread(id, input.HasPassedMask, scanPerElement);
     PerformLocalScatter(input, id);
-    // __SynchronizeAllThreads(threadId, groupId, THREADS, SortLength);
+    // __SynchronizeAllThreads(threadId, THREADS, ThreadGroups);
     // PerformBlockSumPrefixSum(globalId);
     // __SynchronizeAllThreads(threadId, groupId, THREADS, SortLength);
     // GlobalScatter(globalId, groupId);

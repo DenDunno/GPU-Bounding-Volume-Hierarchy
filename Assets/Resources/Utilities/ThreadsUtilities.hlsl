@@ -35,11 +35,18 @@ if (threadId == targetThreadId) \
 GroupMemoryBarrierWithGroupSync(); \
 
 
-void __SynchronizeAllThreads(uint threadId, uint groupId, uint groupSize, uint payload)
+void __SynchronizeAllThreads(uint threadId, uint groupSize, uint threadGroups)
 {
-    SYNCHRONIZE(threadId, groupSize - 1, groupId,
-        if (groupId * groupSize >= payload)
+    GroupMemoryBarrierWithGroupSync();
+    
+    if (threadId == groupSize - 1)
+    {
+        uint blockCounter = 0;
+        InterlockedAdd(BlockCounter[0], 1, blockCounter);
+
+        while (blockCounter < threadGroups)
         {
-            BlockCounter[0] = 0;
-        })
+            InterlockedAdd(BlockCounter[0], 0, blockCounter);
+        }
+    }
 }
