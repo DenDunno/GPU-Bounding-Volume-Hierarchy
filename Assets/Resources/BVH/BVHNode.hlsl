@@ -20,15 +20,15 @@ struct BVHNode
         return node;
     }
 
-    bool IsLeaf() { return ExtractTopBit(__Data.x); }
-    uint LeftChild() { return ExtractLower31Bits(__Data.x); }
-    uint RightChild() { return ExtractLower31Bits(__Data.y); }
+    bool IsLeaf() { return BitUtils::ExtractTopBit(__Data.x); }
+    uint LeftChild() { return BitUtils::ExtractLower31Bits(__Data.x); }
+    uint RightChild() { return BitUtils::ExtractLower31Bits(__Data.y); }
     uint TriangleIndex() { return LeftChild(); }
     uint TriangleCount() { return RightChild(); }
 
     void MarkAsLeaf() { __SetIsLeaf(1); }
     void MarkAsInternalNode() { __SetIsLeaf(0); }
-    void __SetIsLeaf(const uint value) { __Data.x = SetTopBit(__Data.x, value); }
+    void __SetIsLeaf(const uint value) { __Data.x = BitUtils::SetTopBit(__Data.x, value); }
     void SetLeftChild(const uint value) { __Data.x = value; }
     void SetRightChild(const uint value) { __Data.y = value; }
 };

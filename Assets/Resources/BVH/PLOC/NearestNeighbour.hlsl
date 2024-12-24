@@ -30,8 +30,8 @@ uint EncodeOffsetIntoLowerBits(int offset)
 
 int DecodeOffsetFromLowerBits(uint encodedValue)
 {
-    int offset = ExtractBits(encodedValue, 1, RADIUS_SHIFT) + 1;
-    uint sign = ExtractLowestBit(encodedValue);
+    int offset = BitUtils::ExtractBits(encodedValue, 1, RADIUS_SHIFT) + 1;
+    uint sign = BitUtils::ExtractLowestBit(encodedValue);
 
     return sign == 0 ? -offset : offset;
 }

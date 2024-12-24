@@ -21,7 +21,7 @@ bool IsOutOfBounds(const int index) { return index >= SortLength; }
 int ExtractBits(SORTING_TYPE bufferInput)
 {
     int input = FetchSortingValue(bufferInput);
-    return ExtractBits(input, BitOffset, SORTED_BITS_PER_PASS);
+    return BitUtils::ExtractBits(input, BitOffset, SORTED_BITS_PER_PASS);
 }
 
 struct RadixSortInput

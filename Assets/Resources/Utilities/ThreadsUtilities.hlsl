@@ -20,11 +20,6 @@ void __UnlockNextGroup()
     InterlockedAdd(BlockCounter[0], 1);
 }
 
-void ResetBlockCounter()
-{
-    BlockCounter[0] = 0;
-}
-
 #define SYNCHRONIZE(threadId, targetThreadId, groupId, CODE) \
 if (threadId == targetThreadId) \
 { \
@@ -33,20 +28,3 @@ if (threadId == targetThreadId) \
     __UnlockNextGroup(); \
 } \
 GroupMemoryBarrierWithGroupSync(); \
-
-
-void __SynchronizeAllThreads(uint threadId, uint groupSize, uint threadGroups)
-{
-    GroupMemoryBarrierWithGroupSync();
-    
-    if (threadId == groupSize - 1)
-    {
-        uint blockCounter = 0;
-        InterlockedAdd(BlockCounter[0], 1, blockCounter);
-
-        while (blockCounter < threadGroups)
-        {
-            InterlockedAdd(BlockCounter[0], 0, blockCounter);
-        }
-    }
-}

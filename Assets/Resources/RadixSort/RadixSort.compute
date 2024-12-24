@@ -3,12 +3,10 @@
 #define ALL_POSSIBLE_VALUES 4 // SORTED_BITS_PER_PASS ^ 2
 #define PREFIX_SUM_TYPE int
 #define THREADS 256
+#include "../PrefixSum/HillisAndSteelePrefixSum.hlsl"
 #include "RadixSortBlockSum.hlsl"
 #include "IntegerRadixSort.hlsl"
 #include "RadixSortInput.hlsl"
-#include "../Common/ThreadId.hlsl"
-#include "../PrefixSum/HillisAndSteelePrefixSum.hlsl"
-//#include "..//Utilities/ThreadsUtilities.hlsl"
 
 RWStructuredBuffer<SORTING_TYPE> LocalShuffle;
 RWStructuredBuffer<int> LocalPrefixSum;
@@ -39,15 +37,15 @@ void WriteToBlockSum(const int groupId, const int4 totalElementsInGroup)
     }
 }
 
-void PerformLocalScatter(const RadixSortInput input, const ThreadId id)
+void PerformLocalScatter(const RadixSortInput input, const int threadId, const int globalId)
 {
     GroupMemoryBarrierWithGroupSync();
-    const int targetElementPrefixSum = LocalPrefixSumChunk[id.Local];
+    const int targetElementPrefixSum = LocalPrefixSumChunk[threadId];
     const int totalElementsLessThanTargetElement = OffsetTable[input.ExtractedBits];
     const int localScatterIndex = totalElementsLessThanTargetElement + targetElementPrefixSum;
     GroupMemoryBarrierWithGroupSync();
 
-    if (IsInBounds(id.Global))
+    if (IsInBounds(globalId))
     {
         LocalPrefixSumChunk[localScatterIndex] = targetElementPrefixSum;
         SortedChunk[localScatterIndex] = input.InitialValue;
@@ -55,20 +53,20 @@ void PerformLocalScatter(const RadixSortInput input, const ThreadId id)
 
     GroupMemoryBarrierWithGroupSync();
 
-    if (IsInBounds(id.Global))
+    if (IsInBounds(globalId))
     {
-        LocalPrefixSum[id.Global] = LocalPrefixSumChunk[id.Local];
-        LocalShuffle[id.Global] = SortedChunk[id.Local];
+        LocalPrefixSum[globalId] = LocalPrefixSumChunk[threadId];
+        LocalShuffle[globalId] = SortedChunk[threadId];
     }
 }
 
-void HandleLastLocalThread(const ThreadId id, const int4 hasPassedMask, const int4 scanPerElement)
+void HandleLastLocalThread(const int threadId, const int groupId, const int4 hasPassedMask, const int4 scanPerElement)
 {
-    if (id.Local == THREAD_LAST_INDEX)
+    if (threadId == THREAD_LAST_INDEX)
     {
         const int4 totalElementsInGroup = scanPerElement + hasPassedMask;
         BuildOffsetTableForLocalScattering(totalElementsInGroup);
-        WriteToBlockSum(id.Group, totalElementsInGroup);
+        WriteToBlockSum(groupId, totalElementsInGroup);
     }
 }
 
@@ -86,6 +84,23 @@ void BuildLocalPrefixSumChunk(const int threadId, const int4 hasPassedMask, cons
     }
 }
 
+int4 PerformScanPerElement(const int threadId, const int4 hasPassedMask)
+{
+    const int encodedMask = BitUtils::EncodeInt4(hasPassedMask);
+    const int encodedScanPerElement = ComputeExclusiveScan(encodedMask, threadId);
+    return BitUtils::DecodeInt4(encodedScanPerElement);
+}
+
+[numthreads(THREADS,1,1)]
+void ChunkSort(const int globalId : SV_DispatchThreadID, const int threadId : SV_GroupThreadID, const int groupId : SV_GroupID)
+{
+    const RadixSortInput input = RadixSortInput::Fetch(globalId);
+    const int4 scanPerElement = PerformScanPerElement(threadId, input.HasPassedMask);
+    BuildLocalPrefixSumChunk(threadId, input.HasPassedMask, scanPerElement);
+    HandleLastLocalThread(threadId, groupId, input.HasPassedMask, scanPerElement);
+    PerformLocalScatter(input, threadId, globalId);
+}
+
 [numthreads(THREADS,1,1)]
 void GlobalScatter(const int globalId : SV_DispatchThreadID, const int groupId : SV_GroupID)
 {
@@ -99,21 +114,4 @@ void GlobalScatter(const int globalId : SV_DispatchThreadID, const int groupId :
     const int globalScatterPosition = localPrefixSum + blockSumPrefixSum;
 
     Input[globalScatterPosition] = bufferValue;
-}
-
-[numthreads(THREADS,1,1)]
-void ChunkSort(const int globalId : SV_DispatchThreadID, const int threadId : SV_GroupThreadID, const int groupId : SV_GroupID)
-{
-    const ThreadId id = ThreadId::Create(globalId, threadId, groupId);
-    const RadixSortInput input = RadixSortInput::Fetch(id.Global);
-    const int encodedMask = EncodeInt4(input.HasPassedMask);
-    const int encodedScanPerElement = ComputeExclusiveScan(encodedMask, id.Local);
-    const int4 scanPerElement = DecodeInt4(encodedScanPerElement);
-    BuildLocalPrefixSumChunk(id.Local, input.HasPassedMask, scanPerElement);
-    HandleLastLocalThread(id, input.HasPassedMask, scanPerElement);
-    PerformLocalScatter(input, id);
-    // __SynchronizeAllThreads(threadId, THREADS, ThreadGroups);
-    // PerformBlockSumPrefixSum(globalId);
-    // __SynchronizeAllThreads(threadId, groupId, THREADS, SortLength);
-    // GlobalScatter(globalId, groupId);
 }
