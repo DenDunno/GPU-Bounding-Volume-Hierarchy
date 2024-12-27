@@ -1,10 +1,17 @@
-#pragma kernel RunPlocPlusPlus
-#define THREADS 512
+#pragma kernel Build
+#define THREADS 256
+#include "NearestNeighbour.hlsl"
+#include "ScanPhase.hlsl"
 #include "MergingPhase.hlsl"
 
 [numthreads(THREADS,1,1)]
-void RunPlocPlusPlus(const uint threadId : SV_GroupThreadID,const uint groupId : SV_GroupID, const uint globalId : SV_DispatchThreadID)
+void Build(const uint threadId : SV_GroupThreadID, const uint groupId : SV_GroupID)
 {
-    uint nearestNeighbour = FindNearestNeighbour(threadId, groupId * THREADS);
-    Merge(nearestNeighbour, threadId, groupId, groupId * THREADS);
+    uint blockOffset = groupId * THREADS;
+
+    uint nearestNeighbour = FindNearestNeighbour(threadId, blockOffset);
+    PreMergeResult mergeResult = PreComputeMergeResult(nearestNeighbour, threadId, blockOffset);
+    PreMergeScanResult scan = PerformInclusiveGlobalScan(threadId, groupId, mergeResult);
+    BVHNode resultNode = TryMerge(nearestNeighbour, threadId, blockOffset, mergeResult.CanMerge, scan.MergedNodes);
+    CompressValidNodes(mergeResult.IsValidNode, scan.ValidNodes, resultNode);
 }

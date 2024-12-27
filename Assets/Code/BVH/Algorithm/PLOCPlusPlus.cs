@@ -8,7 +8,7 @@ namespace Code.Components.MortonCodeAssignment
     {
         private readonly BVHBuffers _buffers;
 
-        public PLOCPlusPLus(ComputeShader shader, BVHBuffers buffers) : base(shader, "RunPlocPlusPlus")
+        public PLOCPlusPLus(ComputeShader shader, BVHBuffers buffers) : base(shader, "Build")
         {
             _buffers = buffers;
         }

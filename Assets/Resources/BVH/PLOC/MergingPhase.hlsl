@@ -1,22 +1,25 @@
-#include "NearestNeighbour.hlsl"
-#include "ScanPhase.hlsl"
 RWStructuredBuffer<uint> TreeSize;
 
-void Merge(uint nearestNeighbour, uint threadId, uint groupId, uint blockOffset)
+PreMergeResult PreComputeMergeResult(uint nearestNeighbour, uint threadId, uint blockOffset)
 {
     uint areNodesMutuallyClosest = GetNeighbour(nearestNeighbour) == threadId;
     uint isNodeFromTheLeft = (int)threadId < (int)nearestNeighbour;
-    uint mergeConditionIsMet = areNodesMutuallyClosest && isNodeFromTheLeft;
-    uint isValidNode = (areNodesMutuallyClosest == 0 || isNodeFromTheLeft) && IsInBounds(threadId + blockOffset);
-    BVHNode leftNode = Nodes[threadId + blockOffset];
+    
+    PreMergeResult preMergeResult;
+    preMergeResult.IsValidNode = (areNodesMutuallyClosest == 0 || isNodeFromTheLeft) && IsInBounds(threadId + blockOffset);
+    preMergeResult.CanMerge = areNodesMutuallyClosest && isNodeFromTheLeft;
+    return preMergeResult;
+}
+
+BVHNode TryMerge(uint nearestNeighbour, uint threadId, uint blockOffset, uint isMergeConditionMet, uint mergedNodesScan)
+{
     BVHNode rightNode = Nodes[nearestNeighbour + blockOffset];
+    BVHNode leftNode = Nodes[threadId + blockOffset];
     BVHNode resultNode = leftNode;
-    
-    ScanResult scan = PerformInclusiveGlobalScan(threadId, groupId, isValidNode, mergeConditionIsMet);
-    
-    if (mergeConditionIsMet)
+
+    if (isMergeConditionMet)
     {
-        uint groupCompressIndex = scan.MergedNodes * 2;
+        uint groupCompressIndex = mergedNodesScan * 2;
         uint globalOffset = SumOfMergedNodesInPreviousGroups * 2;
         uint leftChildIndex = groupCompressIndex + globalOffset + TreeSize[0];
         uint rightChildIndex = leftChildIndex + 1;
@@ -26,10 +29,15 @@ void Merge(uint nearestNeighbour, uint threadId, uint groupId, uint blockOffset)
         Tree[leftChildIndex] = leftNode;
         Tree[rightChildIndex] = rightNode;
     }
-    
+
+    return resultNode;
+}
+
+void CompressValidNodes(uint isValidNode, uint validNodesLocalScan, BVHNode resultNode)
+{
     if (isValidNode)
     {
-        uint globalCompressIndex = scan.ValidNodes + SumOfValidNodesInPreviousGroups;
+        uint globalCompressIndex = validNodesLocalScan + SumOfValidNodesInPreviousGroups;
         Nodes[globalCompressIndex] = resultNode;
     }
 }

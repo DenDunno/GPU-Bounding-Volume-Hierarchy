@@ -6,15 +6,22 @@ groupshared uint SumOfMergedNodesInPreviousGroups;
 RWStructuredBuffer<uint> MergedNodesCount;
 RWStructuredBuffer<uint> ValidNodesCount;
 
-struct ScanResult
+struct PreMergeResult
 {
-    uint ValidNodes;
-    uint MergedNodes;
+    uint CanMerge;
+    uint IsValidNode;
 };
 
-ScanResult PerformInclusiveGlobalScan(uint threadId, uint groupId, uint isValidNode, uint mergeConditionIsMet)
+struct PreMergeScanResult
 {
-    uint2 scan = ComputeInclusiveScan(uint2(isValidNode, mergeConditionIsMet), threadId);
+    uint MergedNodes;
+    uint ValidNodes;
+};
+
+PreMergeScanResult PerformInclusiveGlobalScan(uint threadId, uint groupId, PreMergeResult preMergeResult)
+{
+    uint2 scanInput = uint2(preMergeResult.IsValidNode, preMergeResult.CanMerge);
+    uint2 scan = ComputeInclusiveScan(scanInput, threadId);
     uint validNodesInclusiveScan = scan.x;
     uint mergedNodesInclusiveScan = scan.y;
     
@@ -23,9 +30,8 @@ ScanResult PerformInclusiveGlobalScan(uint threadId, uint groupId, uint isValidN
         InterlockedAdd(ValidNodesCount[0], validNodesInclusiveScan, SumOfValidNodesInPreviousGroups);
     )
 
-    ScanResult result;
-    result.ValidNodes = validNodesInclusiveScan - isValidNode;
-    result.MergedNodes = mergedNodesInclusiveScan - mergeConditionIsMet;
-
+    PreMergeScanResult result;
+    result.ValidNodes = validNodesInclusiveScan - preMergeResult.IsValidNode;
+    result.MergedNodes = mergedNodesInclusiveScan - preMergeResult.CanMerge;
     return result;
 }
