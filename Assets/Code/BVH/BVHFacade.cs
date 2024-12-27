@@ -2,11 +2,11 @@ using System;
 
 namespace Code.Components.MortonCodeAssignment
 {
-    public class ParallelBVHFacade : IDisposable
+    public class BVHFacade : IDisposable
     {
         public readonly BVHComponents Components;
 
-        public ParallelBVHFacade(BVHData data, BVHShaders shaders)
+        public BVHFacade(BVHData data, BVHShaders shaders)
         {
             Components = new BVHComponents(data, shaders);
         }

@@ -19,7 +19,7 @@ public class BVHTest : MonoBehaviour
     {
         for (int i = 0; i < iterations; i++)
         {
-            GetComponent<StaticBVH>().Bake();
+            GetComponent<BVHCluster>().Bake();
             yield return null;
         }
     }
@@ -33,14 +33,14 @@ public class BVHTest : MonoBehaviour
 
     private IEnumerator RunTest()
     {
-        StaticBVH bvh = GetComponent<StaticBVH>();
+        BVHCluster bvhCluster = GetComponent<BVHCluster>();
         StringBuilder stringBuilder = new();
         
         while (true)
         {
             stringBuilder.Clear();
-            bvh.Bake();
-            BVHNode[] tree = bvh.GPUBridge.FetchTree();
+            bvhCluster.Bake();
+            BVHNode[] tree = bvhCluster.GPUBridge.FetchTree();
             
             foreach (BVHNode node in tree)
             {

@@ -20,7 +20,7 @@ namespace Code.Components.MortonCodeAssignment
         }
 
         public IBoundingBoxesInput Value => _buildFromMesh ? 
-            new InputFromMesh(_meshFilter.sharedMesh) :
+            new InputFromMesh(_meshFilter.sharedMesh, _meshFilter.transform) :
             new ManualBoundingBoxesInput(List);
 
         public int Count => _buildFromMesh ?

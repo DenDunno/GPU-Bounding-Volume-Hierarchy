@@ -19,8 +19,13 @@ namespace Code.Components.MortonCodeAssignment
         public AABB CalculateBox()
         {
             return new AABB(
-                min: Vector3.Min(_first, Vector3.Min(_second, _third)), 
+                min: Vector3.Min(_first, Vector3.Min(_second, _third)),
                 max: Vector3.Max(_first, Vector3.Max(_second, _third)));
+        }
+
+        public static Triangle operator *(Matrix4x4 matrix, Triangle triangle)
+        {
+            return new Triangle(matrix * triangle._first, matrix * triangle._second, matrix * triangle._third);
         }
     }
 }

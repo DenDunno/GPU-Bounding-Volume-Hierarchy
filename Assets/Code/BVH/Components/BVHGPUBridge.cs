@@ -14,14 +14,14 @@ namespace Code.Components.MortonCodeAssignment
             _buffers = buffers;
         }
 
-        public void SendBoxesToGPU() => _buffers.Boxes.SetData(_content.BoundingBoxes);
-        
+        public void SendBoxesToGPU()
+        {
+            _buffers.Boxes.SetData(_content.BoundingBoxes);
+        }
+
         public BVHNode[] FetchTree()
         {
             return _buffers.Nodes.FetchData<BVHNode>(_leavesCount + _leavesCount - 1);;
         }
-
-        public BVHNode[] FetchInnerNodes() => _buffers.Nodes.FetchData<BVHNode>(_leavesCount - 1);
-        public int FetchRoot() => _buffers.Root.FetchValue<int>();
     }
 }

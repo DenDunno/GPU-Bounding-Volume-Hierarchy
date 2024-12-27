@@ -16,7 +16,6 @@ namespace Code.Components.MortonCodeAssignment
 
         public IDrawable Create(BVHNode[] nodes, int rootIndex)
         {
-            int leavesCount = (nodes.Length + 1) / 2;
             TreeNode root = new TreeCalculator(nodes, (uint)rootIndex).Compute();
             BinaryTreeSize treeSize = new(root);
             treeSize.Initialize();
@@ -24,9 +23,10 @@ namespace Code.Components.MortonCodeAssignment
             return new DrawableComposite(new IDrawable[]
             {
                 new DrawableIfTrue(
-                    new BinaryTreeVisualization(Visualization.BinaryTree, root, leavesCount - 1, treeSize),
+                    new BinaryTreeVisualization(Visualization.BinaryTree, root, treeSize),
                     Visualization.BinaryTree.Show),
-                new DrawableIfTrue(new BVHTreeVisualization(nodes, treeSize.Height, root, Visualization.BVHTree),
+                new DrawableIfTrue(
+                    new BVHTreeVisualization(nodes, treeSize.Height, root, Visualization.BVHTree),
                     Visualization.BVHTree.Show),
                 new DrawableIfTrue(_data.SceneSize.Box, _data.SceneSize.Show),
             });

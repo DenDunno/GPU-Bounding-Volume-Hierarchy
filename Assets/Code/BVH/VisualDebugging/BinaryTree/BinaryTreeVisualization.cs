@@ -12,17 +12,15 @@ namespace Code.Components.MortonCodeAssignment
         private readonly BinaryTreeVisualizationData _data;
         private readonly BinaryTreeSize _treeSize;
         private readonly Material _material;
-        private readonly int _nodesCount;
         private readonly TreeNode _root;
         private readonly Mesh _mesh;
 
         public BinaryTreeVisualization(BinaryTreeVisualizationData data,
-            TreeNode root, int nodesCount, BinaryTreeSize treeSize)
+            TreeNode root, BinaryTreeSize treeSize)
         {
             _material = new Material(Resources.Load<Material>("Utilities/Digit"));
             _materialBridge = new MaterialBridge(_material);
             _mesh = MeshExtensions.BuildQuad(1f);
-            _nodesCount = nodesCount;
             _treeSize = treeSize;
             _data = data;
             _root = root;
@@ -51,12 +49,6 @@ namespace Code.Components.MortonCodeAssignment
             bool isLeaf = node.Left == null || node.Right == null;
             _materialBridge.SetInt("_Value", (int)node.Id);
             _materialBridge.SetColor("_Color", isLeaf ? _data.LeafColor : _data.InternalNodeColor);
-
-            if (node.Id > _nodesCount + _nodesCount + 1)
-            {
-                _materialBridge.SetColor("_Color", Color.red);
-            }
-
             _material.SetPass(0);
             Graphics.DrawMeshNow(_mesh, childPosition, Quaternion.identity, 0);
         }

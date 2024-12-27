@@ -6,22 +6,22 @@ namespace Code
 {
     public class SAHView : MonoBehaviour
     {
-        [SerializeField] private StaticBVH _bvh;
+        [SerializeField] private BVHCluster _bvhCluster;
         [SerializeField] private TMP_Text _text;
 
         private void OnEnable()
         {
-            _bvh.RebuiltEvent.AddListener(OnBVHRebuilt);
+            _bvhCluster.RebuiltEvent.AddListener(OnBVHRebuilt);
         }
         
         private void OnDisable()
         {
-            _bvh.RebuiltEvent.RemoveListener(OnBVHRebuilt);
+            _bvhCluster.RebuiltEvent.RemoveListener(OnBVHRebuilt);
         }
 
         private void OnBVHRebuilt()
         {
-            UpdateView(_bvh.GPUBridge.FetchInnerNodes());
+            UpdateView(_bvhCluster.GPUBridge.FetchTree());
         }
 
         private void UpdateView(BVHNode[] nodes)

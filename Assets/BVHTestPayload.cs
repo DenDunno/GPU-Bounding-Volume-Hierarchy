@@ -5,7 +5,7 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class BVHTestPayload : MonoBehaviour
     {
-        [SerializeField] private StaticBVH _bvh;
+        [SerializeField] private BVHCluster _bvhCluster;
         [SerializeField] private Sphere[] _spheres;
 
         [Button]

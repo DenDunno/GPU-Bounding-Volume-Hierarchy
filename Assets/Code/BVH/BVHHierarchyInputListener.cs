@@ -6,12 +6,12 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class BVHHierarchyInputListener : MonoBehaviour, IObjectPlacementListener
     {
-        [SerializeField] private StaticBVH _bvh;
+        [SerializeField] private BVHCluster _bvhCluster;
         
         public void Accept(IReadOnlyList<GameObject> objects)
         {
-            _bvh.Data.BoxesInput.List = new List<GameObject>(objects);
-            _bvh.Bake();
+            _bvhCluster.Data.BoxesInput.List = new List<GameObject>(objects);
+            _bvhCluster.Bake();
         }
     }
 }

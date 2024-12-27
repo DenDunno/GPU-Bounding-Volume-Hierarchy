@@ -1,4 +1,4 @@
-RWStructuredBuffer<uint> TreeSize;
+uint TreeSize;
 
 PreMergeResult PreComputeMergeResult(uint nearestNeighbour, uint threadId, uint blockOffset)
 {
@@ -21,7 +21,7 @@ BVHNode TryMerge(uint nearestNeighbour, uint threadId, uint blockOffset, uint is
     {
         uint groupCompressIndex = mergedNodesScan * 2;
         uint globalOffset = SumOfMergedNodesInPreviousGroups * 2;
-        uint rightChildIndex = BufferLastIndex() - TreeSize[0] - (groupCompressIndex + globalOffset);
+        uint rightChildIndex = BufferLastIndex() - TreeSize - (groupCompressIndex + globalOffset);
         uint leftChildIndex = rightChildIndex - 1;
         AABB mergedBox = NeighboursBoxes[threadId + PLOC_OFFSET].Union(NeighboursBoxes[nearestNeighbour + PLOC_OFFSET]);
         
