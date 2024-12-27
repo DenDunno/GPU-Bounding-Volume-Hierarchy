@@ -20,11 +20,9 @@ void Setup(const uint id : SV_DispatchThreadID)
     AABB sceneBox = AABB::Create(_Min, _Max);
     float3 normalizedCentroid = sceneBox.GetRelativeCoordinates(aabb.Centroid());
 
-    BlockCounter[0] = 0;
     BlockOffset[0] = 0;
-    MortonCodes[id] = MortonCode::Create(id, normalizedCentroid);
+    BlockCounter[0] = 0;
     ParentIds[id] = INVALID_PARENT_ID;
     Nodes[id] = BVHNode::Create(-1, -1, aabb);
-    Tree[id] = BVHNode::Create(-1, -1, AABB::Create(float3(0, 0, 0), float3(0, 0, 0)));
-    Tree[id + LeavesCount] = BVHNode::Create(-1, -1, AABB::Create(float3(0, 0, 0), float3(0, 0, 0)));
+    MortonCodes[id] = MortonCode::Create(id, normalizedCentroid);
 }

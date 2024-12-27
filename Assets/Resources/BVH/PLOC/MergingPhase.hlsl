@@ -16,18 +16,18 @@ BVHNode TryMerge(uint nearestNeighbour, uint threadId, uint blockOffset, uint is
     BVHNode rightNode = Nodes[nearestNeighbour + blockOffset];
     BVHNode leftNode = Nodes[threadId + blockOffset];
     BVHNode resultNode = leftNode;
-
+    
     if (isMergeConditionMet)
     {
         uint groupCompressIndex = mergedNodesScan * 2;
         uint globalOffset = SumOfMergedNodesInPreviousGroups * 2;
-        uint leftChildIndex = groupCompressIndex + globalOffset + TreeSize[0];
-        uint rightChildIndex = leftChildIndex + 1;
+        uint rightChildIndex = BufferLastIndex() - TreeSize[0] - (groupCompressIndex + globalOffset);
+        uint leftChildIndex = rightChildIndex - 1;
         AABB mergedBox = NeighboursBoxes[threadId + PLOC_OFFSET].Union(NeighboursBoxes[nearestNeighbour + PLOC_OFFSET]);
         
         resultNode = BVHNode::Create(leftChildIndex, rightChildIndex, mergedBox);
-        Tree[leftChildIndex] = leftNode;
-        Tree[rightChildIndex] = rightNode;
+        Nodes[leftChildIndex] = leftNode;
+        Nodes[rightChildIndex] = rightNode;
     }
 
     return resultNode;

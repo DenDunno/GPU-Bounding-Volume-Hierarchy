@@ -8,7 +8,7 @@
 void Build(const uint threadId : SV_GroupThreadID, const uint groupId : SV_GroupID)
 {
     uint blockOffset = groupId * THREADS;
-
+    
     uint nearestNeighbour = FindNearestNeighbour(threadId, blockOffset);
     PreMergeResult mergeResult = PreComputeMergeResult(nearestNeighbour, threadId, blockOffset);
     PreMergeScanResult scan = PerformInclusiveGlobalScan(threadId, groupId, mergeResult);

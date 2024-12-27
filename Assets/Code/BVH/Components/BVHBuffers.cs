@@ -15,18 +15,16 @@ namespace Code.Components.MortonCodeAssignment
         public readonly ComputeBuffer ParentIds;
         public readonly ComputeBuffer Boxes;
         public readonly ComputeBuffer Nodes;
-        public readonly ComputeBuffer Tree;
         public readonly ComputeBuffer Root;
         public readonly ComputeBuffer Test;
         public readonly int Size;
 
         public BVHBuffers(int size)
         {
-            Tree = new ComputeBuffer(size + (size - 1), BVHNode.GetSize()); // leaves + innerNodes + root 
+            Nodes = new ComputeBuffer(size + (size - 1), BVHNode.GetSize());
             MortonCodes = new ComputeBuffer(size, MortonCode.GetSize());
             MergedNodesCount = new ComputeBuffer(1, sizeof(uint));
             ValidNodesCount = new ComputeBuffer(1, sizeof(uint));
-            Nodes = new ComputeBuffer(size, BVHNode.GetSize());
             ParentIds = new ComputeBuffer(size, sizeof(uint));
             BlockCounter = new ComputeBuffer(1, sizeof(uint));
             Test = new ComputeBuffer(size, sizeof(uint) * 2);
@@ -46,7 +44,6 @@ namespace Code.Components.MortonCodeAssignment
             TreeSize.Dispose();
             Boxes.Dispose();
             Nodes.Dispose();
-            Tree.Dispose();
             Root.Dispose();
             Test.Dispose();
         }

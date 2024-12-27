@@ -19,7 +19,7 @@ namespace Code.Components.MortonCodeAssignment
         protected override void Reassemble()
         {
             _visualization = new DrawableIfTrue(
-                new VisualizationFactory(Data).Create(_tree, _tree.Length - 1),
+                new VisualizationFactory(Data).Create(_tree, 0),
                 Data.Visualization.Show);
         }
 

@@ -4,10 +4,11 @@
 
 RWStructuredBuffer<uint> RootIndex;
 RWStructuredBuffer<BVHNode> Nodes;
-RWStructuredBuffer<BVHNode> Tree;
 uint LeavesCount;
+uint BufferSize;
 
 // layout: innerNodes (n - 1) | Root (1) | leaves (n) = 2n
+uint BufferLastIndex() { return BufferSize - 1; }
 uint InnerNodes() { return LeavesCount - 1; }
 
 bool IsRoot(uint rangeSize) { return rangeSize == LeavesCount; }

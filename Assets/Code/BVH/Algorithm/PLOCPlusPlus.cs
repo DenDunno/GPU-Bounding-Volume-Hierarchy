@@ -23,8 +23,8 @@ namespace Code.Components.MortonCodeAssignment
             shaderBridge.SetBuffer(kernelId, "TreeSize", _buffers.TreeSize);
             shaderBridge.SetBuffer(kernelId, "RootIndex", _buffers.Root);
             shaderBridge.SetBuffer(kernelId, "Nodes", _buffers.Nodes);
-            shaderBridge.SetBuffer(kernelId, "Tree", _buffers.Tree);
             shaderBridge.SetBuffer(kernelId, "Test", _buffers.Test);
+            shaderBridge.SetInt("BufferSize", _buffers.Nodes.count);
         }
 
         protected override void Execute(IShaderBridge<string> shaderBridge, Vector3Int payload)
@@ -33,7 +33,7 @@ namespace Code.Components.MortonCodeAssignment
             int safetyCheckMax = 100;
             int iterations = 0;
             int treeSize = 0;
-
+            
             while (leavesCount > 1 && iterations < safetyCheckMax)
             {
                 shaderBridge.SetInt("LeavesCount", leavesCount);
@@ -42,12 +42,11 @@ namespace Code.Components.MortonCodeAssignment
                 _buffers.MergedNodesCount.SetData(new uint[1]);
                 _buffers.BlockCounter.SetData(new uint[1]);
                 _buffers.ValidNodesCount.SetData(new uint[1]);
-
+                
                 Dispatch(leavesCount, payload.y, payload.z);
-
-                int validNodes = _buffers.ValidNodesCount.FetchValue<int>();
+                
                 treeSize += _buffers.MergedNodesCount.FetchValue<int>() * 2;
-                leavesCount = validNodes;
+                leavesCount = _buffers.ValidNodesCount.FetchValue<int>();
                 iterations++;
             }
             
