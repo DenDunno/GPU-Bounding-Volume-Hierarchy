@@ -1,4 +1,4 @@
-using Code.Components.MortonCodeAssignment;
+using System.Linq;
 using UnityEngine;
 
 namespace TerraformingTerrain2d
@@ -49,6 +49,45 @@ namespace TerraformingTerrain2d
             mesh.uv = uv;
 
             return mesh;
+        }
+
+        public static Mesh BuildUniformCube(float size)
+        {
+            MeshData data = new();
+            Mesh side = BuildUniformQuad(size, size);
+
+            AddSideToCube(data, side, Quaternion.Euler(90, 0, 0), new Vector3(0, size / 2, 0));
+            AddSideToCube(data, side, Quaternion.Euler(-90, 0, 0), new Vector3(0, -size / 2, 0));
+            AddSideToCube(data, side, Quaternion.Euler(0, 0, 0), new Vector3(0, 0, -size / 2));
+            AddSideToCube(data, side, Quaternion.Euler(0, 180, 0), new Vector3(0, 0, size / 2));
+            AddSideToCube(data, side, Quaternion.Euler(0, 90, 0), new Vector3(-size / 2, 0, 0));
+            AddSideToCube(data, side, Quaternion.Euler(0, -90, 0), new Vector3(size / 2, 0, 0));
+
+            return new Mesh()
+            {
+                vertices = data.Vertices.ToArray(),
+                uv = data.UV.ToArray(),
+                triangles = data.Triangles.ToArray(),
+                normals = data.Normals.ToArray(),
+            };
+        }
+
+        private static void AddSideToCube(MeshData cubeMesh, Mesh side, Quaternion rotation, Vector3 offset)
+        {
+            int verticesCount = cubeMesh.Vertices.Count;
+            
+            foreach (Vector3 sideVertex in side.vertices)
+            {
+                cubeMesh.Vertices.Add(rotation * sideVertex + offset);
+            }
+            
+            cubeMesh.Normals.AddRange(Enumerable.Repeat(offset.normalized, side.vertexCount));
+            cubeMesh.UV.AddRange(side.uv);
+            
+            foreach (int vertexIndex in side.triangles)
+            {
+                cubeMesh.Triangles.Add(vertexIndex + verticesCount);
+            }
         }
 
         public static Mesh BuildUniformQuad(float width, float height)
