@@ -1,3 +1,4 @@
+using Code.Components.MortonCodeAssignment;
 using UnityEngine;
 
 namespace TerraformingTerrain2d
@@ -48,6 +49,44 @@ namespace TerraformingTerrain2d
             mesh.uv = uv;
 
             return mesh;
+        }
+
+        public static Mesh BuildUniformQuad(float width, float height)
+        {
+            return new Mesh
+            {
+                vertices = new Vector3[]
+                {
+                    new(0, 0, 0),
+                    new(-width / 2, -height / 2, 0f),
+                    new(width / 2f, -height / 2, 0f),
+                    new(width / 2,  -height / 2, 0f),
+                    new(width / 2f, height / 2, 0f),
+                    new(width / 2f, height / 2, 0f),
+                    new(-width / 2, height / 2, 0f),
+                    new(-width / 2f, height / 2, 0f),
+                    new(-width / 2, -height / 2, 0f),
+                },
+                uv = new Vector2[]
+                {
+                    new(0, 1),
+                    new(0, 0),
+                    new(1, 0),
+                    new(0, 0),
+                    new(1, 0),
+                    new(0, 0),
+                    new(1, 0),
+                    new(0, 0),
+                    new(1, 0),
+                },
+                triangles = new[]
+                {
+                    2, 1, 0,
+                    4, 3, 0,
+                    6, 5, 0,
+                    8, 7, 0,
+                },
+            };;
         }
     }
 }
