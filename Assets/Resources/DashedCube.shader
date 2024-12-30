@@ -3,11 +3,9 @@ Shader "Unlit/DashedCube"
     Properties
     {
         _DashColor("Dash color", Color) = (1,1,1,1)
-        _FaceColor("Face color", Color) = (1,1,1,1)
+        _BorderSize("Border size", Range(0, 1)) = 0.1
         _DashSize("Dash size", Range(0, 1)) = 0.1
         _DashCount("Dash count", Integer) = 1
-        _BorderSize("Border size", Range(0, 1)) = 0.1
-        _Offset("_Offset", Vector) = (0,0,0,0)
     }
     SubShader
     {
@@ -28,11 +26,9 @@ Shader "Unlit/DashedCube"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             float3 _Size;
-            float2 _Offset;
             int _DashCount;
             float _DashSize;
             half4 _DashColor;
-            half4 _FaceColor;
             float _BorderSize;
 
             struct Attributes

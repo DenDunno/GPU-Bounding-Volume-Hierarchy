@@ -8,7 +8,8 @@ namespace Code.Components.MortonCodeAssignment
     {
         [field: SerializeField] public VisualizationData Visualization { get; private set; }
         [field: SerializeField] public BoundingBoxesInput BoxesInput { get; private set; }
-        [field: SerializeField] public BVHConstructionId Algorithm { get; private set; }
+        [field: SerializeField] public BVHConstructionAlgorithmId Algorithm { get; private set; } 
+            = BVHConstructionAlgorithmId.PLOCPlusPlus;
 
         void IValidatedData.OnValidate()
         {

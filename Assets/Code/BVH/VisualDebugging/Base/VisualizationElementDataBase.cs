@@ -6,6 +6,6 @@ namespace Code.Components.MortonCodeAssignment
     [Serializable]
     public abstract class VisualizationElementDataBase
     {
-        [field: SerializeField] public bool Show { get; private set; }
+        [field: SerializeField] public bool Show { get; private set; } = true;
     }
 }

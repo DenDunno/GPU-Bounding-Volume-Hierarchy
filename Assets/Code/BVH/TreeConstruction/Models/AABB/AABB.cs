@@ -5,10 +5,10 @@ using UnityEngine;
 namespace Code.Data
 {
     [Serializable]
-    public readonly struct AABB : IDrawable
+    public struct AABB : IDrawable
     {
-        public readonly Vector3 Min;
-        public readonly Vector3 Max;
+        public Vector3 Min;
+        public Vector3 Max;
 
         public AABB(Vector3 min, Vector3 max)
         {

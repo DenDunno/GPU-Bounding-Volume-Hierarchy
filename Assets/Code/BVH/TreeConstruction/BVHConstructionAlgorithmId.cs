@@ -1,7 +1,7 @@
 
 namespace Code.Components.MortonCodeAssignment
 {
-    public enum BVHConstructionId
+    public enum BVHConstructionAlgorithmId
     {
         PLOCPlusPlus,
         HPLOC,

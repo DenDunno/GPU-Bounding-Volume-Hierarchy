@@ -6,24 +6,25 @@ namespace Code.Editor
 {
     public static class EditorSaveUtilities
     {
-        public static void Save<T>(string defaultName, IFactory<T> objectFactory) where T : Object
+        public static bool TryGetFilePathFromSavePanel(string defaultName, out string filePath)
         {
-            string filePath = EditorUtility.SaveFilePanel("Saving", "Assets", defaultName, "asset");
-            
-            if (filePath.Length != 0)
-            {
-                CreateAsset(filePath, objectFactory);
-            }
+            filePath = EditorUtility.SaveFilePanel("Saving", "Assets", defaultName, "asset");
+
+            return filePath.Length != 0;
         }
 
-        private static void CreateAsset<T>(string filePath, IFactory<T> objectFactory) where T : Object
+        public static void Save<T>(string filePath, IFactory<T> objectFactory) where T : Object
         {
-            T asset = objectFactory.Create();
-            string pathName = AssetDatabase.GenerateUniqueAssetPath(filePath);
-            AssetDatabase.CreateAsset(asset, pathName);
+            Save(filePath, objectFactory.Create());
+        }
+
+        public static void Save<T>(string filePath, T asset) where T : Object
+        {
+            filePath = "Assets" + filePath.Substring(Application.dataPath.Length);
+            AssetDatabase.CreateAsset(asset, filePath);
             AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
             EditorUtility.FocusProjectWindow();
-            Selection.activeObject = asset;
         }
     }
 }

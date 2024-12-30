@@ -8,8 +8,8 @@
 #define BVH_NODE_HLSL
 struct BVHNode
 {
-    AABB Box;
     uint2 __Data;
+    AABB Box;
 
     static BVHNode Create(const uint leftChild, const uint rightChild, const AABB box)
     {

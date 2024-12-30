@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
-    public class BLASFactory : IFactory<BottomLevelAccelerationStructure>
+    public class BottomLevelAccelerationStructureFactory : IFactory<BottomLevelAccelerationStructure>
     {
         private readonly BVHNode[] _tree;
 
-        public BLASFactory(BVHNode[] tree)
+        public BottomLevelAccelerationStructureFactory(BVHNode[] tree)
         {
             _tree = tree;
         }

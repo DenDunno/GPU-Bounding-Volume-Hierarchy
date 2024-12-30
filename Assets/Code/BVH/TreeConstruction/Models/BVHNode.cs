@@ -5,10 +5,10 @@ using UnityEngine;
 [Serializable]
 public struct BVHNode
 {
-    public AABB Box;
     public uint X;
     public uint Y;
-    
+    public AABB Box;
+
     public uint ExtractLower31Bits(uint input) => input & 0x7FFFFFFF;
     public uint SetTopBit(uint input, uint topBit) => ExtractLower31Bits(input) | topBit << 31;
     public uint SetLower31Bits(uint input, uint lowerBits) => ExtractLower31Bits(lowerBits) | input & 0x80000000;

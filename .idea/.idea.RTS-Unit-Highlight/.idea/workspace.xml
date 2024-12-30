@@ -5,29 +5,62 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BLASFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BLASFactory.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHBakery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BottomLevelAccelerationStructure.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BottomLevelAccelerationStructure.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Factory/IInitialization.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Factory/IInitialization.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Utils/EditorSaveUtilities.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Utils/EditorSaveUtilities.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BoundingVolumeHierarchy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BoundingVolumeHierarchy.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/ITopLevelAccelerationStructure.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/ITopLevelAccelerationStructure.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/TopLevelAccelerationStructure.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/TopLevelAccelerationStructure.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHConstructionFactory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionId.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionId.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHCluster.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHCluster.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHBakery.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHHierarchyInputListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVHHierarchyInputListener.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHTest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHTest.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHShaders.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHShaders.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHAlgorithm.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHAlgorithm.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHAlgorithm.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionFactory.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHConstructionFactory.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionId.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHConstructionAlgorithmId.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/BVHConstructionId.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHConstructionAlgorithmId.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/CPUConstruction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/CPUConstruction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/CPUConstruction.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/HPLOC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/HPLOC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/HPLOC.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/HPLOC.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/IBVHConstructionAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/IBVHConstructionAlgorithm.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/IBVHConstructionAlgorithm.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/IBVHConstructionAlgorithm.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/AABB.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/AABB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/AABB/AABB.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/AABB.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/AABB/AABB.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/IAABBProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/AABB/IAABBProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/AABB/IAABBProvider.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/AABB/IAABBProvider.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/BVHNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/BVHNode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/BVHNode.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/BVHNode.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/MortonCode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/MortonCode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/Models/MortonCode.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/MortonCode.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/PLOCPlusPlus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PLOCPlusPlus.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/PLOCPlusPlus.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PrecompiledJobs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/PrecompiledJobs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/PrecompiledJobs.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/PrecompiledJobs.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/SetupStage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Algorithm/SetupStage.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/SetupStage.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BLASFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/BottomLevelAccelerationStructureFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BLASFactory.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/BottomLevelAccelerationStructureFactory.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHBakery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/BVHBakery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHBakery.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/BVHBakery.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHFacade.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHFacade.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHFacade.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHHierarchyInputListener.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVHHierarchyInputListener.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BottomLevelAccelerationStructure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/BottomLevelAccelerationStructure.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BottomLevelAccelerationStructure.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/BottomLevelAccelerationStructure.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SAHView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Heuristics/SAHView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/VisualizationFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/VisualizationFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/VisualizationData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/VisualizationData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Sphere.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/Sphere.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Sphere.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/Sphere.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/Base/VisualizationElementDataBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/Base/VisualizationElementDataBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Utils/EditorSaveUtilities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Utils/EditorSaveUtilities.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/DashedCube.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DashedCube.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/DashedCube.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DashedCube.shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
@@ -330,7 +363,8 @@
       <workItem from="1735255025163" duration="8733000" />
       <workItem from="1735428864675" duration="24220000" />
       <workItem from="1735516874728" duration="1482000" />
-      <workItem from="1735518414217" duration="15227000" />
+      <workItem from="1735518414217" duration="15279000" />
+      <workItem from="1735592085637" duration="5906000" />
     </task>
     <servers />
   </component>
