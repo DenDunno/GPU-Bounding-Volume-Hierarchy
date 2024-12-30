@@ -16,7 +16,7 @@ Shader "Unlit/DashedCube"
             "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"
         }
         Blend SrcAlpha OneMinusSrcAlpha
-        //ZWrite Off
+        ZWrite Off
         Cull Off
         LOD 100
 
@@ -25,6 +25,7 @@ Shader "Unlit/DashedCube"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma enable_d3d11_debug_symbols
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             float3 _Size;
@@ -46,6 +47,7 @@ Shader "Unlit/DashedCube"
             {
                 float4 positionHCS : SV_POSITION;
                 float2 scaledUV : TEXCOORD0;
+                float2 sideSize : TEXCOORD1;
             };
 
             float2 GetSideSize(int sideIndex)
@@ -62,55 +64,58 @@ Shader "Unlit/DashedCube"
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
+                float2 sideSize = GetSideSize(IN.sideIndex);
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
-                OUT.scaledUV = IN.uv * GetSideSize(IN.sideIndex);
+                OUT.scaledUV = IN.uv * sideSize;
+                OUT.sideSize = sideSize;
                 return OUT;
             }
 
-            bool ComputeBorderByDimension(float uv)
+            bool ComputeBorderByDimension(float uv, float size)
             {
                 float maxBorderSize = (1 - _DashSize) / (2 * _DashCount);
                 float borderSize = lerp(0, maxBorderSize, _BorderSize);
 
-                return uv < borderSize || uv > 1 - borderSize;
+                return uv < borderSize || uv > size - borderSize;
             }
 
-            int ComputeBorder(float2 uv)
+            int ComputeBorder(float2 uv, float2 sideSize)
             {
-                return ComputeBorderByDimension(uv.x) || ComputeBorderByDimension(uv.y);
+                return ComputeBorderByDimension(uv.x, sideSize.x) ||
+                    ComputeBorderByDimension(uv.y, sideSize.y);
             }
 
-            int IsCorner(float2 uv)
+            int IsCorner(float2 uv, float2 sideSize)
             {
-                float offset = (1 - _DashSize) / (2 * _DashCount);
+                float offset = (1 + _DashSize) / (2 * _DashCount);
 
                 int isBottomLeftCorner = uv.x < offset && uv.y < offset;
-                int isBottomRightCorner = uv.x > 1 - offset && uv.y < offset;
-                int isTopLeftCorner = uv.x < offset && uv.y > 1 - offset;
-                int isTopRightCorner = uv.x > 1 - offset && uv.y > 1 - offset;
+                int isBottomRightCorner = uv.x > sideSize.x - offset && uv.y < offset;
+                int isTopLeftCorner = uv.x < offset && uv.y > sideSize.y - offset;
+                int isTopRightCorner = uv.x > sideSize.x - offset && uv.y > sideSize.y - offset;
+                int isCorner = isBottomLeftCorner || isBottomRightCorner || isTopLeftCorner || isTopRightCorner;
 
-                return isBottomLeftCorner || isBottomRightCorner || isTopLeftCorner || isTopRightCorner;
+                return isCorner * ComputeBorder(uv, sideSize);
             }
 
-            int ComputeDashByDimension(float dashedUV)
+            int ComputeDashByDimension(float dashedUV, float secondAxisUV, float secondAxisSize)
             {
-                return frac(dashedUV * _DashCount) < _DashSize;
+                int liesOnTargetAxis = ComputeBorderByDimension(secondAxisUV, secondAxisSize);
+                int isDashOnTargetAxis = frac(dashedUV * _DashCount) < _DashSize;
+                return isDashOnTargetAxis && liesOnTargetAxis;
             }
 
-            int ComputeDash(float2 uv)
+            int ComputeDash(float2 scaledUV, float2 sideSize)
             {
-                float2 dashedUV = uv + (_DashSize + 1) / (2 * _DashCount);
-                return ComputeDashByDimension(dashedUV.x) || ComputeDashByDimension(dashedUV.y) || IsCorner(uv);
+                float2 dashedUV = scaledUV + (_DashSize + 1) / (2 * _DashCount);
+                int xDash = ComputeDashByDimension(dashedUV.x, scaledUV.y, sideSize.y);
+                int yDash = ComputeDashByDimension(dashedUV.y, scaledUV.x, sideSize.x);
+                return xDash || yDash || IsCorner(scaledUV, sideSize);
             }
 
             half4 frag(Varyings input) : SV_Target
             {
-                return half4(frac(input.scaledUV), 0, 1);
-                int isBorder = ComputeBorder(input.scaledUV);
-                int isFace = isBorder == 0;
-                half4 dash = _DashColor * isBorder * ComputeDash(input.scaledUV);
-                half4 face = isFace * _FaceColor;
-                return face + dash;
+                return _DashColor * ComputeDash(input.scaledUV, input.sideSize);
             }
             ENDHLSL
         }

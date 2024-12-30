@@ -3,11 +3,11 @@ using TerraformingTerrain2d;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class CubeMeshGeneration 
+public class IndexedCubeMeshGeneration 
 {
     private readonly float _size;
 
-    public CubeMeshGeneration(float size)
+    public IndexedCubeMeshGeneration(float size)
     {
         _size = size / 2f;
     }
@@ -33,7 +33,7 @@ public class CubeMeshGeneration
             new(VertexAttribute.Position),
             new(VertexAttribute.Normal),
             new(VertexAttribute.TexCoord0, VertexAttributeFormat.Float32, 2),
-            new(VertexAttribute.TexCoord1, VertexAttributeFormat.UInt32, 1),
+            new(VertexAttribute.TexCoord1, VertexAttributeFormat.UInt32, 2),
         });
     }
 
@@ -53,17 +53,17 @@ public class CubeMeshGeneration
             new(new Vector3(-_size, -_size, _size), Vector3.forward, new Vector2(0, 0), 0),
             new(new Vector3(-_size, _size, _size), Vector3.forward, new Vector2(0, 1), 0),
 
-            //left
-            new(new Vector3(-_size, _size, -_size), -Vector3.right, new Vector2(1, 1), 1),
-            new(new Vector3(-_size, -_size, -_size), -Vector3.right, new Vector2(1, 0), 1),
-            new(new Vector3(-_size, -_size, _size), -Vector3.right, new Vector2(0, 0), 1),
-            new(new Vector3(-_size, _size, _size), -Vector3.right, new Vector2(0, 1), 1),
+            // left
+            new(new Vector3(-_size, _size, -_size), -Vector3.right, new Vector2(0, 1), 1),
+            new(new Vector3(-_size, -_size, -_size), -Vector3.right, new Vector2(0, 0), 1),
+            new(new Vector3(-_size, -_size,  _size), -Vector3.right, new Vector2(1, 0), 1),
+            new(new Vector3(-_size,  _size,  _size), -Vector3.right, new Vector2(1, 1), 1),
 
-            //right
-            new(new Vector3(_size, _size, -_size), Vector3.right, new Vector2(1, 1), 1),
-            new(new Vector3(_size, -_size, -_size), Vector3.right, new Vector2(1, 0), 1),
-            new(new Vector3(_size, -_size, _size), Vector3.right, new Vector2(0, 0), 1),
-            new(new Vector3(_size, _size, _size), Vector3.right, new Vector2(0, 1), 1),
+            // right
+            new(new Vector3(_size, _size, -_size), Vector3.right, new Vector2(0, 1), 1),
+            new(new Vector3(_size, -_size, -_size), Vector3.right, new Vector2(0, 0), 1),
+            new(new Vector3(_size, -_size,  _size), Vector3.right, new Vector2(1, 0), 1),
+            new(new Vector3(_size,  _size,  _size), Vector3.right, new Vector2(1, 1), 1),
 
             //up
             new(new Vector3(_size, _size, _size), Vector3.up, new Vector2(1, 1), 2),
