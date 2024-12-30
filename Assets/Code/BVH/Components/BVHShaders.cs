@@ -13,11 +13,11 @@ namespace Code.Components.MortonCodeAssignment
         public BVHShaders(ComputeShader prefixSum, ComputeShader hplocShader,
             ComputeShader plocPlusPLusShader, ComputeShader sorting, ComputeShader setup)
         {
+            PlocPlusPLusShader = plocPlusPLusShader;
             HPLOCShader = hplocShader;
             PrefixSum = prefixSum;
             Sorting = sorting;
             Setup = setup;
-            PlocPlusPLusShader = plocPlusPLusShader;
         }
 
         public static BVHShaders Load()

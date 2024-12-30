@@ -25,7 +25,6 @@ Shader "Unlit/DashedCube"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma enable_d3d11_debug_symbols
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             float3 _Size;

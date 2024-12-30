@@ -28,7 +28,6 @@ namespace Code.Components.MortonCodeAssignment
                 new DrawableIfTrue(
                     new BVHTreeVisualization(nodes, treeSize.Height, root, Visualization.BVHTree),
                     Visualization.BVHTree.Show),
-                new DrawableIfTrue(_data.SceneSize.Box, _data.SceneSize.Show),
             });
         }
     }

@@ -33,6 +33,7 @@ Material:
     - _Angle: 26.5
     - _BorderSize: 0.5
     - _DashSize: 0.5
+    - _EnableFog: 0
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _DashColor: {r: 0.33018857, g: 1, b: 0.6889201, a: 1}
