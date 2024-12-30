@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Debug
+  m_Name: DashedCube
   m_Shader: {fileID: 4800000, guid: 220c9e4f48317f64d862ac8987770541, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -28,10 +28,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
-    - _DashCount: 4
+    - _DashCount: 6
     m_Floats:
-    - _BorderSize: 0.067
-    - _DashSize: 0.65
+    - _Angle: 26.5
+    - _BorderSize: 0.339
+    - _DashSize: 0.5
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _DashColor: {r: 0.33018857, g: 1, b: 0.6889201, a: 1}
+    - _FaceColor: {r: 0.22264141, g: 0.06175148, b: 0.16127321, a: 0}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Offset: {r: 0.01562, g: 0, b: 0, a: 0}
+    - _SideColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
