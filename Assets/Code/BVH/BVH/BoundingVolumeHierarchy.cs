@@ -23,6 +23,11 @@ namespace Code.Components.MortonCodeAssignment
         
         protected override void Reassemble()
         {
+            Bake();
+        }
+
+        public void Bake()
+        {
             _bottomLevelsBuffer = CreateBottomLevelBuffer();
             IBoundingBoxesInput input = new ManualBoundingBoxesInput(_topLevelStructures);
             BVHFacade facade = new(Data, input, BVHShaders.Load());

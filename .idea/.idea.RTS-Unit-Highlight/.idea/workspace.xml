@@ -5,41 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/MatrixExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/MatrixExtensions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/VectorExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/VectorExtensions.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Bunny.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Bunny.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/BVHBakery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BottomLevelAccelerationStructure/BVHBakery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BoundingVolumeHierarchy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BoundingVolumeHierarchy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVH/TopLevelAccelerationStructure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/TopLevelAccelerationStructure.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BinaryTree/TreeCalculator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHFacade.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHShaders.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHShaders.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/BVHData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/BoundingBoxesInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/BoundingBoxesInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/IBoundingBoxesInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/IBoundingBoxesInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/InputFromMesh.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/InputFromMesh.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/ManualBoundingBoxesInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/ManualBoundingBoxesInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/ManualBoundingBoxesInput.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Data/Input/ManualBoundingBoxesInput.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHConstructionFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHConstructionFactory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/AABB/AABB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/AABB/AABB.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/BVHNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/BVHNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/EditorLifetime/InEditorLifetime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/EditorLifetime/InEditorLifetime.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/PlocPlusStupidSearch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/PlocPlusStupidSearch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/NeighboursInitialization.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/NeighboursInitialization.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlocSmartSearch.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlocSmartSearch.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlusPlusSmartSearchData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GPUShaderEmulator/SmartSearch/PlocPlusPlusSmartSearchData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BVHNode.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/BinaryRadixTree.hlsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/HPLOC.compute" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BVH/PLOC/NearestNeighbour.hlsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sphere.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sphere.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Triangles.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Triangles.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -341,7 +315,7 @@
       <workItem from="1735428864675" duration="24220000" />
       <workItem from="1735516874728" duration="1482000" />
       <workItem from="1735518414217" duration="15279000" />
-      <workItem from="1735592085637" duration="12830000" />
+      <workItem from="1735592085637" duration="14614000" />
     </task>
     <servers />
   </component>

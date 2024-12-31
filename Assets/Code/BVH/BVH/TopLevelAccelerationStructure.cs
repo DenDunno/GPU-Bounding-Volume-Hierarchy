@@ -1,4 +1,6 @@
+using System;
 using Code.Data;
+using Code.Utils.Extensions;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
@@ -7,12 +9,25 @@ namespace Code.Components.MortonCodeAssignment
     public class TopLevelAccelerationStructure : InEditorLifetime, IAABBProvider
     {
         public BottomLevelAccelerationStructure Cluster;
+        private BoundingVolumeHierarchy _bvh;
+        private BoundingVolumeHierarchy BVH => _bvh ??= FindFirstObjectByType<BoundingVolumeHierarchy>();
+        
+        private void Update()
+        {
+            if (transform.hasChanged)
+            {
+                BVH.Bake();
+            }
+        }
 
         public AABB CalculateBox()
         {
-            AABB worldSpaceBounds = transform.localToWorldMatrix * Cluster.Bounds;
-            
-            return worldSpaceBounds;
+            AABB bounds = Cluster.Bounds;
+            Span<Vector3> corners = stackalloc Vector3[8];
+            bounds.GetCorners(corners);
+
+            transform.localToWorldMatrix.MultiplySpan(corners);
+            return new AABB(corners.Min(), corners.Max());
         }
     }
 }

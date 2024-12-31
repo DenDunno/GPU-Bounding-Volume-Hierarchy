@@ -71,5 +71,17 @@ namespace Code.Data
             
             return new AABB(matrix * min, matrix * max);
         }
+
+        public void GetCorners(Span<Vector3> corners)
+        {
+            corners[0] = new Vector3(Min.x, Min.y, Min.z);
+            corners[1] = new Vector3(Min.x, Min.y, Max.z);
+            corners[2] = new Vector3(Min.x, Max.y, Min.z);
+            corners[3] = new Vector3(Min.x, Max.y, Max.z);
+            corners[4] = new Vector3(Max.x, Min.y, Min.z);
+            corners[5] = new Vector3(Max.x, Min.y, Max.z);
+            corners[6] = new Vector3(Max.x, Max.y, Min.z);
+            corners[7] = new Vector3(Max.x, Max.y, Max.z);
+        }
     }
 }
