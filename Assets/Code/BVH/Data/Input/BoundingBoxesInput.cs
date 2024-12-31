@@ -24,10 +24,6 @@ namespace Code.Components.MortonCodeAssignment
             new InputFromMesh(_meshFilter.sharedMesh) :
             new ManualBoundingBoxesInput(List.Select(x => x.GetComponent<IAABBProvider>()).ToArray());
 
-        public int Count => _buildFromMesh ?
-            _meshFilter.sharedMesh.triangles.Length / 3 : 
-            List.Count;
-
         public void OnValidate()
         {
             for (int i = 0; i < List.Count; ++i)

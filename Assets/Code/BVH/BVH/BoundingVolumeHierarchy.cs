@@ -19,7 +19,7 @@ namespace Code.Components.MortonCodeAssignment
         {
             BVHBuffers buffers = new BVHBuffersFactory(_topLevelStructures).Create();
             IBoundingBoxesInput input = new ManualBoundingBoxesInput(_topLevelStructures);
-            _facade = new BVHFacade(Data, input, BVHShaders.Load());
+            _facade = new BVHFacade(Data.Algorithm, input, BVHShaders.Load(), Data.SceneBounds);
             _facade.Initialize();
             buffers.Dispose();
             Bake();

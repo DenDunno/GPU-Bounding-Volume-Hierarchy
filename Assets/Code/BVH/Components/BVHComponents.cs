@@ -12,14 +12,14 @@ namespace Code.Components.MortonCodeAssignment
         public readonly BVHGPUBridge GPUBridge;
         public readonly BVHAlgorithm Algorithm;
 
-        public BVHComponents(BVHData data, BVHShaders shaders, IBoundingBoxesInput boxesInput)
+        public BVHComponents(BVHConstructionAlgorithmId algorithm, BVHShaders shaders, IBoundingBoxesInput boxesInput, AABB bounds)
         {
             BoxesInput = boxesInput;
             RebuiltEvent = new EventWrapper();
             Buffers = new TreeConstructionBuffers(BoxesInput.Count);
             GPUBridge = new BVHGPUBridge(Buffers, BoxesInput.Count);
-            IBVHConstructionAlgorithm construction = new BVHConstructionFactory(Buffers, shaders, data.Algorithm).Create();
-            Algorithm = new BVHAlgorithm(shaders, Buffers, RebuiltEvent, construction, new AABB(-Vector3.one * 100, Vector3.one * 100));
+            IBVHConstructionAlgorithm construction = new BVHConstructionFactory(Buffers, shaders, algorithm).Create();
+            Algorithm = new BVHAlgorithm(shaders, Buffers, RebuiltEvent, construction, bounds);
         }
     }
 }

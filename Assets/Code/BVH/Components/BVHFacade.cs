@@ -1,4 +1,5 @@
 using System;
+using Code.Data;
 
 namespace Code.Components.MortonCodeAssignment
 {
@@ -6,9 +7,9 @@ namespace Code.Components.MortonCodeAssignment
     {
         private readonly BVHComponents _components;
 
-        public BVHFacade(BVHData data, IBoundingBoxesInput boxesInput, BVHShaders shaders)
+        public BVHFacade(BVHConstructionAlgorithmId algorithm, IBoundingBoxesInput boxesInput, BVHShaders shaders, AABB bounds)
         {
-            _components = new BVHComponents(data, shaders, boxesInput);
+            _components = new BVHComponents(algorithm, shaders, boxesInput, bounds);
         }
         
         public void Initialize()

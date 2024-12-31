@@ -1,3 +1,4 @@
+using Code.Data;
 using Code.Editor;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,11 +12,18 @@ namespace Code.Components.MortonCodeAssignment
         [Button]
         public void Bake()
         {
-            BVHFacade facade = new(_data, _data.BoxesInput.Value, BVHShaders.Load());
+            BVHFacade facade = CreateBVHFacade();
             facade.Initialize();
             facade.Rebuild();
             TryBake(facade);
             facade.Dispose();
+        }
+
+        private BVHFacade CreateBVHFacade()
+        {
+            AABB bounds = new BoundsCalculator(_data.BoxesInput.Value).Compute();
+            BVHFacade facade = new(_data.Algorithm, _data.BoxesInput.Value, BVHShaders.Load(), bounds);
+            return facade;
         }
 
         private void TryBake(BVHFacade facade)
