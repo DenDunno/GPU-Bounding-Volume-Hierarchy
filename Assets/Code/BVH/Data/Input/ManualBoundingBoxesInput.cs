@@ -1,29 +1,29 @@
 using System.Collections.Generic;
 using Code.Data;
-using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
     public class ManualBoundingBoxesInput : IBoundingBoxesInput
     {
-        private readonly IReadOnlyList<GameObject> _input;
+        private readonly IReadOnlyList<IAABBProvider> _aabbProviders;
+        private readonly AABB[] _result;
 
-        public ManualBoundingBoxesInput(IReadOnlyList<GameObject> input)
+        public ManualBoundingBoxesInput(IReadOnlyList<IAABBProvider> aabbProviders)
         {
-            _input = input;
+            _result = new AABB[aabbProviders.Count];
+            _aabbProviders = aabbProviders;
         }
+
+        public int Count => _result.Length;
 
         public AABB[] Calculate()
         {
-            AABB[] output = new AABB[_input.Count];
-
-            for (int i = 0; i < _input.Count; ++i)
+            for (int i = 0; i < _aabbProviders.Count; ++i)
             {
-                IAABBProvider aabbProvider = _input[i].GetComponent<IAABBProvider>();
-                output[i] = aabbProvider.CalculateBox();
+                _result[i] = _aabbProviders[i].CalculateBox();
             }
 
-            return output;
+            return _result;
         }
     }
 }

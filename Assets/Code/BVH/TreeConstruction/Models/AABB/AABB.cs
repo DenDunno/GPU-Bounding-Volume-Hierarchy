@@ -39,8 +39,8 @@ namespace Code.Data
         
         public static int GetSize() // 24
         {
-            return 3 * 4 + 
-                   3 * 4; 
+            return 3 * sizeof(float) + 
+                   3 * sizeof(float); 
         }
         
         public static AABB CreateMaxBox()
@@ -62,6 +62,14 @@ namespace Code.Data
         {
             Vector3 size = Size;
             return 2 * (size.x * size.y + size.y * size.z + size.z * size.x);
+        }
+        
+        public static AABB operator *(Matrix4x4 matrix, AABB box)
+        {
+            Vector4 min = new(box.Min.x, box.Min.y, box.Min.z, 1);
+            Vector4 max = new(box.Max.x, box.Max.y, box.Max.z, 1);
+            
+            return new AABB(matrix * min, matrix * max);
         }
     }
 }

@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -7,6 +8,9 @@ using UnityEditor;
 [DefaultExecutionOrder(-10)]
 public abstract class InEditorLifetime : MonoBehaviour 
 {
+    [SerializeField, HideInInspector] private bool _isInitialized;
+
+    [Button]
     protected void OnValidate()
     {
         Regenerate();
@@ -20,6 +24,12 @@ public abstract class InEditorLifetime : MonoBehaviour
     #if UNITY_EDITOR
     private void OnEnable()
     {
+        if (_isInitialized == false)
+        {
+            _isInitialized = true;
+            OnScriptAttached();
+        }
+        
         AssemblyReloadEvents.beforeAssemblyReload += Dispose;
     }
 
@@ -34,12 +44,13 @@ public abstract class InEditorLifetime : MonoBehaviour
         Dispose();
         Reassemble();
     }
-
+    
     private void OnDestroy()
     {
         Dispose();
     }
 
-    protected abstract void Reassemble();
+    protected virtual void OnScriptAttached() {} 
+    protected virtual void Reassemble() {}
     protected virtual void Dispose() {}
 }

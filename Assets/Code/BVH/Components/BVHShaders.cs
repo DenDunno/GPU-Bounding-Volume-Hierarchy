@@ -4,30 +4,30 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class BVHShaders
     {
-        public readonly ComputeShader PlocPlusPLusShader;
-        public readonly ComputeShader HPLOCShader;
+        public readonly ComputeShader PlocPlusPLus;
         public readonly ComputeShader PrefixSum;
         public readonly ComputeShader Sorting;
+        public readonly ComputeShader HPLOC;
         public readonly ComputeShader Setup;
 
-        public BVHShaders(ComputeShader prefixSum, ComputeShader hplocShader,
-            ComputeShader plocPlusPLusShader, ComputeShader sorting, ComputeShader setup)
+        public BVHShaders(ComputeShader prefixSum, ComputeShader hploc,
+            ComputeShader plocPlusPLus, ComputeShader sorting, ComputeShader setup)
         {
-            PlocPlusPLusShader = plocPlusPLusShader;
-            HPLOCShader = hplocShader;
+            PlocPlusPLus = plocPlusPLus;
             PrefixSum = prefixSum;
             Sorting = sorting;
+            HPLOC = hploc;
             Setup = setup;
         }
 
         public static BVHShaders Load()
         {
             return new BVHShaders(
-                plocPlusPLusShader: Load("BVH/PLOC/PLOC++"),
                 prefixSum: Load("PrefixSum/PrefixSum"),
+                plocPlusPLus: Load("BVH/PLOC/PLOC++"),
                 sorting: Load("RadixSort/RadixSort"),
                 setup: Load("MortonCode/Setup"),
-                hplocShader: Load("BVH/HPLOC"));
+                hploc: Load("BVH/HPLOC"));
         }
 
         private static ComputeShader Load(string path)

@@ -48,7 +48,7 @@ namespace Code.Utils.GPUShaderEmulator
             if (IsInBounds(threadId.Global))
             {
                 BVHNode bvhNode = _nodes[threadId.Global];
-                bvhNode.X = (uint)RunStupidSearch(threadId.Global);
+                bvhNode.Left = (uint)RunStupidSearch(threadId.Global);
                 _nodes[threadId.Global] = bvhNode;   
             }
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Data;
 using UnityEngine;
 
@@ -20,8 +21,8 @@ namespace Code.Components.MortonCodeAssignment
         }
 
         public IBoundingBoxesInput Value => _buildFromMesh ? 
-            new InputFromMesh(_meshFilter.sharedMesh, _meshFilter.transform) :
-            new ManualBoundingBoxesInput(List);
+            new InputFromMesh(_meshFilter.sharedMesh) :
+            new ManualBoundingBoxesInput(List.Select(x => x.GetComponent<IAABBProvider>()).ToArray());
 
         public int Count => _buildFromMesh ?
             _meshFilter.sharedMesh.triangles.Length / 3 : 

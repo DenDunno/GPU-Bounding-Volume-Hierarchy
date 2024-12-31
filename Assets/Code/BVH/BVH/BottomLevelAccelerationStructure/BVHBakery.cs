@@ -11,7 +11,7 @@ namespace Code.Components.MortonCodeAssignment
         [Button]
         public void Bake()
         {
-            BVHFacade facade = new(_data, BVHShaders.Load());
+            BVHFacade facade = new(_data, _data.BoxesInput.Value, BVHShaders.Load());
             facade.Initialize();
             facade.Rebuild();
             TryBake(facade);
@@ -29,17 +29,17 @@ namespace Code.Components.MortonCodeAssignment
 
         private static BottomLevelAccelerationStructure CreateBottomLevelStructure(BVHFacade facade, string path)
         {
-            BVHNode[] tree = facade.Components.GPUBridge.FetchTree();
+            BVHNode[] tree = facade.FetchTree();
             BottomLevelAccelerationStructure asset = ScriptableObject.CreateInstance<BottomLevelAccelerationStructure>();
             asset.Initialize(tree);
             EditorSaveUtilities.Save(path, asset);
             return asset;
         }
 
-        private void CreateTopLevelStructure(BottomLevelAccelerationStructure asset)
+        private void CreateTopLevelStructure(BottomLevelAccelerationStructure cluster)
         {
             TopLevelAccelerationStructure topLevelStructure = gameObject.AddComponent<TopLevelAccelerationStructure>();
-            topLevelStructure.Initialize(asset);
+            topLevelStructure.Cluster = cluster;
             DestroyImmediate(this);
             TryAddTopLevelStructureToBVH(topLevelStructure);
         }

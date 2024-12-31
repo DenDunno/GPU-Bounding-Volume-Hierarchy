@@ -21,16 +21,16 @@ namespace Code.Components.MortonCodeAssignment.TestTree
 
         private bool IsInnerNode(uint index)
         {
-            return (int)_nodes[index].LeftChild() >= 0 &&
-                   (int)_nodes[index].RightChild() >= 0;
+            return (int)_nodes[index].Left >= 0 &&
+                   (int)_nodes[index].Right >= 0;
         }
 
         private void Traverse(TreeNode parent)
         {
             if (IsInnerNode(parent.Id))
             {
-                parent.Left = new TreeNode(_nodes[parent.Id].LeftChild());
-                parent.Right = new TreeNode(_nodes[parent.Id].RightChild());
+                parent.Left = new TreeNode(_nodes[parent.Id].Left);
+                parent.Right = new TreeNode(_nodes[parent.Id].Right);
             
                 Traverse(parent.Left);
                 Traverse(parent.Right);

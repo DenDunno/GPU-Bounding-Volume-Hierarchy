@@ -1,4 +1,5 @@
 #include "..//NodesInput.hlsl"
+#include "..//..//Utilities/BitManipulation.hlsl"
 
 #ifndef THREADS
 #define THREADS 256

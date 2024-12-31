@@ -14,8 +14,8 @@ namespace Code.Components.MortonCodeAssignment
             _algorithms = new Dictionary<BVHConstructionAlgorithmId, IBVHConstructionAlgorithm>()
             {
                 [BVHConstructionAlgorithmId.CPU] = new CPUConstruction(buffers.Nodes),
-                [BVHConstructionAlgorithmId.HPLOC] = new HPLOC(shaders.HPLOCShader, buffers),
-                [BVHConstructionAlgorithmId.PLOCPlusPlus] = new PLOCPlusPLus(shaders.PlocPlusPLusShader, buffers),
+                [BVHConstructionAlgorithmId.HPLOC] = new HPLOC(shaders.HPLOC, buffers),
+                [BVHConstructionAlgorithmId.PLOCPlusPlus] = new PLOCPlusPLus(shaders.PlocPlusPLus, buffers),
             };
         }
 

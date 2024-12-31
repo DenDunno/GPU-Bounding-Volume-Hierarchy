@@ -18,7 +18,7 @@ namespace Code.Components.MortonCodeAssignment
 
         bool IValidatedData.IsValid()
         {
-            return BoxesInput.IsValid();
+            return true;
         }
     }
 }

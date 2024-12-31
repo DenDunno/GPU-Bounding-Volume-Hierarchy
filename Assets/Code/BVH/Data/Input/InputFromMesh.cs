@@ -5,18 +5,18 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class InputFromMesh : IBoundingBoxesInput
     {
-        private readonly Transform _transform;
         private readonly Mesh _mesh;
 
-        public InputFromMesh(Mesh mesh, Transform transform)
+        public InputFromMesh(Mesh mesh)
         {
-            _transform = transform;
             _mesh = mesh;
         }
 
+        public int Count => _mesh.triangles.Length / 3;
+
         public AABB[] Calculate()
         {
-            AABB[] output = new AABB[_mesh.triangles.Length / 3];
+            AABB[] output = new AABB[Count];
             Vector3[] vertices = _mesh.vertices;
             int[] triangles = _mesh.triangles;
 
@@ -27,7 +27,7 @@ namespace Code.Components.MortonCodeAssignment
                     vertices[triangles[i * 3 + 1]],
                     vertices[triangles[i * 3 + 2]]);
                 
-                output[i] = (_transform.localToWorldMatrix * triangle).CalculateBox();
+                output[i] = triangle.CalculateBox();
             }
 
             return output;

@@ -4,27 +4,32 @@ namespace Code.Components.MortonCodeAssignment
 {
     public class BVHFacade : IDisposable
     {
-        public readonly BVHComponents Components;
+        private readonly BVHComponents _components;
 
-        public BVHFacade(BVHData data, BVHShaders shaders)
+        public BVHFacade(BVHData data, IBoundingBoxesInput boxesInput, BVHShaders shaders)
         {
-            Components = new BVHComponents(data, shaders);
+            _components = new BVHComponents(data, shaders, boxesInput);
         }
         
         public void Initialize()
         {
-            Components.Algorithm.Initialize();
-            Components.Buffers.Boxes.SetData(Components.BoxesInput.Calculate());
+            _components.Algorithm.Initialize();
         }
 
+        public BVHNode[] FetchTree()
+        {
+            return _components.GPUBridge.FetchTree();
+        }
+        
         public void Rebuild()
         {
-            Components.Algorithm.Execute(Components.Buffers.Size);
+            _components.Buffers.Boxes.SetData(_components.BoxesInput.Calculate());
+            _components.Algorithm.Execute(_components.Buffers.Size);
         }
 
         public void Dispose()
         {
-            Components.Algorithm.Dispose();
+            _components.Algorithm.Dispose();
         }
     }
 }

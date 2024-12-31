@@ -1,38 +1,18 @@
-using EditorWrapper;
+using Code.Data;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
     [ExecuteInEditMode]
-    public class TopLevelAccelerationStructure : MonoBehaviour
+    public class TopLevelAccelerationStructure : InEditorLifetime, IAABBProvider
     {
-        [SerializeField] private BottomLevelAccelerationStructure _bvhCluster;
-        [SerializeField] private BVHData _bvhData;
-        private IDrawable _visualization;
+        public BottomLevelAccelerationStructure Cluster;
 
-        public void Initialize(BottomLevelAccelerationStructure bvhCluster)
+        public AABB CalculateBox()
         {
-            _bvhCluster = bvhCluster;
-        }
-
-        private void OnValidate()
-        {
-            if (_bvhCluster != null)
-            {
-                _visualization = new DrawableIfTrue(
-                    new VisualizationFactory(_bvhData).Create(_bvhCluster.Tree, 0),
-                    _bvhData.Visualization.Show);   
-            }
-        }
-
-        private void OnDrawGizmos()
-        {
-            _visualization?.Draw();
-        }
-
-        private void OnDestroy()
-        {
-            FindFirstObjectByType<BoundingVolumeHierarchy>().Remove(this);
+            AABB worldSpaceBounds = transform.localToWorldMatrix * Cluster.Bounds;
+            
+            return worldSpaceBounds;
         }
     }
 }

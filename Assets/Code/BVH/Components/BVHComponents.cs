@@ -1,5 +1,6 @@
 using Code.Components.MortonCodeAssignment.Event;
 using Code.Data;
+using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
@@ -11,14 +12,14 @@ namespace Code.Components.MortonCodeAssignment
         public readonly BVHAlgorithm Algorithm;
         public readonly BVHBuffers Buffers;
 
-        public BVHComponents(BVHData data, BVHShaders shaders)
+        public BVHComponents(BVHData data, BVHShaders shaders, IBoundingBoxesInput boxesInput)
         {
+            BoxesInput = boxesInput;
             RebuiltEvent = new EventWrapper();
-            BoxesInput = data.BoxesInput.Value;
-            Buffers = new BVHBuffers(data.BoxesInput.Count);
-            GPUBridge = new BVHGPUBridge(Buffers, data.BoxesInput.Count);
+            Buffers = new BVHBuffers(BoxesInput.Count);
+            GPUBridge = new BVHGPUBridge(Buffers, BoxesInput.Count);
             IBVHConstructionAlgorithm construction = new BVHConstructionFactory(Buffers, shaders, data.Algorithm).Create();
-            Algorithm = new BVHAlgorithm(shaders, Buffers, RebuiltEvent, construction, new AABB());
+            Algorithm = new BVHAlgorithm(shaders, Buffers, RebuiltEvent, construction, new AABB(-Vector3.one * 100, Vector3.one * 100));
         }
     }
 }

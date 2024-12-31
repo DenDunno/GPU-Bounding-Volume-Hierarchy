@@ -8,7 +8,7 @@ ParentInfo ChooseLeftParent(const Range range, const uint nodeIndex)
 {
     uint id = range.Left - 1;
     uint previousId = ExchangeParentId(id, range.Right);
-    Nodes[id].SetRightChild(nodeIndex);
+    Nodes[id].Right = nodeIndex;
     return ParentInfo::Create(id, previousId, previousId, range.Right);
 }
 
@@ -16,7 +16,7 @@ ParentInfo ChooseRightParent(const Range range, const uint nodeIndex)
 {
     uint id = range.Right;
     uint previousId = ExchangeParentId(id, range.Left);
-    Nodes[id].SetLeftChild(nodeIndex);
+    Nodes[id].Left = nodeIndex;
     return ParentInfo::Create(id, previousId, range.Left, previousId);
 }
 

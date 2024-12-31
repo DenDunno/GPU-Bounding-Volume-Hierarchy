@@ -6,8 +6,8 @@
 void Merge(const int parentId)
 {
     BVHNode node = Nodes[parentId];
-    BVHNode leftChild = Nodes[node.LeftChild()];
-    BVHNode rightChild = Nodes[node.RightChild()];
+    BVHNode leftChild = Nodes[node.Left];
+    BVHNode rightChild = Nodes[node.Right];
     node.Box = leftChild.Box.Union(rightChild.Box);
 
     Nodes[parentId] = node;
