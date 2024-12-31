@@ -8,7 +8,7 @@ namespace Code.Components.MortonCodeAssignment
         private readonly Dictionary<BVHConstructionAlgorithmId, IBVHConstructionAlgorithm> _algorithms;
         private readonly BVHConstructionAlgorithmId _targetAlgorithm;
 
-        public BVHConstructionFactory(BVHBuffers buffers, BVHShaders shaders, BVHConstructionAlgorithmId target)
+        public BVHConstructionFactory(TreeConstructionBuffers buffers, BVHShaders shaders, BVHConstructionAlgorithmId target)
         {
             _targetAlgorithm = target;
             _algorithms = new Dictionary<BVHConstructionAlgorithmId, IBVHConstructionAlgorithm>()

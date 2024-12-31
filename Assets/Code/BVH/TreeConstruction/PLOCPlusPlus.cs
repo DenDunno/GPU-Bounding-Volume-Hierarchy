@@ -7,9 +7,9 @@ namespace Code.Components.MortonCodeAssignment
     public class PLOCPlusPLus : ComputeShaderPass, IBVHConstructionAlgorithm
     {
         private readonly uint[] _resetArray = new uint[1];
-        private readonly BVHBuffers _buffers;
+        private readonly TreeConstructionBuffers _buffers;
 
-        public PLOCPlusPLus(ComputeShader shader, BVHBuffers buffers) : base(shader, "Build")
+        public PLOCPlusPLus(ComputeShader shader, TreeConstructionBuffers buffers) : base(shader, "Build")
         {
             _buffers = buffers;
         }

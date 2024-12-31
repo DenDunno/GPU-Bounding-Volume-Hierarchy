@@ -11,10 +11,11 @@ namespace Code.Components.MortonCodeAssignment
         public BottomLevelAccelerationStructure Cluster;
         private BoundingVolumeHierarchy _bvh;
         private BoundingVolumeHierarchy BVH => _bvh ??= FindFirstObjectByType<BoundingVolumeHierarchy>();
+        private TransformSnapshot _transformSnapshot;
         
         private void Update()
         {
-            if (transform.hasChanged)
+            if (transform.HasChanged(ref _transformSnapshot))
             {
                 BVH.Bake();
             }

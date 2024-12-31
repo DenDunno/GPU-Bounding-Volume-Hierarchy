@@ -1,11 +1,9 @@
 #pragma kernel Setup
-#include "..//Utilities/ThreadsUtilities.hlsl"
 #include "..//BVH/NodesInput.hlsl"
 #include "..//BVH/ParentInfo.hlsl"
 #include "MortonCode.hlsl"
 
 RWStructuredBuffer<MortonCode> MortonCodes;
-RWStructuredBuffer<uint> BlockOffset;
 StructuredBuffer<AABB> BoundingBoxes;
 
 float3 _Min;
@@ -19,9 +17,7 @@ void Setup(const uint id : SV_DispatchThreadID)
     AABB aabb = BoundingBoxes[id];
     AABB sceneBox = AABB::Create(_Min, _Max);
     float3 normalizedCentroid = sceneBox.GetRelativeCoordinates(aabb.Centroid());
-
-    BlockOffset[0] = 0;
-    BlockCounter[0] = 0;
+    
     ParentIds[id] = INVALID_PARENT_ID;
     Nodes[id] = BVHNode::Create(-1, -1, aabb);
     MortonCodes[id] = MortonCode::Create(id, normalizedCentroid);

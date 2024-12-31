@@ -1,13 +1,12 @@
 using Code.Components.MortonCodeAssignment;
 using Code.Utils.ShaderUtils;
-using MyFolder.ComputeShaderNM;
 using UnityEngine;
 
 public class HPLOC : ComputeShaderPass, IBVHConstructionAlgorithm
 {
-    private readonly BVHBuffers _buffers;
+    private readonly TreeConstructionBuffers _buffers;
 
-    public HPLOC(ComputeShader shader, BVHBuffers buffers) : base(shader, "Build")
+    public HPLOC(ComputeShader shader, TreeConstructionBuffers buffers) : base(shader, "Build")
     {
         _buffers = buffers;
     }

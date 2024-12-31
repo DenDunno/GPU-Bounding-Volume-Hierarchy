@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
-    public class BVHBuffers : IDisposable
+    public class TreeConstructionBuffers : IDisposable
     {
         public readonly ComputeBuffer MergedNodesCount;
         public readonly ComputeBuffer ValidNodesCount;
@@ -17,7 +17,7 @@ namespace Code.Components.MortonCodeAssignment
         public readonly ComputeBuffer Root;
         public readonly int Size;
 
-        public BVHBuffers(int size)
+        public TreeConstructionBuffers(int size)
         {
             Nodes = new ComputeBuffer(size + (size - 1), BVHNode.GetSize());
             MortonCodes = new ComputeBuffer(size, MortonCode.GetSize());

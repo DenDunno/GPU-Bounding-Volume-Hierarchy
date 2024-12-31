@@ -5,14 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1745cbf2-8355-4b97-abab-0dad77ee5cc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/MatrixExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/MatrixExtensions.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/VectorExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/VectorExtensions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BVHBuffers.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BVHBuffers.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BVHBuffersFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BVHBuffersFactory.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/TransformExtensions.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/TransformExtensions/TransformExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/TransformExtensions/TransformExtensions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/TransformExtensions/TransformSnapshot.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/TransformExtensions/TransformSnapshot.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RTS-Unit-Highlight/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BoundingVolumeHierarchy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/BoundingVolumeHierarchy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/BVH/TopLevelAccelerationStructure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/BVH/TopLevelAccelerationStructure.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/AABB/AABB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/Models/AABB/AABB.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/TreeConstructionBuffers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHBuffers.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/TreeConstructionBuffers.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHComponents.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHContent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHContent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/Components/BVHGPUBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHAlgorithm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHAlgorithm.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHConstructionFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/BVHConstructionFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/HPLOC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/HPLOC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/PLOCPlusPlus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/PLOCPlusPlus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/SetupStage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/TreeConstruction/SetupStage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualization.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/InterlockedExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/InterlockedExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/MeshGeneration/MeshExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/MeshGeneration/MeshExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/ObjectExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Extensions/ObjectExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/CircleVisualization.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/GeometryGeneration/CircleVisualization.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MortonCode/Setup.compute" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -180,10 +203,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="4664">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="12636">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="4664" />
+      <option name="pid" value="12636" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -315,7 +338,7 @@
       <workItem from="1735428864675" duration="24220000" />
       <workItem from="1735516874728" duration="1482000" />
       <workItem from="1735518414217" duration="15279000" />
-      <workItem from="1735592085637" duration="14614000" />
+      <workItem from="1735592085637" duration="18272000" />
     </task>
     <servers />
   </component>
@@ -423,13 +446,13 @@
         <line-breakpoint type="DotNet Breakpoints">
           <condition expression="node.Id == 3" language="C#" />
           <url>file://$PROJECT_DIR$/Assets/Code/BVH/VisualDebugging/BVHTree/BVHTreeVisualization.cs</url>
-          <line>37</line>
+          <line>36</line>
           <properties documentPath="D:\Unity\RTS-Unit-Highlight\Assets\Code\BVH\VisualDebugging\BVHTree\BVHTreeVisualization.cs" containingFunctionPresentation="Method 'DrawBVH'">
             <startOffsets>
-              <option value="1101" />
+              <option value="1072" />
             </startOffsets>
             <endOffsets>
-              <option value="1130" />
+              <option value="1101" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="84" />

@@ -1,16 +1,15 @@
 ﻿using Code.Data;
 using Code.Utils.ShaderUtils;
-using MyFolder.ComputeShaderNM;
 using UnityEngine;
 
 namespace Code.Components.MortonCodeAssignment
 {
     public class SetupStage : ComputeShaderPass 
     {
-        private readonly BVHBuffers _buffers;
+        private readonly TreeConstructionBuffers _buffers;
         private readonly AABB _sceneSize;
 
-        public SetupStage(ComputeShader shader, BVHBuffers buffers, AABB sceneSize) : base(shader, "Setup")
+        public SetupStage(ComputeShader shader, TreeConstructionBuffers buffers, AABB sceneSize) : base(shader, "Setup")
         {
             _sceneSize = sceneSize;
             _buffers = buffers;
@@ -20,8 +19,6 @@ namespace Code.Components.MortonCodeAssignment
         {
             shaderBridge.SetVector("_Min", _sceneSize.Min);
             shaderBridge.SetVector("_Max", _sceneSize.Max);
-            shaderBridge.SetBuffer(kernelId, "BlockCounter", _buffers.BlockCounter);
-            shaderBridge.SetBuffer(kernelId, "BlockOffset", _buffers.MergedNodesCount);
             shaderBridge.SetBuffer(kernelId, "MortonCodes", _buffers.MortonCodes);
             shaderBridge.SetBuffer(kernelId, "BoundingBoxes", _buffers.Boxes);
             shaderBridge.SetBuffer(kernelId, "ParentIds", _buffers.ParentIds);

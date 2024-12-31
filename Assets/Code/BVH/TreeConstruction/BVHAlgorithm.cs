@@ -11,9 +11,9 @@ namespace Code.Components.MortonCodeAssignment
         private readonly IBVHConstructionAlgorithm _bvhConstruction;
         private readonly IEventPublisher _rebuiltEvent;
         private readonly SetupStage _setupStage;
-        private readonly BVHBuffers _buffers;
+        private readonly TreeConstructionBuffers _buffers;
 
-        public BVHAlgorithm(BVHShaders bvhShaders, BVHBuffers buffers, IEventPublisher rebuiltEvent,
+        public BVHAlgorithm(BVHShaders bvhShaders, TreeConstructionBuffers buffers, IEventPublisher rebuiltEvent,
             IBVHConstructionAlgorithm bvhConstruction, AABB sceneSize)
         {
             _buffers = buffers;
@@ -22,9 +22,7 @@ namespace Code.Components.MortonCodeAssignment
             _setupStage = new SetupStage(bvhShaders.Setup, _buffers, sceneSize);
             _mortonCodesSorting = new GPURadixSort<MortonCode>(bvhShaders.Sorting, bvhShaders.PrefixSum, buffers.Size);
         }
-
-        public string Name => _bvhConstruction.GetType().Name;
-
+        
         public void Initialize()
         {
             _mortonCodesSorting.SetData(_buffers.MortonCodes);
